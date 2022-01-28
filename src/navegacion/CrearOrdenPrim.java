@@ -189,6 +189,8 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 			AdministrarVehiculos av = new AdministrarVehiculos();
 			av.setLocationRelativeTo(null);
 			av.setVisible(true);
+
+			this.dispose();
 		}
 		else if (o == btnVolver)
 		{
