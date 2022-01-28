@@ -1,7 +1,5 @@
 package navegacion;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -32,29 +30,25 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 	
 	public MenuMec()
 	{
-		setBackground(new Color(255, 255, 255));
 		setResizable(false);
 		setTitle("Menú mecánico");
 		
 		setBounds(100, 100, 750, 550);
+
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnAjustes = new JButton("Ajustes de usuario");
-		btnAjustes.setFont(new Font(Inicio.fuente, Font.PLAIN, 14));
 		btnAjustes.setBounds(550, 11, 174, 58);
 		panelPrincipal.add(btnAjustes);
 		
 		btnOrdenPrim = new JButton("Lista órdenes de trabajo");
-		btnOrdenPrim.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
 		btnOrdenPrim.setBounds(230, 226, 270, 62);
 		panelPrincipal.add(btnOrdenPrim);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 14));
 		btnVolver.setBounds(10, 442, 174, 58);
 		panelPrincipal.add(btnVolver);
 
@@ -68,6 +62,25 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		btnVolver.addActionListener(this);
 		btnOrdenPrim.addActionListener(this);
 		btnAjustes.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnOrdenPrim.setFont(Inicio.fuenteObjetos);
+		btnAjustes.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnOrdenPrim.setBackground(Inicio.colorFondoObjetos);
+		btnAjustes.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnOrdenPrim.setForeground(Inicio.colorFuenteObjetos);
+		btnAjustes.setForeground(Inicio.colorFuenteObjetos);
 	}
 
 	@Override

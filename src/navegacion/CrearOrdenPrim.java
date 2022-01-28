@@ -1,6 +1,5 @@
 package navegacion;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -45,9 +44,9 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 	private JComboBox<String> cmbClientes;
 	private JComboBox<String> cmbVehiculos;
 
-	private JLabel lblAgregraComentario;
-	private JLabel lblAccesoVehiculo;
-	private JLabel lblAccesoCliente;
+	private JLabel lblComentario;
+	private JLabel lblVehiculo;
+	private JLabel lblCliente;
 
 	private JButton btnVehiculos;
 	private JButton btnClientes;
@@ -67,58 +66,46 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		
 		setBounds(100, 100, 750, 452);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setForeground(Inicio.colorFuente);
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
-		lblAgregraComentario = new JLabel("Agregar comentario para la orden");
-		lblAgregraComentario.setForeground(Inicio.colorFuente);
-		lblAgregraComentario.setFont(new Font(Inicio.fuente, Font.PLAIN, 13));
-		lblAgregraComentario.setBounds(44, 167, 226, 27);
-		panelPrincipal.add(lblAgregraComentario);
+		lblComentario = new JLabel("Agregar comentario para la orden");
+		lblComentario.setBounds(44, 167, 226, 27);
+		panelPrincipal.add(lblComentario);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnVolver.setBounds(143, 371, 133, 31);
 		panelPrincipal.add(btnVolver);
 		
 		btnCrearOrden = new JButton("Crear orden primaria");
-		btnCrearOrden.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnCrearOrden.setBounds(286, 371, 272, 31);
 		panelPrincipal.add(btnCrearOrden);
 		
 		txtComentario = new JTextArea();
 		txtComentario.setLineWrap(true);
 		
-		lblAccesoVehiculo = new JLabel("Vehículo");
-		lblAccesoVehiculo.setForeground(Inicio.colorFuente);
-		lblAccesoVehiculo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
-		lblAccesoVehiculo.setBounds(54, 89, 99, 13);
-		panelPrincipal.add(lblAccesoVehiculo);
+		lblVehiculo = new JLabel("Vehículo");
+		lblVehiculo.setBounds(54, 89, 99, 13);
+		panelPrincipal.add(lblVehiculo);
 		
 		cmbVehiculos = new JComboBox<String>();
 		cmbVehiculos.setBounds(149, 79, 151, 33);
 		panelPrincipal.add(cmbVehiculos);
 		
 		btnVehiculos = new JButton("Administrar vehiculos");
-		btnVehiculos.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnVehiculos.setBounds(334, 79, 222, 33);
 		panelPrincipal.add(btnVehiculos);
 		
-		lblAccesoCliente = new JLabel("Cliente");
-		lblAccesoCliente.setForeground(Inicio.colorFuente);
-		lblAccesoCliente.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
-		lblAccesoCliente.setBounds(54, 11, 85, 33);
-		panelPrincipal.add(lblAccesoCliente);
+		lblCliente = new JLabel("Cliente");
+		lblCliente.setBounds(54, 11, 85, 33);
+		panelPrincipal.add(lblCliente);
 		
 		cmbClientes = new JComboBox<String>();
 		cmbClientes.setBounds(149, 13, 151, 33);
 		panelPrincipal.add(cmbClientes);
 		
 		btnClientes = new JButton("Administrar clientes");
-		btnClientes.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnClientes.setBounds(334, 13, 222, 33);
 		panelPrincipal.add(btnClientes);
 		
@@ -154,6 +141,45 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		btnClientes.addActionListener(this);
 
 		btnCrearOrden.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lblCliente.setFont(Inicio.fuente);
+		lblVehiculo.setFont(Inicio.fuente);
+		lblComentario.setFont(Inicio.fuente);
+
+		cmbClientes.setFont(Inicio.fuenteObjetos);
+		cmbVehiculos.setFont(Inicio.fuenteObjetos);
+
+		btnClientes.setFont(Inicio.fuenteObjetos);
+		btnVehiculos.setFont(Inicio.fuenteObjetos);
+		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnCrearOrden.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		cmbClientes.setBackground(Inicio.colorFondoObjetos);
+		cmbVehiculos.setBackground(Inicio.colorFondoObjetos);
+
+		btnClientes.setBackground(Inicio.colorFondoObjetos);
+		btnVehiculos.setBackground(Inicio.colorFondoObjetos);
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnCrearOrden.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lblCliente.setForeground(Inicio.colorFuente);
+		lblVehiculo.setForeground(Inicio.colorFuente);
+		lblComentario.setForeground(Inicio.colorFuente);
+
+		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
+		cmbVehiculos.setForeground(Inicio.colorFuenteObjetos);
+
+		btnClientes.setForeground(Inicio.colorFuenteObjetos);
+		btnVehiculos.setForeground(Inicio.colorFuenteObjetos);
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnCrearOrden.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	public static Cliente getCliente()

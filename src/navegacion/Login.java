@@ -1,7 +1,5 @@
 package navegacion;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -43,38 +41,31 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	 */
 	public Login()
 	{
-		setBackground(new Color(255, 255, 255));
+
 		setResizable(false);
 		setTitle("Login");
 		
 		setBounds(100, 100, 497, 296);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Color.DARK_GRAY);
-		panelPrincipal.setForeground(Color.WHITE);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		btnAcceder = new JButton("Acceder");
-		btnAcceder.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnAcceder.setBounds(187, 186, 120, 36);
 		panelPrincipal.add(btnAcceder);
 		
-		JLabel lblContrasena = new JLabel("Contraseña:");
-		lblContrasena.setForeground(Color.WHITE);
-		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblContrasena.setBounds(104, 127, 98, 13);
-		panelPrincipal.add(lblContrasena);
+		JLabel lblPassword = new JLabel("Contraseña:");
+		lblPassword.setBounds(104, 127, 98, 13);
+		panelPrincipal.add(lblPassword);
 		
 		pwdPassword = new JPasswordField();
 		pwdPassword.setBounds(212, 117, 165, 34);
 		panelPrincipal.add(pwdPassword);
 		
-		JLabel lblDni = new JLabel("DNI:");
-		lblDni.setForeground(Color.WHITE);
-		lblDni.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDni.setBounds(104, 69, 96, 13);
-		panelPrincipal.add(lblDni);
+		JLabel lblDNI = new JLabel("DNI:");
+		lblDNI.setBounds(104, 69, 96, 13);
+		panelPrincipal.add(lblDNI);
 		
 		txtDNI = new JTextField();
 		txtDNI.setText("");
@@ -96,6 +87,31 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 
 		// - JButton -
 		btnAcceder.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lblDNI.setFont(Inicio.fuente);
+		lblPassword.setFont(Inicio.fuente);
+		
+		txtDNI.setFont(Inicio.fuenteObjetos);
+		pwdPassword.setFont(Inicio.fuenteObjetos);
+		btnAcceder.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+		
+		txtDNI.setBackground(Inicio.colorFondoObjetos);
+		pwdPassword.setBackground(Inicio.colorFondoObjetos);
+		btnAcceder.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lblDNI.setForeground(Inicio.colorFuente);
+		lblPassword.setForeground(Inicio.colorFuente);
+		
+		txtDNI.setForeground(Inicio.colorFuenteObjetos);
+		pwdPassword.setForeground(Inicio.colorFuenteObjetos);
+		btnAcceder.setForeground(Inicio.colorFuenteObjetos);
 	}
 
 	@Override
@@ -117,17 +133,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 			{
 				Inicio.cuentaActual = new Cuenta(Archivos.cargarCuenta(dni));
 				
-				Inicio.colorFondo = Inicio.cuentaActual.getAjustes().getFondo();
-				if (Inicio.colorFondo.equals(Color.LIGHT_GRAY))
-				{
-					Inicio.colorFuente = Color.BLACK;
-				}
-				else
-				{
-					Inicio.colorFuente = Color.WHITE;
-				}
-				
-				Inicio.fuente = Inicio.cuentaActual.getAjustes().getFuente();
+				Archivos.cargarAjustes();
 				
 				if (!password.equals(Inicio.cuentaActual.getPassword()))
 				{

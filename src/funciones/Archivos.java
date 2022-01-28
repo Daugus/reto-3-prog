@@ -1,5 +1,7 @@
 package funciones;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,7 +11,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import clases.*;
+import clases.Ajustes;
+import clases.Cliente;
+import clases.Cuenta;
+import clases.Material;
+import clases.OrdenPrim;
+import clases.Vehiculo;
 import navegacion.Inicio;
 
 public class Archivos
@@ -62,12 +69,6 @@ public class Archivos
 	}
 	
 	// --- individuales ---
-	public static void guardarAjustes(Ajustes a)
-	{
-		Inicio.cuentaActual.setAjustes(a);
-		guardarCuenta(Inicio.cuentaActual);
-	}
-	
 	public static void guardarMaterial(Material m)
 	{
 		File f = new File(materiales + m.getNombre() + ".dat");
@@ -271,5 +272,37 @@ public class Archivos
 		}
 		
 		return primarias;
+	}
+	
+	// ===== ajustes =====
+	public static void guardarAjustes(Ajustes a)
+	{
+		Inicio.cuentaActual.setAjustes(a);
+		guardarCuenta(Inicio.cuentaActual);
+	}
+	
+	public static void cargarAjustes()
+	{
+		Inicio.cuentaActual = new Cuenta(cargarCuenta(Inicio.cuentaActual.getDNI()));
+
+		Inicio.fuente = Inicio.cuentaActual.getAjustes().getFuente();
+		Inicio.fuenteObjetos = Inicio.cuentaActual.getAjustes().getFuenteObjetos();
+
+		Inicio.colorFondo = Inicio.cuentaActual.getAjustes().getColorFondo();
+		Inicio.colorFondoObjetos = Inicio.cuentaActual.getAjustes().getColorFondoObjetos();
+
+		Inicio.colorFuente = Inicio.cuentaActual.getAjustes().getColorFuente();
+		Inicio.colorFuenteObjetos = Inicio.cuentaActual.getAjustes().getColorFuenteObjetos();
+	}
+	
+	public static void reiniciarAjustes()
+	{
+		Inicio.fuente = new Font("Segoe UI", Font.PLAIN, 13);
+		Inicio.fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
+	
+		Inicio.colorFondo = Color.DARK_GRAY;
+		Inicio.colorFondoObjetos = Color.LIGHT_GRAY;
+		Inicio.colorFuente = Color.WHITE;
+		Inicio.colorFuenteObjetos = Color.BLACK;
 	}
 }

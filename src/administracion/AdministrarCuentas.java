@@ -1,7 +1,6 @@
 package administracion;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -61,17 +60,14 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		lstCuentas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 14));
 		btnVolver.setBounds(10, 445, 174, 58);
 		panelPrincipal.add(btnVolver);
 		
 		btnAgregar = new JButton("Agregar cuenta");
-		btnAgregar.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
 		btnAgregar.setBounds(62, 60, 269, 62);
 		panelPrincipal.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar cuentas");
-		btnEditar.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
 		btnEditar.setBounds(380, 60, 269, 62);
 		panelPrincipal.add(btnEditar);
 
@@ -99,6 +95,33 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		btnVolver.addActionListener(this);
 		btnAgregar.addActionListener(this);
 		btnEditar.addActionListener(this);
+		
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lstCuentas.setFont(Inicio.fuenteObjetos);
+
+		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnAgregar.setFont(Inicio.fuenteObjetos);
+		btnEditar.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		lstCuentas.setBackground(Inicio.colorFondoObjetos);
+
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnAgregar.setBackground(Inicio.colorFondoObjetos);
+		btnEditar.setBackground(Inicio.colorFondoObjetos);
+
+		scrollCuentas.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lstCuentas.setForeground(Inicio.colorFuenteObjetos);
+
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
+		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	@Override

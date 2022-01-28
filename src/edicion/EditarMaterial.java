@@ -1,6 +1,6 @@
 package edicion;
 
-import java.awt.Font;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -48,30 +48,23 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		
 		setBounds(100, 100, 377, 285);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnCancelar.setBounds(10, 193, 108, 42);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setFont(new Font(Inicio.fuente, Font.PLAIN, 16));
 		btnGuardar.setBounds(160, 193, 188, 42);
 		panelPrincipal.add(btnGuardar);
 		
 		JLabel lblPrecio = new JLabel("Precio por unidad:");
-		lblPrecio.setForeground(Inicio.colorFuente);
-		lblPrecio.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPrecio.setBounds(10, 85, 131, 56);
 		panelPrincipal.add(lblPrecio);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setForeground(Inicio.colorFuente);
-		lblNombre.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblNombre.setBounds(63, 43, 78, 56);
 		panelPrincipal.add(lblNombre);
 		
@@ -94,12 +87,44 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		// - JTextField -
 		txtNombre.addActionListener(this);
 		txtNombre.addFocusListener(this);
+		txtNombre.setDisabledTextColor(Color.DARK_GRAY);
 		txtPrecio.addActionListener(this);
 		txtPrecio.addFocusListener(this);
 		
 		// - JButton -
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lblNombre.setFont(Inicio.fuente);
+		lblPrecio.setFont(Inicio.fuente);
+
+		txtNombre.setFont(Inicio.fuenteObjetos);
+		txtPrecio.setFont(Inicio.fuenteObjetos);
+		
+		btnCancelar.setFont(Inicio.fuenteObjetos);
+		btnGuardar.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		txtNombre.setBackground(Inicio.colorFondoObjetos);
+		txtPrecio.setBackground(Inicio.colorFondoObjetos);
+		
+		btnCancelar.setBackground(Inicio.colorFondoObjetos);
+		btnGuardar.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lblNombre.setForeground(Inicio.colorFuente);
+		lblPrecio.setForeground(Inicio.colorFuente);
+
+		txtNombre.setForeground(Inicio.colorFuenteObjetos);
+		txtPrecio.setForeground(Inicio.colorFuenteObjetos);
+		
+		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
+		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
 	public void modoEdicion(Material material)

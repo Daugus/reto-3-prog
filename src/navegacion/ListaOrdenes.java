@@ -1,6 +1,5 @@
 package navegacion;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -39,34 +38,27 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		
 		setBounds(100, 100, 750, 515);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		JLabel lblTitulo = new JLabel("Listado de órdenes de trabajo");
-		lblTitulo.setForeground(Inicio.colorFuente);
-		lblTitulo.setFont(new Font(Inicio.fuente, Font.BOLD, 21));
 		lblTitulo.setBounds(22, 22, 354, 26);
 		panelPrincipal.add(lblTitulo);
 		
 		btnOrdenesPrim = new JButton("Órdenes primarias");
-		btnOrdenesPrim.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnOrdenesPrim.setBounds(172, 130, 291, 41);
 		panelPrincipal.add(btnOrdenesPrim);
 		
 		btnOrdenesPend = new JButton("Órdenes pendientes");
-		btnOrdenesPend.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnOrdenesPend.setBounds(172, 207, 291, 41);
 		panelPrincipal.add(btnOrdenesPend);
 		
 		btnFacturasAprob = new JButton("Facturas aprobadas");
-		btnFacturasAprob.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnFacturasAprob.setBounds(172, 291, 291, 41);
 		panelPrincipal.add(btnFacturasAprob);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnVolver.setBounds(10, 407, 174, 58);
 		panelPrincipal.add(btnVolver);
 		
@@ -81,6 +73,32 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnOrdenesPend.addActionListener(this);
 		btnFacturasAprob.addActionListener(this);
 		btnVolver.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lblTitulo.setFont(Inicio.fuente);
+
+		btnOrdenesPrim.setFont(Inicio.fuenteObjetos);
+		btnOrdenesPend.setFont(Inicio.fuenteObjetos);
+		btnFacturasAprob.setFont(Inicio.fuenteObjetos);
+		btnVolver.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		btnOrdenesPrim.setBackground(Inicio.colorFondoObjetos);
+		btnOrdenesPend.setBackground(Inicio.colorFondoObjetos);
+		btnFacturasAprob.setBackground(Inicio.colorFondoObjetos);
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lblTitulo.setForeground(Inicio.colorFuente);
+
+		btnOrdenesPrim.setForeground(Inicio.colorFuenteObjetos);
+		btnOrdenesPend.setForeground(Inicio.colorFuenteObjetos);
+		btnFacturasAprob.setForeground(Inicio.colorFuenteObjetos);
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 	}
 
 	@Override

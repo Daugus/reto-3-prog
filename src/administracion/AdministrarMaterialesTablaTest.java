@@ -1,14 +1,9 @@
 package administracion;
 
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,21 +14,16 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.w3c.dom.events.MouseEvent;
-
 import clases.Material;
-import edicion.EditarMaterial;
 import funciones.Archivos;
-import funciones.Salir;
 import navegacion.Inicio;
-import navegacion.MenuAtc;
 
 /**
  * 
  * @author Grupo 2
  *
  */
-public class AdministrarMaterialesTablaTest extends JFrame implements ActionListener, WindowListener, MouseListener
+public class AdministrarMaterialesTablaTest extends JFrame implements ActionListener
 {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -58,8 +48,6 @@ public class AdministrarMaterialesTablaTest extends JFrame implements ActionList
 	private DefaultTableModel dtmMateriales;
 	private JTable tblMateriales;
 
-	private Material material;
-
 	public AdministrarMaterialesTablaTest()
 	{
 		setBackground(new Color(255, 255, 255));
@@ -68,23 +56,23 @@ public class AdministrarMaterialesTablaTest extends JFrame implements ActionList
 		
 		setBounds(100, 100, 750, 553);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
+		panelPrincipal.setBackground(Color.LIGHT_GRAY);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 14));
+		btnVolver.setBackground(Color.WHITE);
 		btnVolver.setBounds(10, 445, 174, 58);
 		panelPrincipal.add(btnVolver);
 		
 		btnAgregar = new JButton("Agregar material");
-		btnAgregar.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
+		btnAgregar.setBackground(Color.WHITE);
 		btnAgregar.setBounds(62, 60, 269, 62);
 		panelPrincipal.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar material");
-		btnEditar.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
+		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(380, 60, 269, 62);
 		panelPrincipal.add(btnEditar);
 
@@ -92,8 +80,6 @@ public class AdministrarMaterialesTablaTest extends JFrame implements ActionList
 		JScrollPane scrollMateriales = new JScrollPane();
 		scrollMateriales.setBounds(62, 159, 584, 203);
 		panelPrincipal.add(scrollMateriales);
-		
-
 		
 		// ===== modelos =====
 		// --- crear ---
@@ -112,12 +98,14 @@ public class AdministrarMaterialesTablaTest extends JFrame implements ActionList
 			}
 		};
 		tblMateriales.setFillsViewportHeight(true);
+		tblMateriales.getTableHeader().setReorderingAllowed(false);
 		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblMateriales.getTableHeader().setBackground(Inicio.colorFondoObjetos);
+		tblMateriales.getTableHeader().setFont(Inicio.fuenteObjetos);
 
 		// ===== Listeners =====
 		// --- Window ---
-		addWindowListener(this);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// --- Action ---
 		btnVolver.addActionListener(this);
@@ -127,77 +115,51 @@ public class AdministrarMaterialesTablaTest extends JFrame implements ActionList
 		DefaultTableModel dtm = (DefaultTableModel) tblMateriales.getModel();
 		Material m = Archivos.cargarMaterial("test");
 		dtm.addRow(new Object[] {m.getNombre(), m.getPrecio()});
+		m = new Material(Archivos.cargarMaterial("atest"));
+		dtm.addRow(new Object[] {m.getNombre(), m.getPrecio()});
+		m = new Material(Archivos.cargarMaterial("btest"));
+		for (int i = 0; i <= 20; i++)
+		{
+			dtm.addRow(new Object[] {m.getNombre(), m.getPrecio()});
+		}
 
 		scrollMateriales.setViewportView(tblMateriales);
+		
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		tblMateriales.setFont(Inicio.fuente);
+
+		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnAgregar.setFont(Inicio.fuenteObjetos);
+		btnEditar.setFont(Inicio.fuenteObjetos);
+		
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		tblMateriales.setBackground(Inicio.colorFondoObjetos);
+
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnAgregar.setBackground(Inicio.colorFondoObjetos);
+		btnEditar.setBackground(Inicio.colorFondoObjetos);
+		
+		scrollMateriales.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		tblMateriales.setForeground(Inicio.colorFuenteObjetos);
+
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
+		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		Object o = e.getSource();
-		
-		if (o == btnAgregar)
+		int row = tblMateriales.getSelectedRow();
+		if (row >= 0)
 		{
-//			EditarMaterial em = new EditarMaterial();
-//			em.setLocationRelativeTo(null);
-//			em.setVisible(true);
-			int columna = tblMateriales.getSelectedRow();
-			if (columna >= 0)
-			{
-				System.out.println(tblMateriales.getValueAt(0, columna));
-			}
+			System.out.println(tblMateriales.getValueAt(row, 0));
 		}
-		else if (o == btnEditar)
-		{
-				EditarMaterial em = new EditarMaterial();
-				em.modoEdicion(material);
-			
-				em.setLocationRelativeTo(null);
-				em.setVisible(true);
-		}
-		else if (o == btnVolver)
-		{
-			MenuAtc ma = new MenuAtc();
-			ma.setLocationRelativeTo(null);
-			ma.setVisible(true);
-			
-			this.dispose();
-		} 
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e)
-	{
-		Salir.siNo();
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// comportamiento por defecto
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// comportamiento por defecto
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// comportamiento por defecto
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// comportamiento por defecto
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// comportamiento por defecto
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// comportamiento por defecto
 	}
 }

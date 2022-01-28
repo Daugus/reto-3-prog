@@ -1,7 +1,6 @@
 package edicion;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -43,7 +42,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 	private JPanel panelPrincipal;
 
-	private JLabel lblFondo;
+	private JLabel lblTema;
 	private JLabel lblFuente;
 
 	private JTextField txtDNI;
@@ -66,7 +65,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JPasswordField pwdPassword;
 
 	private JComboBox<String> cmbCuenta;
-	private JComboBox<String> cmbFondo;
+	private JComboBox<String> cmbTema;
 	private JComboBox<String> cmbFuente;
 	
 	private JButton btnCancelar;
@@ -81,14 +80,11 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		
 		setBounds(100, 100, 657, 524);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		JLabel lblFechaNacimiento = new JLabel("Fecha de nacimiento:");
-		lblFechaNacimiento.setForeground(Inicio.colorFuente);
-		lblFechaNacimiento.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblFechaNacimiento.setBounds(10, 169, 142, 56);
 		panelPrincipal.add(lblFechaNacimiento);
 		
@@ -108,8 +104,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtFechaNacimientoA);
 		
 		JLabel lblTel = new JLabel("Teléfono:");
-		lblTel.setForeground(Inicio.colorFuente);
-		lblTel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		lblTel.setBounds(85, 127, 66, 46);
 		panelPrincipal.add(lblTel);
 		
@@ -119,8 +113,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtTel);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setForeground(Inicio.colorFuente);
-		lblApellidos.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblApellidos.setBounds(27, 86, 65, 49);
 		panelPrincipal.add(lblApellidos);
 		
@@ -130,8 +122,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtApellidos);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setForeground(Inicio.colorFuente);
-		lblNombre.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblNombre.setBounds(86, 42, 65, 56);
 		panelPrincipal.add(lblNombre);
 		
@@ -141,8 +131,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtNombre);
 		
 		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setForeground(Inicio.colorFuente);
-		lblDNI.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblDNI.setBounds(96, 0, 55, 56);
 		panelPrincipal.add(lblDNI);
 		
@@ -152,8 +140,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtDNI);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setForeground(Inicio.colorFuente);
-		lblEmail.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblEmail.setBounds(368, 5, 48, 56);
 		panelPrincipal.add(lblEmail);
 		
@@ -163,8 +149,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtEmail);
 		
 		JLabel lblCodPostal = new JLabel("Codigo Postal:");
-		lblCodPostal.setForeground(Inicio.colorFuente);
-		lblCodPostal.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblCodPostal.setBounds(414, 57, 94, 49);
 		panelPrincipal.add(lblCodPostal);
 		
@@ -174,8 +158,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtCodPostal);
 		
 		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setForeground(Inicio.colorFuente);
-		lblCalle.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblCalle.setBounds(467, 88, 48, 56);
 		panelPrincipal.add(lblCalle);
 		
@@ -185,8 +167,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtCalle);
 		
 		JLabel lblPortal = new JLabel("Nº Portal:");
-		lblPortal.setForeground(Inicio.colorFuente);
-		lblPortal.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPortal.setBounds(437, 130, 71, 56);
 		panelPrincipal.add(lblPortal);
 		
@@ -196,8 +176,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtPortal);
 		
 		JLabel lblPiso = new JLabel("Piso:");
-		lblPiso.setForeground(Inicio.colorFuente);
-		lblPiso.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPiso.setBounds(467, 172, 40, 56);
 		panelPrincipal.add(lblPiso);
 		
@@ -207,8 +185,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(txtPiso);
 		
 		JLabel lblPuerta = new JLabel("Puerta:");
-		lblPuerta.setForeground(Inicio.colorFuente);
-		lblPuerta.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPuerta.setBounds(453, 217, 64, 56);
 		panelPrincipal.add(lblPuerta);
 		
@@ -217,34 +193,27 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		txtPuerta.setBounds(515, 232, 118, 31);
 		panelPrincipal.add(txtPuerta);
 		
-		cmbFondo = new JComboBox<String>();
-		cmbFondo.addItem("Gris claro");
-		cmbFondo.addItem("Gris oscuro");
-		cmbFondo.addItem("Negro");
-		cmbFondo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
-		cmbFondo.setBounds(491, 289, 130, 40);
-		panelPrincipal.add(cmbFondo);
+		cmbTema = new JComboBox<String>();
+		cmbTema.addItem("Oscuro");
+		cmbTema.addItem("Claro");
+		cmbTema.setBounds(491, 289, 130, 40);
+		panelPrincipal.add(cmbTema);
 		
 		cmbFuente = new JComboBox<String>();
+		cmbFuente.addItem("Segoe UI");
 		cmbFuente.addItem("Tahoma");
-		cmbFuente.addItem("Dialog");
-		cmbFuente.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		cmbFuente.setBounds(491, 339, 130, 40);
 		panelPrincipal.add(cmbFuente);
 		
 		lblFuente = new JLabel("Fuente:");
 		lblFuente.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFuente.setForeground(Inicio.colorFuente);
-		lblFuente.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblFuente.setBounds(340, 345, 130, 40);
 		panelPrincipal.add(lblFuente);
 		
-		lblFondo = new JLabel("Color de fondo:");
-		lblFondo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFondo.setForeground(Inicio.colorFuente);
-		lblFondo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
-		lblFondo.setBounds(340, 295, 130, 40);
-		panelPrincipal.add(lblFondo);
+		lblTema = new JLabel("Tema:");
+		lblTema.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTema.setBounds(340, 295, 130, 40);
+		panelPrincipal.add(lblTema);
 		
 		pwdPassword = new JPasswordField();
 		pwdPassword.setColumns(10);
@@ -258,24 +227,18 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(cmbCuenta);
 		
 		JLabel lblCuenta = new JLabel("Tipo de Cuenta:");
-		lblCuenta.setForeground(Inicio.colorFuente);
-		lblCuenta.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblCuenta.setBounds(20, 335, 116, 46);
 		panelPrincipal.add(lblCuenta);
 		
 		JLabel lblPassword = new JLabel("Contraseña:");
-		lblPassword.setForeground(Inicio.colorFuente);
-		lblPassword.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPassword.setBounds(20, 279, 94, 46);
 		panelPrincipal.add(lblPassword);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnCancelar.setBounds(105, 421, 108, 42);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setFont(new Font(Inicio.fuente, Font.PLAIN, 16));
 		btnGuardar.setBounds(255, 421, 188, 42);
 		panelPrincipal.add(btnGuardar);
 		
@@ -295,6 +258,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		{
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
+
+			// color del texto cuando el campo está deshabilitado
+			txt.setDisabledTextColor(Color.DARK_GRAY);
 		}
 
 		// - JPasswordField -
@@ -304,6 +270,52 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// - JButton -
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
+		
+		// ===== ajustes de usuario =====
+		// --- fuente y color ---
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
+		etiquetas.addAll(Arrays.asList(lblDNI, lblNombre, lblApellidos,
+				lblTel, lblEmail, lblFechaNacimiento,
+				lblCodPostal, lblCalle, lblPortal, lblPiso, lblPuerta,
+				lblPassword, lblCuenta, lblTema, lblFuente));
+		for (JLabel lbl : etiquetas)
+		{
+			lbl.setFont(Inicio.fuente);
+			lbl.setForeground(Inicio.colorFuente);
+		}
+
+		for (JTextField txt : camposTexto)
+		{
+			txt.setFont(Inicio.fuenteObjetos);
+			txt.setBackground(Inicio.colorFondoObjetos);
+			txt.setForeground(Inicio.colorFuenteObjetos);
+		}
+		
+		pwdPassword.setFont(Inicio.fuenteObjetos);
+		pwdPassword.setBackground(Inicio.colorFondoObjetos);
+		pwdPassword.setForeground(Inicio.colorFuenteObjetos);
+
+		btnCancelar.setFont(Inicio.fuenteObjetos);
+		btnCancelar.setBackground(Inicio.colorFondoObjetos);
+		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
+		
+		btnGuardar.setFont(Inicio.fuenteObjetos);
+		btnGuardar.setBackground(Inicio.colorFondoObjetos);
+		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbCuenta.setFont(Inicio.fuenteObjetos);
+		cmbCuenta.setBackground(Inicio.colorFondoObjetos);
+		cmbCuenta.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbTema.setFont(Inicio.fuenteObjetos);
+		cmbTema.setBackground(Inicio.colorFondoObjetos);
+		cmbTema.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbFuente.setFont(Inicio.fuenteObjetos);
+		cmbFuente.setBackground(Inicio.colorFondoObjetos);
+		cmbFuente.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	public void modoEdicion(Cuenta cuenta)
@@ -340,30 +352,25 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		{
 			cmbCuenta.setSelectedItem("Atención al cliente");
 		}
-		
-		Color color = cuenta.getAjustes().getFondo();
-		String fondo = null;
-		if (color.equals(Color.LIGHT_GRAY))
+
+		String tema = null;
+		if (cuenta.getAjustes().temaOscuro())
 		{
-			fondo = "Gris claro";
+			tema = "Oscuro";
 		}
-		else if (color.equals(Color.DARK_GRAY))
+		else
 		{
-			fondo = "Gris oscuro";
-		}
-		else if (color.equals(Color.BLACK))
-		{
-			fondo = "Negro";
+			tema = "Claro";
 		}
 	
-		String fuente = cuenta.getAjustes().getFuente();
+		String fuente = cuenta.getAjustes().getFuente().getFamily();
 
-		cmbFondo.setSelectedItem(fondo);
+		cmbTema.setSelectedItem(tema);
 		cmbFuente.setSelectedItem(fuente);
 				
-		lblFondo.setVisible(false);
+		lblTema.setVisible(false);
 		lblFuente.setVisible(false);
-		cmbFondo.setVisible(false);
+		cmbTema.setVisible(false);
 		cmbFuente.setVisible(false);
 	}
 
@@ -431,31 +438,23 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 							break;
 						}
 						
-						String fondo = (String) cmbFondo.getSelectedItem();
+						String tema = (String) cmbTema.getSelectedItem();
 						String fuente = (String) cmbFuente.getSelectedItem();
 						
-						if (fondo.equals("Gris claro"))
+						boolean temaOscuro = true;
+						if (tema.equals("Oscuro"))
 						{
-							Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
-									email, fechaNacimiento,
-									direccion, codigo, password, new Ajustes(Color.LIGHT_GRAY, fuente)));
+							temaOscuro = true;
 						}
-						else if (fondo.equals("Gris oscuro"))
+						else if (tema.equals("Claro"))
 						{
-							Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
-									email, fechaNacimiento,
-									direccion, codigo, password, new Ajustes(Color.DARK_GRAY, fuente)));
-						}
-						else if (fondo.equals("Negro"))
-						{
-							Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
-									email, fechaNacimiento,
-									direccion, codigo, password, new Ajustes(Color.BLACK, fuente)));
-						}
-						else {
-							System.out.println("error color");
+							temaOscuro = false;
 						}
 						
+						Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
+								email, fechaNacimiento,
+								direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
+
 						AdministrarCuentas.dlmCuentas.removeAllElements();
 						AdministrarCuentas.dlmCuentas.addAll(Archivos.cargarTodosCuentas());
 

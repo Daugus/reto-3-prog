@@ -1,7 +1,6 @@
 package administracion;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -52,7 +51,6 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		
 		setBounds(100, 100, 750, 553);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
@@ -61,17 +59,14 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		lstClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 14));
 		btnVolver.setBounds(10, 445, 174, 58);
 		panelPrincipal.add(btnVolver);
 		
 		btnAgregar = new JButton("Agregar cliente");
-		btnAgregar.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
 		btnAgregar.setBounds(62, 60, 269, 62);
 		panelPrincipal.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar cliente");
-		btnEditar.setFont(new Font(Inicio.fuente, Font.PLAIN, 17));
 		btnEditar.setBounds(380, 60, 269, 62);
 		panelPrincipal.add(btnEditar);
 
@@ -99,6 +94,33 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		btnVolver.addActionListener(this);
 		btnAgregar.addActionListener(this);
 		btnEditar.addActionListener(this);
+		
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lstClientes.setFont(Inicio.fuenteObjetos);
+
+		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnAgregar.setFont(Inicio.fuenteObjetos);
+		btnEditar.setFont(Inicio.fuenteObjetos);
+		
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		lstClientes.setBackground(Inicio.colorFondoObjetos);
+
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnAgregar.setBackground(Inicio.colorFondoObjetos);
+		btnEditar.setBackground(Inicio.colorFondoObjetos);
+
+		scrollClientes.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lstClientes.setForeground(Inicio.colorFuenteObjetos);
+
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
+		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	@Override

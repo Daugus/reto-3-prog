@@ -1,7 +1,6 @@
 package edicion;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -62,56 +61,42 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	private boolean edicion;
 	
 	public EditarVehiculo() {
-		setBackground(new Color(255, 255, 255));
 		setResizable(false);
 		setTitle("Agregar nuevo vehículo");
 		
 		setBounds(100, 100, 539, 355);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(this);
-		btnCancelar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnCancelar.setBounds(78, 250, 94, 46);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnGuardar.setBounds(249, 250, 173, 46);
 		panelPrincipal.add(btnGuardar);
 		
 		JLabel lblKmRecorridos = new JLabel("KM recorridos:");
-		lblKmRecorridos.setForeground(Inicio.colorFuente);
-		lblKmRecorridos.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblKmRecorridos.setBounds(10, 161, 152, 56);
 		panelPrincipal.add(lblKmRecorridos);
 		
 		JLabel lblMarca = new JLabel("Marca:");
-		lblMarca.setForeground(Inicio.colorFuente);
-		lblMarca.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblMarca.setBounds(10, 126, 116, 49);
 		panelPrincipal.add(lblMarca);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
-		lblModelo.setForeground(Inicio.colorFuente);
-		lblModelo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblModelo.setBounds(10, 87, 116, 49);
 		panelPrincipal.add(lblModelo);
 		
-		JLabel lblNumBastidor = new JLabel("Nº Bastidor:");
-		lblNumBastidor.setForeground(Inicio.colorFuente);
-		lblNumBastidor.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
-		lblNumBastidor.setBounds(10, 47, 101, 56);
-		panelPrincipal.add(lblNumBastidor);
+		JLabel lblBastidor = new JLabel("Nº Bastidor:");
+		lblBastidor.setBounds(10, 47, 101, 56);
+		panelPrincipal.add(lblBastidor);
 		
 		JLabel lblMatricula = new JLabel("Matricula:");
-		lblMatricula.setForeground(Inicio.colorFuente);
-		lblMatricula.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblMatricula.setBounds(10, 11, 140, 56);
 		panelPrincipal.add(lblMatricula);
 		
@@ -145,14 +130,10 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		panelPrincipal.add(cmbClientes);
 		
 		JLabel lblPropietario = new JLabel("Propietario:");
-		lblPropietario.setForeground(Inicio.colorFuente);
-		lblPropietario.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPropietario.setBounds(312, 161, 81, 56);
 		panelPrincipal.add(lblPropietario);
 		
 		JLabel lblFechaITV = new JLabel("Año ITV:");
-		lblFechaITV.setForeground(Inicio.colorFuente);
-		lblFechaITV.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblFechaITV.setBounds(312, 126, 81, 56);
 		panelPrincipal.add(lblFechaITV);
 		
@@ -167,8 +148,6 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		panelPrincipal.add(txtTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
-		lblTipo.setForeground(Inicio.colorFuente);
-		lblTipo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblTipo.setBounds(348, 83, 53, 56);
 		panelPrincipal.add(lblTipo);
 		
@@ -178,14 +157,10 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		panelPrincipal.add(txtColor);
 		
 		JLabel lblColor = new JLabel("Color:");
-		lblColor.setForeground(Inicio.colorFuente);
-		lblColor.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblColor.setBounds(355, 47, 53, 56);
 		panelPrincipal.add(lblColor);
 		
 		JLabel lblCilindrada = new JLabel("Cilindrada:");
-		lblCilindrada.setForeground(Inicio.colorFuente);
-		lblCilindrada.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblCilindrada.setBounds(324, 11, 73, 56);
 		panelPrincipal.add(lblCilindrada);
 		
@@ -218,11 +193,49 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		{
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
+
+			// color del texto cuando el campo está deshabilitado
+			txt.setDisabledTextColor(Color.DARK_GRAY);
 		}
 		
 		// - JButton -
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente y color ---
+		panelPrincipal.setBackground(Inicio.colorFondo);
+		
+		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
+		etiquetas.addAll(Arrays.asList(lblMatricula, lblBastidor,
+				lblMarca, lblModelo, lblColor,
+				lblCilindrada, lblKmRecorridos, lblFechaITV,
+				lblTipo, lblPropietario));
+
+		for (JLabel lbl : etiquetas)
+		{
+			lbl.setFont(Inicio.fuente);
+			lbl.setForeground(Inicio.colorFuente);
+		}
+
+		for (JTextField txt : camposTexto)
+		{
+			txt.setFont(Inicio.fuenteObjetos);
+			txt.setBackground(Inicio.colorFondoObjetos);
+			txt.setForeground(Inicio.colorFuenteObjetos);
+		}
+
+		btnCancelar.setFont(Inicio.fuenteObjetos);
+		btnCancelar.setBackground(Inicio.colorFondoObjetos);
+		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
+		
+		btnGuardar.setFont(Inicio.fuenteObjetos);
+		btnGuardar.setBackground(Inicio.colorFondoObjetos);
+		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbClientes.setFont(Inicio.fuenteObjetos);
+		cmbClientes.setBackground(Inicio.colorFondoObjetos);
+		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	public void modoEdicion(Vehiculo vehiculo)

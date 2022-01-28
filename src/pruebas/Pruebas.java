@@ -1,11 +1,12 @@
-package funciones;
+package pruebas;
 
+import java.awt.Font;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import clases.*;
-import funciones.*;
+import funciones.Archivos;
 
 @SuppressWarnings("unused")
 public class Pruebas
@@ -70,5 +71,10 @@ public class Pruebas
 //		System.out.println(Archivos.cargarCliente("04772641A"));
 //		System.out.println(Archivos.cargarMaterial("a"));
 //		funciones.Archivos.guardarMaterial(new Material("test", 2.0));
+		
+//		System.out.println(new Font("Tahoma", Font.BOLD, 15).getFamily());
+		
+		Archivos.guardarMaterial(new Material("atest", 30.0));
+		Archivos.guardarMaterial(new Material("btest", 30.0));
 	}
 }

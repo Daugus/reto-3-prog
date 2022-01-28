@@ -1,7 +1,6 @@
 package edicion;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -86,18 +85,14 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnCancelar.setBounds(123, 396, 108, 42);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setFont(new Font(Inicio.fuente, Font.PLAIN, 16));
 		btnGuardar.setBounds(273, 396, 188, 42);
 		panelPrincipal.add(btnGuardar);
 		
 		JLabel lblPuerta = new JLabel("Puerta:");
-		lblPuerta.setForeground(Inicio.colorFuente);
-		lblPuerta.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPuerta.setBounds(434, 223, 61, 56);
 		panelPrincipal.add(lblPuerta);
 		
@@ -107,8 +102,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtPuerta);
 		
 		JLabel lblPiso = new JLabel("Piso:");
-		lblPiso.setForeground(Inicio.colorFuente);
-		lblPiso.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPiso.setBounds(448, 178, 42, 56);
 		panelPrincipal.add(lblPiso);
 		
@@ -118,8 +111,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtPiso);
 		
 		JLabel lblPortal = new JLabel("Nº Portal:");
-		lblPortal.setForeground(Inicio.colorFuente);
-		lblPortal.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblPortal.setBounds(418, 136, 74, 56);
 		panelPrincipal.add(lblPortal);
 		
@@ -134,14 +125,10 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtCalle);
 		
 		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setForeground(Inicio.colorFuente);
-		lblCalle.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblCalle.setBounds(448, 94, 38, 56);
 		panelPrincipal.add(lblCalle);
 		
 		JLabel lblCodPostal = new JLabel("Código Postal:");
-		lblCodPostal.setForeground(Inicio.colorFuente);
-		lblCodPostal.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblCodPostal.setBounds(395, 63, 100, 49);
 		panelPrincipal.add(lblCodPostal);
 		
@@ -156,8 +143,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtEmail);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setForeground(Inicio.colorFuente);
-		lblEmail.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblEmail.setBounds(368, 11, 48, 56);
 		panelPrincipal.add(lblEmail);
 		
@@ -171,7 +156,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(btnAgregarMatricula);
 		
 		cmbVehiculos = new JComboBox<String>();
-		cmbVehiculos.setForeground(Color.BLACK);
 		cmbVehiculos.setBounds(108, 291, 118, 34);
 		panelPrincipal.add(cmbVehiculos);
 		
@@ -180,38 +164,26 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(btnEliminarMatricula);
 		
 		JLabel lblMatricula = new JLabel("Matrícula");
-		lblMatricula.setForeground(Inicio.colorFuente);
-		lblMatricula.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblMatricula.setBounds(20, 323, 66, 56);
 		panelPrincipal.add(lblMatricula);
 		
 		JLabel lblVehiculos = new JLabel("Vehículos:");
-		lblVehiculos.setForeground(Inicio.colorFuente);
-		lblVehiculos.setFont(new Font("Dialog", Font.PLAIN, 15));
 		lblVehiculos.setBounds(20, 289, 78, 46);
 		panelPrincipal.add(lblVehiculos);
 		
 		JLabel lblFechaAlta = new JLabel("Fecha de alta:");
-		lblFechaAlta.setForeground(Inicio.colorFuente);
-		lblFechaAlta.setFont(new Font("Dialog", Font.PLAIN, 15));
 		lblFechaAlta.setBounds(12, 234, 101, 46);
 		panelPrincipal.add(lblFechaAlta);
 		
 		JLabel lblFechaNacimiento = new JLabel("Fecha nacimiento:");
-		lblFechaNacimiento.setForeground(Inicio.colorFuente);
-		lblFechaNacimiento.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblFechaNacimiento.setBounds(10, 180, 142, 56);
 		panelPrincipal.add(lblFechaNacimiento);
 		
 		JLabel lblTel = new JLabel("Teléfono:");
-		lblTel.setForeground(Inicio.colorFuente);
-		lblTel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		lblTel.setBounds(85, 138, 66, 46);
 		panelPrincipal.add(lblTel);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setForeground(Inicio.colorFuente);
-		lblApellidos.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblApellidos.setBounds(20, 97, 65, 49);
 		panelPrincipal.add(lblApellidos);
 		
@@ -221,8 +193,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtApellidos);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setForeground(Inicio.colorFuente);
-		lblNombre.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblNombre.setBounds(86, 53, 65, 56);
 		panelPrincipal.add(lblNombre);
 		
@@ -232,8 +202,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtNombre);
 		
 		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setForeground(Inicio.colorFuente);
-		lblDNI.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblDNI.setBounds(96, 11, 55, 56);
 		panelPrincipal.add(lblDNI);
 		
@@ -253,14 +221,10 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtFechaNacimientoD);
 		
 		txtFechaAltaD = new JTextField("");
-		txtFechaAltaD.setForeground(Color.BLACK);
-		txtFechaAltaD.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtFechaAltaD.setBounds(129, 239, 32, 34);
 		panelPrincipal.add(txtFechaAltaD);
 		
 		txtFechaAltaM = new JTextField("");
-		txtFechaAltaM.setForeground(Color.BLACK);
-		txtFechaAltaM.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtFechaAltaM.setBounds(171, 239, 32, 34);
 		panelPrincipal.add(txtFechaAltaM);
 		
@@ -275,8 +239,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(txtFechaNacimientoA);
 		
 		txtFechaAltaA = new JTextField("");
-		txtFechaAltaA.setForeground(Color.BLACK);
-		txtFechaAltaA.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtFechaAltaA.setBounds(213, 239, 66, 34);
 		panelPrincipal.add(txtFechaAltaA);
 
@@ -304,6 +266,9 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		{
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
+			
+			// color del texto cuando el campo está deshabilitado
+			txt.setDisabledTextColor(Color.DARK_GRAY);
 		}
 
 		// - JButton -
@@ -311,7 +276,50 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		btnGuardar.addActionListener(this);
 		btnAgregarMatricula.addActionListener(this);
 		btnEliminarMatricula.addActionListener(this);
+		
+		// ===== ajustes de usuario =====
+		// --- fuente y color ---
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
+		etiquetas.addAll(Arrays.asList(lblDNI, lblNombre, lblApellidos,
+				lblTel, lblEmail, lblFechaNacimiento,
+				lblCodPostal, lblCalle, lblPortal, lblPiso, lblPuerta,
+				lblFechaAlta, lblVehiculos, lblMatricula));
+		for (JLabel lbl : etiquetas)
+		{
+			lbl.setFont(Inicio.fuente);
+			lbl.setForeground(Inicio.colorFuente);
+		}
+
+		for (JTextField txt : camposTexto)
+		{
+			txt.setFont(Inicio.fuenteObjetos);
+			txt.setBackground(Inicio.colorFondoObjetos);
+			txt.setForeground(Inicio.colorFuenteObjetos);
+		}
+
+		btnCancelar.setFont(Inicio.fuenteObjetos);
+		btnCancelar.setBackground(Inicio.colorFondoObjetos);
+		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
+		
+		btnGuardar.setFont(Inicio.fuenteObjetos);
+		btnGuardar.setBackground(Inicio.colorFondoObjetos);
+		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		btnAgregarMatricula.setFont(Inicio.fuenteObjetos);
+		btnAgregarMatricula.setBackground(Inicio.colorFondoObjetos);
+		btnAgregarMatricula.setForeground(Inicio.colorFuenteObjetos);
+
+		btnEliminarMatricula.setFont(Inicio.fuenteObjetos);
+		btnEliminarMatricula.setBackground(Inicio.colorFondoObjetos);
+		btnEliminarMatricula.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbVehiculos.setFont(Inicio.fuenteObjetos);
+		cmbVehiculos.setBackground(Inicio.colorFondoObjetos);
+		cmbVehiculos.setForeground(Inicio.colorFuenteObjetos);
 	}
+
 	public void modoEdicion(Cliente cliente)
 	{
 		edicion = true;
@@ -362,7 +370,12 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		else if (o == txtMatricula || o == btnAgregarMatricula)
 		{
 			String matricula = txtMatricula.getText();
-			if (!matricula.equals(""))
+			if (matricula.equals(""))
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo de matrícula vacío", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else
 			{
 				if (dcbmVehiculos.getIndexOf(matricula) != -1)
 				{
@@ -372,12 +385,9 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 				else
 				{
 					dcbmVehiculos.addElement(matricula);
+					txtMatricula.setText("");
+					cmbVehiculos.setSelectedItem(matricula);
 				}
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(this, (String) "Campo de matrícula vacío", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else if (o == btnEliminarMatricula)

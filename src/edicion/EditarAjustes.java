@@ -1,7 +1,5 @@
 package edicion;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -19,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 import clases.Ajustes;
-import clases.Cuenta;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
@@ -52,47 +49,37 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		
 		setBounds(100, 100, 377, 285);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnCancelar.setBounds(10, 193, 160, 42);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnGuardar.setBounds(191, 193, 160, 42);
 		panelPrincipal.add(btnGuardar);
 		
 		lblFuente = new JLabel("Fuente:");
 		lblFuente.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFuente.setForeground(Inicio.colorFuente);
-		lblFuente.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblFuente.setBounds(42, 105, 130, 40);
 		panelPrincipal.add(lblFuente);
 		
-		lblFondo = new JLabel("Color de fondo:");
+		lblFondo = new JLabel("Tema:");
 		lblFondo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFondo.setForeground(Inicio.colorFuente);
-		lblFondo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		lblFondo.setBounds(42, 55, 130, 40);
 		panelPrincipal.add(lblFondo);
 		
 		cmbFondo = new JComboBox<String>();
-		cmbFondo.addItem("Gris claro");
-		cmbFondo.addItem("Gris oscuro");
-		cmbFondo.addItem("Negro");
-		cmbFondo.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
+		cmbFondo.addItem("Oscuro");
+		cmbFondo.addItem("Claro");
 		cmbFondo.setBounds(193, 55, 130, 40);
 		panelPrincipal.add(cmbFondo);
 		
 		cmbFuente = new JComboBox<String>();
+		cmbFuente.addItem("Segoe UI");
 		cmbFuente.addItem("Tahoma");
-		cmbFuente.addItem("Dialog");
-		cmbFuente.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		cmbFuente.setBounds(193, 105, 130, 40);
 		panelPrincipal.add(cmbFuente);
 		
@@ -106,28 +93,54 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		// --- Action ---
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
+		
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lblFuente.setFont(Inicio.fuente);
+		lblFondo.setFont(Inicio.fuente);
+
+		btnCancelar.setFont(Inicio.fuenteObjetos);
+		btnGuardar.setFont(Inicio.fuenteObjetos);
+
+		cmbFondo.setFont(Inicio.fuenteObjetos);
+		cmbFuente.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		btnCancelar.setBackground(Inicio.colorFondoObjetos);
+		btnGuardar.setBackground(Inicio.colorFondoObjetos);
+
+		cmbFondo.setBackground(Inicio.colorFondoObjetos);
+		cmbFuente.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lblFuente.setForeground(Inicio.colorFuente);
+		lblFondo.setForeground(Inicio.colorFuente);
+
+		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
+		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbFondo.setForeground(Inicio.colorFuenteObjetos);
+		cmbFuente.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	private void cargarAjustes()
 	{
-		Color color = Inicio.cuentaActual.getAjustes().getFondo();
-		String fondo = null;
-		if (color.equals(Color.LIGHT_GRAY))
+		String tema = null;
+		if (Inicio.cuentaActual.getAjustes().temaOscuro())
 		{
-			fondo = "Gris claro";
+			tema = "Oscuro";
 		}
-		else if (color.equals(Color.DARK_GRAY))
+		else
 		{
-			fondo = "Gris oscuro";
-		}
-		else if (color.equals(Color.BLACK))
-		{
-			fondo = "Negro";
+			tema = "Claro";
 		}
 			
-		String fuente = Inicio.cuentaActual.getAjustes().getFuente();
+		String fuente = Inicio.cuentaActual.getAjustes().getFuente().getFamily();
 		
-		cmbFondo.setSelectedItem(fondo);
+		cmbFondo.setSelectedItem(tema);
 		cmbFuente.setSelectedItem(fuente);
 	}
 
@@ -157,34 +170,22 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		}
 		else if (o == btnGuardar)
 		{
-			String fondo = (String) cmbFondo.getSelectedItem();
+			String tema = (String) cmbFondo.getSelectedItem();
 			String fuente = (String) cmbFuente.getSelectedItem();
 
-			if (fondo.equals("Gris claro"))
+			boolean temaOscuro = true;
+			if (tema.equals("Oscuro"))
 			{
-				Archivos.guardarAjustes(new Ajustes(Color.LIGHT_GRAY, fuente));
+				temaOscuro = true;
 			}
-			else if (fondo.equals("Gris oscuro"))
+			else if (tema.equals("Claro"))
 			{
-				Archivos.guardarAjustes(new Ajustes(Color.DARK_GRAY, fuente));
-			}
-			else if (fondo.equals("Negro"))
-			{
-				Archivos.guardarAjustes(new Ajustes(Color.BLACK, fuente));
+				temaOscuro = false;
 			}
 			
-			Inicio.colorFondo = Inicio.cuentaActual.getAjustes().getFondo();
-			Inicio.cuentaActual = new Cuenta(Archivos.cargarCuenta(Inicio.cuentaActual.getDNI()));
-			if (Inicio.colorFondo.equals(Color.LIGHT_GRAY))
-			{
-				Inicio.colorFuente = Color.BLACK;
-			}
-			else
-			{
-				Inicio.colorFuente = Color.WHITE;
-			}
-
-			Inicio.fuente = Inicio.cuentaActual.getAjustes().getFuente();
+			Archivos.guardarAjustes(new Ajustes(temaOscuro, fuente));
+						
+			Archivos.cargarAjustes();
 
 			if (Inicio.cuentaActual.getMecanico())
 			{

@@ -1,6 +1,5 @@
 package navegacion;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -49,14 +48,11 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 		setTitle("Lista de Órdenes Primarias");
 		setBounds(100, 100, 750, 429);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		JLabel lblTitulo = new JLabel("Listado de Órdenes Primarias");
-		lblTitulo.setForeground(Inicio.colorFuente);
-		lblTitulo.setFont(new Font(Inicio.fuente, Font.BOLD, 21));
 		lblTitulo.setBounds(27, 22, 354, 26);
 		panelPrincipal.add(lblTitulo);
 		
@@ -65,12 +61,10 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 		panelPrincipal.add(cmbPrimarias);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font(Inicio.fuente, Font.PLAIN, 14));
 		btnVolver.setBounds(197, 271, 137, 46);
 		panelPrincipal.add(btnVolver);
 		
 		btnAcceder = new JButton("Acceder");
-		btnAcceder.setFont(new Font(Inicio.fuente, Font.PLAIN, 15));
 		btnAcceder.setBounds(399, 271, 137, 46);
 		panelPrincipal.add(btnAcceder);
 
@@ -93,6 +87,32 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 		// - JButton -
 		btnAcceder.addActionListener(this);
 		btnVolver.addActionListener(this);
+
+		// ===== ajustes de usuario =====
+		// --- fuente ---
+		lblTitulo.setFont(Inicio.fuente);
+		
+		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnAcceder.setFont(Inicio.fuenteObjetos);
+		
+		cmbPrimarias.setFont(Inicio.fuenteObjetos);
+
+		// --- color ---
+		// - fondo -
+		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnAcceder.setBackground(Inicio.colorFondoObjetos);
+		
+		cmbPrimarias.setBackground(Inicio.colorFondoObjetos);
+
+		// - fuente -
+		lblTitulo.setForeground(Inicio.colorFuente);
+		
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnAcceder.setForeground(Inicio.colorFuenteObjetos);
+		
+		cmbPrimarias.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	public static OrdenPrim getOrdenPrim()
