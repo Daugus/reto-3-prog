@@ -95,6 +95,21 @@ public class Cuenta extends Persona
 	}
 
 	// --- getters y setters ---
+	public String tipo()
+	{
+		String tipo;
+		if (mecanico)
+		{
+			tipo = "Mecánico";
+		}
+		else
+		{
+			tipo = "Atención al cliente";
+		}
+
+		return tipo;
+		
+	}
 	public String getPassword()
 	{
 		return password;

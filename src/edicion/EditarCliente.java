@@ -472,8 +472,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 								email, fechaNacimiento,
 								direccion, fechaAlta, matriculas));
 						
-						AdministrarClientes.dlmClientes.removeAllElements();
-						AdministrarClientes.dlmClientes.addAll(Archivos.cargarTodosClientes());
+						AdministrarClientes.actualizarTabla();
 						
 						this.dispose();
 					}

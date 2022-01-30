@@ -174,8 +174,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 					{
 						Archivos.guardarMaterial(new Material(nombre,precio));
 						
-						AdministrarMateriales.dlmMateriales.removeAllElements();
-						AdministrarMateriales.dlmMateriales.addAll(Archivos.cargarTodosMateriales());
+						AdministrarMateriales.actualizarTabla();
 
 						this.dispose();
 					}

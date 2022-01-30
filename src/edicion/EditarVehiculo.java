@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
+import administracion.AdministrarVehiculos;
 import clases.Fecha;
 import clases.Vehiculo;
 import funciones.Archivos;
@@ -71,12 +72,10 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(this);
 		btnCancelar.setBounds(78, 250, 94, 46);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(this);
 		btnGuardar.setBounds(249, 250, 173, 46);
 		panelPrincipal.add(btnGuardar);
 		
@@ -306,17 +305,20 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 					
 					if (!edicion && Archivos.listarVehiculos().contains(matricula))
 					{
-						JOptionPane.showMessageDialog(this, (String) "Vehiculo ya existe", "ERROR",
+						JOptionPane.showMessageDialog(this, (String) "Vehículo ya existe", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 					}
 					else
 					{
 						Archivos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario,
 								marca, modelo, color, cilindrada, kmRecorridos, fechaITV, tipo));
+						
+						AdministrarVehiculos.actualizarTabla();
+						
+						edicion = false;
+						this.dispose();
 					}
 				}
-
-				this.dispose();
 			}
 			catch (NumberFormatException npe)
 			{

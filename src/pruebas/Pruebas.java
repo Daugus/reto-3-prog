@@ -17,9 +17,9 @@ public class Pruebas
 		Archivos.crearCarpetas();
 
 		// ===== objetos de prueba =====
-//		Archivos.guardarCuenta(new Cuenta("Y0723663M", "augusto", "dlc", 664860653,
-//				"dlc@mail.com", new Fecha(26, 12, 2002),
-//				new Direccion(48007, "calle", 10, 1, "a"), true, "augusto123", new Ajustes()));
+		Archivos.guardarCuenta(new Cuenta("Y0723663M", "Augusto Augusto", "de la Cámara de la Cámara de la Cámara", 664860653,
+				"augustodelacamara@mail.com", new Fecha(26, 12, 2002),
+				new Direccion(48007, "Travesía Ciudad Jardín", 42, 12, "Izquierda"), true, "augusto123", new Ajustes()));
 ////
 //		Archivos.guardarCuenta(new Cuenta("mec", "mec", "mec", 664860653,
 //				"mec@mec.com", new Fecha(26, 12, 2002),
@@ -74,7 +74,7 @@ public class Pruebas
 		
 //		System.out.println(new Font("Tahoma", Font.BOLD, 15).getFamily());
 		
-		Archivos.guardarMaterial(new Material("atest", 30.0));
-		Archivos.guardarMaterial(new Material("btest", 30.0));
+//		Archivos.guardarMaterial(new Material("atest", 30.0));
+//		Archivos.guardarMaterial(new Material("btest", 30.0));
 	}
 }

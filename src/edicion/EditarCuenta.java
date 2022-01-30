@@ -455,8 +455,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 								email, fechaNacimiento,
 								direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
 
-						AdministrarCuentas.dlmCuentas.removeAllElements();
-						AdministrarCuentas.dlmCuentas.addAll(Archivos.cargarTodosCuentas());
+						AdministrarCuentas.actualizarTabla();
 
 						edicion = false;
 						this.dispose();

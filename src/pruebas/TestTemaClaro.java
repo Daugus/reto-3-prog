@@ -90,6 +90,7 @@ public class TestTemaClaro extends JFrame {
 		
 		JList<String> list_1 = new JList<String>();
 		list_1.setForeground(Color.BLACK);
+		list_1.setModel(dlm);
 		list_1.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		list_1.setBackground(Color.WHITE);
 		list_1.setBounds(53, 336, 128, 164);
