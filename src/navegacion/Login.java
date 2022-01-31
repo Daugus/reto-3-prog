@@ -21,6 +21,7 @@ import clases.Cuenta;
 import funciones.Archivos;
 import funciones.Salir;
 
+
 /**
  * 
  * @author Grupo 2
@@ -135,11 +136,14 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				
 				Archivos.cargarAjustes();
 				
+				Archivos.Log("C:\\Users\\binwu\\OneDrive\\Escritorio\\proyecto\\ar.log", "el usuario " + (Archivos.cargarCuenta(dni)).getNombre() + " ha iniciado sision");
+				
 				if (!password.equals(Inicio.cuentaActual.getPassword()))
 				{
 					// si la contraseña es incorrecta saca ventana de error
 					JOptionPane.showMessageDialog(this, (String) "Contraseña errónea", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
+					
 				}
 				else
 				{

@@ -10,6 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import clases.Ajustes;
 import clases.Cliente;
@@ -19,8 +22,7 @@ import clases.OrdenPrim;
 import clases.Vehiculo;
 import navegacion.Inicio;
 
-public class Archivos
-{
+public class Archivos {
 	// ===== rutas =====
 	public static String raiz = "C:\\RKA\\";
 	public static String materiales = raiz + "Material\\";
@@ -30,144 +32,118 @@ public class Archivos
 	public static String primarias = raiz + "OrdenPrim\\";
 
 	// ===== crear carpetas en caso de que no existan ======
-	public static void crearCarpetas()
-	{
+	public static void crearCarpetas() {
 		ArrayList<String> directorios = new ArrayList<String>();
 		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias));
 
 		File f;
-		for (int i = 0; i < directorios.size(); i++)
-		{
+		for (int i = 0; i < directorios.size(); i++) {
 			f = new File(directorios.get(i));
-			if (!f.exists())
-			{
+			if (!f.exists()) {
 				f.mkdirs();
 			}
 		}
 	}
 
 	// ===== guardar =====
-	public static void guardar(Object o, File f)
-	{
+	public static void guardar(Object o, File f) {
 		FileOutputStream fos;
 		ObjectOutputStream oos;
 
-		try
-		{
+		try {
 			fos = new FileOutputStream(f);
 			oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(o);
-			
+
 			oos.close();
 			fos.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("error guardado");
 		}
 	}
-	
+
 	// --- individuales ---
-	public static void guardarMaterial(Material m)
-	{
+	public static void guardarMaterial(Material m) {
 		File f = new File(materiales + m.getNombre() + ".dat");
 		guardar(m, f);
 	}
-	
-	public static void guardarVehiculo(Vehiculo v)
-	{
+
+	public static void guardarVehiculo(Vehiculo v) {
 		File f = new File(vehiculos + v.getMatricula() + ".dat");
 		guardar(v, f);
 	}
-	
-	public static void guardarCliente(Cliente c)
-	{
+
+	public static void guardarCliente(Cliente c) {
 		File f = new File(clientes + c.getDNI() + ".dat");
 		guardar(c, f);
 	}
 
-	public static void guardarCuenta(Cuenta c)
-	{
+	public static void guardarCuenta(Cuenta c) {
 		File f = new File(cuentas + c.getDNI() + ".dat");
 		guardar(c, f);
 	}
-	
-	public static void guardarOrdenPrim(OrdenPrim op)
-	{
+
+	public static void guardarOrdenPrim(OrdenPrim op) {
 		File f = new File(primarias + op.getCodOrdenPrim() + ".dat");
 		guardar(op, f);
 	}
-	
+
 	// ===== cargar =====
-	private static Object cargar(File f)
-	{
+	private static Object cargar(File f) {
 		Object o = null;
-		
+
 		FileInputStream fis;
 		ObjectInputStream ois;
-		
-		try
-		{
+
+		try {
 			fis = new FileInputStream(f);
 			ois = new ObjectInputStream(fis);
-			
+
 			o = ois.readObject();
-			
+
 			ois.close();
 			fis.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("error carga");
-		}
-		catch (ClassNotFoundException e)
-		{
+		} catch (ClassNotFoundException e) {
 			System.out.println("error carga - clase");
 		}
 
 		return o;
 	}
-	
+
 	// --- individuales ---
-	public static Material cargarMaterial(String nombre)
-	{
+	public static Material cargarMaterial(String nombre) {
 		File f = new File(materiales + nombre + ".dat");
 		return (Material) cargar(f);
 	}
-	
-	public static Vehiculo cargarVehiculo(String matricula)
-	{
+
+	public static Vehiculo cargarVehiculo(String matricula) {
 		File f = new File(vehiculos + matricula + ".dat");
 		return (Vehiculo) cargar(f);
 	}
-	
-	public static Cliente cargarCliente(String DNI)
-	{
+
+	public static Cliente cargarCliente(String DNI) {
 		File f = new File(clientes + DNI + ".dat");
 		return (Cliente) cargar(f);
 	}
-	
-	public static Cuenta cargarCuenta(String DNI)
-	{
+
+	public static Cuenta cargarCuenta(String DNI) {
 		File f = new File(cuentas + DNI + ".dat");
 		return (Cuenta) cargar(f);
 	}
 
-	public static OrdenPrim cargarOrdenPrim(String cod)
-	{
+	public static OrdenPrim cargarOrdenPrim(String cod) {
 		File f = new File(primarias + cod + ".dat");
 		return (OrdenPrim) cargar(f);
 	}
-	
+
 	// ===== listar archivos =====
-	private static ArrayList<String> listar(File[] listaOriginal)
-	{
+	private static ArrayList<String> listar(File[] listaOriginal) {
 		ArrayList<String> lista = new ArrayList<String>();
-		for (int i = 0; i < listaOriginal.length; i++)
-		{
-			if (listaOriginal[i].isFile())
-			{
+		for (int i = 0; i < listaOriginal.length; i++) {
+			if (listaOriginal[i].isFile()) {
 				String nombre = listaOriginal[i].getName().replaceAll(".dat", "");
 				lista.add(nombre);
 			}
@@ -177,112 +153,95 @@ public class Archivos
 	}
 
 	// --- individuales ---
-	public static ArrayList<String> listarMateriales()
-	{
+	public static ArrayList<String> listarMateriales() {
 		File[] listaOriginal = new File(materiales).listFiles();
 		return listar(listaOriginal);
 	}
-	
-	public static ArrayList<String> listarVehiculos()
-	{
+
+	public static ArrayList<String> listarVehiculos() {
 		File[] listaOriginal = new File(vehiculos).listFiles();
 		return listar(listaOriginal);
 	}
 
-	public static ArrayList<String> listarClientes()
-	{
+	public static ArrayList<String> listarClientes() {
 		File[] listaOriginal = new File(clientes).listFiles();
 		return listar(listaOriginal);
 	}
 
-	public static ArrayList<String> listarCuentas()
-	{
+	public static ArrayList<String> listarCuentas() {
 		File[] listaOriginal = new File(cuentas).listFiles();
 		return listar(listaOriginal);
 	}
 
-	public static ArrayList<String> listarOrdenPrim()
-	{
+	public static ArrayList<String> listarOrdenPrim() {
 		File[] listaOriginal = new File(primarias).listFiles();
 		return listar(listaOriginal);
 	}
-	
+
 	// ===== cargar todos =====
 	// --- individuales ---
-	public static ArrayList<Material> cargarTodosMateriales()
-	{
+	public static ArrayList<Material> cargarTodosMateriales() {
 		ArrayList<String> nombres = listarMateriales();
 		ArrayList<Material> materiales = new ArrayList<Material>();
 
-		for (int i = 0; i < nombres.size(); i++)
-		{
+		for (int i = 0; i < nombres.size(); i++) {
 			materiales.add(cargarMaterial(nombres.get(i)));
 		}
 
 		return materiales;
 	}
 
-	public static ArrayList<Vehiculo> cargarTodosVehiculos()
-	{
+	public static ArrayList<Vehiculo> cargarTodosVehiculos() {
 		ArrayList<String> nombres = listarVehiculos();
 		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
-		for (int i = 0; i < nombres.size(); i++)
-		{
+		for (int i = 0; i < nombres.size(); i++) {
 			vehiculos.add(cargarVehiculo(nombres.get(i)));
 		}
-		
+
 		return vehiculos;
 	}
 
-	public static ArrayList<Cuenta> cargarTodosCuentas()
-	{
+	public static ArrayList<Cuenta> cargarTodosCuentas() {
 		ArrayList<String> nombres = listarCuentas();
 		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 
-		for (int i = 0; i < nombres.size(); i++)
-		{
+		for (int i = 0; i < nombres.size(); i++) {
 			cuentas.add(cargarCuenta(nombres.get(i)));
 		}
-		
+
 		return cuentas;
 	}
 
-	public static ArrayList<Cliente> cargarTodosClientes()
-	{
+	public static ArrayList<Cliente> cargarTodosClientes() {
 		ArrayList<String> nombres = listarClientes();
 		ArrayList<Cliente> materiales = new ArrayList<Cliente>();
 
-		for (int i = 0; i < nombres.size(); i++)
-		{
+		for (int i = 0; i < nombres.size(); i++) {
 			materiales.add(cargarCliente(nombres.get(i)));
 		}
-		
+
 		return materiales;
 	}
 
-	public static ArrayList<OrdenPrim> cargarTodosOrdenPrim()
-	{
+	public static ArrayList<OrdenPrim> cargarTodosOrdenPrim() {
 		ArrayList<String> nombres = listarOrdenPrim();
 		ArrayList<OrdenPrim> primarias = new ArrayList<OrdenPrim>();
 
-		for (int i = 0; i < nombres.size(); i++)
-		{
+		for (int i = 0; i < nombres.size(); i++) {
 			primarias.add(cargarOrdenPrim(nombres.get(i)));
 		}
-		
+
 		return primarias;
 	}
-	
+
 	// ===== ajustes =====
-	public static void guardarAjustes(Ajustes a)
-	{
+	public static void guardarAjustes(Ajustes a) {
 		Inicio.cuentaActual.setAjustes(a);
 		guardarCuenta(Inicio.cuentaActual);
 	}
-	
-	public static void cargarAjustes()
-	{
+
+	public static void cargarAjustes() {
 		Inicio.cuentaActual = new Cuenta(cargarCuenta(Inicio.cuentaActual.getDNI()));
 
 		Inicio.fuente = Inicio.cuentaActual.getAjustes().getFuente();
@@ -294,15 +253,42 @@ public class Archivos
 		Inicio.colorFuente = Inicio.cuentaActual.getAjustes().getColorFuente();
 		Inicio.colorFuenteObjetos = Inicio.cuentaActual.getAjustes().getColorFuenteObjetos();
 	}
-	
-	public static void reiniciarAjustes()
-	{
+
+	public static void reiniciarAjustes() {
 		Inicio.fuente = new Font("Segoe UI", Font.PLAIN, 13);
 		Inicio.fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
-	
+
 		Inicio.colorFondo = Color.DARK_GRAY;
 		Inicio.colorFondoObjetos = Color.LIGHT_GRAY;
 		Inicio.colorFuente = Color.WHITE;
 		Inicio.colorFuenteObjetos = Color.BLACK;
 	}
+
+	// ====== Generar logs =======
+	public static void Log(String rutaArchivo, String mensaje) {
+
+		Logger logger = Logger.getLogger("losLog");
+		FileHandler fh;
+
+		try {
+
+			fh = new FileHandler(rutaArchivo, true);
+			logger.addHandler(fh);
+
+			SimpleFormatter formatter = new SimpleFormatter();
+
+			fh.setFormatter(formatter);
+
+			logger.info(mensaje);
+
+			fh.close();
+
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }
