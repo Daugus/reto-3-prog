@@ -16,6 +16,7 @@ public class Logs
 	public static String login = raiz +"login.log";
 	public static String logout = raiz +"lougout.log";
 	public static String orden = raiz +"ordenes.log";
+	public static String error = raiz +"error.log";
 	
 	// ====== Generar logs =======
 		public static void grabar(String rutaArchivo, String mensaje)
@@ -66,5 +67,11 @@ public class Logs
 			String f=(orden);
 			grabar(f,veh);
 		}
+		
+		public static void erroresLog(String err) {
+			String f=(error);
+			grabar(f,err);
+		}
+		
 
 }

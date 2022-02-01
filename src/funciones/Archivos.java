@@ -27,11 +27,13 @@ public class Archivos {
 	public static String clientes = raiz + "Cliente\\";
 	public static String cuentas = raiz + "Cuenta\\";
 	public static String primarias = raiz + "OrdenPrim\\";
+	public static String logs = raiz + "Logs\\";
 
+	
 	// ===== crear carpetas en caso de que no existan ======
 	public static void crearCarpetas() {
 		ArrayList<String> directorios = new ArrayList<String>();
-		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias));
+		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias,logs));
 
 		File f;
 		for (int i = 0; i < directorios.size(); i++) {

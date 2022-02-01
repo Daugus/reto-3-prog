@@ -34,7 +34,14 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 
 	private JButton btnVolver;
 	private JButton btnGenerar;
-	
+	public JButton getBtnGenerar() {
+		return btnGenerar;
+	}
+
+	public void setBtnGenerar(JButton btnGenerar) {
+		this.btnGenerar = btnGenerar;
+	}
+
 	private DefaultListModel<String> dlmReparaciones;
 	private DefaultListModel<String> dlmPiezas;
 	private JList<String> lstReparaciones;
@@ -88,7 +95,7 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		/**
 		 * Boton implementado con Action Listener
 		 */
-		btnGenerar = new JButton("Generar factura");
+		btnGenerar = new JButton("Validar orden");
 		btnGenerar.setBounds(10, 681, 186, 31);
 		panelPrincipal.add(btnGenerar);
 		/**

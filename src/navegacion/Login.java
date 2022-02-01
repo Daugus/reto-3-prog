@@ -143,7 +143,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 					// si la contraseña es incorrecta saca ventana de error
 					JOptionPane.showMessageDialog(this, (String) "Contraseña errónea", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
-					
+					Logs.erroresLog("Se introducio contraseña erronea");
 				}
 				else
 				{
@@ -178,6 +178,8 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				// si la cuenta no existe saca ventana de error
 				JOptionPane.showMessageDialog(this, (String) "La cuenta no existe", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
+				
+				Logs.erroresLog("La cuenta "+dni+" no esta registrada");
 			}
 		}
 	}

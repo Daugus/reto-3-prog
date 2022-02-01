@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import clases.OrdenPrim;
 import funciones.Archivos;
+import funciones.Logs;
 import funciones.Salir;
 
 /**
@@ -135,6 +136,10 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 
 				CrearOrdenPend cop = new CrearOrdenPend();
 				cop.cargarDatos();
+				if(!Inicio.cuentaActual.getMecanico()) {
+					cop.getBtnGenerar().setVisible(false);;;
+				}
+				
 
 				cop.setVisible(true);
 				cop.setLocationRelativeTo(null);
@@ -143,6 +148,7 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 			{
 				JOptionPane.showMessageDialog (null, "La Orden Primaria introducida no existe", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
+				Logs.erroresLog("Intento de acceder a una Orden Primaria no existe\n");
 			}
 		}
 		else
