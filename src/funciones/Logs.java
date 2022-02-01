@@ -12,8 +12,10 @@ import navegacion.Inicio;
 public class Logs 
 {
 	// ===== Rutas =====
-	public static String raiz = "C:\\RKA\\";
-	public static String log = raiz +"Logs.log\\";
+	public static String raiz = "C:\\RKA\\Logs\\";
+	public static String login = raiz +"login.log";
+	public static String logout = raiz +"lougout.log";
+	public static String orden = raiz +"ordenes.log";
 	
 	// ====== Generar logs =======
 		public static void grabar(String rutaArchivo, String mensaje)
@@ -48,20 +50,20 @@ public class Logs
 		// ===== individuales =====
 		public static void loginLog()
 		{
-			String f=(log );
+			String f=(login);
 			String mensaje="el usuario: "+ Inicio.cuentaActual.getDNI()+" ha iniciado sesion\n";
 			grabar(f,mensaje );
 		}
 		
 		public static void logoutLog() 
 		{
-			String f=(log );
+			String f=(logout );
 			String mensaje="el usuario: "+ Inicio.cuentaActual.getDNI()+" ha cerrado sesion\n";
 			grabar(f,mensaje );
 		}
 		
 		public static void ordenLog(String veh) {
-			String f=(log);
+			String f=(orden);
 			grabar(f,veh);
 		}
 
