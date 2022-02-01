@@ -25,6 +25,7 @@ import clases.Fecha;
 import clases.OrdenPrim;
 import clases.Vehiculo;
 import funciones.Archivos;
+import funciones.Logs;
 import funciones.Salir;
 
 /**
@@ -238,9 +239,10 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    	if (cmbVehiculos.getSelectedIndex() >= 0)
 		    	{
 		    		String matricula = (String) cmbVehiculos.getSelectedItem();
-		    		System.out.println(matricula);
+		    		//System.out.println(matricula);
 		    		vehiculo = Archivos.cargarVehiculo(matricula);
-		    		System.out.println(vehiculo);
+		    		//System.out.println(vehiculo);
+		    		Logs.ordenLog("nueva orden: "+ vehiculo.toString());
 
 		    		// --- orden primaria ---
 		    		Calendar calendar = Calendar.getInstance();
@@ -253,6 +255,7 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    		txtComentario.setText("");
 		    		
 		    		Archivos.guardarOrdenPrim(new OrdenPrim(codOrdenPrim, comentarios, new Fecha(), cliente, vehiculo));
+		    		
 		    	}
 		    	else
 		    	{

@@ -10,9 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import clases.Ajustes;
 import clases.Cliente;
@@ -50,7 +47,8 @@ public class Archivos {
 		FileOutputStream fos;
 		ObjectOutputStream oos;
 
-		try {
+		try 
+		{
 			fos = new FileOutputStream(f);
 			oos = new ObjectOutputStream(fos);
 
@@ -264,31 +262,6 @@ public class Archivos {
 		Inicio.colorFuenteObjetos = Color.BLACK;
 	}
 
-	// ====== Generar logs =======
-	public static void Log(String rutaArchivo, String mensaje) {
-
-		Logger logger = Logger.getLogger("losLog");
-		FileHandler fh;
-
-		try {
-
-			fh = new FileHandler(rutaArchivo, true);
-			logger.addHandler(fh);
-
-			SimpleFormatter formatter = new SimpleFormatter();
-
-			fh.setFormatter(formatter);
-
-			logger.info(mensaje);
-
-			fh.close();
-
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
+	
 
 }

@@ -19,7 +19,8 @@ import javax.swing.text.JTextComponent;
 
 import clases.Cuenta;
 import funciones.Archivos;
-import funciones.Salir;
+import funciones.Logs;
+
 
 
 /**
@@ -135,8 +136,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				Inicio.cuentaActual = new Cuenta(Archivos.cargarCuenta(dni));
 				
 				Archivos.cargarAjustes();
-				
-				Archivos.Log("C:\\Users\\binwu\\OneDrive\\Escritorio\\proyecto\\ar.log", "el usuario " + (Archivos.cargarCuenta(dni)).getNombre() + " ha iniciado sision");
+				Logs.loginLog();
 				
 				if (!password.equals(Inicio.cuentaActual.getPassword()))
 				{
@@ -197,7 +197,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		System.exit(0);
 	}
 
 	@Override

@@ -49,16 +49,8 @@ public class Ajustes implements Serializable
 	// --- personalizado ---
 	public Ajustes(boolean fo, String fu)
 	{
-		if (fu.equals("Segoe UI"))
-		{
-			fuente = new Font("Segoe UI", Font.PLAIN, 15);
-			fuenteObjetos = new Font("Segoe UI", Font.BOLD, 15);
-		}
-		else
-		{
-			fuente = new Font("Tahoma", Font.PLAIN, 15);
-			fuenteObjetos = new Font("Tahoma", Font.BOLD, 15);
-		}
+		fuente = new Font(fu, Font.PLAIN, 15);
+		fuenteObjetos = new Font(fu, Font.BOLD, 15);
 
 		if (fo)
 		{

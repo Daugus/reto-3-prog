@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarCuentas;
 import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
+import funciones.Logs;
 import funciones.Salir;
 
 /**
@@ -136,6 +137,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 			Login l = new Login();
 			l.setLocationRelativeTo(null);
 			l.setVisible(true);
+			Logs.logoutLog();
 			
 			this.dispose();
 		} 

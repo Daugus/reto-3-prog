@@ -2,6 +2,8 @@ package funciones;
 
 import javax.swing.JOptionPane;
 
+import navegacion.Login;
+
 public class Salir
 {
 	public static void siNo()
@@ -13,7 +15,10 @@ public class Salir
 		switch (opcion)
 		{
 			case JOptionPane.YES_OPTION:
+				
+				Logs.logoutLog();
 				System.exit(0);
+				
 				break;
 		}
 	}

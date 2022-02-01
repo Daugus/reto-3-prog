@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import edicion.EditarAjustes;
+import funciones.Logs;
 import funciones.Salir;
 
 /**
@@ -101,6 +102,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 			Login l = new Login();
 			l.setLocationRelativeTo(null);
 			l.setVisible(true);
+			Logs.logoutLog();
 			
 			this.dispose();
 		} 
@@ -118,6 +120,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
+		
 		Salir.siNo();
 	}
 
