@@ -137,12 +137,14 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 				CrearOrdenPend cop = new CrearOrdenPend();
 				cop.cargarDatos();
 				if(!Inicio.cuentaActual.getMecanico()) {
-					cop.getBtnGenerar().setVisible(false);;;
+					cop.getBtnGenerar().setVisible(false);
+					cop.getBtnAgregar().setVisible(false);
 				}
 				
 
 				cop.setVisible(true);
 				cop.setLocationRelativeTo(null);
+				this.setVisible(false);
 			}
 			catch (NullPointerException npe)
 			{

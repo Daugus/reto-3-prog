@@ -35,9 +35,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
-	
 	private static JTable tblClientes;
-	
 	private JButton btnVolver;
 	private JButton btnEditar;
 	private JButton btnAgregar;

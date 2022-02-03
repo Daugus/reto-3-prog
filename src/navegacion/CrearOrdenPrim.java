@@ -242,6 +242,7 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    		//System.out.println(matricula);
 		    		vehiculo = Archivos.cargarVehiculo(matricula);
 		    		//System.out.println(vehiculo);
+		    		// ---- guarda la orden en archiivo log
 		    		Logs.ordenLog("nueva orden: "+ vehiculo.toString());
 
 		    		// --- orden primaria ---
@@ -261,12 +262,14 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    	{
 		    		JOptionPane.showMessageDialog (null, "Por favor seleccione un vehículo", "ERROR",
 		    				JOptionPane.ERROR_MESSAGE);
+		    		Logs.erroresLog("No se ha seleccionado ningun vehiculo");
 		    	}
 			}
 			else
 			{
 				JOptionPane.showMessageDialog (null, "Por favor seleccione un cliente", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
+				Logs.erroresLog("No se ha seleccionado ningun cliente");
 			}
 
 		}

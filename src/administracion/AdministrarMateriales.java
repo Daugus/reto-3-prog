@@ -37,11 +37,9 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	private JPanel panelPrincipal;
 	
 	private static JTable tblMateriales;
-
 	private JButton btnVolver;
 	private JButton btnEditar;
 	private JButton btnAgregar;
-
 	private Material material;
 
 	public AdministrarMateriales()
@@ -79,6 +77,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		DefaultTableModel dtmMateriales = new DefaultTableModel();
 		dtmMateriales.addColumn("Nombre");
 		dtmMateriales.addColumn("Precio");
+		
 
 		// --- asignar ---
 		tblMateriales = new JTable(dtmMateriales)
@@ -98,7 +97,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		
 		actualizarTabla();
 
-		scrollMateriales.setViewportView(tblMateriales);
+		scrollMateriales.setRowHeaderView(tblMateriales);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -194,6 +193,15 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 			
 			this.dispose();
 		} 
+	}
+	
+	// ==== Getters and Setters
+	
+	public static void setTblMateriales(JTable tblMateriales) {
+		AdministrarMateriales.tblMateriales = tblMateriales;
+	}
+	public static JTable getTblMateriales() {
+		return tblMateriales;
 	}
 
 	@Override

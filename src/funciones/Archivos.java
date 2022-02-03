@@ -15,6 +15,7 @@ import clases.Ajustes;
 import clases.Cliente;
 import clases.Cuenta;
 import clases.Material;
+import clases.OrdenPend;
 import clases.OrdenPrim;
 import clases.Vehiculo;
 import navegacion.Inicio;
@@ -28,6 +29,8 @@ public class Archivos {
 	public static String cuentas = raiz + "Cuenta\\";
 	public static String primarias = raiz + "OrdenPrim\\";
 	public static String logs = raiz + "Logs\\";
+	public static String pendientes = raiz + "OrdenPend\\";
+	
 
 	
 	// ===== crear carpetas en caso de que no existan ======
@@ -88,6 +91,10 @@ public class Archivos {
 		File f = new File(primarias + op.getCodOrdenPrim() + ".dat");
 		guardar(op, f);
 	}
+	public static void guardarOrdenPend(OrdenPend ope) {
+		File f = new File(pendientes + ope.getCodOrdenPend() + ".dat");
+		guardar(ope, f);
+	}
 
 	// ===== cargar =====
 	private static Object cargar(File f) {
@@ -105,9 +112,11 @@ public class Archivos {
 			ois.close();
 			fis.close();
 		} catch (IOException e) {
-			System.out.println("error carga");
+			//System.out.println("error carga");
+			Logs.erroresLog("no se han cargado los datos");
 		} catch (ClassNotFoundException e) {
-			System.out.println("error carga - clase");
+			//System.out.println("error carga - clase");
+			Logs.erroresLog("error carga - clase");
 		}
 
 		return o;

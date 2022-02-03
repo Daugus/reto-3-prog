@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import clases.Cliente;
 import clases.Vehiculo;
 import funciones.Salir;
+import javax.swing.JTable;
 
 /**
  * 
@@ -34,18 +35,11 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 
 	private JButton btnVolver;
 	private JButton btnGenerar;
-	public JButton getBtnGenerar() {
-		return btnGenerar;
-	}
-
-	public void setBtnGenerar(JButton btnGenerar) {
-		this.btnGenerar = btnGenerar;
-	}
+	private JButton btnAgregar;
+	
 
 	private DefaultListModel<String> dlmReparaciones;
 	private DefaultListModel<String> dlmPiezas;
-	private JList<String> lstReparaciones;
-	private JList<String> lstPiezas;
 	
 	// ===== datos OrdenPrim =====
 	private JLabel lblCodigoTxt;
@@ -80,6 +74,8 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 	private JLabel lblFechaITVTxt;
 
 	private JLabel lblTipoTxt;
+	private JTable tableRepa;
+	private JTable tablePiezas;
 
 	public CrearOrdenPend()
 	{
@@ -102,8 +98,11 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		 * Boton implementado con Action Listener
 		 */
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 732, 186, 31);
+		btnVolver.setBounds(10, 733, 186, 31);
 		panelPrincipal.add(btnVolver);
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(450, 654, 186, 31);
+		panelPrincipal.add(btnAgregar);
 		
 		JLabel lblCodigo = new JLabel("Código orden primaria:");
 		lblCodigo.setBounds(10, 239, 157, 19);
@@ -253,12 +252,6 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		lblPuerta.setBounds(317, 164, 119, 20);
 		panelPrincipal.add(lblPuerta);
 		
-		lstReparaciones = new JList<String>();
-		lstReparaciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		lstPiezas = new JList<String>();
-		lstPiezas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		lblComentarioTxt = new JLabel("");
 		lblComentarioTxt.setBounds(10, 300, 817, 159);
 		panelPrincipal.add(lblComentarioTxt);
@@ -280,24 +273,22 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		JScrollPane scrollReparaciones = new JScrollPane();
 		scrollReparaciones.setBounds(34, 470, 358, 159);
 		panelPrincipal.add(scrollReparaciones);
-
-		scrollReparaciones.setViewportView(lstReparaciones);
+		
+		tableRepa = new JTable();
+		scrollReparaciones.setViewportView(tableRepa);
 
 		// --- piezas ---
 		JScrollPane scrollPiezas = new JScrollPane();
 		scrollPiezas.setBounds(450, 470, 358, 159);
 		panelPrincipal.add(scrollPiezas);
-
-		scrollPiezas.setViewportView(lstPiezas);
+		
+		tablePiezas = new JTable();
+		scrollPiezas.setViewportView(tablePiezas);
 
 		// ===== modelos =====
 		// --- crear ---
 		dlmReparaciones = new DefaultListModel<String>();
 		dlmPiezas = new DefaultListModel<String>();
-		
-		// --- asignar ---
-		lstReparaciones.setModel(dlmReparaciones);
-		lstPiezas.setModel(dlmPiezas);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -307,6 +298,7 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		// --- Action ---
 		btnVolver.addActionListener(this);
 		btnGenerar.addActionListener(this);
+		btnAgregar.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente y color ---
@@ -341,14 +333,13 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		btnGenerar.setFont(Inicio.fuenteObjetos);
 		btnGenerar.setBackground(Inicio.colorFondoObjetos);
 		btnGenerar.setForeground(Inicio.colorFuenteObjetos);
-
-		lstReparaciones.setFont(Inicio.fuenteObjetos);
-		lstReparaciones.setBackground(Inicio.colorFondoObjetos);
-		lstReparaciones.setForeground(Inicio.colorFuenteObjetos);
 		
-		lstPiezas.setFont(Inicio.fuenteObjetos);
-		lstPiezas.setBackground(Inicio.colorFondoObjetos);
-		lstPiezas.setForeground(Inicio.colorFuenteObjetos);
+		btnAgregar.setFont(Inicio.fuenteObjetos);
+		btnAgregar.setBackground(Inicio.colorFondoObjetos);
+		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
+		
+		
+		panelPrincipal.add(btnAgregar);
 	}
 	
 	public void cargarDatos()
@@ -403,12 +394,48 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		{
 			
 		}
-		else
+		if (o == btnVolver)
 		{
+			if (Inicio.cuentaActual.getMecanico()) {
+				MenuMec mm = new MenuMec();
+				mm.setLocationRelativeTo(null);
+				mm.setVisible(true);
+			}
+			else {
+				ListaOrdenesPrim mat = new ListaOrdenesPrim();
+				mat.setLocationRelativeTo(null);
+				mat.setVisible(true);
+			}
 			this.dispose();
 		}
+		else if (o == btnAgregar)
+		{
+			AsignarMaterial am = new AsignarMaterial();
+			am.setLocationRelativeTo(null);
+			am.setVisible(true);
+		}
+		
+	}
+	
+	
+	// ===== Getters and Setters =====
+	
+	public JButton getBtnGenerar() {
+		return btnGenerar;
 	}
 
+	public void setBtnGenerar(JButton btnGenerar) {
+		this.btnGenerar = btnGenerar;
+	}
+	public JButton getBtnAgregar() {
+		return btnAgregar;
+	}
+
+	public void setBtnAgregar(JButton btnAgregar) {
+		this.btnAgregar = btnAgregar;
+	}
+	
+	// ===== Overrides =======
 	@Override
 	public void windowClosing(WindowEvent e) {
 		Salir.siNo();

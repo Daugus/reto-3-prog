@@ -93,6 +93,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		{
 			ListaOrdenesPrim lop = new ListaOrdenesPrim();
 			lop.setLocationRelativeTo(null);
+			this.setVisible(false);
 			lop.setVisible(true);
 			
 			this.dispose();

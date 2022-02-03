@@ -3,49 +3,54 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
+public class OrdenPend implements Comparable<OrdenPend>, Serializable
 {
 	private static final long serialVersionUID = 6717239572208402072L;
 	
 	// ===== propiedades =====
-	private String codOrdenPrim;
+	private String codOrdenPend;
 	private String comentarios;
 	private Fecha fechaEntrada;
 	private Cliente propietario;
 	private Vehiculo vehiculo;
+	private Material material;
+	private int horas;
 	
 	// ===== constructores =====
 	// por defecto
-	public OrdenPrim()
+	public OrdenPend()
 	{
-		codOrdenPrim = "";
+		codOrdenPend = "";
 		comentarios = "";
+		horas =0;
 		fechaEntrada = new Fecha();
-		
 		propietario = new Cliente();
 		vehiculo = new Vehiculo();
+		material = new Material();
 	}
 	
 	// copia
-	public OrdenPrim(OrdenPrim other)
+	public OrdenPend(OrdenPend other)
 	{
-		this.codOrdenPrim = other.codOrdenPrim;
+		this.codOrdenPend = other.codOrdenPend;
 		this.comentarios = other.comentarios;
 		this.fechaEntrada = new Fecha(other.fechaEntrada);
-		
+		this.horas = other.horas;
 		this.propietario = new Cliente(other.propietario);
 		this.vehiculo = new Vehiculo(other.vehiculo);
+		this.material = new Material(other.material);
 	}
 	
 	// personalizado
-	public OrdenPrim(String cod, String com, Fecha entrada, Cliente c, Vehiculo v)
+	public OrdenPend(String cod, String com, int h, Fecha entrada, Cliente c, Vehiculo v, Material m)
 	{
-		codOrdenPrim = cod;
+		codOrdenPend = cod;
 		comentarios = com;
+		horas= h;
 		fechaEntrada = new Fecha(entrada);
-
 		propietario = new Cliente(c);
 		vehiculo = new Vehiculo(v);
+		material = new Material(m);
 	}
 
 	// ===== métodos =====
@@ -53,17 +58,19 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public String toString()
 	{
-		return "codOrdenPrim = " + codOrdenPrim +
+		return "codOrdenPend = " + codOrdenPend +
 				", comentarios = " + comentarios +
 				", fechaEntrada = " + fechaEntrada +
 				", vehiculo = " + vehiculo +
-				", propietario = " + propietario;
+				", propietario = " + propietario +
+				", material = "+ material+
+				", horas = " + horas;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(codOrdenPrim, comentarios, fechaEntrada, propietario, vehiculo);
+		return Objects.hash(codOrdenPend, comentarios, fechaEntrada, propietario, vehiculo, material, horas);
 	}
 
 	// --- comparación ---
@@ -76,14 +83,18 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrdenPrim other = (OrdenPrim) obj;
-		return Objects.equals(codOrdenPrim, other.codOrdenPrim) && Objects.equals(comentarios, other.comentarios)
-				&& Objects.equals(fechaEntrada, other.fechaEntrada) && Objects.equals(propietario, other.propietario)
-				&& Objects.equals(vehiculo, other.vehiculo);
+		OrdenPend other = (OrdenPend) obj;
+		return Objects.equals(codOrdenPend, other.codOrdenPend)
+				&& Objects.equals(comentarios, other.comentarios)
+				&& Objects.equals(fechaEntrada, other.fechaEntrada)
+				&& Objects.equals(horas, other.horas)
+				&& Objects.equals(propietario, other.propietario)
+				&& Objects.equals(vehiculo, other.vehiculo)
+				&& Objects.equals(material, other.material);
 	}
 
 	@Override
-	public int compareTo(OrdenPrim other)
+	public int compareTo(OrdenPend other)
 	{
 		int comparacionFecha = fechaEntrada.compareTo(other.fechaEntrada);
 		if (comparacionFecha == 0)
@@ -110,13 +121,14 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 		return 0;
 	}
 
+
 	// --- getters y setters ---
-	public String getCodOrdenPrim() {
-		return codOrdenPrim;
+	public String getCodOrdenPend() {
+		return codOrdenPend;
 	}
 
-	public void setCodOrdenPrim(String codOrdenPrim) {
-		this.codOrdenPrim = codOrdenPrim;
+	public void setCodOrdenPrim(String codOrdenPend) {
+		this.codOrdenPend = codOrdenPend;
 	}
 
 	public String getComentarios() {
@@ -149,5 +161,20 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 
 	public void setPropietario(Cliente propietario) {
 		this.propietario = propietario;
+	}
+	public Material getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+
+	public int getHoras() {
+		return horas;
+	}
+
+	public void setHoras(int horas) {
+		this.horas = horas;
 	}
 }
