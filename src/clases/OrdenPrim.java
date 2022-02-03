@@ -85,29 +85,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public int compareTo(OrdenPrim other)
 	{
-		int comparacionFecha = fechaEntrada.compareTo(other.fechaEntrada);
-		if (comparacionFecha == 0)
-		{
-			int comparacionPropietario = propietario.compareTo(other.propietario);
-			if (comparacionPropietario == 0)
-			{
-				int comparacionVehiculo = vehiculo.compareTo(other.vehiculo);
-				if (comparacionVehiculo != 0)
-				{
-					return comparacionVehiculo;
-				}
-			}
-			else
-			{
-				return comparacionPropietario;
-			}
-		}
-		else
-		{
-			return comparacionFecha;
-		}
-
-		return 0;
+		return codOrdenPrim.compareTo(other.codOrdenPrim);
 	}
 
 	// --- getters y setters ---

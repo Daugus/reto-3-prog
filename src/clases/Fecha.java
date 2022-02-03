@@ -1,6 +1,7 @@
 package clases;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class Fecha implements Comparable<Fecha>, Serializable
@@ -16,9 +17,9 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	// --- por defecto ---
 	public Fecha()
 	{
-		day = 1;
-		month = 1;
-		year = 2022;
+		day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		month = Calendar.getInstance().get(Calendar.MONTH);
+		year = Calendar.getInstance().get(Calendar.YEAR);
 	}
 	
 	// --- copia ---

@@ -22,6 +22,13 @@ public class Cuenta extends Persona
 		ajustes = new Ajustes();
 	}
 	
+	public Cuenta(boolean cod)
+	{
+		super();
+		
+		mecanico = cod;
+	}
+	
 	// --- copia ---
 	public Cuenta(Cuenta other)
 	{

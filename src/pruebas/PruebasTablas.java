@@ -1,9 +1,12 @@
 package pruebas;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -15,16 +18,15 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import clases.Cuenta;
 import funciones.Archivos;
 import funciones.Tablas;
 import navegacion.Inicio;
 
-/**
- * 
- * @author Grupo 2
- *
- */
 public class PruebasTablas extends JFrame implements ActionListener
 {
 	public static void main(String[] args) {
@@ -46,6 +48,7 @@ public class PruebasTablas extends JFrame implements ActionListener
 	private JButton btnAgregarLargo;
 	private JButton btnPK;
 	private JButton btnBorrarLargo;
+	private JButton btnPDF;
 
 	private DefaultTableModel dtmCuentas;
 	private JTable tblCuentas;
@@ -53,7 +56,7 @@ public class PruebasTablas extends JFrame implements ActionListener
 	public PruebasTablas()
 	{
 		setBackground(new Color(255, 255, 255));
-		setResizable(false);
+//		setResizable(false);
 		setTitle("Pruebas tablas");
 		
 		setBounds(100, 100, 750, 553);
@@ -64,7 +67,7 @@ public class PruebasTablas extends JFrame implements ActionListener
 		
 		btnPK = new JButton("PK");
 		btnPK.setBackground(Color.WHITE);
-		btnPK.setBounds(225, 388, 269, 62);
+		btnPK.setBounds(62, 373, 269, 62);
 		panelPrincipal.add(btnPK);
 		
 		btnAgregarLargo = new JButton("Agregar largo y reajustar");
@@ -154,14 +157,60 @@ public class PruebasTablas extends JFrame implements ActionListener
 		btnAgregarLargo.setForeground(Inicio.colorFuenteObjetos);
 
 		Tablas.ajustarColumnas(tblCuentas);
+		
+		btnPDF = new JButton("Guardar como PDF");
+		btnPDF.addActionListener(this);
+		btnPDF.setForeground(Inicio.colorFuenteObjetos);
+		btnPDF.setFont(Inicio.fuenteObjetos);
+		btnPDF.setBackground(Inicio.colorFondoObjetos);
+		btnPDF.setBounds(377, 373, 269, 62);
+		panelPrincipal.add(btnPDF);
 	}
 	
+	public void printToPDF(java.awt.Image awtImage, String fileName)
+	{
+		try
+		{
+			Document d = new Document();
+			PdfWriter writer = PdfWriter.getInstance(d, new FileOutputStream(fileName));
+			d.open();
+			
+			Image iTextImage = Image.getInstance(writer, awtImage, 1);
+	         iTextImage.scalePercent(80);
+	         d.add(iTextImage);
+			
+			d.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static java.awt.Image getImageFromPanel(Component component)
+	{
+        BufferedImage image = new BufferedImage(component.getWidth(),
+                component.getHeight(), BufferedImage.TYPE_INT_RGB);
+        component.paint(image.getGraphics());
+        return image;
+    }
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		Object o = e.getSource();
-		if (o == btnPK)
+		if (o == btnPDF)
+		{
+			btnPDF.setVisible(false);
+			panelPrincipal.setBackground(Color.WHITE);
+			java.awt.Image image = getImageFromPanel(panelPrincipal);
+			String fileName = "D:\\tmp\\newfile.pdf";
+			printToPDF(image, fileName);
+			btnPDF.setVisible(true);
+			panelPrincipal.setBackground(Color.DARK_GRAY);
+		}
+		else if (o == btnPK)
 		{
 			int row = tblCuentas.getSelectedRow();
 			if (row >= 0)

@@ -4,71 +4,75 @@ import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
 import navegacion.Inicio;
 
 public class Logs 
 {
 	// ===== Rutas =====
 	public static String raiz = "C:\\RKA\\Logs\\";
-	public static String login = raiz +"login.log";
-	public static String logout = raiz +"lougout.log";
-	public static String orden = raiz +"ordenes.log";
-	public static String error = raiz +"error.log";
+	public static String sesion = raiz + "sesion.log";
+	public static String orden = raiz + "ordenes.log";
+	public static String error = raiz + "error.log";
 	
 	// ====== Generar logs =======
-		public static void grabar(String rutaArchivo, String mensaje)
+	public static void grabar(String rutaArchivo, String mensaje, boolean error)
+	{
+		Logger logger = Logger.getLogger("log");
+		FileHandler fh;
+
+		try 
 		{
+			fh = new FileHandler(rutaArchivo, true);
+			logger.addHandler(fh);
 
-			Logger logger = Logger.getLogger("losLog");
-			FileHandler fh;
+			System.setProperty("java.util.logging.SimpleFormatter.format",
+					"[%1$tF %1$tT] [%4$-7s] %5$s %n");
 
-			try 
+			SimpleFormatter formatter = new SimpleFormatter();
+			fh.setFormatter(formatter);
+
+			if (error)
 			{
-
-				fh = new FileHandler(rutaArchivo, true);
-				logger.addHandler(fh);
-
-				SimpleFormatter formatter = new SimpleFormatter();
-
-				fh.setFormatter(formatter);
-
+				logger.warning(mensaje);
+			}
+			else
+			{
 				logger.info(mensaje);
-
-				fh.close();
-
-			} catch (SecurityException e) 
-			{
-				e.printStackTrace();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
 			}
 
+			fh.close();
 		}
-		// ===== individuales =====
-		public static void loginLog()
+		catch (SecurityException e) 
 		{
-			String f=(login);
-			String mensaje="el usuario: "+ Inicio.cuentaActual.getDNI()+" ha iniciado sesion\n";
-			grabar(f,mensaje );
+			e.printStackTrace();
 		}
-		
-		public static void logoutLog() 
+		catch (IOException e)
 		{
-			String f=(logout );
-			String mensaje="el usuario: "+ Inicio.cuentaActual.getDNI()+" ha cerrado sesion\n";
-			grabar(f,mensaje );
+			e.printStackTrace();
 		}
-		
-		public static void ordenLog(String veh) {
-			String f=(orden);
-			grabar(f,veh);
-		}
-		
-		public static void erroresLog(String err) {
-			String f=(error);
-			grabar(f,err);
-		}
-		
+	}
 
+	// ===== individuales =====
+	public static void login()
+	{
+		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha iniciado sesión";
+		grabar(sesion, mensaje, false);
+	}
+		
+	public static void logout() 
+	{
+		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha cerrado sesión";
+		grabar(sesion, mensaje, false);
+	}
+		
+	public static void orden(String ord)
+	{
+		grabar(orden, ord, false);
+	}
+		
+	public static void error(String err)
+	{
+		grabar(error, err, true);
+	}
 }

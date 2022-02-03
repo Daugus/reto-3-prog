@@ -136,17 +136,19 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				Inicio.cuentaActual = new Cuenta(Archivos.cargarCuenta(dni));
 				
 				Archivos.cargarAjustes();
-				Logs.loginLog();
 				
 				if (!password.equals(Inicio.cuentaActual.getPassword()))
 				{
 					// si la contraseña es incorrecta saca ventana de error
-					JOptionPane.showMessageDialog(this, (String) "Contraseña errónea", "ERROR",
+					JOptionPane.showMessageDialog(this, (String) "Contraseña incorrecta", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
-					Logs.erroresLog("Se introducio contraseña erronea");
+
+					Logs.error("Se introducido una contraseña incorrecta");
 				}
 				else
 				{
+					Logs.login();
+
 					if (Inicio.cuentaActual.getMecanico())
 					{
 						// mecánico
@@ -176,10 +178,10 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 			catch (NullPointerException npe)
 			{
 				// si la cuenta no existe saca ventana de error
-				JOptionPane.showMessageDialog(this, (String) "La cuenta no existe", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "La cuenta " + dni + " no está registrada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 				
-				Logs.erroresLog("La cuenta "+dni+" no esta registrada");
+				Logs.error("La cuenta " + dni + " no está registrada");
 			}
 		}
 	}

@@ -77,7 +77,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		DefaultTableModel dtmMateriales = new DefaultTableModel();
 		dtmMateriales.addColumn("Nombre");
 		dtmMateriales.addColumn("Precio");
-		
 
 		// --- asignar ---
 		tblMateriales = new JTable(dtmMateriales)

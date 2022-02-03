@@ -103,7 +103,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 			Login l = new Login();
 			l.setLocationRelativeTo(null);
 			l.setVisible(true);
-			Logs.logoutLog();
+			Logs.logout();
 			
 			this.dispose();
 		} 

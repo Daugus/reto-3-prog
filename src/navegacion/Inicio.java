@@ -13,10 +13,6 @@ import funciones.Archivos;
  */
 public class Inicio
 {
-	/**
-	 * @param args
-	 * contiene el main que se encarga del arranque del programa
-	 */
 	public static Cuenta cuentaActual;
 	public static Font fuente = new Font("Segoe UI", Font.PLAIN, 13);
 	public static Font fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);

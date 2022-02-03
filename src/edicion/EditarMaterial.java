@@ -180,7 +180,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 					}
 				}
 			}
-			catch (NumberFormatException npe)
+			catch (NumberFormatException nfe)
 			{
 				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
