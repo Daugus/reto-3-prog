@@ -72,7 +72,7 @@ public class Direccion implements Comparable<Direccion>, Serializable
 		}
 		else
 		{
-			portal = pi;
+			piso = pi;
 		}
 
 		// - puerta -

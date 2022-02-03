@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,9 +18,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.PdfWriter;
+//import com.itextpdf.text.Document;
+//import com.itextpdf.text.Image;
+//import com.itextpdf.text.pdf.PdfWriter;
 
 import clases.Cuenta;
 import funciones.Archivos;
@@ -171,15 +171,15 @@ public class PruebasTablas extends JFrame implements ActionListener
 	{
 		try
 		{
-			Document d = new Document();
-			PdfWriter writer = PdfWriter.getInstance(d, new FileOutputStream(fileName));
-			d.open();
+//			Document d = new Document();
+//			PdfWriter writer = PdfWriter.getInstance(d, new FileOutputStream(fileName));
+//			d.open();
 			
-			Image iTextImage = Image.getInstance(writer, awtImage, 1);
-	         iTextImage.scalePercent(80);
-	         d.add(iTextImage);
-			
-			d.close();
+//			Image iTextImage = Image.getInstance(writer, awtImage, 1);
+//	         iTextImage.scalePercent(80);
+//	         d.add(iTextImage);
+//			
+//			d.close();
 		}
 		catch (Exception e)
 		{
