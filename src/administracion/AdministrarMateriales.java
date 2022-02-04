@@ -96,7 +96,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		
 		actualizarTabla();
 
-		scrollMateriales.setRowHeaderView(tblMateriales);
+		scrollMateriales.setViewportView(tblMateriales);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -134,9 +134,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
-		
-		// ajustar tamaño de columnas según contenido
-		Tablas.ajustarColumnas(tblMateriales);
 	}
 	
 	public static void actualizarTabla()

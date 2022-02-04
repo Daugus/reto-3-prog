@@ -149,6 +149,8 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		lblVehiculo.setFont(Inicio.fuente);
 		lblComentario.setFont(Inicio.fuente);
 
+		txtComentario.setFont(Inicio.fuenteObjetos);
+
 		cmbClientes.setFont(Inicio.fuenteObjetos);
 		cmbVehiculos.setFont(Inicio.fuenteObjetos);
 
@@ -160,6 +162,8 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
+
+		txtComentario.setBackground(Inicio.colorFondoObjetos);
 
 		cmbClientes.setBackground(Inicio.colorFondoObjetos);
 		cmbVehiculos.setBackground(Inicio.colorFondoObjetos);
@@ -173,6 +177,8 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		lblCliente.setForeground(Inicio.colorFuente);
 		lblVehiculo.setForeground(Inicio.colorFuente);
 		lblComentario.setForeground(Inicio.colorFuente);
+
+		txtComentario.setForeground(Inicio.colorFuenteObjetos);
 
 		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
 		cmbVehiculos.setForeground(Inicio.colorFuenteObjetos);
@@ -239,11 +245,7 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    	if (cmbVehiculos.getSelectedIndex() >= 0)
 		    	{
 		    		String matricula = (String) cmbVehiculos.getSelectedItem();
-		    		//System.out.println(matricula);
 		    		vehiculo = Archivos.cargarVehiculo(matricula);
-		    		//System.out.println(vehiculo);
-		    		// ---- guarda la orden en archiivo log
-		    		Logs.orden("nueva orden: " + vehiculo.toString());
 
 		    		// --- orden primaria ---
 		    		Calendar calendar = Calendar.getInstance();
@@ -256,7 +258,6 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    		txtComentario.setText("");
 		    		
 		    		Archivos.guardarOrdenPrim(new OrdenPrim(codOrdenPrim, comentarios, new Fecha(), cliente, vehiculo));
-		    		
 		    	}
 		    	else
 		    	{

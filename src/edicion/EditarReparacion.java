@@ -1,12 +1,15 @@
-package navegacion;
+package edicion;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 
 import javax.swing.DefaultComboBoxModel;
@@ -24,15 +27,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 
+import clases.Fecha;
 import clases.Material;
 import clases.MaterialUsado;
+import clases.Reparacion;
 import funciones.Archivos;
+import funciones.Salir;
 import funciones.Tablas;
+import navegacion.CrearOrdenPend;
+import navegacion.Inicio;
 
-public class AsignarMaterial extends JFrame implements ActionListener, WindowListener, FocusListener
+public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel panelPrincipal;
@@ -43,21 +50,27 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 	private JTable tblMateriales;
 	private ArrayList<MaterialUsado> alMaterialesUsados = new ArrayList<MaterialUsado>();
 
-	private JButton btnAgregar;
+	private JButton btnAgregarMaterial;
 	private JButton btnEliminar;
-	private JButton btnAceptar;
+	private JButton btnGuardar;
 
 	private JTextField txtCantidad;
+	private JTextField txtHoras;
+	private JTextField txtManoObra;
 
 	private Material material;
+	private JButton btnCancelar;
+	private JTextField txtDescripcion;
+	
+	private boolean edicion;
 
-	public AsignarMaterial()
+	public EditarReparacion()
 	{
-		setTitle("Materiales");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 708, 300);
+		setResizable(false);
+		setTitle("Agregar reparación");
+
+		setBounds(100, 100, 708, 524);
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
@@ -65,33 +78,61 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 		cmbMaterial = new JComboBox<String>();
 		cmbMaterial.addItem("Oscuro");
 		cmbMaterial.addItem("Claro");
-		cmbMaterial.setBounds(38, 26, 184, 33);
+		cmbMaterial.setBounds(33, 216, 184, 33);
 		panelPrincipal.add(cmbMaterial);
 
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(428, 26, 98, 33);
-		panelPrincipal.add(btnAgregar);
+		btnAgregarMaterial = new JButton("Agregar");
+		btnAgregarMaterial.setBounds(423, 216, 98, 33);
+		panelPrincipal.add(btnAgregarMaterial);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(552, 26, 98, 33);
+		btnEliminar.setBounds(547, 216, 98, 33);
 		panelPrincipal.add(btnEliminar);
 
-		btnAceptar = new JButton("Validar");
-		btnAceptar.setBounds(275, 208, 138, 42);
-		panelPrincipal.add(btnAceptar);
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(270, 398, 138, 42);
+		panelPrincipal.add(btnGuardar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(89, 398, 138, 42);
+		panelPrincipal.add(btnCancelar);
+		
+		txtHoras = new JTextField();
+		txtHoras.setBounds(253, 93, 50, 30);
+		panelPrincipal.add(txtHoras);
+		
+		txtManoObra = new JTextField();
+		txtManoObra.setBounds(253, 134, 50, 30);
+		panelPrincipal.add(txtManoObra);
+		
+		txtDescripcion = new JTextField();
+		txtDescripcion.setBounds(253, 49, 200, 30);
+		panelPrincipal.add(txtDescripcion);
+		
+		JLabel lblDescripcion = new JLabel("Descripción");
+		lblDescripcion.setBounds(143, 48, 100, 33);
+		panelPrincipal.add(lblDescripcion);
+		
+		JLabel lblHoras = new JLabel("Horas");
+		lblHoras.setBounds(143, 92, 100, 33);
+		panelPrincipal.add(lblHoras);
+		
+		JLabel lblManoObra = new JLabel("Mano de obra");
+		lblManoObra.setBounds(143, 133, 100, 33);
+		panelPrincipal.add(lblManoObra);
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(252, 26, 69, 33);
+		lblCantidad.setBounds(247, 216, 69, 33);
 		panelPrincipal.add(lblCantidad);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(329, 26, 83, 33);
+		txtCantidad.setBounds(324, 216, 83, 33);
 		panelPrincipal.add(txtCantidad);
 		txtCantidad.setColumns(10);
 
 		// ==== Barras de desplazamiento ====
 		JScrollPane scrollMateriales = new JScrollPane();
-		scrollMateriales.setBounds(38, 69, 613, 113);
+		scrollMateriales.setBounds(33, 259, 613, 113);
 		panelPrincipal.add(scrollMateriales);
 
 		// ====== Modelos ======
@@ -126,11 +167,21 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 		addWindowListener(this);
 
 		// --- Action ---
+		txtDescripcion.addActionListener(this);
+		txtHoras.addActionListener(this);
+		txtManoObra.addActionListener(this);
 		txtCantidad.addActionListener(this);
 
 		btnEliminar.addActionListener(this);
-		btnAgregar.addActionListener(this);
-		btnAceptar.addActionListener(this);
+		btnAgregarMaterial.addActionListener(this);
+		btnCancelar.addActionListener(this);
+		btnGuardar.addActionListener(this);
+		
+		// --- Focus ---
+		txtDescripcion.addFocusListener(this);
+		txtHoras.addFocusListener(this);
+		txtManoObra.addFocusListener(this);
+		txtCantidad.addFocusListener(this);
 		
 		// --- ListSelection ---
 		tblMateriales.getSelectionModel().addListSelectionListener(new ListSelectionListener()
@@ -150,12 +201,22 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 		// --- fuente ---
 		cmbMaterial.setFont(Inicio.fuenteObjetos);
 
+		lblDescripcion.setFont(Inicio.fuente);
+		lblHoras.setFont(Inicio.fuente);
+		lblManoObra.setFont(Inicio.fuente);
+
 		lblCantidad.setFont(Inicio.fuente);
+
+		txtDescripcion.setFont(Inicio.fuenteObjetos);
+		txtHoras.setFont(Inicio.fuenteObjetos);
+		txtManoObra.setFont(Inicio.fuenteObjetos);
+
 		txtCantidad.setFont(Inicio.fuenteObjetos);
 		
 		btnEliminar.setFont(Inicio.fuenteObjetos);
-		btnAgregar.setFont(Inicio.fuenteObjetos);
-		btnAceptar.setFont(Inicio.fuenteObjetos);
+		btnAgregarMaterial.setFont(Inicio.fuenteObjetos);
+		btnCancelar.setFont(Inicio.fuenteObjetos);
+		btnGuardar.setFont(Inicio.fuenteObjetos);
 
 		tblMateriales.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblMateriales.setFont(Inicio.fuente);
@@ -164,12 +225,16 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
+		txtDescripcion.setBackground(Inicio.colorFondoObjetos);
+		txtHoras.setBackground(Inicio.colorFondoObjetos);
+		txtManoObra.setBackground(Inicio.colorFondoObjetos);
 		txtCantidad.setBackground(Inicio.colorFondoObjetos);
 		cmbMaterial.setBackground(Inicio.colorFondoObjetos);
 
 		btnEliminar.setBackground(Inicio.colorFondoObjetos);
-		btnAgregar.setBackground(Inicio.colorFondoObjetos);
-		btnAceptar.setBackground(Inicio.colorFondoObjetos);
+		btnAgregarMaterial.setBackground(Inicio.colorFondoObjetos);
+		btnCancelar.setBackground(Inicio.colorFondoObjetos);
+		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 
 		tblMateriales.getTableHeader().setBackground(Inicio.colorFondoObjetos);
 		tblMateriales.setBackground(Inicio.colorFondoObjetos);
@@ -177,29 +242,39 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 		scrollMateriales.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
+		lblDescripcion.setForeground(Inicio.colorFuente);
+		lblHoras.setForeground(Inicio.colorFuente);
+		lblManoObra.setForeground(Inicio.colorFuente);
+
 		lblCantidad.setForeground(Inicio.colorFuente);
 
+		txtDescripcion.setForeground(Inicio.colorFuenteObjetos);
+		txtDescripcion.setDisabledTextColor(Color.DARK_GRAY);
+		txtHoras.setForeground(Inicio.colorFuenteObjetos);
+		txtManoObra.setForeground(Inicio.colorFuenteObjetos);
 		txtCantidad.setForeground(Inicio.colorFuenteObjetos);
 		cmbMaterial.setForeground(Inicio.colorFuenteObjetos);
 
 		btnEliminar.setForeground(Inicio.colorFuenteObjetos);
-		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
-		btnAceptar.setForeground(Inicio.colorFuenteObjetos);
+		btnAgregarMaterial.setForeground(Inicio.colorFuenteObjetos);
+		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
+		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 
 		tblMateriales.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
-	public void modoEdicion(TableModel tm)
+	public void modoEdicion(Reparacion r)
 	{
-		for (int i = 0; i < tm.getRowCount(); i++)
-		{
-			MaterialUsado mu = new MaterialUsado((String) tm.getValueAt(i, 0),
-					(Double) tm.getValueAt(i, 1),
-					(Integer) tm.getValueAt(i, 2));
-
-			alMaterialesUsados.add(mu);
-		}
+		edicion = true;
+		setTitle("Editar " + r.getDescripcion());
 		
+		txtDescripcion.setText(r.getDescripcion());
+		txtDescripcion.setEnabled(false);
+
+		txtHoras.setText(String.valueOf(r.getHoras()));
+		txtManoObra.setText(String.valueOf(r.getManoObra()));
+		alMaterialesUsados.addAll(r.getMaterialesUsados());
+
 		actualizarTabla();
 	}
 	
@@ -235,13 +310,7 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		else if (o == btnAceptar)
-		{
-			CrearOrdenPend.setTablaMateriales(tblMateriales.getModel());
-
-			this.dispose();
-		}
-		else
+		else if (o == btnAgregarMaterial || o == txtCantidad)
 		{
 			try
 			{
@@ -275,6 +344,57 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		else if (o == btnCancelar)
+		{
+//			Salir.siNo();
+			this.dispose();
+		}
+		else
+		{
+			try
+			{
+				String descripcion = txtDescripcion.getText();
+				int horas = Integer.parseInt(txtHoras.getText());
+				double manoObra = Double.parseDouble(txtManoObra.getText());
+				
+				Calendar calendar = Calendar.getInstance();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+				String cod = formatter.format(calendar.getTime());
+				
+				ArrayList<Reparacion> al = CrearOrdenPend.getReparaciones();
+				if (!edicion)
+				{
+					int posicion = 0;
+					boolean borrar = false;
+					for (int i = 0; i < al.size(); i++)
+					{
+						System.out.println(al.get(i).getDescripcion().equals(descripcion));
+						if (al.get(i).getDescripcion().equals(descripcion))
+						{
+							posicion = i;
+							borrar = true;
+						}
+					}
+
+					if (borrar)
+					{
+						al.remove(posicion);
+					}
+				}
+
+				al.add(new Reparacion(cod, descripcion, horas, manoObra,
+						new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+				
+				CrearOrdenPend.actualizarTablas();
+
+				this.dispose();
+			}
+			catch (NumberFormatException nfe)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	@Override
@@ -292,7 +412,7 @@ public class AsignarMaterial extends JFrame implements ActionListener, WindowLis
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		this.dispose();
+		Salir.siNo();
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	private static final long serialVersionUID = 6717239572208402072L;
 	
 	// ===== propiedades =====
-	private String codOrdenPrim;
+	private String codOrden;
 	private String comentarios;
 	private Fecha fechaEntrada;
 	private Cliente propietario;
@@ -18,7 +18,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	// por defecto
 	public OrdenPrim()
 	{
-		codOrdenPrim = "";
+		codOrden = "";
 		comentarios = "";
 		fechaEntrada = new Fecha();
 		
@@ -29,7 +29,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	// copia
 	public OrdenPrim(OrdenPrim other)
 	{
-		this.codOrdenPrim = other.codOrdenPrim;
+		this.codOrden = other.codOrden;
 		this.comentarios = other.comentarios;
 		this.fechaEntrada = new Fecha(other.fechaEntrada);
 		
@@ -40,7 +40,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	// personalizado
 	public OrdenPrim(String cod, String com, Fecha entrada, Cliente c, Vehiculo v)
 	{
-		codOrdenPrim = cod;
+		codOrden = cod;
 		comentarios = com;
 		fechaEntrada = new Fecha(entrada);
 
@@ -53,7 +53,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public String toString()
 	{
-		return "codOrdenPrim = " + codOrdenPrim +
+		return "codOrdenPrim = " + codOrden +
 				", comentarios = " + comentarios +
 				", fechaEntrada = " + fechaEntrada +
 				", vehiculo = " + vehiculo +
@@ -63,7 +63,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(codOrdenPrim, comentarios, fechaEntrada, propietario, vehiculo);
+		return Objects.hash(codOrden, comentarios, fechaEntrada, propietario, vehiculo);
 	}
 
 	// --- comparación ---
@@ -77,7 +77,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		OrdenPrim other = (OrdenPrim) obj;
-		return Objects.equals(codOrdenPrim, other.codOrdenPrim) && Objects.equals(comentarios, other.comentarios)
+		return Objects.equals(codOrden, other.codOrden) && Objects.equals(comentarios, other.comentarios)
 				&& Objects.equals(fechaEntrada, other.fechaEntrada) && Objects.equals(propietario, other.propietario)
 				&& Objects.equals(vehiculo, other.vehiculo);
 	}
@@ -85,16 +85,16 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public int compareTo(OrdenPrim other)
 	{
-		return codOrdenPrim.compareTo(other.codOrdenPrim);
+		return codOrden.compareTo(other.codOrden);
 	}
 
 	// --- getters y setters ---
-	public String getCodOrdenPrim() {
-		return codOrdenPrim;
+	public String getCodOrden() {
+		return codOrden;
 	}
 
-	public void setCodOrdenPrim(String codOrdenPrim) {
-		this.codOrdenPrim = codOrdenPrim;
+	public void setCodOrden(String codOrdenPrim) {
+		this.codOrden = codOrdenPrim;
 	}
 
 	public String getComentarios() {

@@ -87,7 +87,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		// - JTextField -
 		txtNombre.addActionListener(this);
 		txtNombre.addFocusListener(this);
-		txtNombre.setDisabledTextColor(Color.DARK_GRAY);
 		txtPrecio.addActionListener(this);
 		txtPrecio.addFocusListener(this);
 		
@@ -121,6 +120,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		lblPrecio.setForeground(Inicio.colorFuente);
 
 		txtNombre.setForeground(Inicio.colorFuenteObjetos);
+		txtNombre.setDisabledTextColor(Color.DARK_GRAY);
 		txtPrecio.setForeground(Inicio.colorFuenteObjetos);
 		
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);

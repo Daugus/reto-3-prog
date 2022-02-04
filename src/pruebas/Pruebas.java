@@ -80,8 +80,24 @@ public class Pruebas
 //		Archivos.guardarMaterial(new Material("btest", 30.0));
 
 		// ===== fecha =====
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
-		System.out.println(sdf.format(calendar.getTime()));
+//		Calendar calendar = Calendar.getInstance();
+//		SimpleDateFormat sdf = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
+//		System.out.println(sdf.format(calendar.getTime()));
+		
+//		ArrayList<String> al = new ArrayList<String>();
+//		al.add("a");
+//		al.add("b");
+//		al.add("c");
+//
+//		ArrayList<String> alCopia = new ArrayList<String>();
+//		alCopia.addAll(al);
+//		for (String s : alCopia)
+//		{
+//			System.out.println(s);
+//		}
+		
+//		System.out.println(Archivos.cargarOrdenPrim("2022-02-04_10-53-37"));
+		
+//		System.out.println("uno".equals("dos"));
 	}
 }

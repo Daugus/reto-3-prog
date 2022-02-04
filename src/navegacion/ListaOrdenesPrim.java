@@ -1,5 +1,6 @@
 package navegacion;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -7,14 +8,16 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import clases.OrdenPrim;
 import funciones.Archivos;
@@ -30,16 +33,14 @@ import funciones.Salir;
 public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
-	/**
-	 * JComboBox declarados public porque estan llamados, asignados valor desde otras
-	 * clases
-	 */
 	private JPanel panelPrincipal;
-
-	private JComboBox<String> cmbPrimarias;
+	
+	private JTable tblPrimarias;
 
 	private JButton btnVolver;
-	private JButton btnAcceder;
+	private JButton btnCargar;
+
+	ArrayList<OrdenPrim> alPrimarias;
 
 	private static OrdenPrim ordenPrim;
 
@@ -57,27 +58,49 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 		lblTitulo.setBounds(27, 22, 354, 26);
 		panelPrincipal.add(lblTitulo);
 		
-		cmbPrimarias = new JComboBox<String>();
-		cmbPrimarias.setBounds(214, 137, 300, 40);
-		panelPrincipal.add(cmbPrimarias);
-		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(197, 271, 137, 46);
+		btnVolver.setBounds(194, 302, 137, 46);
 		panelPrincipal.add(btnVolver);
 		
-		btnAcceder = new JButton("Acceder");
-		btnAcceder.setBounds(399, 271, 137, 46);
-		panelPrincipal.add(btnAcceder);
+		btnCargar = new JButton("Acceder");
+		btnCargar.setBounds(396, 302, 137, 46);
+		panelPrincipal.add(btnCargar);
+		
+		// ===== barras de desplazamiento =====
+		JScrollPane scrollPrimarias = new JScrollPane();
+		scrollPrimarias.setBackground(Color.LIGHT_GRAY);
+		scrollPrimarias.setBounds(59, 59, 584, 203);
+		panelPrincipal.add(scrollPrimarias);
 
 		// ===== modelos =====
 		// --- crear ---
-		DefaultComboBoxModel<String> dcbmPrimarias = new DefaultComboBoxModel<String>();
-		ArrayList<String> listaPrimarias = Archivos.listarOrdenPrim();
-		listaPrimarias.sort(Comparator.reverseOrder());
-		dcbmPrimarias.addAll(listaPrimarias);
+		DefaultTableModel dtmPrimarias = new DefaultTableModel();
+		dtmPrimarias.addColumn("Fecha");
+		dtmPrimarias.addColumn("Cliente");
+		dtmPrimarias.addColumn("Vehículo");
+		
+		alPrimarias = Archivos.cargarTodosOrdenPrim();
+		alPrimarias.sort(Comparator.reverseOrder());
+		for (OrdenPrim op : alPrimarias)
+		{
+			dtmPrimarias.addRow(new Object[] {op.getFechaEntrada(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula()});
+		}
 		
 		// --- asignar ---
-		cmbPrimarias.setModel(dcbmPrimarias);
+		tblPrimarias = new JTable(dtmPrimarias)
+		{
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+		};
+		tblPrimarias.setFillsViewportHeight(true);
+		tblPrimarias.getTableHeader().setReorderingAllowed(false);
+		tblPrimarias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		scrollPrimarias.setViewportView(tblPrimarias);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -86,56 +109,51 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 
 		// --- Action ---
 		// - JButton -
-		btnAcceder.addActionListener(this);
+		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente ---
 		lblTitulo.setFont(Inicio.fuente);
 		
+		tblPrimarias.getTableHeader().setFont(Inicio.fuenteObjetos);
+		tblPrimarias.setFont(Inicio.fuenteObjetos);
+
 		btnVolver.setFont(Inicio.fuenteObjetos);
-		btnAcceder.setFont(Inicio.fuenteObjetos);
-		
-		cmbPrimarias.setFont(Inicio.fuenteObjetos);
+		btnCargar.setFont(Inicio.fuenteObjetos);
 
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
+		tblPrimarias.getTableHeader().setBackground(Inicio.colorFondoObjetos);
+		tblPrimarias.setBackground(Inicio.colorFondoObjetos);
+
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
-		btnAcceder.setBackground(Inicio.colorFondoObjetos);
-		
-		cmbPrimarias.setBackground(Inicio.colorFondoObjetos);
+		btnCargar.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
 		lblTitulo.setForeground(Inicio.colorFuente);
 		
+		tblPrimarias.setForeground(Inicio.colorFuenteObjetos);
+
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
-		btnAcceder.setForeground(Inicio.colorFuenteObjetos);
-		
-		cmbPrimarias.setForeground(Inicio.colorFuenteObjetos);
+		btnCargar.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
-	public static OrdenPrim getOrdenPrim()
-	{
-		return ordenPrim;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		Object o = e.getSource();
 
-		if (o == btnAcceder)
+		if (o == btnCargar)
 		{
-			String codOrdenPrim = (String) cmbPrimarias.getSelectedItem();
-			
 			try
 			{
-				ordenPrim = Archivos.cargarOrdenPrim(codOrdenPrim);
+				ordenPrim = alPrimarias.get(tblPrimarias.getSelectedRow());
 
 				CrearOrdenPend cop = new CrearOrdenPend();
-				cop.cargarDatos();
+				cop.cargarDatos(ordenPrim);
 
 				cop.setLocationRelativeTo(null);
 				cop.setVisible(true);
@@ -144,7 +162,7 @@ public class ListaOrdenesPrim extends JFrame implements ActionListener, WindowLi
 			}
 			catch (NullPointerException npe)
 			{
-				JOptionPane.showMessageDialog (null, "La Orden Primaria introducida no existe", "ERROR",
+				JOptionPane.showMessageDialog (null, "La Orden Primaria seleccionada no existe", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 				Logs.error("Intento de acceder a una Orden Primaria no existe");
 			}

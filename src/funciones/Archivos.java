@@ -11,13 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import clases.Ajustes;
-import clases.Cliente;
-import clases.Cuenta;
-import clases.Material;
-import clases.OrdenPend;
-import clases.OrdenPrim;
-import clases.Vehiculo;
+import clases.*;
 import navegacion.Inicio;
 
 public class Archivos {
@@ -29,13 +23,14 @@ public class Archivos {
 	public static String cuentas = raiz + "Cuenta\\";
 	public static String primarias = raiz + "OrdenPrim\\";
 	public static String pendientes = raiz + "OrdenPend\\";
+	public static String reparaciones = raiz + "Reparacion\\";
 	public static String logs = raiz + "Logs\\";
 	
 	// ===== crear carpetas en caso de que no existan ======
 	public static void crearCarpetas()
 	{
 		ArrayList<String> directorios = new ArrayList<String>();
-		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias,logs));
+		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias, reparaciones, logs));
 
 		File f;
 		for (int i = 0; i < directorios.size(); i++)
@@ -96,13 +91,20 @@ public class Archivos {
 
 	public static void guardarOrdenPrim(OrdenPrim op)
 	{
-		File f = new File(primarias + op.getCodOrdenPrim() + ".dat");
+		File f = new File(primarias + op.getCodOrden() + ".dat");
 		guardar(op, f);
 	}
+
 	public static void guardarOrdenPend(OrdenPend ope)
 	{
-		File f = new File(pendientes + ope.getCodOrdenPend() + ".dat");
+		File f = new File(pendientes + ope.getCodOrden() + ".dat");
 		guardar(ope, f);
+	}
+
+	public static void guardarReparacion(Reparacion r)
+	{
+		File f = new File(reparaciones + r.getCodReparacion() + ".dat");
+		guardar(r, f);
 	}
 
 	// ===== cargar =====
@@ -164,6 +166,12 @@ public class Archivos {
 		File f = new File(primarias + cod + ".dat");
 		return (OrdenPrim) cargar(f);
 	}
+	
+	public static Reparacion cargarReparacion(String cod)
+	{
+		File f = new File(reparaciones + cod + ".dat");
+		return (Reparacion) cargar(f);
+	}
 
 	// ===== listar archivos =====
 	private static ArrayList<String> listar(File[] listaOriginal)
@@ -209,6 +217,12 @@ public class Archivos {
 	public static ArrayList<String> listarOrdenPrim()
 	{
 		File[] listaOriginal = new File(primarias).listFiles();
+		return listar(listaOriginal);
+	}
+	
+	public static ArrayList<String> listarReparaciones()
+	{
+		File[] listaOriginal = new File(reparaciones).listFiles();
 		return listar(listaOriginal);
 	}
 
@@ -277,6 +291,19 @@ public class Archivos {
 		}
 
 		return primarias;
+	}
+
+	public static ArrayList<Reparacion> cargarTodosReparacion()
+	{
+		ArrayList<String> nombres = listarOrdenPrim();
+		ArrayList<Reparacion> reparaciones = new ArrayList<Reparacion>();
+
+		for (int i = 0; i < nombres.size(); i++)
+		{
+			reparaciones.add(cargarReparacion(nombres.get(i)));
+		}
+
+		return reparaciones;
 	}
 
 	// ===== ajustes =====
