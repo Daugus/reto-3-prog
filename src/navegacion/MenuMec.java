@@ -1,5 +1,6 @@
 package navegacion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -11,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import edicion.EditarAjustes;
-import funciones.Logs;
+import funciones.Log;
 import funciones.Salir;
 
 /**
@@ -34,7 +35,9 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		setResizable(false);
 		setTitle("Menú mecánico");
 		
-		setBounds(100, 100, 750, 550);
+		setBounds(100, 100, 576, 221);
+		getContentPane().setPreferredSize(new Dimension(576, 221));
+		pack();
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,15 +45,15 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		panelPrincipal.setLayout(null);
 		
 		btnAjustes = new JButton("Ajustes de usuario");
-		btnAjustes.setBounds(550, 11, 174, 58);
+		btnAjustes.setBounds(385, 171, 180, 40);
 		panelPrincipal.add(btnAjustes);
 		
 		btnOrdenPrim = new JButton("Lista órdenes de trabajo");
-		btnOrdenPrim.setBounds(230, 226, 270, 62);
+		btnOrdenPrim.setBounds(173, 68, 230, 60);
 		panelPrincipal.add(btnOrdenPrim);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 442, 174, 58);
+		btnVolver.setBounds(10, 171, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		// ===== Listeners =====
@@ -103,7 +106,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 			Login l = new Login();
 			l.setLocationRelativeTo(null);
 			l.setVisible(true);
-			Logs.logout();
+			Log.logout();
 			
 			this.dispose();
 		} 

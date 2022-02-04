@@ -1,6 +1,7 @@
 package administracion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -48,7 +49,10 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		setResizable(false);
 		setTitle("Administrar materiales");
 		
-		setBounds(100, 100, 750, 553);
+		setBounds(100, 100, 700, 360);
+		getContentPane().setPreferredSize(new Dimension(700, 360));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,20 +60,20 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		panelPrincipal.setLayout(null);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 445, 174, 58);
+		btnVolver.setBounds(260, 310, 180, 40);
 		panelPrincipal.add(btnVolver);
 		
 		btnAgregar = new JButton("Agregar material");
-		btnAgregar.setBounds(62, 60, 269, 62);
+		btnAgregar.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar material");
-		btnEditar.setBounds(380, 60, 269, 62);
+		btnEditar.setBounds(420, 10, 230, 60);
 		panelPrincipal.add(btnEditar);
 		
 		// ===== barras de desplazamiento =====
 		JScrollPane scrollMateriales = new JScrollPane();
-		scrollMateriales.setBounds(62, 159, 584, 203);
+		scrollMateriales.setBounds(50, 85, 600, 200);
 		panelPrincipal.add(scrollMateriales);
 		
 		// ===== modelos =====
@@ -88,6 +92,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 				return false;
 			}
 		};
+		tblMateriales.setRowHeight(20);
 		tblMateriales.setFillsViewportHeight(true);
 		tblMateriales.getTableHeader().setReorderingAllowed(false);
 		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -1,6 +1,8 @@
 package clases;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
@@ -8,9 +10,9 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	private static final long serialVersionUID = 6717239572208402072L;
 	
 	// ===== propiedades =====
-	private String codOrden;
+	private String codigo;
 	private String comentarios;
-	private Fecha fechaEntrada;
+	private Fecha fecha;
 	private Cliente propietario;
 	private Vehiculo vehiculo;
 	
@@ -18,9 +20,9 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	// por defecto
 	public OrdenPrim()
 	{
-		codOrden = "";
+		codigo = "";
 		comentarios = "";
-		fechaEntrada = new Fecha();
+		fecha = new Fecha();
 		
 		propietario = new Cliente();
 		vehiculo = new Vehiculo();
@@ -29,20 +31,24 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	// copia
 	public OrdenPrim(OrdenPrim other)
 	{
-		this.codOrden = other.codOrden;
+		this.codigo = other.codigo;
 		this.comentarios = other.comentarios;
-		this.fechaEntrada = new Fecha(other.fechaEntrada);
+		this.fecha = new Fecha(other.fecha);
 		
 		this.propietario = new Cliente(other.propietario);
 		this.vehiculo = new Vehiculo(other.vehiculo);
 	}
 	
 	// personalizado
-	public OrdenPrim(String cod, String com, Fecha entrada, Cliente c, Vehiculo v)
+	public OrdenPrim(String com, Cliente c, Vehiculo v)
 	{
-		codOrden = cod;
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		String cod = formatter.format(calendar.getTime());
+
+		codigo = cod;
 		comentarios = com;
-		fechaEntrada = new Fecha(entrada);
+		fecha = new Fecha();
 
 		propietario = new Cliente(c);
 		vehiculo = new Vehiculo(v);
@@ -53,9 +59,9 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public String toString()
 	{
-		return "codOrdenPrim = " + codOrden +
+		return "codOrdenPrim = " + codigo +
 				", comentarios = " + comentarios +
-				", fechaEntrada = " + fechaEntrada +
+				", fechaEntrada = " + fecha +
 				", vehiculo = " + vehiculo +
 				", propietario = " + propietario;
 	}
@@ -63,7 +69,7 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(codOrden, comentarios, fechaEntrada, propietario, vehiculo);
+		return Objects.hash(codigo, comentarios, fecha, propietario, vehiculo);
 	}
 
 	// --- comparación ---
@@ -77,24 +83,24 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		OrdenPrim other = (OrdenPrim) obj;
-		return Objects.equals(codOrden, other.codOrden) && Objects.equals(comentarios, other.comentarios)
-				&& Objects.equals(fechaEntrada, other.fechaEntrada) && Objects.equals(propietario, other.propietario)
+		return Objects.equals(codigo, other.codigo) && Objects.equals(comentarios, other.comentarios)
+				&& Objects.equals(fecha, other.fecha) && Objects.equals(propietario, other.propietario)
 				&& Objects.equals(vehiculo, other.vehiculo);
 	}
 
 	@Override
 	public int compareTo(OrdenPrim other)
 	{
-		return codOrden.compareTo(other.codOrden);
+		return codigo.compareTo(other.codigo);
 	}
 
 	// --- getters y setters ---
-	public String getCodOrden() {
-		return codOrden;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCodOrden(String codOrdenPrim) {
-		this.codOrden = codOrdenPrim;
+	public void setCodigo(String codOrdenPrim) {
+		this.codigo = codOrdenPrim;
 	}
 
 	public String getComentarios() {
@@ -105,12 +111,12 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 		this.comentarios = comentarios;
 	}
 
-	public Fecha getFechaEntrada() {
-		return fechaEntrada;
+	public Fecha getFecha() {
+		return fecha;
 	}
 
-	public void setFechaEntrada(Fecha fechaEntrada) {
-		this.fechaEntrada = fechaEntrada;
+	public void setFecha(Fecha fechaEntrada) {
+		this.fecha = fechaEntrada;
 	}
 
 	public Vehiculo getVehiculo() {

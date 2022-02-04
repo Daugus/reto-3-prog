@@ -30,7 +30,7 @@ public class Archivos {
 	public static void crearCarpetas()
 	{
 		ArrayList<String> directorios = new ArrayList<String>();
-		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias, reparaciones, logs));
+		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias, pendientes, reparaciones, logs));
 
 		File f;
 		for (int i = 0; i < directorios.size(); i++)
@@ -91,14 +91,14 @@ public class Archivos {
 
 	public static void guardarOrdenPrim(OrdenPrim op)
 	{
-		File f = new File(primarias + op.getCodOrden() + ".dat");
+		File f = new File(primarias + op.getCodigo() + ".dat");
 		guardar(op, f);
 	}
 
-	public static void guardarOrdenPend(OrdenPend ope)
+	public static void guardarOrdenPend(OrdenPend op)
 	{
-		File f = new File(pendientes + ope.getCodOrden() + ".dat");
-		guardar(ope, f);
+		File f = new File(pendientes + op.getCodigo() + ".dat");
+		guardar(op, f);
 	}
 
 	public static void guardarReparacion(Reparacion r)
@@ -126,11 +126,11 @@ public class Archivos {
 		} catch (IOException e)
 		{
 			//System.out.println("error carga");
-			Logs.error("no se han cargado los datos");
+			Log.error("no se han cargado los datos");
 		} catch (ClassNotFoundException e)
 		{
 			//System.out.println("error carga - clase");
-			Logs.error("error carga - clase");
+			Log.error("error carga - clase");
 		}
 
 		return o;
@@ -167,10 +167,30 @@ public class Archivos {
 		return (OrdenPrim) cargar(f);
 	}
 	
+	public static OrdenPend cargarOrdenPend(String cod)
+	{
+		File f = new File(pendientes + cod + ".dat");
+		return (OrdenPend) cargar(f);
+	}
+	
 	public static Reparacion cargarReparacion(String cod)
 	{
 		File f = new File(reparaciones + cod + ".dat");
 		return (Reparacion) cargar(f);
+	}
+	
+	// ===== borrar archivos =====
+	public static void borrarOrdenPrim(String cod)
+	{
+		File f = new File(primarias + cod + ".dat");
+		if (f.delete())
+		{
+			Log.orden("Se ha borrado la orden " + cod);
+		}
+		else
+		{
+			Log.error("Error al borrar la orden primaria " + cod);
+		}
 	}
 
 	// ===== listar archivos =====
@@ -217,6 +237,12 @@ public class Archivos {
 	public static ArrayList<String> listarOrdenPrim()
 	{
 		File[] listaOriginal = new File(primarias).listFiles();
+		return listar(listaOriginal);
+	}
+	
+	public static ArrayList<String> listarOrdenPend()
+	{
+		File[] listaOriginal = new File(pendientes).listFiles();
 		return listar(listaOriginal);
 	}
 	
@@ -293,9 +319,21 @@ public class Archivos {
 		return primarias;
 	}
 
+	public static ArrayList<OrdenPend> cargarTodosOrdenPend()
+	{
+		ArrayList<String> nombres = listarOrdenPend();
+		ArrayList<OrdenPend> pendientes = new ArrayList<OrdenPend>();
+
+		for (int i = 0; i < nombres.size(); i++)
+		{
+			pendientes.add(cargarOrdenPend(nombres.get(i)));
+		}
+
+		return pendientes;
+	}
 	public static ArrayList<Reparacion> cargarTodosReparacion()
 	{
-		ArrayList<String> nombres = listarOrdenPrim();
+		ArrayList<String> nombres = listarReparaciones();
 		ArrayList<Reparacion> reparaciones = new ArrayList<Reparacion>();
 
 		for (int i = 0; i < nombres.size(); i++)

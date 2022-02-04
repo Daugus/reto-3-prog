@@ -1,5 +1,6 @@
 package navegacion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -14,14 +15,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 import clases.Cuenta;
 import funciones.Archivos;
-import funciones.Logs;
-
-
+import funciones.Log;
 
 /**
  * 
@@ -38,41 +38,43 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	private JPasswordField pwdPassword;
 	private JTextField txtDNI;
 	
-	/**
-	 * crea frame de la clase.
-	 */
 	public Login()
 	{
 
 		setResizable(false);
 		setTitle("Login");
 		
-		setBounds(100, 100, 497, 296);
+		setBounds(100, 100, 350, 200);
+		getContentPane().setPreferredSize(new Dimension(350, 200));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		btnAcceder = new JButton("Acceder");
-		btnAcceder.setBounds(187, 186, 120, 36);
+		btnAcceder.setBounds(85, 135, 180, 40);
 		panelPrincipal.add(btnAcceder);
 		
-		JLabel lblPassword = new JLabel("Contraseña:");
-		lblPassword.setBounds(104, 127, 98, 13);
+		JLabel lblPassword = new JLabel("Contraseña: ");
+		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPassword.setBounds(50, 75, 100, 35);
 		panelPrincipal.add(lblPassword);
 		
 		pwdPassword = new JPasswordField();
-		pwdPassword.setBounds(212, 117, 165, 34);
+		pwdPassword.setBounds(150, 75, 150, 35);
 		panelPrincipal.add(pwdPassword);
 		
-		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setBounds(104, 69, 96, 13);
+		JLabel lblDNI = new JLabel("DNI: ");
+		lblDNI.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDNI.setBounds(50, 25, 100, 35);
 		panelPrincipal.add(lblDNI);
 		
 		txtDNI = new JTextField();
 		txtDNI.setText("");
 		txtDNI.setColumns(10);
-		txtDNI.setBounds(210, 58, 167, 34);
+		txtDNI.setBounds(150, 25, 150, 35);
 		panelPrincipal.add(txtDNI);
 
 		// ===== Listeners =====
@@ -143,11 +145,11 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 					JOptionPane.showMessageDialog(this, (String) "Contraseña incorrecta", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 
-					Logs.error("Se introducido una contraseña incorrecta");
+					Log.error("Se introducido una contraseña incorrecta");
 				}
 				else
 				{
-					Logs.login();
+					Log.login();
 
 					if (Inicio.cuentaActual.getMecanico())
 					{
@@ -181,7 +183,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				JOptionPane.showMessageDialog(this, (String) "La cuenta " + dni + " no está registrada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 				
-				Logs.error("La cuenta " + dni + " no está registrada");
+				Log.error("La cuenta " + dni + " no está registrada");
 			}
 		}
 	}

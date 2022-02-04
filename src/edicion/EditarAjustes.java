@@ -1,5 +1,6 @@
 package edicion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -47,40 +48,43 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		setResizable(false);
 		setTitle("Editar ajustes");
 		
-		setBounds(100, 100, 377, 285);
+		setBounds(100, 100, 396, 200);
+		getContentPane().setPreferredSize(new Dimension(396, 200));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(10, 193, 160, 42);
+		btnCancelar.setBounds(10, 135, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(191, 193, 160, 42);
+		btnGuardar.setBounds(206, 135, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		lblFuente = new JLabel("Fuente:");
-		lblFuente.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFuente.setBounds(42, 105, 130, 40);
+		lblFuente.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFuente.setBounds(73, 75, 100, 35);
 		panelPrincipal.add(lblFuente);
 		
 		lblFondo = new JLabel("Tema:");
-		lblFondo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFondo.setBounds(42, 55, 130, 40);
+		lblFondo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFondo.setBounds(73, 25, 100, 35);
 		panelPrincipal.add(lblFondo);
 		
 		cmbFondo = new JComboBox<String>();
 		cmbFondo.addItem("Oscuro");
 		cmbFondo.addItem("Claro");
-		cmbFondo.setBounds(193, 55, 130, 40);
+		cmbFondo.setBounds(173, 25, 150, 35);
 		panelPrincipal.add(cmbFondo);
 		
 		cmbFuente = new JComboBox<String>();
 		cmbFuente.addItem("Segoe UI");
 		cmbFuente.addItem("Tahoma");
-		cmbFuente.setBounds(193, 105, 130, 40);
+		cmbFuente.setBounds(173, 75, 150, 35);
 		panelPrincipal.add(cmbFuente);
 		
 		cargarAjustes();

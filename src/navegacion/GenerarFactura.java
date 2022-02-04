@@ -7,18 +7,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -26,11 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import clases.Cliente;
 import clases.MaterialUsado;
 import clases.OrdenPend;
-import clases.OrdenPrim;
 import clases.Reparacion;
 import clases.Vehiculo;
-import edicion.EditarReparacion;
-import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
 
@@ -39,64 +33,47 @@ import funciones.Tablas;
  * @author Grupo 2
  *
  */
-public class CrearOrdenPend extends JFrame implements ActionListener, WindowListener
+public class GenerarFactura extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
 
 	private JButton btnVolver;
-	private JButton btnCrear;
-	private JButton btnAgregar;
-	private JButton btnEditar;
-	private JButton btnEliminar;
+	private JButton btnGenerar;
 
 	private JLabel lblCodigoTxt;
-	private JLabel lblComentarioTxt;
 
 	private JTable tblCliente;
 	private JTable tblVehiculo;
-	private static JTable tblReparaciones;
-	private static JTable tblMateriales;
+	private JTable tblReparaciones;
+	private JTable tblMateriales;
 	
-	private static ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
-	private static ArrayList<MaterialUsado> alMaterialesGeneral = new ArrayList<MaterialUsado>();
-	
-	private static OrdenPrim primaria;
+	private OrdenPend pendiente;
+	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
+	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
 
-	public CrearOrdenPend()
+	public GenerarFactura()
 	{
 		setResizable(false);
 		setTitle("Crear orden pendiente");
 		
-		setBounds(100, 100, 790, 715);
-		getContentPane().setPreferredSize(new Dimension(790, 715));
+		setBounds(100, 100, 790, 510);
+		getContentPane().setPreferredSize(new Dimension(790, 510));
 		pack();
-
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 	
-		btnCrear = new JButton("Crear orden pendiente");
-		btnCrear.setBounds(403, 670, 180, 40);
-		panelPrincipal.add(btnCrear);
+		btnGenerar = new JButton("Generar factura");
+		btnGenerar.setBounds(403, 460, 180, 40);
+		panelPrincipal.add(btnGenerar);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(207, 670, 180, 40);
+		btnVolver.setBounds(207, 460, 180, 40);
 		panelPrincipal.add(btnVolver);
-		
-		btnAgregar = new JButton("Agregar reparación");
-		btnAgregar.setBounds(35, 585, 230, 60);
-		panelPrincipal.add(btnAgregar);
-
-		btnEditar = new JButton("Editar reparación");
-		btnEditar.setBounds(280, 585, 230, 60);
-		panelPrincipal.add(btnEditar);
-
-		btnEliminar = new JButton("Eliminar reparación");
-		btnEliminar.setBounds(525, 585, 230, 60);
-		panelPrincipal.add(btnEliminar);
 
 		JLabel lblCodigo = new JLabel("Código orden primaria:");
 		lblCodigo.setBounds(10, 185, 150, 35);
@@ -105,25 +82,16 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		lblCodigoTxt = new JLabel("");
 		lblCodigoTxt.setBounds(160, 185, 250, 35);
 		panelPrincipal.add(lblCodigoTxt);
-		
-		lblComentarioTxt = new JLabel("");
-		lblComentarioTxt.setVerticalAlignment(SwingConstants.TOP);
-		lblComentarioTxt.setBounds(10, 255, 500, 100);
-		panelPrincipal.add(lblComentarioTxt);
-		
-		JLabel lblComentario = new JLabel("Comentario:");
-		lblComentario.setBounds(10, 220, 150, 35);
-		panelPrincipal.add(lblComentario);
 
 		// ===== barras de desplazamiento =====
 		// --- reparaciones ---
 		JScrollPane scrollReparaciones = new JScrollPane();
-		scrollReparaciones.setBounds(10, 370, 420, 200);
+		scrollReparaciones.setBounds(10, 235, 420, 200);
 		panelPrincipal.add(scrollReparaciones);
 
 		// --- piezas ---
 		JScrollPane scrollMateriales = new JScrollPane();
-		scrollMateriales.setBounds(445, 370, 335, 200);
+		scrollMateriales.setBounds(445, 235, 335, 200);
 		panelPrincipal.add(scrollMateriales);
 
 		// ===== modelos =====
@@ -210,22 +178,16 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 
 		// --- Action ---
 		btnVolver.addActionListener(this);
-		btnCrear.addActionListener(this);
-		btnAgregar.addActionListener(this);
-		btnEditar.addActionListener(this);
-		btnEliminar.addActionListener(this);
+		btnGenerar.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente y color ---
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
-		etiquetas.addAll(Arrays.asList(lblCodigo, lblCodigoTxt, lblComentario, lblComentarioTxt));
-		for (JLabel lbl : etiquetas)
-		{
-			lbl.setFont(Inicio.fuente);
-			lbl.setForeground(Inicio.colorFuente);
-		}
+		lblCodigo.setFont(Inicio.fuente);
+		lblCodigo.setForeground(Inicio.colorFuente);
+		lblCodigoTxt.setFont(Inicio.fuente);
+		lblCodigoTxt.setForeground(Inicio.colorFuente);
 		
 		tblReparaciones.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblReparaciones.getTableHeader().setBackground(Inicio.colorFondoObjetos);
@@ -245,21 +207,9 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		
-		btnCrear.setFont(Inicio.fuenteObjetos);
-		btnCrear.setBackground(Inicio.colorFondoObjetos);
-		btnCrear.setForeground(Inicio.colorFuenteObjetos);
-		
-		btnAgregar.setFont(Inicio.fuenteObjetos);
-		btnAgregar.setBackground(Inicio.colorFondoObjetos);
-		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
-
-		btnEditar.setFont(Inicio.fuenteObjetos);
-		btnEditar.setBackground(Inicio.colorFondoObjetos);
-		btnEditar.setForeground(Inicio.colorFuenteObjetos);
-
-		btnEliminar.setFont(Inicio.fuenteObjetos);
-		btnEliminar.setBackground(Inicio.colorFondoObjetos);
-		btnEliminar.setForeground(Inicio.colorFuenteObjetos);
+		btnGenerar.setFont(Inicio.fuenteObjetos);
+		btnGenerar.setBackground(Inicio.colorFondoObjetos);
+		btnGenerar.setForeground(Inicio.colorFuenteObjetos);
 
 		scrollReparaciones.setBackground(Inicio.colorFondoObjetos);
 		scrollMateriales.setBackground(Inicio.colorFondoObjetos);
@@ -275,20 +225,13 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
-	public void cargarDatos(OrdenPrim op)
+	public void cargarDatos(OrdenPend op)
 	{
-		primaria = new OrdenPrim(op);
-		if (!Inicio.cuentaActual.getMecanico())
-		{
-			btnAgregar.setVisible(false);
-			btnCrear.setVisible(false);
-			btnEditar.setVisible(false);
-			btnEliminar.setVisible(false);
-		}
+		pendiente = new OrdenPend(op);
 
 		// ===== datos cliente =====
 		// --- cargar cliente ---
-		Cliente c = primaria.getPropietario();
+		Cliente c = pendiente.getPropietario();
 				
 		// --- escribir cliente ---
 		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
@@ -307,7 +250,7 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		
 		// ===== datos vehículo =====
 		// --- cargar vehículo ---
-		Vehiculo v = primaria.getVehiculo();
+		Vehiculo v = pendiente.getVehiculo();
 
 		// --- escribir vehículo ---
 		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
@@ -324,45 +267,38 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 
 		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
 
-		// ===== datos orden primaria =====
-		lblCodigoTxt.setText(primaria.getCodigo());
-		lblComentarioTxt.setText(primaria.getComentarios());
-				
-		// ===== estilizar tablas =====
-		Tablas.vertical(tblCliente);
-		Tablas.vertical(tblVehiculo);
-	}
-	
-	public static void actualizarTablas()
-	{
+		// ===== datos orden pendiente =====
+		lblCodigoTxt.setText(pendiente.getCodigo());
+		
+		// ===== datos reparaciones =====
+		// --- cargar reparaciones  ---
+		alReparaciones = pendiente.getReparaciones();
+		
+		// --- escribir reparaciones y materiales usados ---
 		alReparaciones.sort(Comparator.naturalOrder());
-		alMaterialesGeneral.clear();
 
 		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
-		dtmReparaciones.setRowCount(0);
 
 		for (Reparacion r : alReparaciones)
 		{
 			dtmReparaciones.addRow(new Object[] {r.getDescripcion(), r.getHoras(), r.getManoObra()});
-			alMaterialesGeneral.addAll(r.getMaterialesUsados());
+			alMateriales.addAll(r.getMaterialesUsados());
 		}
 		
 		Tablas.ajustarColumnas(tblReparaciones);
 		
-		alMaterialesGeneral.sort(Comparator.naturalOrder());
+		alMateriales.sort(Comparator.naturalOrder());
 
 		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
-		dtmMateriales.setRowCount(0);
 		
-		for (MaterialUsado mu : alMaterialesGeneral)
+		for (MaterialUsado mu : alMateriales)
 		{
 			dtmMateriales.addRow(new Object[] {mu.getNombre(), mu.getPrecio(), mu.getCantidad()});
 		}
-	}
-	
-	public static ArrayList<Reparacion> getReparaciones()
-	{
-		return alReparaciones;
+				
+		// ===== estilizar tablas =====
+		Tablas.vertical(tblCliente);
+		Tablas.vertical(tblVehiculo);
 	}
 	
 	@Override
@@ -370,59 +306,12 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 	{
 		Object o = e.getSource();
 
-		if (o == btnCrear)
+		if (o == btnGenerar)
 		{
-			if (tblReparaciones.getRowCount() > 0 && tblMateriales.getRowCount() > 0)
-			{
-				Archivos.borrarOrdenPrim(primaria.getCodigo());
+//			Archivos.borrarOrdenPrim(pendiente.getCodigo());
 				
-				Archivos.guardarOrdenPend(new OrdenPend(primaria, alReparaciones));
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(this, (String) "No se ha agregado ninguna reparación", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		else if (o == btnAgregar)
-		{
-			EditarReparacion er = new EditarReparacion();
-			er.setLocationRelativeTo(null);
-			er.setVisible(true);
-		}
-		else if (o == btnEditar)
-		{
-			EditarReparacion er = new EditarReparacion();
-
-			int row = tblReparaciones.getSelectedRow();
-			if (row >= 0)
-			{
-				er.modoEdicion(alReparaciones.get(row));
-				er.setLocationRelativeTo(null);
-				er.setVisible(true);
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(this, (String) "No hay ninguna reparación seleccionada", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		else if (o == btnEliminar)
-		{
-			int row = tblReparaciones.getSelectedRow();
-			if (row >= 0)
-			{
-				alReparaciones.remove(row);
-				DefaultTableModel dtm = (DefaultTableModel) tblReparaciones.getModel();
-				dtm.removeRow(row);
-				
-				actualizarTablas();
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(this, (String) "No hay ninguna reparación seleccionada", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			// TODO: crear factura y funciones en arhivos
+//			Archivos.guardarOrdenPend(new OrdenPend(pendiente, alReparaciones));
 		}
 		else if (o == btnVolver)
 		{

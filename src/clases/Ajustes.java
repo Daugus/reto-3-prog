@@ -49,8 +49,8 @@ public class Ajustes implements Serializable
 	// --- personalizado ---
 	public Ajustes(boolean fo, String fu)
 	{
-		fuente = new Font(fu, Font.PLAIN, 15);
-		fuenteObjetos = new Font(fu, Font.BOLD, 15);
+		fuente = new Font(fu, Font.PLAIN, 13);
+		fuenteObjetos = new Font(fu, Font.BOLD, 13);
 
 		if (fo)
 		{

@@ -1,7 +1,9 @@
 package clases;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class Reparacion implements Comparable<Reparacion>, Serializable
@@ -43,8 +45,12 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 	}
 	
 	// --- personalizado ---
-	public Reparacion(String cod, String desc, int h, double mo, Fecha fe, Cuenta mec, ArrayList<MaterialUsado> al)
+	public Reparacion(String desc, int h, double mo, Fecha fe, Cuenta mec, ArrayList<MaterialUsado> al)
 	{
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		String cod = formatter.format(calendar.getTime());
+				
 		codReparacion = cod;
 		descripcion = desc;
 		horas = h;

@@ -1,6 +1,7 @@
 package administracion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -49,7 +50,10 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		setResizable(false);
 		setTitle("Administrar vehiculos");
 		
-		setBounds(100, 100, 750, 553);
+		setBounds(100, 100, 700, 360);
+		getContentPane().setPreferredSize(new Dimension(700, 360));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,20 +61,20 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		panelPrincipal.setLayout(null);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 445, 174, 58);
+		btnVolver.setBounds(260, 310, 180, 40);
 		panelPrincipal.add(btnVolver);
 		
 		btnAgregar = new JButton("Agregar vehículo");
-		btnAgregar.setBounds(62, 60, 269, 62);
+		btnAgregar.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar vehículo");
-		btnEditar.setBounds(380, 60, 269, 62);
+		btnEditar.setBounds(420, 10, 230, 60);
 		panelPrincipal.add(btnEditar);
 
 		// ===== barras de desplazamiento =====
 		JScrollPane scrollVehiculos = new JScrollPane();
-		scrollVehiculos.setBounds(62, 159, 584, 203);
+		scrollVehiculos.setBounds(50, 85, 600, 200);
 		panelPrincipal.add(scrollVehiculos);
 		
 		// ===== modelos =====

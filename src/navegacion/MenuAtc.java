@@ -1,5 +1,6 @@
 package navegacion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -13,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarCuentas;
 import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
-import funciones.Logs;
+import funciones.Log;
 import funciones.Salir;
 
 /**
@@ -39,34 +40,37 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		setResizable(false);
 		setTitle("Menú de atención al cliente");
 		
-		setBounds(100, 100, 750, 550);
+		setBounds(100, 100, 575, 220);
+		getContentPane().setPreferredSize(new Dimension(575, 220));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnAjustes = new JButton("Ajustes de usuario");
-		btnAjustes.setBounds(550, 11, 174, 58);
+		btnAjustes.setBounds(385, 170, 180, 40);
 		panelPrincipal.add(btnAjustes);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 442, 174, 58);
+		btnVolver.setBounds(10, 170, 180, 40);
 		panelPrincipal.add(btnVolver);
 		
 		btnOrden = new JButton("Lista órdenes de trabajo");
-		btnOrden.setBounds(118, 171, 230, 70);
+		btnOrden.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnOrden);
 		
 		btnNuevaOrdenPrim = new JButton("Crear orden de trabajo");
-		btnNuevaOrdenPrim.setBounds(118, 256, 230, 70);
+		btnNuevaOrdenPrim.setBounds(50, 85, 230, 60);
 		panelPrincipal.add(btnNuevaOrdenPrim);
 		
 		btnCuentas = new JButton("Administrar cuentas");
-		btnCuentas.setBounds(376, 171, 230, 70);
+		btnCuentas.setBounds(295, 10, 230, 60);
 		panelPrincipal.add(btnCuentas);
 		
 		btnMateriales = new JButton("Administrar materiales");
-		btnMateriales.setBounds(376, 256, 230, 70);
+		btnMateriales.setBounds(295, 85, 230, 60);
 		panelPrincipal.add(btnMateriales);
 
 		// ===== Listeners =====
@@ -137,7 +141,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 			Login l = new Login();
 			l.setLocationRelativeTo(null);
 			l.setVisible(true);
-			Logs.logout();
+			Log.logout();
 			
 			this.dispose();
 		} 

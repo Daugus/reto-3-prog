@@ -1,7 +1,9 @@
 package clases;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class OrdenPend extends OrdenPrim implements Serializable
@@ -9,7 +11,6 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	private static final long serialVersionUID = 6717239572208402072L;
 	
 	// ===== propiedades =====
-	private Fecha fecha;
 	private ArrayList<Reparacion> reparaciones;
 	
 	// ===== constructores =====
@@ -18,8 +19,7 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	{
 		super();
 		
-		setCodOrden("");
-		fecha = new Fecha();
+		setCodigo("");
 		reparaciones = new ArrayList<Reparacion>();
 	}
 	
@@ -28,25 +28,28 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	{
 		super(other);
 		
-		setCodOrden(other.getCodOrden());
-		fecha = new Fecha(other.fecha);
+		setCodigo(other.getCodigo());
 		reparaciones = new ArrayList<Reparacion>(other.reparaciones);
 	}
 	
 	// personalizado
-	public OrdenPend(String cod, String com, Fecha f, Cliente c, Vehiculo v, ArrayList<Reparacion> r)
+	public OrdenPend(String com, Cliente c, Vehiculo v, ArrayList<Reparacion> r)
 	{
-		super(cod, com, f, c, v);
+		super(com, c, v);
 		
-		fecha = new Fecha(f);
 		reparaciones = new ArrayList<Reparacion>(r);
 	}
 	
-	public OrdenPend(OrdenPrim primaria, Fecha f, ArrayList<Reparacion> r)
+	public OrdenPend(OrdenPrim primaria, ArrayList<Reparacion> r)
 	{
 		super(primaria);
 		
-		fecha = new Fecha(f);
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		String cod = formatter.format(calendar.getTime());
+
+		setCodigo(cod);
+		setFecha(new Fecha());
 		reparaciones = new ArrayList<Reparacion>(r);
 	}
 
@@ -63,7 +66,7 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(fecha, reparaciones);
+		result = prime * result + Objects.hash(reparaciones);
 		return result;
 	}
 
@@ -76,18 +79,10 @@ public class OrdenPend extends OrdenPrim implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		OrdenPend other = (OrdenPend) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(reparaciones, other.reparaciones);
+		return Objects.equals(reparaciones, other.reparaciones);
 	}
 
 	// --- getters y setters ---
-	public Fecha getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Fecha fecha) {
-		this.fecha = fecha;
-	}
-
 	public ArrayList<Reparacion> getReparaciones() {
 		return reparaciones;
 	}

@@ -1,5 +1,6 @@
 package navegacion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -7,7 +8,6 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -18,7 +18,6 @@ import funciones.Salir;
  * @author Grupo 2
  *
  */
-
 public class ListaOrdenes extends JFrame implements ActionListener, WindowListener
 {
 	public ListaOrdenes() {
@@ -36,30 +35,29 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		setResizable(false);
 		setTitle("Órdenes");
 		
-		setBounds(100, 100, 750, 515);
+		setBounds(100, 100, 330, 295);
+		getContentPane().setPreferredSize(new Dimension(330, 295));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-
-		JLabel lblTitulo = new JLabel("Listado de órdenes de trabajo");
-		lblTitulo.setBounds(22, 22, 354, 26);
-		panelPrincipal.add(lblTitulo);
 		
 		btnOrdenesPrim = new JButton("Órdenes primarias");
-		btnOrdenesPrim.setBounds(172, 130, 291, 41);
+		btnOrdenesPrim.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnOrdenesPrim);
 		
 		btnOrdenesPend = new JButton("Órdenes pendientes");
-		btnOrdenesPend.setBounds(172, 207, 291, 41);
+		btnOrdenesPend.setBounds(50, 85, 230, 60);
 		panelPrincipal.add(btnOrdenesPend);
 		
 		btnFacturasAprob = new JButton("Facturas aprobadas");
-		btnFacturasAprob.setBounds(172, 291, 291, 41);
+		btnFacturasAprob.setBounds(50, 160, 230, 60);
 		panelPrincipal.add(btnFacturasAprob);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 407, 174, 58);
+		btnVolver.setBounds(10, 245, 180, 40);
 		panelPrincipal.add(btnVolver);
 		
 		// ===== Listeners =====
@@ -74,10 +72,6 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnFacturasAprob.addActionListener(this);
 		btnVolver.addActionListener(this);
 
-		// ===== ajustes de usuario =====
-		// --- fuente ---
-		lblTitulo.setFont(Inicio.fuente);
-
 		btnOrdenesPrim.setFont(Inicio.fuenteObjetos);
 		btnOrdenesPend.setFont(Inicio.fuenteObjetos);
 		btnFacturasAprob.setFont(Inicio.fuenteObjetos);
@@ -91,9 +85,6 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnOrdenesPend.setBackground(Inicio.colorFondoObjetos);
 		btnFacturasAprob.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
-
-		// - fuente -
-		lblTitulo.setForeground(Inicio.colorFuente);
 
 		btnOrdenesPrim.setForeground(Inicio.colorFuenteObjetos);
 		btnOrdenesPend.setForeground(Inicio.colorFuenteObjetos);
@@ -116,7 +107,11 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		}
 		else if (o == btnOrdenesPend)
 		{
+			ListaOrdenesPend lop = new ListaOrdenesPend();
+			lop.setLocationRelativeTo(null);
+			lop.setVisible(true);
 			
+			this.dispose();
 		}
 		else if (o == btnFacturasAprob)
 		{

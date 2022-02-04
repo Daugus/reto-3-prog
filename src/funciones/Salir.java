@@ -14,7 +14,7 @@ public class Salir
 		{
 			case JOptionPane.YES_OPTION:
 				
-				Logs.logout();
+				Log.logout();
 				System.exit(0);
 				
 				break;

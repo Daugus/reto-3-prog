@@ -99,5 +99,20 @@ public class Pruebas
 //		System.out.println(Archivos.cargarOrdenPrim("2022-02-04_10-53-37"));
 		
 //		System.out.println("uno".equals("dos"));
+//		System.out.println(Archivos.cargarCuenta("atc").getAjustes().getFuente());
+//		System.out.println(Archivos.cargarCuenta("mec").getAjustes().getFuente());
+		
+//		Archivos.guardarReparacion(new Reparacion("test", 12, 12.1, new Fecha(), Archivos.cargarCuenta("mec"), new ArrayList<MaterialUsado>()));
+		
+//		System.out.println(Archivos.cargarTodosOrdenPrim());
+//		System.out.println(Archivos.cargarOrdenPend("2022-02-04_23-15-52"));
+//		System.out.println(Archivos.listarOrdenPend());
+//		System.out.println(Archivos.listarReparaciones());
+//		System.out.println(Archivos.cargarOrdenPend("2022-02-04_23-15-52"));
+//		System.out.println(Archivos.cargarReparacion("2022-02-04_23-23-51"));
+//		System.out.println(Archivos.cargarTodosOrdenPend());
+//		System.out.println(Archivos.cargarTodosReparacion());
+		
+		System.out.println(Archivos.cargarTodosOrdenPend());
 	}
 }

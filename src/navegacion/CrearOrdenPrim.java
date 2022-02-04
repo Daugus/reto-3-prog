@@ -1,11 +1,10 @@
 package navegacion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -21,11 +20,10 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarClientes;
 import administracion.AdministrarVehiculos;
 import clases.Cliente;
-import clases.Fecha;
 import clases.OrdenPrim;
 import clases.Vehiculo;
 import funciones.Archivos;
-import funciones.Logs;
+import funciones.Log;
 import funciones.Salir;
 
 /**
@@ -65,54 +63,57 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		setResizable(false);
 		setTitle("Crear orden de trabajo");
 		
-		setBounds(100, 100, 750, 452);
+		setBounds(100, 100, 600, 355);
+		getContentPane().setPreferredSize(new Dimension(600, 355));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
-		lblComentario = new JLabel("Agregar comentario para la orden");
-		lblComentario.setBounds(44, 167, 226, 27);
+		lblComentario = new JLabel("Agregar comentario para la orden:");
+		lblComentario.setBounds(50, 145, 300, 35);
 		panelPrincipal.add(lblComentario);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(143, 371, 133, 31);
+		btnVolver.setBounds(112, 305, 180, 40);
 		panelPrincipal.add(btnVolver);
 		
 		btnCrearOrden = new JButton("Crear orden primaria");
-		btnCrearOrden.setBounds(286, 371, 272, 31);
+		btnCrearOrden.setBounds(308, 305, 180, 40);
 		panelPrincipal.add(btnCrearOrden);
 		
 		txtComentario = new JTextArea();
 		txtComentario.setLineWrap(true);
 		
-		lblVehiculo = new JLabel("Vehículo");
-		lblVehiculo.setBounds(54, 89, 99, 13);
+		lblVehiculo = new JLabel("Vehículo:");
+		lblVehiculo.setBounds(50, 97, 100, 36);
 		panelPrincipal.add(lblVehiculo);
 		
 		cmbVehiculos = new JComboBox<String>();
-		cmbVehiculos.setBounds(149, 79, 151, 33);
+		cmbVehiculos.setBounds(150, 97, 150, 36);
 		panelPrincipal.add(cmbVehiculos);
 		
 		btnVehiculos = new JButton("Administrar vehiculos");
-		btnVehiculos.setBounds(334, 79, 222, 33);
+		btnVehiculos.setBounds(320, 85, 230, 60);
 		panelPrincipal.add(btnVehiculos);
 		
-		lblCliente = new JLabel("Cliente");
-		lblCliente.setBounds(54, 11, 85, 33);
+		lblCliente = new JLabel("Cliente:");
+		lblCliente.setBounds(50, 22, 100, 36);
 		panelPrincipal.add(lblCliente);
 		
 		cmbClientes = new JComboBox<String>();
-		cmbClientes.setBounds(149, 13, 151, 33);
+		cmbClientes.setBounds(150, 22, 150, 36);
 		panelPrincipal.add(cmbClientes);
 		
 		btnClientes = new JButton("Administrar clientes");
-		btnClientes.setBounds(334, 13, 222, 33);
+		btnClientes.setBounds(320, 10, 230, 60);
 		panelPrincipal.add(btnClientes);
 		
 		// ===== barras de desplazamiento =====
 		JScrollPane barraScroll = new JScrollPane();
-		barraScroll.setBounds(34, 196, 637, 118);
+		barraScroll.setBounds(50, 180, 500, 100);
 		panelPrincipal.add(barraScroll);
 
 		barraScroll.setViewportView(txtComentario);
@@ -248,29 +249,26 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    		vehiculo = Archivos.cargarVehiculo(matricula);
 
 		    		// --- orden primaria ---
-		    		Calendar calendar = Calendar.getInstance();
-		    		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-		    		String codOrdenPrim = formatter.format(calendar.getTime());
 		    		String comentarios = txtComentario.getText();
 		    		
 		    		cmbClientes.setSelectedIndex(-1);
 		    		cmbVehiculos.setSelectedIndex(-1);
 		    		txtComentario.setText("");
 		    		
-		    		Archivos.guardarOrdenPrim(new OrdenPrim(codOrdenPrim, comentarios, new Fecha(), cliente, vehiculo));
+		    		Archivos.guardarOrdenPrim(new OrdenPrim(comentarios, cliente, vehiculo));
 		    	}
 		    	else
 		    	{
 		    		JOptionPane.showMessageDialog (null, "Por favor seleccione un vehículo", "ERROR",
 		    				JOptionPane.ERROR_MESSAGE);
-		    		Logs.error("No se ha seleccionado ningun vehiculo");
+		    		Log.error("No se ha seleccionado ningun vehiculo");
 		    	}
 			}
 			else
 			{
 				JOptionPane.showMessageDialog (null, "Por favor seleccione un cliente", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
-				Logs.error("No se ha seleccionado ningun cliente");
+				Log.error("No se ha seleccionado ningun cliente");
 			}
 
 		}

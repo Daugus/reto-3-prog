@@ -7,12 +7,12 @@ import java.util.logging.SimpleFormatter;
 
 import navegacion.Inicio;
 
-public class Logs 
+public class Log 
 {
 	// ===== Rutas =====
 	public static String raiz = "C:\\RKA\\Logs\\";
 	public static String sesion = raiz + "sesion.log";
-	public static String orden = raiz + "ordenes.log";
+	public static String primarias = raiz + "primarias.log";
 	public static String error = raiz + "error.log";
 	
 	// ====== Generar logs =======
@@ -68,7 +68,7 @@ public class Logs
 		
 	public static void orden(String ord)
 	{
-		grabar(orden, ord, false);
+		grabar(primarias, ord, false);
 	}
 		
 	public static void error(String err)

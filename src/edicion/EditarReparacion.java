@@ -7,9 +7,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
 
 import javax.swing.DefaultComboBoxModel;
@@ -351,47 +349,51 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		}
 		else
 		{
-			try
+			if (tblMateriales.getRowCount() > 0)
 			{
-				String descripcion = txtDescripcion.getText();
-				int horas = Integer.parseInt(txtHoras.getText());
-				double manoObra = Double.parseDouble(txtManoObra.getText());
-				
-				Calendar calendar = Calendar.getInstance();
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-				String cod = formatter.format(calendar.getTime());
-				
-				ArrayList<Reparacion> al = CrearOrdenPend.getReparaciones();
-				if (!edicion)
+				try
 				{
-					int posicion = 0;
-					boolean borrar = false;
-					for (int i = 0; i < al.size(); i++)
+					String descripcion = txtDescripcion.getText();
+					int horas = Integer.parseInt(txtHoras.getText());
+					double manoObra = Double.parseDouble(txtManoObra.getText());
+					
+					ArrayList<Reparacion> al = CrearOrdenPend.getReparaciones();
+					if (!edicion)
 					{
-						System.out.println(al.get(i).getDescripcion().equals(descripcion));
-						if (al.get(i).getDescripcion().equals(descripcion))
+						int posicion = 0;
+						boolean borrar = false;
+						for (int i = 0; i < al.size(); i++)
 						{
-							posicion = i;
-							borrar = true;
+							System.out.println(al.get(i).getDescripcion().equals(descripcion));
+							if (al.get(i).getDescripcion().equals(descripcion))
+							{
+								posicion = i;
+								borrar = true;
+							}
+						}
+						
+						if (borrar)
+						{
+							al.remove(posicion);
 						}
 					}
-
-					if (borrar)
-					{
-						al.remove(posicion);
-					}
+					
+					al.add(new Reparacion(descripcion, horas, manoObra,
+							new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+					
+					CrearOrdenPend.actualizarTablas();
+					
+					this.dispose();
 				}
-
-				al.add(new Reparacion(cod, descripcion, horas, manoObra,
-						new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
-				
-				CrearOrdenPend.actualizarTablas();
-
-				this.dispose();
+				catch (NumberFormatException nfe)
+				{
+					JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			catch (NumberFormatException nfe)
+			else
 			{
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "No se ha agregado ningún material", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
