@@ -62,7 +62,26 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable
 		this.tipo = other.tipo;
 	}
 	
-	// --- personalizado ---
+	// --- personalizados ---
+	// vehículo en blanco, usado para agregar los vehículos de un cliente nuevo
+	public Vehiculo(String m, String p)
+	{
+		matricula = m;
+		bastidor = "";
+		propietario = p;
+
+		marca = "";
+		modelo = "";
+		color = "";
+
+		cilindrada = 0;
+
+		kmRecorridos = 0;
+		fechaITV = new Fecha();
+
+		tipo = "";
+	}
+	
 	public Vehiculo(String m, String b, String dni, String mar, String mod, String c, int cc, int km, Fecha i, String t)
 	{
 		matricula = m;

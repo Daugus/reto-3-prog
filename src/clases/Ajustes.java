@@ -84,18 +84,21 @@ public class Ajustes implements Serializable
 			nombreTema = "Claro";
 		}
 
-		return (nombreTema + " " + fuente.getFamily());
+		return "Tema: " + nombreTema +
+				", fuente " + fuente.getFamily();
 	}
 
 	// --- comparación ---
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return Objects.hash(colorFondo, colorFondoObjetos, colorFuente, colorFuenteObjetos, fuente, fuenteObjetos,
 				tema);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -111,59 +114,73 @@ public class Ajustes implements Serializable
 	}
 
 	// --- getters y setters ---
-	public boolean temaOscuro() {
+	public boolean temaOscuro()
+	{
 		return tema;
 	}
 
-	public void setTemaOscuro(boolean tema) {
+	public void setTemaOscuro(boolean tema)
+	{
 		this.tema = tema;
 	}
 
-	public Font getFuente() {
+	public Font getFuente()
+	{
 		return fuente;
 	}
 
-	public void setFuente(Font fuente) {
+	public void setFuente(Font fuente)
+	{
 		this.fuente = fuente;
 	}
 
-	public Font getFuenteObjetos() {
+	public Font getFuenteObjetos()
+	{
 		return fuenteObjetos;
 	}
 
-	public void setFuenteObjetos(Font fuenteObjetos) {
+	public void setFuenteObjetos(Font fuenteObjetos)
+	{
 		this.fuenteObjetos = fuenteObjetos;
 	}
 
-	public Color getColorFondo() {
+	public Color getColorFondo()
+	{
 		return colorFondo;
 	}
 
-	public void setColorFondo(Color colorFondo) {
+	public void setColorFondo(Color colorFondo)
+	{
 		this.colorFondo = colorFondo;
 	}
 
-	public Color getColorFondoObjetos() {
+	public Color getColorFondoObjetos()
+	{
 		return colorFondoObjetos;
 	}
 
-	public void setColorFondoObjetos(Color colorFondoObjetos) {
+	public void setColorFondoObjetos(Color colorFondoObjetos)
+	{
 		this.colorFondoObjetos = colorFondoObjetos;
 	}
 
-	public Color getColorFuente() {
+	public Color getColorFuente()
+	{
 		return colorFuente;
 	}
 
-	public void setColorFuente(Color colorFuente) {
+	public void setColorFuente(Color colorFuente)
+	{
 		this.colorFuente = colorFuente;
 	}
 
-	public Color getColorFuenteObjetos() {
+	public Color getColorFuenteObjetos()
+	{
 		return colorFuenteObjetos;
 	}
 
-	public void setColorFuenteObjetos(Color colorFuenteObjetos) {
+	public void setColorFuenteObjetos(Color colorFuenteObjetos)
+	{
 		this.colorFuenteObjetos = colorFuenteObjetos;
 	}
 }

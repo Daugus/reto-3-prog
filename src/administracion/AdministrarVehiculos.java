@@ -23,7 +23,7 @@ import edicion.EditarVehiculo;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
-import ordenes.CrearOrdenPrim;
+import ordenes.CrearPrimaria;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	{
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar vehiculos");
+		setTitle("Administrar vehículos");
 		
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
@@ -187,7 +187,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		}
 		else if (o == btnVolver)
 		{
-			CrearOrdenPrim cop = new CrearOrdenPrim();
+			CrearPrimaria cop = new CrearPrimaria();
 			cop.setLocationRelativeTo(null);
 			cop.setVisible(true);
 			
@@ -198,7 +198,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

@@ -203,7 +203,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

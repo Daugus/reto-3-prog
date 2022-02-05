@@ -16,7 +16,7 @@ import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
 import funciones.Log;
 import funciones.Salir;
-import ordenes.CrearOrdenPrim;
+import ordenes.CrearPrimaria;
 
 /**
  * 
@@ -131,7 +131,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		}
 		else if (o == btnNuevaOrdenPrim)
 		{
-			CrearOrdenPrim cop = new CrearOrdenPrim();
+			CrearPrimaria cop = new CrearPrimaria();
 			cop.setLocationRelativeTo(null);
 			cop.setVisible(true);
 			
@@ -176,7 +176,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

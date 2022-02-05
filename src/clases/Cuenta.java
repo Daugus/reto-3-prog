@@ -115,8 +115,8 @@ public class Cuenta extends Persona
 		}
 
 		return tipo;
-		
 	}
+
 	public String getPassword()
 	{
 		return password;

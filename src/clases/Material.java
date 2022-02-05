@@ -37,7 +37,8 @@ public class Material implements Comparable<Material>, Serializable
 	// --- salida ---
 	public String toString()
 	{
-		return (nombre + " " + precio);
+		return "Nombre: " + nombre +
+				", precio: " + precio;
 	}
 
 	// --- comparación ---

@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarClientes;
 import administracion.AdministrarVehiculos;
 import clases.Cliente;
-import clases.OrdenPrim;
+import clases.Primaria;
 import clases.Vehiculo;
 import funciones.Archivos;
 import funciones.Log;
@@ -33,7 +33,7 @@ import navegacion.MenuAtc;
  * @author Grupo 2
  *
  */
-public class CrearOrdenPrim extends JFrame implements ActionListener, WindowListener
+public class CrearPrimaria extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -57,10 +57,10 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 	
 	private JTextArea txtComentario;
 	
-	private static Cliente cliente;
-	private static Vehiculo vehiculo;
+	private Cliente cliente;
+	private Vehiculo vehiculo;
 
-	public CrearOrdenPrim()
+	public CrearPrimaria()
 	{
 		setResizable(false);
 		setTitle("Crear orden de trabajo");
@@ -192,16 +192,6 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		btnCrearOrden.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
-	public static Cliente getCliente()
-	{
-		return cliente;
-	}
-	
-	public static Vehiculo getVehiculo()
-	{
-		return vehiculo;
-	}
-	
 	public void actionPerformed(ActionEvent e)
 	{
 		Object o = e.getSource();
@@ -250,17 +240,25 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    		String matricula = (String) cmbVehiculos.getSelectedItem();
 		    		vehiculo = Archivos.cargarVehiculo(matricula);
 
-		    		// --- orden primaria ---
-		    		String comentarios = txtComentario.getText();
-		    		
-		    		cmbClientes.setSelectedIndex(-1);
-		    		cmbVehiculos.setSelectedIndex(-1);
-		    		txtComentario.setText("");
-		    		
-		    		Archivos.guardarOrdenPrim(new OrdenPrim(comentarios, cliente, vehiculo, Inicio.cuentaActual));
-
-					JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
-							JOptionPane.INFORMATION_MESSAGE);
+		    		if (!vehiculo.getBastidor().equals(""))
+		    		{
+		    			// --- orden primaria ---
+		    			String comentarios = txtComentario.getText();
+		    			
+		    			cmbClientes.setSelectedIndex(-1);
+		    			cmbVehiculos.setSelectedIndex(-1);
+		    			txtComentario.setText("");
+		    			
+		    			Archivos.guardarPrimaria(new Primaria(comentarios, cliente, vehiculo, Inicio.cuentaActual));
+		    			
+		    			JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
+		    					JOptionPane.INFORMATION_MESSAGE);
+		    		}
+		    		else
+		    		{
+						JOptionPane.showMessageDialog (null, "El vehículo seleccionado no tiene la información necesaria", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+		    		}
 		    	}
 		    	else
 		    	{
@@ -282,7 +280,7 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

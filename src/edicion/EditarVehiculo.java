@@ -19,16 +19,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 import administracion.AdministrarVehiculos;
+import clases.Cliente;
 import clases.Fecha;
 import clases.Vehiculo;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
-import javax.swing.SwingConstants;
 
 /**
  * 
@@ -91,12 +92,12 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		
 		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMarca.setBounds(50, 160, 100, 35);
+		lblMarca.setBounds(50, 115, 100, 35);
 		panelPrincipal.add(lblMarca);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
 		lblModelo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblModelo.setBounds(50, 115, 100, 35);
+		lblModelo.setBounds(330, 115, 100, 35);
 		panelPrincipal.add(lblModelo);
 		
 		JLabel lblBastidor = new JLabel("Nº Bastidor:");
@@ -121,12 +122,12 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		
 		txtModelo = new JTextField();
 		txtModelo.setColumns(10);
-		txtModelo.setBounds(150, 115, 150, 35);
+		txtModelo.setBounds(430, 115, 150, 35);
 		panelPrincipal.add(txtModelo);
 		
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(150, 160, 150, 35);
+		txtMarca.setBounds(150, 115, 150, 35);
 		panelPrincipal.add(txtMarca);
 		
 		txtKmRecorridos = new JTextField();
@@ -155,12 +156,12 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		
 		txtTipo = new JTextField();
 		txtTipo.setColumns(10);
-		txtTipo.setBounds(430, 115, 150, 35);
+		txtTipo.setBounds(150, 160, 150, 35);
 		panelPrincipal.add(txtTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTipo.setBounds(330, 115, 100, 35);
+		lblTipo.setBounds(50, 160, 100, 35);
 		panelPrincipal.add(lblTipo);
 		
 		txtColor = new JTextField();
@@ -259,14 +260,10 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		setTitle("Editar " + vehiculo.getMatricula());
 		
 		txtMatricula.setText(vehiculo.getMatricula());
-		txtMatricula.setEnabled(false);
 		txtBastidor.setText(vehiculo.getBastidor());
-		txtBastidor.setEnabled(false);
 
 		txtMarca.setText(vehiculo.getMarca());
-		txtMarca.setEnabled(false);
 		txtModelo.setText(vehiculo.getModelo());
-		txtModelo.setEnabled(false);
 		txtColor.setText(vehiculo.getColor());
 
 		txtCilindrada.setText(String.valueOf(vehiculo.getCilindrada()));
@@ -276,7 +273,18 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 
 		txtTipo.setText(vehiculo.getTipo());
 
-		dcbmClientes.setSelectedItem(vehiculo.getPropietario());
+		if (!vehiculo.getPropietario().equals(""))
+		{
+			dcbmClientes.setSelectedItem(vehiculo.getPropietario());
+		}
+
+		txtMatricula.setEnabled(false);
+		if (!vehiculo.getBastidor().equals(""))
+		{
+			txtBastidor.setEnabled(false);
+			txtMarca.setEnabled(false);
+			txtModelo.setEnabled(false);
+		}
 	}
 
 	@Override
@@ -293,7 +301,6 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 			{
 				String matricula = txtMatricula.getText();
 				String bastidor = txtBastidor.getText();
-				String propietario = (String) cmbClientes.getSelectedItem();
 
 				String marca = txtMarca.getText();
 				String modelo = txtModelo.getText();
@@ -307,15 +314,22 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 				String tipo = txtTipo.getText();
 
 				ArrayList<String> camposTxt = new ArrayList<String>();
-				camposTxt.addAll(Arrays.asList(matricula, bastidor, propietario, marca, modelo, color, tipo));
+				camposTxt.addAll(Arrays.asList(matricula, bastidor, marca, modelo, color, tipo));
 		    
-				if (camposTxt.contains(""))
+				if (camposTxt.contains("") || cmbClientes.getSelectedIndex() < 0)
 				{
 					JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				else if (cilindrada < 1 || kmRecorridos < 1 || aITV < 1)
+				{
+					JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
 				else 
 				{
+					String propietario = (String) cmbClientes.getSelectedItem();
+
 					Fecha fechaITV = new Fecha(aITV);
 					
 					if (!edicion && Archivos.listarVehiculos().contains(matricula))
@@ -327,6 +341,21 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 					{
 						Archivos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario,
 								marca, modelo, color, cilindrada, kmRecorridos, fechaITV, tipo));
+						
+						for (Cliente c : Archivos.cargarTodosClientes())
+						{
+							if (c.getVehiculos().contains(matricula) && !c.getDNI().equals(propietario))
+							{
+								c.getVehiculos().remove(matricula);
+								Archivos.guardarCliente(c);
+							}
+
+							if (c.getDNI().equals(propietario) && !c.getVehiculos().contains(matricula))
+							{
+								c.getVehiculos().add(matricula);
+								Archivos.guardarCliente(c);
+							}
+						}
 						
 						AdministrarVehiculos.actualizarTabla();
 						
@@ -344,13 +373,15 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	}
 		
 	@Override
-	public void focusGained(FocusEvent fg) {
+	public void focusGained(FocusEvent fg)
+	{
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	@Override
-	public void focusLost(FocusEvent fl) {
+	public void focusLost(FocusEvent fl)
+	{
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
@@ -358,7 +389,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

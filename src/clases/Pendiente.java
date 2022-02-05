@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class OrdenPend extends OrdenPrim implements Serializable
+public class Pendiente extends Primaria implements Serializable
 {
 	private static final long serialVersionUID = 6717239572208402072L;
 	
@@ -12,8 +12,8 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	private ArrayList<Reparacion> reparaciones;
 	
 	// ===== constructores =====
-	// por defecto
-	public OrdenPend()
+	// --- por defecto ---
+	public Pendiente()
 	{
 		super();
 		
@@ -21,23 +21,23 @@ public class OrdenPend extends OrdenPrim implements Serializable
 		reparaciones = new ArrayList<Reparacion>();
 	}
 	
-	// copia
-	public OrdenPend(OrdenPend other)
+	// --- copia ---
+	public Pendiente(Pendiente other)
 	{
 		super(other);
 		
 		reparaciones = new ArrayList<Reparacion>(other.reparaciones);
 	}
 	
-	// personalizado
-	public OrdenPend(String com, Cliente c, Vehiculo v, Cuenta mec, ArrayList<Reparacion> r)
+	// --- personalizados ---
+	public Pendiente(String com, Cliente c, Vehiculo v, Cuenta mec, ArrayList<Reparacion> r)
 	{
 		super(com, c, v, mec);
 		
 		reparaciones = new ArrayList<Reparacion>(r);
 	}
 	
-	public OrdenPend(OrdenPrim primaria, Cuenta mec, ArrayList<Reparacion> r)
+	public Pendiente(Primaria primaria, Cuenta mec, ArrayList<Reparacion> r)
 	{
 		super(primaria);
 		
@@ -50,14 +50,16 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	// ===== métodos =====
 	// --- salida ---
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return super.toString() +
 				", reparaciones: " + reparaciones;
 	}
 
 	// --- comparación ---
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + Objects.hash(reparaciones);
@@ -65,23 +67,26 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrdenPend other = (OrdenPend) obj;
+		Pendiente other = (Pendiente) obj;
 		return Objects.equals(reparaciones, other.reparaciones);
 	}
 
 	// --- getters y setters ---
-	public ArrayList<Reparacion> getReparaciones() {
+	public ArrayList<Reparacion> getReparaciones()
+	{
 		return reparaciones;
 	}
 
-	public void setReparaciones(ArrayList<Reparacion> reparaciones) {
+	public void setReparaciones(ArrayList<Reparacion> reparaciones)
+	{
 		this.reparaciones = reparaciones;
 	}
 }

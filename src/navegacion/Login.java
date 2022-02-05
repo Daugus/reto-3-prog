@@ -189,13 +189,15 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	}
 
 	@Override
-	public void focusGained(FocusEvent fg) {
+	public void focusGained(FocusEvent fg)
+	{
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	@Override
-	public void focusLost(FocusEvent fl) {
+	public void focusLost(FocusEvent fl)
+	{
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}

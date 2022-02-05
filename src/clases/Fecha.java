@@ -58,6 +58,64 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	}
 
 	// ===== métodos =====
+	// --- personalizado ---
+	private void bisiesto(int d, int m, int a)
+	{
+		if (d > 28)
+		{
+			switch (m)
+			{
+			// febrero
+			case 2:
+				if (a % 4 == 0)
+				{
+					if (a % 100 == 0)
+					{
+						if (a % 400 == 0)
+						{
+							day = 29;
+						}
+						else
+						{
+							day = 28;
+						}
+					}
+					else
+					{
+						day = 29;
+					}
+				}
+				else
+				{
+					day = 28;
+				}
+				break;
+				// abril, junio, septiembre o noviembre
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				if (d > 30)
+				{
+					day = 30;
+				}
+				else
+				{
+					day = d;
+				}
+				break;
+				// enero, marzo, mayo, julio, agosto, octubre, diciembre
+			default:
+				day = d;
+				break;
+			}
+		}
+		else
+		{
+			day = d;
+		}
+	}
+	
 	// --- salida ---
 	@Override
 	public String toString()
@@ -174,61 +232,4 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	{
 		year = a;
 	}
-	
-	// --- personalizados ---
-	private void bisiesto(int d, int m, int a)
-	{
-		if (d > 28)
-		{
-			switch (m)
-			{
-				// febrero
-				case 2:
-					if (a % 4 == 0)
-					{
-						if (a % 100 == 0)
-						{
-							if (a % 400 == 0)
-							{
-								day = 29;
-							}
-							else
-							{
-								day = 28;
-							}
-						}
-						else
-						{
-							day = 29;
-						}
-					}
-					else
-					{
-						day = 28;
-					}
-					break;
-				// abril, junio, septiembre o noviembre
-				case 4:
-				case 6:
-				case 9:
-				case 11:
-					if (d > 30)
-					{
-						day = 30;
-					}
-					else
-					{
-						day = d;
-					}
-					break;
-				default:
-					day = d;
-					break;
-			}
-		}
-		else
-		{
-			day = d;
-		}
-	 }
 }

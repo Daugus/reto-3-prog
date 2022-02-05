@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import funciones.Salir;
-import ordenes.ListaOrdenesPend;
-import ordenes.ListaOrdenesPrim;
+import ordenes.ListaPendientes;
+import ordenes.ListaPrimarias;
 
 /**
  * 
@@ -28,9 +28,9 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 
 	private JPanel panelPrincipal;
 
-	private JButton btnOrdenesPrim;
-	private JButton btnOrdenesPend;
-	private JButton btnFacturasAprob;
+	private JButton btnPrimarias;
+	private JButton btnPendientes;
+	private JButton btnFacturas;
 	private JButton btnVolver;
 
 	{
@@ -46,17 +46,17 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
-		btnOrdenesPrim = new JButton("Órdenes primarias");
-		btnOrdenesPrim.setBounds(50, 10, 230, 60);
-		panelPrincipal.add(btnOrdenesPrim);
+		btnPrimarias = new JButton("Órdenes primarias");
+		btnPrimarias.setBounds(50, 10, 230, 60);
+		panelPrincipal.add(btnPrimarias);
 		
-		btnOrdenesPend = new JButton("Órdenes pendientes");
-		btnOrdenesPend.setBounds(50, 85, 230, 60);
-		panelPrincipal.add(btnOrdenesPend);
+		btnPendientes = new JButton("Órdenes pendientes");
+		btnPendientes.setBounds(50, 85, 230, 60);
+		panelPrincipal.add(btnPendientes);
 		
-		btnFacturasAprob = new JButton("Facturas aprobadas");
-		btnFacturasAprob.setBounds(50, 160, 230, 60);
-		panelPrincipal.add(btnFacturasAprob);
+		btnFacturas = new JButton("Facturas aprobadas");
+		btnFacturas.setBounds(50, 160, 230, 60);
+		panelPrincipal.add(btnFacturas);
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(10, 245, 180, 40);
@@ -69,28 +69,28 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 
 		// --- Action && Focus ---
 		// - JButton -
-		btnOrdenesPrim.addActionListener(this);
-		btnOrdenesPend.addActionListener(this);
-		btnFacturasAprob.addActionListener(this);
+		btnPrimarias.addActionListener(this);
+		btnPendientes.addActionListener(this);
+		btnFacturas.addActionListener(this);
 		btnVolver.addActionListener(this);
 
-		btnOrdenesPrim.setFont(Inicio.fuenteObjetos);
-		btnOrdenesPend.setFont(Inicio.fuenteObjetos);
-		btnFacturasAprob.setFont(Inicio.fuenteObjetos);
+		btnPrimarias.setFont(Inicio.fuenteObjetos);
+		btnPendientes.setFont(Inicio.fuenteObjetos);
+		btnFacturas.setFont(Inicio.fuenteObjetos);
 		btnVolver.setFont(Inicio.fuenteObjetos);
 
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		btnOrdenesPrim.setBackground(Inicio.colorFondoObjetos);
-		btnOrdenesPend.setBackground(Inicio.colorFondoObjetos);
-		btnFacturasAprob.setBackground(Inicio.colorFondoObjetos);
+		btnPrimarias.setBackground(Inicio.colorFondoObjetos);
+		btnPendientes.setBackground(Inicio.colorFondoObjetos);
+		btnFacturas.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 
-		btnOrdenesPrim.setForeground(Inicio.colorFuenteObjetos);
-		btnOrdenesPend.setForeground(Inicio.colorFuenteObjetos);
-		btnFacturasAprob.setForeground(Inicio.colorFuenteObjetos);
+		btnPrimarias.setForeground(Inicio.colorFuenteObjetos);
+		btnPendientes.setForeground(Inicio.colorFuenteObjetos);
+		btnFacturas.setForeground(Inicio.colorFuenteObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 	}
 
@@ -99,23 +99,23 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	{
 		Object o = e.getSource();
 		
-		if (o == btnOrdenesPrim)
+		if (o == btnPrimarias)
 		{
-			ListaOrdenesPrim lop = new ListaOrdenesPrim();
+			ListaPrimarias lop = new ListaPrimarias();
 			lop.setLocationRelativeTo(null);
 			lop.setVisible(true);
 
 			this.dispose();
 		}
-		else if (o == btnOrdenesPend)
+		else if (o == btnPendientes)
 		{
-			ListaOrdenesPend lop = new ListaOrdenesPend();
+			ListaPendientes lop = new ListaPendientes();
 			lop.setLocationRelativeTo(null);
 			lop.setVisible(true);
 			
 			this.dispose();
 		}
-		else if (o == btnFacturasAprob)
+		else if (o == btnFacturas)
 		{
 			
 		}
@@ -141,7 +141,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

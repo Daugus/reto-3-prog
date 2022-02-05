@@ -196,19 +196,10 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		} 
 	}
 	
-	// ==== Getters and Setters
-	
-	public static void setTblMateriales(JTable tblMateriales) {
-		AdministrarMateriales.tblMateriales = tblMateriales;
-	}
-	public static JTable getTblMateriales() {
-		return tblMateriales;
-	}
-
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

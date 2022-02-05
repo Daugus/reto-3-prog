@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Cliente;
 import clases.MaterialUsado;
-import clases.OrdenPend;
+import clases.Pendiente;
 import clases.Reparacion;
 import clases.Vehiculo;
 import funciones.Salir;
@@ -50,14 +50,14 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	private JTable tblReparaciones;
 	private JTable tblMateriales;
 	
-	private OrdenPend pendiente;
+	private Pendiente pendiente;
 	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
 
 	public GenerarFactura()
 	{
 		setResizable(false);
-		setTitle("Crear orden pendiente");
+		setTitle("Generar factura");
 		
 		setBounds(100, 100, 790, 510);
 		getContentPane().setPreferredSize(new Dimension(790, 510));
@@ -226,9 +226,9 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
-	public void cargarDatos(OrdenPend op)
+	public void cargarDatos(Pendiente op)
 	{
-		pendiente = new OrdenPend(op);
+		pendiente = new Pendiente(op);
 
 		// ===== datos cliente =====
 		// --- cargar cliente ---
@@ -311,12 +311,12 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		{
 //			Archivos.borrarOrdenPrim(pendiente.getCodigo());
 				
-			// TODO: crear factura y funciones en arhivos
+			// TODO: crear frame de factura para convertir en pdf
 //			Archivos.guardarOrdenPend(new OrdenPend(pendiente, alReparaciones));
 		}
 		else if (o == btnVolver)
 		{
-			ListaOrdenesPrim mat = new ListaOrdenesPrim();
+			ListaPrimarias mat = new ListaPrimarias();
 			mat.setLocationRelativeTo(null);
 			mat.setVisible(true);
 			
@@ -326,8 +326,9 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	
 	// ===== Overrides =======
 	@Override
-	public void windowClosing(WindowEvent e) {
-		Salir.siNo();
+	public void windowClosing(WindowEvent e)
+	{
+		Salir.general();
 	}
 
 	@Override

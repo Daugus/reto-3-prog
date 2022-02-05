@@ -50,9 +50,11 @@ public class Cliente extends Persona implements Serializable
 	// ===== métodos =====
 	// --- salida ---
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return super.toString() +
-				", Fecha de alta: " + fechaAlta;
+				", fecha de alta: " + fechaAlta +
+				", vehíulos: " + vehiculos;
 	}
 
 	// --- comparacion ---

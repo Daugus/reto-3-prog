@@ -26,7 +26,7 @@ import navegacion.MenuMec;
 
 /**
  * 
- * @author Grupo_4
+ * @author Grupo 2
  * 
  */
 public class EditarAjustes extends JFrame implements ActionListener, WindowListener, FocusListener
@@ -211,13 +211,15 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	}
 
 	@Override
-	public void focusGained(FocusEvent fg) {
+	public void focusGained(FocusEvent fg)
+	{
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	@Override
-	public void focusLost(FocusEvent fl) {
+	public void focusLost(FocusEvent fl)
+	{
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
@@ -225,7 +227,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

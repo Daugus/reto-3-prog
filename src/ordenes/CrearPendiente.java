@@ -25,8 +25,8 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Cliente;
 import clases.MaterialUsado;
-import clases.OrdenPend;
-import clases.OrdenPrim;
+import clases.Pendiente;
+import clases.Primaria;
 import clases.Reparacion;
 import clases.Vehiculo;
 import edicion.EditarReparacion;
@@ -40,7 +40,7 @@ import navegacion.Inicio;
  * @author Grupo 2
  *
  */
-public class CrearOrdenPend extends JFrame implements ActionListener, WindowListener
+public class CrearPendiente extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -63,9 +63,9 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 	private static ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private static ArrayList<MaterialUsado> alMaterialesGeneral = new ArrayList<MaterialUsado>();
 	
-	private static OrdenPrim primaria;
+	private Primaria primaria;
 
-	public CrearOrdenPend()
+	public CrearPendiente()
 	{
 		setResizable(false);
 		setTitle("Crear orden pendiente");
@@ -276,9 +276,9 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
-	public void cargarDatos(OrdenPrim op)
+	public void cargarDatos(Primaria op)
 	{
-		primaria = new OrdenPrim(op);
+		primaria = new Primaria(op);
 		if (!Inicio.cuentaActual.getMecanico())
 		{
 			btnAgregar.setVisible(false);
@@ -375,14 +375,14 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		{
 			if (tblReparaciones.getRowCount() > 0 && tblMateriales.getRowCount() > 0)
 			{
-				Archivos.borrarOrdenPrim(primaria.getCodigo());
+				Archivos.borrarPrimaria(primaria.getCodigo());
 				
-				Archivos.guardarOrdenPend(new OrdenPend(primaria, Inicio.cuentaActual, alReparaciones));
+				Archivos.guardarPendiente(new Pendiente(primaria, Inicio.cuentaActual, alReparaciones));
 
 				JOptionPane.showMessageDialog(this, (String) "Se ha convertido la order primaria en una orden pendiente", "INFO",
 						JOptionPane.INFORMATION_MESSAGE);
 				
-				ListaOrdenesPrim lop = new ListaOrdenesPrim();
+				ListaPrimarias lop = new ListaPrimarias();
 				lop.setLocationRelativeTo(null);
 				lop.setVisible(true);
 			
@@ -436,7 +436,7 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		}
 		else if (o == btnVolver)
 		{
-			ListaOrdenesPrim lop = new ListaOrdenesPrim();
+			ListaPrimarias lop = new ListaPrimarias();
 			lop.setLocationRelativeTo(null);
 			lop.setVisible(true);
 			
@@ -446,8 +446,9 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 	
 	// ===== Overrides =======
 	@Override
-	public void windowClosing(WindowEvent e) {
-		Salir.siNo();
+	public void windowClosing(WindowEvent e)
+	{
+		Salir.general();
 	}
 
 	@Override

@@ -26,7 +26,7 @@ import navegacion.Inicio;
 
 /**
  * 
- * @author Grupo_4
+ * @author Grupo 2
  * 
  */
 public class EditarMaterial extends JFrame implements ActionListener, WindowListener, FocusListener
@@ -168,19 +168,26 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 				{
 					p = p.replaceAll(",", ".");
 					double precio = Double.parseDouble(p);
-					
-					if (!edicion && Archivos.listarMateriales().contains(nombre))
+					if (precio > 0)
 					{
-						JOptionPane.showMessageDialog(this, (String) "Material ya existe", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
+						if (!edicion && Archivos.listarMateriales().contains(nombre))
+						{
+							JOptionPane.showMessageDialog(this, (String) "Material ya existe", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+						}
+						else
+						{
+							Archivos.guardarMaterial(new Material(nombre,precio));
+							
+							AdministrarMateriales.actualizarTabla();
+							
+							this.dispose();
+						}
 					}
 					else
 					{
-						Archivos.guardarMaterial(new Material(nombre,precio));
-						
-						AdministrarMateriales.actualizarTabla();
-
-						this.dispose();
+						JOptionPane.showMessageDialog(this, (String) "Precio no válido, precio no puede ser menor que 0", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
@@ -193,13 +200,15 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	}
 
 	@Override
-	public void focusGained(FocusEvent fg) {
+	public void focusGained(FocusEvent fg)
+	{
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	@Override
-	public void focusLost(FocusEvent fl) {
+	public void focusLost(FocusEvent fl)
+	{
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
@@ -207,7 +216,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

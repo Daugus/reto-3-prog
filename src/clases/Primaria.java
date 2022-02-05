@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
+public class Primaria implements Comparable<Primaria>, Serializable
 {
 	private static final long serialVersionUID = 6717239572208402072L;
 	
@@ -18,8 +18,8 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 	private Cuenta empleado;
 	
 	// ===== constructores =====
-	// por defecto
-	public OrdenPrim()
+	// --- por defecto ---
+	public Primaria()
 	{
 		generarCodigo();
 		comentarios = "";
@@ -31,8 +31,8 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 		empleado = new Cuenta(false);
 	}
 	
-	// copia
-	public OrdenPrim(OrdenPrim other)
+	// --- copia ---
+	public Primaria(Primaria other)
 	{
 		this.codigo = other.codigo;
 		this.comentarios = other.comentarios;
@@ -44,8 +44,8 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 		this.empleado = new Cuenta(other.empleado);
 	}
 	
-	// personalizado
-	public OrdenPrim(String com, Cliente c, Vehiculo v, Cuenta atc)
+	// --- personalizado ---
+	public Primaria(String com, Cliente c, Vehiculo v, Cuenta atc)
 	{
 		generarCodigo();
 		comentarios = com;
@@ -94,64 +94,76 @@ public class OrdenPrim implements Comparable<OrdenPrim>, Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrdenPrim other = (OrdenPrim) obj;
+		Primaria other = (Primaria) obj;
 		return Objects.equals(codigo, other.codigo) && Objects.equals(comentarios, other.comentarios)
 				&& Objects.equals(fecha, other.fecha) && Objects.equals(propietario, other.propietario)
 				&& Objects.equals(vehiculo, other.vehiculo) && Objects.equals(empleado, other.empleado);
 	}
 
 	@Override
-	public int compareTo(OrdenPrim other)
+	public int compareTo(Primaria other)
 	{
 		return codigo.compareTo(other.codigo);
 	}
 
 	// --- getters y setters ---
-	public String getCodigo() {
+	public String getCodigo()
+	{
 		return codigo;
 	}
 
-	public void setCodigo(String codOrdenPrim) {
+	public void setCodigo(String codOrdenPrim)
+	{
 		this.codigo = codOrdenPrim;
 	}
 
-	public String getComentarios() {
+	public String getComentarios()
+	{
 		return comentarios;
 	}
 
-	public void setComentarios(String comentarios) {
+	public void setComentarios(String comentarios)
+	{
 		this.comentarios = comentarios;
 	}
 
-	public Fecha getFecha() {
+	public Fecha getFecha()
+	{
 		return fecha;
 	}
 
-	public void setFecha(Fecha fechaEntrada) {
+	public void setFecha(Fecha fechaEntrada)
+	{
 		this.fecha = fechaEntrada;
 	}
 
-	public Vehiculo getVehiculo() {
+	public Vehiculo getVehiculo()
+	{
 		return vehiculo;
 	}
 
-	public void setVehiculo(Vehiculo vehiculo) {
+	public void setVehiculo(Vehiculo vehiculo)
+	{
 		this.vehiculo = vehiculo;
 	}
 
-	public Cliente getPropietario() {
+	public Cliente getPropietario()
+	{
 		return propietario;
 	}
 
-	public void setPropietario(Cliente propietario) {
+	public void setPropietario(Cliente propietario)
+	{
 		this.propietario = propietario;
 	}
 	
-	public Cuenta getEmpleado() {
+	public Cuenta getEmpleado()
+	{
 		return empleado;
 	}
 	
-	public void setEmpleado(Cuenta empleado) {
+	public void setEmpleado(Cuenta empleado)
+	{
 		this.empleado = new Cuenta(empleado);
 	}
 }

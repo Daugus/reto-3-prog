@@ -113,6 +113,13 @@ public class Pruebas
 //		System.out.println(Archivos.cargarTodosOrdenPend());
 //		System.out.println(Archivos.cargarTodosReparacion());
 		
-		System.out.println(Archivos.cargarTodosOrdenPend());
+//		System.out.println(Archivos.cargarTodosOrdenPend());
+		
+//		Calendar now = Calendar.getInstance();
+//		System.out.println(now.get(Calendar.MONTH) + 1);
+		
+//		System.out.println(Archivos.cargarVehiculo("vtest1"));
+		
+//		Log.borrarPendiente("test");
 	}
 }

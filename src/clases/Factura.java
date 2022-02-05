@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Factura extends OrdenPend implements Serializable
+public class Factura extends Pendiente implements Serializable
 {
 	private static final long serialVersionUID = 6717239572208402072L;
 	
@@ -16,7 +16,7 @@ public class Factura extends OrdenPend implements Serializable
 	private double total;
 	
 	// ===== constructores =====
-	// por defecto
+	// --- por defecto ---
 	public Factura()
 	{
 		super();
@@ -28,7 +28,7 @@ public class Factura extends OrdenPend implements Serializable
 		total = 0;
 	}
 	
-	// copia
+	// --- copia ---
 	public Factura(Factura other)
 	{
 		super(other);
@@ -40,7 +40,7 @@ public class Factura extends OrdenPend implements Serializable
 		this.total = other.total;
 	}
 	
-	// personalizado
+	// --- personalizados ---
 	public Factura(String com, Cliente c, Vehiculo v, Cuenta atc, ArrayList<Reparacion> r)
 	{
 		super(com, c, v, atc, r);
@@ -48,7 +48,7 @@ public class Factura extends OrdenPend implements Serializable
 		calcularTotal();
 	}
 	
-	public Factura(OrdenPend pendiente)
+	public Factura(Pendiente pendiente)
 	{
 		super(pendiente);
 		
@@ -77,7 +77,8 @@ public class Factura extends OrdenPend implements Serializable
 
 	// --- salida ---
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return super.toString() +
 				", total reparaciones: " + costeReparaciones +
 				", total materiales: " + costeMateriales +
@@ -88,7 +89,8 @@ public class Factura extends OrdenPend implements Serializable
 
 	// --- comparación ---
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + Objects.hash(costeMateriales, costeReparaciones, iva, subtotal, total);
@@ -96,7 +98,8 @@ public class Factura extends OrdenPend implements Serializable
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -112,43 +115,53 @@ public class Factura extends OrdenPend implements Serializable
 	}
 
 	// --- getters y setters ---
-	public double getCosteReparaciones() {
+	public double getCosteReparaciones()
+	{
 		return costeReparaciones;
 	}
 
-	public void setCosteReparaciones(double costeReparaciones) {
+	public void setCosteReparaciones(double costeReparaciones)
+	{
 		this.costeReparaciones = costeReparaciones;
 	}
 
-	public double getCosteMateriales() {
+	public double getCosteMateriales()
+	{
 		return costeMateriales;
 	}
 
-	public void setCosteMateriales(double costeMateriales) {
+	public void setCosteMateriales(double costeMateriales)
+	{
 		this.costeMateriales = costeMateriales;
 	}
 
-	public double getSubtotal() {
+	public double getSubtotal()
+	{
 		return subtotal;
 	}
 
-	public void setSubtotal(double subtotal) {
+	public void setSubtotal(double subtotal)
+	{
 		this.subtotal = subtotal;
 	}
 
-	public double getIva() {
+	public double getIva()
+	{
 		return iva;
 	}
 
-	public void setIva(double iva) {
+	public void setIva(double iva)
+	{
 		this.iva = iva;
 	}
 
-	public double getTotal() {
+	public double getTotal()
+	{
 		return total;
 	}
 
-	public void setTotal(double total) {
+	public void setTotal(double total)
+	{
 		this.total = total;
 	}
 }

@@ -24,7 +24,7 @@ import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
-import ordenes.CrearOrdenPrim;
+import ordenes.CrearPrimaria;
 
 /**
  * 
@@ -189,7 +189,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		}
 		else if (o == btnVolver)
 		{
-			CrearOrdenPrim cop = new CrearOrdenPrim();
+			CrearPrimaria cop = new CrearPrimaria();
 			cop.setLocationRelativeTo(null);
 			cop.setVisible(true);
 			
@@ -200,7 +200,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

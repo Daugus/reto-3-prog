@@ -19,40 +19,41 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import clases.OrdenPend;
+import clases.Primaria;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.ListaOrdenes;
+import navegacion.MenuMec;
 
 /**
  * 
  * @author Grupo 2
  *
  */
-public class ListaOrdenesPend extends JFrame implements ActionListener, WindowListener
+public class ListaPrimarias extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
 	
-	private JTable tblPendientes;
+	private JTable tblPrimarias;
 
 	private JButton btnVolver;
 	private JButton btnCargar;
 
-	ArrayList<OrdenPend> alPendientes;
+	ArrayList<Primaria> alPrimarias;
 
-	private static OrdenPend ordenPend;
+	private static Primaria ordenPrim;
 
-	public ListaOrdenesPend()
+	public ListaPrimarias()
 	{
 		setResizable(false);
-		setTitle("Lista de Órdenes Pendientes");
-
+		setTitle("Lista de Órdenes Primarias");
+		
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
 		pack();
-
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
@@ -67,27 +68,27 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 		panelPrincipal.add(btnCargar);
 		
 		// ===== barras de desplazamiento =====
-		JScrollPane scrollPendientes = new JScrollPane();
-		scrollPendientes.setBackground(Color.LIGHT_GRAY);
-		scrollPendientes.setBounds(50, 10, 600, 200);
-		panelPrincipal.add(scrollPendientes);
+		JScrollPane scrollPrimarias = new JScrollPane();
+		scrollPrimarias.setBackground(Color.LIGHT_GRAY);
+		scrollPrimarias.setBounds(50, 10, 600, 200);
+		panelPrincipal.add(scrollPrimarias);
 
 		// ===== modelos =====
 		// --- crear ---
-		DefaultTableModel dtmPendientes = new DefaultTableModel();
-		dtmPendientes.addColumn("Fecha");
-		dtmPendientes.addColumn("Cliente");
-		dtmPendientes.addColumn("Vehículo");
+		DefaultTableModel dtmPrimarias = new DefaultTableModel();
+		dtmPrimarias.addColumn("Fecha");
+		dtmPrimarias.addColumn("Cliente");
+		dtmPrimarias.addColumn("Vehículo");
 		
-		alPendientes = Archivos.cargarTodosOrdenPend();
-		alPendientes.sort(Comparator.reverseOrder());
-		for (OrdenPend op : alPendientes)
+		alPrimarias = Archivos.cargarTodosPrimarias();
+		alPrimarias.sort(Comparator.reverseOrder());
+		for (Primaria op : alPrimarias)
 		{
-			dtmPendientes.addRow(new Object[] {op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula()});
+			dtmPrimarias.addRow(new Object[] {op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula()});
 		}
-
+		
 		// --- asignar ---
-		tblPendientes = new JTable(dtmPendientes)
+		tblPrimarias = new JTable(dtmPrimarias)
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -96,12 +97,12 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 				return false;
 			}
 		};
-		tblPendientes.setRowHeight(20);
-		tblPendientes.setFillsViewportHeight(true);
-		tblPendientes.getTableHeader().setReorderingAllowed(false);
-		tblPendientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblPrimarias.setRowHeight(20);
+		tblPrimarias.setFillsViewportHeight(true);
+		tblPrimarias.getTableHeader().setReorderingAllowed(false);
+		tblPrimarias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		scrollPendientes.setViewportView(tblPendientes);
+		scrollPrimarias.setViewportView(tblPrimarias);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -113,8 +114,8 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
 		
-		tblPendientes.getTableHeader().setFont(Inicio.fuenteObjetos);
-		tblPendientes.setFont(Inicio.fuente);
+		tblPrimarias.getTableHeader().setFont(Inicio.fuenteObjetos);
+		tblPrimarias.setFont(Inicio.fuente);
 
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnCargar.setFont(Inicio.fuenteObjetos);
@@ -123,13 +124,13 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		tblPendientes.getTableHeader().setBackground(Inicio.colorFondoObjetos);
-		tblPendientes.setBackground(Inicio.colorFondoObjetos);
+		tblPrimarias.getTableHeader().setBackground(Inicio.colorFondoObjetos);
+		tblPrimarias.setBackground(Inicio.colorFondoObjetos);
 
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
 		
-		tblPendientes.setForeground(Inicio.colorFuenteObjetos);
+		tblPrimarias.setForeground(Inicio.colorFuenteObjetos);
 
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
@@ -142,24 +143,24 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 
 		if (o == btnCargar)
 		{
-			int row = tblPendientes.getSelectedRow();
+			int row = tblPrimarias.getSelectedRow();
 			if (row >= 0)
 			{
 				try
 				{
-					ordenPend = alPendientes.get(row);
+					ordenPrim = alPrimarias.get(row);
 					
-					GenerarFactura gf = new GenerarFactura();
-					gf.cargarDatos(ordenPend);
+					CrearPendiente cop = new CrearPendiente();
+					cop.cargarDatos(ordenPrim);
 					
-					gf.setLocationRelativeTo(null);
-					gf.setVisible(true);
+					cop.setLocationRelativeTo(null);
+					cop.setVisible(true);
 					
 					this.dispose();
 				}
 				catch (NullPointerException npe)
 				{
-					JOptionPane.showMessageDialog (null, "La Orden Pendiente seleccionada no existe", "ERROR",
+					JOptionPane.showMessageDialog (null, "La Orden Primaria seleccionada no existe", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -172,9 +173,17 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 		else
 		{
 			// btnVolver
-			ListaOrdenes lo = new ListaOrdenes();
-			lo.setLocationRelativeTo(null);
-			lo.setVisible(true);
+			if (Inicio.cuentaActual.getMecanico())
+			{
+				MenuMec mm = new MenuMec();
+				mm.setLocationRelativeTo(null);
+				mm.setVisible(true);
+			}
+			else {
+				ListaOrdenes lo = new ListaOrdenes();
+				lo.setLocationRelativeTo(null);
+				lo.setVisible(true);
+			}
 
 			this.dispose();
 		}
@@ -183,7 +192,7 @@ public class ListaOrdenesPend extends JFrame implements ActionListener, WindowLi
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

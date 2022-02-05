@@ -1,7 +1,5 @@
 package funciones;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,22 +9,29 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import clases.*;
+import clases.Ajustes;
+import clases.Cliente;
+import clases.Cuenta;
+import clases.Factura;
+import clases.Material;
+import clases.Pendiente;
+import clases.Primaria;
+import clases.Vehiculo;
 import navegacion.Inicio;
 
 public class Archivos {
 	// ===== rutas =====
-	public static String raiz = "C:\\RKA\\";
+	private static String raiz = "C:\\RKA\\";
 
-	public static String logs = raiz + "Logs\\";
+	private static String logs = raiz + "Logs\\";
 
-	public static String materiales = raiz + "Material\\";
-	public static String vehiculos = raiz + "Vehiculo\\";
-	public static String clientes = raiz + "Cliente\\";
-	public static String cuentas = raiz + "Cuenta\\";
-	public static String facturas = raiz + "Factura\\";
-	public static String primarias = raiz + "OrdenPrim\\";
-	public static String pendientes = raiz + "OrdenPend\\";
+	private static String materiales = raiz + "Material\\";
+	private static String vehiculos = raiz + "Vehiculo\\";
+	private static String clientes = raiz + "Cliente\\";
+	private static String cuentas = raiz + "Cuenta\\";
+	private static String facturas = raiz + "Factura\\";
+	private static String primarias = raiz + "Primaria\\";
+	private static String pendientes = raiz + "Pendiente\\";
 	
 	// ===== crear carpetas en caso de que no existan ======
 	public static void crearCarpetas()
@@ -46,7 +51,7 @@ public class Archivos {
 	}
 
 	// ===== guardar =====
-	public static void guardar(Object o, File f)
+	private static void guardar(Object o, File f)
 	{
 		FileOutputStream fos;
 		ObjectOutputStream oos;
@@ -60,9 +65,10 @@ public class Archivos {
 
 			oos.close();
 			fos.close();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
-			System.out.println("error guardado");
+			Log.error("error al guardar el objeto");
 		}
 	}
 
@@ -70,47 +76,49 @@ public class Archivos {
 	public static void guardarMaterial(Material m)
 	{
 		File f = new File(materiales + m.getNombre() + ".dat");
+		Log.material(m.getNombre());
 		guardar(m, f);
 	}
 
 	public static void guardarVehiculo(Vehiculo v)
 	{
 		File f = new File(vehiculos + v.getMatricula() + ".dat");
-		Cliente c = cargarCliente(v.getPropietario());
-		// TODO comprobar si existe
-		c.getVehiculos().add(v.getMatricula());
-		
+		Log.vehiculo(v.getMatricula());
 		guardar(v, f);
-		guardarCliente(c);
 	}
 
 	public static void guardarCliente(Cliente c)
 	{
 		File f = new File(clientes + c.getDNI() + ".dat");
+		Log.cliente(c.getDNI());
 		guardar(c, f);
 	}
 
 	public static void guardarCuenta(Cuenta c)
 	{
 		File f = new File(cuentas + c.getDNI() + ".dat");
+		Log.cuenta(c.getDNI());
 		guardar(c, f);
 	}
 
-	public static void guardarOrdenPrim(OrdenPrim op)
+	public static void guardarPrimaria(Primaria p)
 	{
-		File f = new File(primarias + op.getCodigo() + ".dat");
-		guardar(op, f);
+		File f = new File(primarias + p.getCodigo() + ".dat");
+		Log.primaria(p.getCodigo());
+		guardar(p, f);
 	}
 
-	public static void guardarOrdenPend(OrdenPend op)
+	public static void guardarPendiente(Pendiente p)
 	{
-		File f = new File(pendientes + op.getCodigo() + ".dat");
-		guardar(op, f);
+		File f = new File(pendientes + p.getCodigo() + ".dat");
+		Log.pendiente(p.getCodigo());
+		guardar(p, f);
 	}
 
 	public static void guardarFactura(Factura fa)
 	{
 		File f = new File(facturas + fa.getCodigo() + ".dat");
+		Log.factura(fa.getCodigo());
 		guardar(fa, f);
 	}
 
@@ -130,14 +138,14 @@ public class Archivos {
 
 			ois.close();
 			fis.close();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
-			//System.out.println("error carga");
 			Log.error("no se han cargado los datos");
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
-			//System.out.println("error carga - clase");
-			Log.error("error carga - clase");
+			Log.error("no se ha encontrado la clase espcificada");
 		}
 
 		return o;
@@ -168,16 +176,16 @@ public class Archivos {
 		return (Cuenta) cargar(f);
 	}
 
-	public static OrdenPrim cargarOrdenPrim(String cod)
+	public static Primaria cargarPrimaria(String cod)
 	{
 		File f = new File(primarias + cod + ".dat");
-		return (OrdenPrim) cargar(f);
+		return (Primaria) cargar(f);
 	}
 	
-	public static OrdenPend cargarOrdenPend(String cod)
+	public static Pendiente cargarPendiente(String cod)
 	{
 		File f = new File(pendientes + cod + ".dat");
-		return (OrdenPend) cargar(f);
+		return (Pendiente) cargar(f);
 	}
 	
 	public static Factura cargarFactura(String cod)
@@ -187,29 +195,29 @@ public class Archivos {
 	}
 	
 	// ===== borrar archivos =====
-	public static void borrarOrdenPrim(String cod)
+	public static void borrarPrimaria(String cod)
 	{
 		File f = new File(primarias + cod + ".dat");
 		if (f.delete())
 		{
-			Log.orden("Se ha borrado la orden " + cod);
+			Log.borrarPrimaria(cod);
 		}
 		else
 		{
-			Log.error("Error al borrar la orden primaria " + cod);
+			Log.error("error al borrar la orden primaria " + cod);
 		}
 	}
 	
-	public static void BorrarOrdenPend(String cod)
+	public static void borrarPendiente(String cod)
 	{
 		File f = new File(pendientes + cod + ".dat");
 		if (f.delete())
 		{
-			Log.orden("Se ha borrado la orden " + cod);
+			Log.borrarPendiente(cod);
 		}
 		else
 		{
-			Log.error("Error al borrar la orden pendiente " + cod);
+			Log.error("error al borrar la orden pendiente " + cod);
 		}
 	}
 
@@ -254,13 +262,13 @@ public class Archivos {
 		return listar(listaOriginal);
 	}
 
-	public static ArrayList<String> listarOrdenPrim()
+	public static ArrayList<String> listarPrimarias()
 	{
 		File[] listaOriginal = new File(primarias).listFiles();
 		return listar(listaOriginal);
 	}
 	
-	public static ArrayList<String> listarOrdenPend()
+	public static ArrayList<String> listarPendientes()
 	{
 		File[] listaOriginal = new File(pendientes).listFiles();
 		return listar(listaOriginal);
@@ -273,7 +281,6 @@ public class Archivos {
 	}
 
 	// ===== cargar todos =====
-	// --- individuales ---
 	public static ArrayList<Material> cargarTodosMateriales()
 	{
 		ArrayList<String> nombres = listarMateriales();
@@ -326,27 +333,27 @@ public class Archivos {
 		return materiales;
 	}
 
-	public static ArrayList<OrdenPrim> cargarTodosOrdenPrim()
+	public static ArrayList<Primaria> cargarTodosPrimarias()
 	{
-		ArrayList<String> nombres = listarOrdenPrim();
-		ArrayList<OrdenPrim> primarias = new ArrayList<OrdenPrim>();
+		ArrayList<String> nombres = listarPrimarias();
+		ArrayList<Primaria> primarias = new ArrayList<Primaria>();
 
 		for (int i = 0; i < nombres.size(); i++)
 		{
-			primarias.add(cargarOrdenPrim(nombres.get(i)));
+			primarias.add(cargarPrimaria(nombres.get(i)));
 		}
 
 		return primarias;
 	}
 
-	public static ArrayList<OrdenPend> cargarTodosOrdenPend()
+	public static ArrayList<Pendiente> cargarTodosPendientes()
 	{
-		ArrayList<String> nombres = listarOrdenPend();
-		ArrayList<OrdenPend> pendientes = new ArrayList<OrdenPend>();
+		ArrayList<String> nombres = listarPendientes();
+		ArrayList<Pendiente> pendientes = new ArrayList<Pendiente>();
 
 		for (int i = 0; i < nombres.size(); i++)
 		{
-			pendientes.add(cargarOrdenPend(nombres.get(i)));
+			pendientes.add(cargarPendiente(nombres.get(i)));
 		}
 
 		return pendientes;
@@ -369,6 +376,7 @@ public class Archivos {
 	{
 		Inicio.cuentaActual.setAjustes(a);
 		guardarCuenta(Inicio.cuentaActual);
+		Log.ajustes(Inicio.cuentaActual.getDNI());
 	}
 
 	public static void cargarAjustes()
@@ -383,16 +391,5 @@ public class Archivos {
 
 		Inicio.colorFuente = Inicio.cuentaActual.getAjustes().getColorFuente();
 		Inicio.colorFuenteObjetos = Inicio.cuentaActual.getAjustes().getColorFuenteObjetos();
-	}
-
-	public static void reiniciarAjustes()
-	{
-		Inicio.fuente = new Font("Segoe UI", Font.PLAIN, 13);
-		Inicio.fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
-
-		Inicio.colorFondo = Color.DARK_GRAY;
-		Inicio.colorFondoObjetos = Color.LIGHT_GRAY;
-		Inicio.colorFuente = Color.WHITE;
-		Inicio.colorFuenteObjetos = Color.BLACK;
 	}
 }

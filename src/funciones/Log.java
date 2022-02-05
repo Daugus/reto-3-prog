@@ -9,14 +9,20 @@ import navegacion.Inicio;
 
 public class Log 
 {
-	// ===== Rutas =====
-	public static String raiz = "C:\\RKA\\Logs\\";
-	public static String sesion = raiz + "sesion.log";
-	public static String primarias = raiz + "primarias.log";
-	public static String error = raiz + "error.log";
+	// ===== rutas =====
+	private static String raiz = "C:\\RKA\\Logs\\";
+
+	private static String error = raiz + "error.log";
 	
-	// ====== Generar logs =======
-	public static void grabar(String rutaArchivo, String mensaje, boolean error)
+	private static String materiales = raiz + "materiales.log";
+	private static String vehiculos = raiz + "vehiculos.log";
+	private static String clientes = raiz + "clientes.log";
+	private static String cuentas = raiz + "cuentas.log";
+	private static String ordenes = raiz + "ordenes.log";
+	private static String sesion = raiz + "sesion.log";
+	
+	// ====== generar logs =======
+	private static void grabar(String rutaArchivo, String mensaje, boolean error)
 	{
 		Logger logger = Logger.getLogger("log");
 		FileHandler fh;
@@ -53,7 +59,54 @@ public class Log
 		}
 	}
 
-	// ===== individuales =====
+	private static void orden(String mensaje)
+	{
+		grabar(ordenes, mensaje, false);
+	}
+
+	// --- individuales ---
+	// - guardado -
+	public static void material(String cod)
+	{
+		grabar(materiales, "se ha guardado el material " + cod, false);
+	}
+
+	public static void vehiculo(String cod)
+	{
+		grabar(vehiculos, "se ha guardado el vehículo " + cod, false);
+	}
+
+	public static void cliente(String cod)
+	{
+		grabar(clientes, "se ha guardado el cliente " + cod, false);
+	}
+
+	public static void cuenta(String cod)
+	{
+		grabar(cuentas, "se ha guardado la cuenta " + cod, false);
+	}
+	
+	public static void ajustes(String cod)
+	{
+		grabar(cuentas, "se han cambiado los ajustes de " + cod, false);
+	}
+	
+	public static void primaria(String cod)
+	{
+		grabar(ordenes, "se ha guardado la orden primaria " + cod, false);
+	}
+	
+	public static void pendiente(String cod)
+	{
+		grabar(ordenes, "se ha guardado la orden pendiente " + cod, false);
+	}
+	
+	public static void factura(String cod)
+	{
+		grabar(ordenes, "se ha guardado la factura " + cod, false);
+	}
+	
+	// - inicio y salida -
 	public static void login()
 	{
 		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha iniciado sesión";
@@ -66,13 +119,20 @@ public class Log
 		grabar(sesion, mensaje, false);
 	}
 		
-	public static void orden(String ord)
-	{
-		grabar(primarias, ord, false);
-	}
-		
+	// - errores -
 	public static void error(String err)
 	{
 		grabar(error, err, true);
+	}
+	
+	// - borrado -
+	public static void borrarPrimaria(String cod)
+	{
+		orden("se ha borrado la orden primaria " + cod);
+	}
+	
+	public static void borrarPendiente(String cod)
+	{
+		orden("se ha borrado la orden pendiente " + cod);
 	}
 }

@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import edicion.EditarAjustes;
 import funciones.Log;
 import funciones.Salir;
-import ordenes.ListaOrdenesPrim;
+import ordenes.ListaPrimarias;
 
 /**
  * 
@@ -95,7 +95,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 
 		if (o == btnOrdenPrim)
 		{
-			ListaOrdenesPrim lop = new ListaOrdenesPrim();
+			ListaPrimarias lop = new ListaPrimarias();
 			lop.setLocationRelativeTo(null);
 			this.setVisible(false);
 			lop.setVisible(true);
@@ -125,8 +125,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

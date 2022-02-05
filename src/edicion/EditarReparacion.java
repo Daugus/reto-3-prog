@@ -36,7 +36,7 @@ import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
-import ordenes.CrearOrdenPend;
+import ordenes.CrearPendiente;
 import javax.swing.SwingConstants;
 
 public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener
@@ -363,44 +363,57 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 					int horas = Integer.parseInt(txtHoras.getText());
 					double manoObra = Double.parseDouble(txtManoObra.getText());
 					
-					ArrayList<Reparacion> al = CrearOrdenPend.getReparaciones();
-					int posicion = 0;
-					boolean existe = false;
-					for (int i = 0; i < al.size(); i++)
+					if (descripcion.equals(""))
 					{
-						if (al.get(i).getDescripcion().equals(descripcion))
-						{
-							posicion = i;
-							existe = true;
-						}
+						JOptionPane.showMessageDialog(this, (String) "Campo de descripción vacío", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
 					}
-						
-					if (existe)
+					else if (horas < 1 || manoObra < 1)
 					{
-						if (edicion)
-						{
-							al.remove(posicion);
-							al.add(new Reparacion(descripcion, horas, manoObra,
-									new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
-
-							CrearOrdenPend.actualizarTablas();
-							
-							this.dispose();
-						}
-						else
-						{
-							JOptionPane.showMessageDialog(this, (String) "La reparación ya ha sido agregada", "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-						}
+						JOptionPane.showMessageDialog(this, (String) "Campo numérico no válido", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
 					}
 					else
 					{
-						al.add(new Reparacion(descripcion, horas, manoObra,
-								new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+						ArrayList<Reparacion> al = CrearPendiente.getReparaciones();
+						int posicion = 0;
+						boolean existe = false;
+						for (int i = 0; i < al.size(); i++)
+						{
+							if (al.get(i).getDescripcion().equals(descripcion))
+							{
+								posicion = i;
+								existe = true;
+							}
+						}
 						
-						CrearOrdenPend.actualizarTablas();
-						
-						this.dispose();
+						if (existe)
+						{
+							if (edicion)
+							{
+								al.remove(posicion);
+								al.add(new Reparacion(descripcion, horas, manoObra,
+										new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+								
+								CrearPendiente.actualizarTablas();
+								
+								this.dispose();
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(this, (String) "La reparación ya ha sido agregada", "ERROR",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						else
+						{
+							al.add(new Reparacion(descripcion, horas, manoObra,
+									new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+							
+							CrearPendiente.actualizarTablas();
+							
+							this.dispose();
+						}
 					}
 				}
 				catch (NumberFormatException nfe)
@@ -418,13 +431,15 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	}
 
 	@Override
-	public void focusGained(FocusEvent fg) {
+	public void focusGained(FocusEvent fg)
+	{
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	@Override
-	public void focusLost(FocusEvent fl) {
+	public void focusLost(FocusEvent fl)
+	{
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
@@ -432,7 +447,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override

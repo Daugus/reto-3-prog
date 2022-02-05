@@ -11,6 +11,7 @@ import navegacion.Inicio;
 
 public class Tablas
 {
+	// ===== cambiar tamaño de columnas según su contenido =====
 	public static void ajustarColumnas(JTable tabla)
 	{
 	    TableColumnModel tcm = tabla.getColumnModel();
@@ -37,6 +38,7 @@ public class Tablas
 	    }
 	}
 	
+	// ===== estilizar tabla vertical =====
 	public static void vertical(JTable tbl)
 	{
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer()

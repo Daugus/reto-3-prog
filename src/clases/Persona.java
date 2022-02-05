@@ -75,9 +75,13 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 	@Override
 	public String toString()
 	{
-		return "DNI: " + getDNI() +
-				", Nombre: " + getNombre() + 
-				", Apellidos: " + getApellidos();
+		return "DNI: " + dni +
+				", nombre: " + nombre + 
+				", apellidos: " + apellidos +
+				", teléfono: " + tel +
+				", email: " + email +
+				", fecha de nacimiento: " + fechaNacimiento +
+				", dirección: " + direccion;
 	}
 
 	// --- comparación ---
@@ -86,7 +90,6 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 	{
 		return Objects.hash(apellidos, dni, email, fechaNacimiento, nombre, tel);
 	}
-
 	
 	@Override
 	public boolean equals(Object obj)

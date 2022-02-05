@@ -1,6 +1,7 @@
 package edicion;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,6 +30,7 @@ import clases.Ajustes;
 import clases.Cuenta;
 import clases.Direccion;
 import clases.Fecha;
+import clases.OrdenTabulacion;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
@@ -268,8 +271,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// - JTextField -
 		ArrayList<JTextField> camposTexto = new ArrayList<JTextField>();
 		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos,
-				txtTel, txtEmail,
-				txtFechaNacimientoD, txtFechaNacimientoM, txtFechaNacimientoA,
+				txtTel, txtEmail, txtFechaNacimientoD, txtFechaNacimientoM, txtFechaNacimientoA,
 				txtCodPostal, txtCalle, txtPortal, txtPiso, txtPuerta));
 		for (JTextField txt : camposTexto)
 		{
@@ -333,6 +335,17 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		cmbFuente.setFont(Inicio.fuenteObjetos);
 		cmbFuente.setBackground(Inicio.colorFondoObjetos);
 		cmbFuente.setForeground(Inicio.colorFuenteObjetos);
+		
+		// ===== orden de tabulación =====
+		Vector<Component> vectorOrden = new Vector<Component>();
+		vectorOrden.addAll(camposTexto);
+		vectorOrden.add(cmbCuenta);
+		vectorOrden.add(pwdPassword);
+		vectorOrden.add(cmbTema);
+		vectorOrden.add(cmbFuente);
+
+		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
+		setFocusTraversalPolicy(orden);
 	}
 	
 	public void modoEdicion(Cuenta cuenta)
@@ -430,6 +443,16 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 				{
 					throw new Exception("Campo vacio");
 				}
+				else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)
+				{
+					JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else if (dN < 1 || mN < 1 || aN < 1 || dN > 31 || mN > 12)
+				{
+					JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
 				else 
 				{
 					if (!edicion && Archivos.listarCuentas().contains(dni))
@@ -488,13 +511,15 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	}
 
 	@Override
-	public void focusGained(FocusEvent fg) {
+	public void focusGained(FocusEvent fg)
+	{
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	@Override
-	public void focusLost(FocusEvent fl) {
+	public void focusLost(FocusEvent fl)
+	{
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
@@ -502,7 +527,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.siNo();
+		Salir.general();
 	}
 
 	@Override
