@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import edicion.EditarAjustes;
 import funciones.Log;
 import funciones.Salir;
+import ordenes.ListaOrdenesPrim;
 
 /**
  * 

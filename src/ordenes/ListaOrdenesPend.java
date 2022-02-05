@@ -1,4 +1,4 @@
-package navegacion;
+package ordenes;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 import clases.OrdenPend;
 import funciones.Archivos;
 import funciones.Salir;
+import navegacion.Inicio;
+import navegacion.ListaOrdenes;
 
 /**
  * 

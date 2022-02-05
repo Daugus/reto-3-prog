@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import funciones.Salir;
+import ordenes.ListaOrdenesPend;
+import ordenes.ListaOrdenesPrim;
 
 /**
  * 

@@ -48,8 +48,8 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		setResizable(false);
 		setTitle("Editar ajustes");
 		
-		setBounds(100, 100, 396, 200);
-		getContentPane().setPreferredSize(new Dimension(396, 200));
+		setBounds(100, 100, 396, 195);
+		getContentPane().setPreferredSize(new Dimension(396, 195));
 		pack();
 
 		panelPrincipal = new JPanel();
@@ -58,16 +58,16 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(10, 135, 180, 40);
+		btnCancelar.setBounds(10, 130, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(206, 135, 180, 40);
+		btnGuardar.setBounds(206, 130, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		lblFuente = new JLabel("Fuente:");
 		lblFuente.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFuente.setBounds(73, 75, 100, 35);
+		lblFuente.setBounds(73, 70, 100, 35);
 		panelPrincipal.add(lblFuente);
 		
 		lblFondo = new JLabel("Tema:");
@@ -84,7 +84,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		cmbFuente = new JComboBox<String>();
 		cmbFuente.addItem("Segoe UI");
 		cmbFuente.addItem("Tahoma");
-		cmbFuente.setBounds(173, 75, 150, 35);
+		cmbFuente.setBounds(173, 70, 150, 35);
 		panelPrincipal.add(cmbFuente);
 		
 		cargarAjustes();

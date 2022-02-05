@@ -22,8 +22,8 @@ import clases.Vehiculo;
 import edicion.EditarVehiculo;
 import funciones.Archivos;
 import funciones.Salir;
-import navegacion.CrearOrdenPrim;
 import navegacion.Inicio;
+import ordenes.CrearOrdenPrim;
 
 /**
  * 

@@ -1,6 +1,7 @@
 package edicion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -46,36 +47,39 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		setResizable(false);
 		setTitle("Agregar material");
 		
-		setBounds(100, 100, 377, 285);
+		setBounds(100, 100, 396, 200);
+		getContentPane().setPreferredSize(new Dimension(396, 200));
+		pack();
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(10, 193, 108, 42);
+		btnCancelar.setBounds(10, 135, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(160, 193, 188, 42);
+		btnGuardar.setBounds(206, 135, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		JLabel lblPrecio = new JLabel("Precio por unidad:");
-		lblPrecio.setBounds(10, 85, 131, 56);
+		lblPrecio.setBounds(48, 75, 150, 35);
 		panelPrincipal.add(lblPrecio);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(63, 43, 78, 56);
+		lblNombre.setBounds(48, 25, 150, 35);
 		panelPrincipal.add(lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(151, 58, 182, 31);
+		txtNombre.setBounds(198, 25, 150, 35);
 		panelPrincipal.add(txtNombre);
 		
 		txtPrecio = new JTextField();
 		txtPrecio.setColumns(10);
-		txtPrecio.setBounds(151, 100, 89, 31);
+		txtPrecio.setBounds(198, 75, 70, 35);
 		panelPrincipal.add(txtPrecio);
 		
 		// ===== Listeners =====

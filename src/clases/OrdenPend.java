@@ -1,9 +1,7 @@
 package clases;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class OrdenPend extends OrdenPrim implements Serializable
@@ -19,7 +17,7 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	{
 		super();
 		
-		setCodigo("");
+		setEmpleado(new Cuenta(true));
 		reparaciones = new ArrayList<Reparacion>();
 	}
 	
@@ -28,28 +26,24 @@ public class OrdenPend extends OrdenPrim implements Serializable
 	{
 		super(other);
 		
-		setCodigo(other.getCodigo());
 		reparaciones = new ArrayList<Reparacion>(other.reparaciones);
 	}
 	
 	// personalizado
-	public OrdenPend(String com, Cliente c, Vehiculo v, ArrayList<Reparacion> r)
+	public OrdenPend(String com, Cliente c, Vehiculo v, Cuenta mec, ArrayList<Reparacion> r)
 	{
-		super(com, c, v);
+		super(com, c, v, mec);
 		
 		reparaciones = new ArrayList<Reparacion>(r);
 	}
 	
-	public OrdenPend(OrdenPrim primaria, ArrayList<Reparacion> r)
+	public OrdenPend(OrdenPrim primaria, Cuenta mec, ArrayList<Reparacion> r)
 	{
 		super(primaria);
 		
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-		String cod = formatter.format(calendar.getTime());
-
-		setCodigo(cod);
+		generarCodigo();
 		setFecha(new Fecha());
+		setEmpleado(new Cuenta(mec));
 		reparaciones = new ArrayList<Reparacion>(r);
 	}
 

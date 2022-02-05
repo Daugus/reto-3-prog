@@ -23,8 +23,8 @@ import edicion.EditarCliente;
 import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
-import navegacion.CrearOrdenPrim;
 import navegacion.Inicio;
+import ordenes.CrearOrdenPrim;
 
 /**
  * 

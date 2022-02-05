@@ -1,4 +1,4 @@
-package navegacion;
+package ordenes;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -25,6 +25,8 @@ import clases.Vehiculo;
 import funciones.Archivos;
 import funciones.Log;
 import funciones.Salir;
+import navegacion.Inicio;
+import navegacion.MenuAtc;
 
 /**
  * 
@@ -255,7 +257,10 @@ public class CrearOrdenPrim extends JFrame implements ActionListener, WindowList
 		    		cmbVehiculos.setSelectedIndex(-1);
 		    		txtComentario.setText("");
 		    		
-		    		Archivos.guardarOrdenPrim(new OrdenPrim(comentarios, cliente, vehiculo));
+		    		Archivos.guardarOrdenPrim(new OrdenPrim(comentarios, cliente, vehiculo, Inicio.cuentaActual));
+
+					JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
+							JOptionPane.INFORMATION_MESSAGE);
 		    	}
 		    	else
 		    	{

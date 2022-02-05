@@ -1,6 +1,7 @@
 package edicion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -34,8 +35,9 @@ import clases.Reparacion;
 import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
-import navegacion.CrearOrdenPend;
 import navegacion.Inicio;
+import ordenes.CrearOrdenPend;
+import javax.swing.SwingConstants;
 
 public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener
 {
@@ -67,7 +69,10 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		setResizable(false);
 		setTitle("Agregar reparación");
 
-		setBounds(100, 100, 708, 524);
+		setBounds(100, 100, 700, 470);
+		getContentPane().setPreferredSize(new Dimension(700, 470));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
@@ -76,61 +81,64 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		cmbMaterial = new JComboBox<String>();
 		cmbMaterial.addItem("Oscuro");
 		cmbMaterial.addItem("Claro");
-		cmbMaterial.setBounds(33, 216, 184, 33);
+		cmbMaterial.setBounds(50, 130, 200, 35);
 		panelPrincipal.add(cmbMaterial);
 
 		btnAgregarMaterial = new JButton("Agregar");
-		btnAgregarMaterial.setBounds(423, 216, 98, 33);
+		btnAgregarMaterial.setBounds(400, 130, 120, 35);
 		panelPrincipal.add(btnAgregarMaterial);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(547, 216, 98, 33);
+		btnEliminar.setBounds(530, 130, 120, 35);
 		panelPrincipal.add(btnEliminar);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(270, 398, 138, 42);
+		btnGuardar.setBounds(357, 405, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(89, 398, 138, 42);
+		btnCancelar.setBounds(162, 405, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		txtHoras = new JTextField();
-		txtHoras.setBounds(253, 93, 50, 30);
+		txtHoras.setBounds(455, 70, 50, 35);
 		panelPrincipal.add(txtHoras);
 		
 		txtManoObra = new JTextField();
-		txtManoObra.setBounds(253, 134, 50, 30);
+		txtManoObra.setBounds(305, 70, 50, 35);
 		panelPrincipal.add(txtManoObra);
 		
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(253, 49, 200, 30);
+		txtDescripcion.setBounds(305, 25, 200, 35);
 		panelPrincipal.add(txtDescripcion);
 		
-		JLabel lblDescripcion = new JLabel("Descripción");
-		lblDescripcion.setBounds(143, 48, 100, 33);
+		JLabel lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDescripcion.setBounds(195, 25, 110, 35);
 		panelPrincipal.add(lblDescripcion);
 		
-		JLabel lblHoras = new JLabel("Horas");
-		lblHoras.setBounds(143, 92, 100, 33);
+		JLabel lblHoras = new JLabel("Horas:");
+		lblHoras.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHoras.setBounds(365, 70, 90, 35);
 		panelPrincipal.add(lblHoras);
 		
-		JLabel lblManoObra = new JLabel("Mano de obra");
-		lblManoObra.setBounds(143, 133, 100, 33);
+		JLabel lblManoObra = new JLabel("Mano de obra:");
+		lblManoObra.setHorizontalAlignment(SwingConstants.LEFT);
+		lblManoObra.setBounds(195, 70, 110, 35);
 		panelPrincipal.add(lblManoObra);
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(247, 216, 69, 33);
+		lblCantidad.setBounds(260, 130, 80, 35);
 		panelPrincipal.add(lblCantidad);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(324, 216, 83, 33);
+		txtCantidad.setBounds(340, 130, 50, 35);
 		panelPrincipal.add(txtCantidad);
 		txtCantidad.setColumns(10);
 
 		// ==== Barras de desplazamiento ====
 		JScrollPane scrollMateriales = new JScrollPane();
-		scrollMateriales.setBounds(33, 259, 613, 113);
+		scrollMateriales.setBounds(50, 180, 600, 200);
 		panelPrincipal.add(scrollMateriales);
 
 		// ====== Modelos ======
@@ -153,6 +161,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 				return false;
 			}
 		};
+		tblMateriales.setRowHeight(20);
 		tblMateriales.setFillsViewportHeight(true);
 		tblMateriales.getTableHeader().setReorderingAllowed(false);
 		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -327,10 +336,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 					}
 				}
 				
-				if (alMaterialesTmp.size() > 0)
-				{
-					alMaterialesUsados = new ArrayList<MaterialUsado>(alMaterialesTmp);
-				}
+				alMaterialesUsados = new ArrayList<MaterialUsado>(alMaterialesTmp);
 				
 				alMaterialesUsados.add(mu);
 				
@@ -358,32 +364,44 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 					double manoObra = Double.parseDouble(txtManoObra.getText());
 					
 					ArrayList<Reparacion> al = CrearOrdenPend.getReparaciones();
-					if (!edicion)
+					int posicion = 0;
+					boolean existe = false;
+					for (int i = 0; i < al.size(); i++)
 					{
-						int posicion = 0;
-						boolean borrar = false;
-						for (int i = 0; i < al.size(); i++)
+						if (al.get(i).getDescripcion().equals(descripcion))
 						{
-							System.out.println(al.get(i).getDescripcion().equals(descripcion));
-							if (al.get(i).getDescripcion().equals(descripcion))
-							{
-								posicion = i;
-								borrar = true;
-							}
-						}
-						
-						if (borrar)
-						{
-							al.remove(posicion);
+							posicion = i;
+							existe = true;
 						}
 					}
-					
-					al.add(new Reparacion(descripcion, horas, manoObra,
-							new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
-					
-					CrearOrdenPend.actualizarTablas();
-					
-					this.dispose();
+						
+					if (existe)
+					{
+						if (edicion)
+						{
+							al.remove(posicion);
+							al.add(new Reparacion(descripcion, horas, manoObra,
+									new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+
+							CrearOrdenPend.actualizarTablas();
+							
+							this.dispose();
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(this, (String) "La reparación ya ha sido agregada", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else
+					{
+						al.add(new Reparacion(descripcion, horas, manoObra,
+								new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+						
+						CrearOrdenPend.actualizarTablas();
+						
+						this.dispose();
+					}
 				}
 				catch (NumberFormatException nfe)
 				{

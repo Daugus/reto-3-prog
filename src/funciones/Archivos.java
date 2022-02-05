@@ -17,20 +17,22 @@ import navegacion.Inicio;
 public class Archivos {
 	// ===== rutas =====
 	public static String raiz = "C:\\RKA\\";
+
+	public static String logs = raiz + "Logs\\";
+
 	public static String materiales = raiz + "Material\\";
 	public static String vehiculos = raiz + "Vehiculo\\";
 	public static String clientes = raiz + "Cliente\\";
 	public static String cuentas = raiz + "Cuenta\\";
+	public static String facturas = raiz + "Factura\\";
 	public static String primarias = raiz + "OrdenPrim\\";
 	public static String pendientes = raiz + "OrdenPend\\";
-	public static String reparaciones = raiz + "Reparacion\\";
-	public static String logs = raiz + "Logs\\";
 	
 	// ===== crear carpetas en caso de que no existan ======
 	public static void crearCarpetas()
 	{
 		ArrayList<String> directorios = new ArrayList<String>();
-		directorios.addAll(Arrays.asList(materiales, vehiculos, clientes, cuentas, primarias, pendientes, reparaciones, logs));
+		directorios.addAll(Arrays.asList(logs, materiales, vehiculos, clientes, cuentas, facturas, primarias, pendientes));
 
 		File f;
 		for (int i = 0; i < directorios.size(); i++)
@@ -74,7 +76,12 @@ public class Archivos {
 	public static void guardarVehiculo(Vehiculo v)
 	{
 		File f = new File(vehiculos + v.getMatricula() + ".dat");
+		Cliente c = cargarCliente(v.getPropietario());
+		// TODO comprobar si existe
+		c.getVehiculos().add(v.getMatricula());
+		
 		guardar(v, f);
+		guardarCliente(c);
 	}
 
 	public static void guardarCliente(Cliente c)
@@ -101,10 +108,10 @@ public class Archivos {
 		guardar(op, f);
 	}
 
-	public static void guardarReparacion(Reparacion r)
+	public static void guardarFactura(Factura fa)
 	{
-		File f = new File(reparaciones + r.getCodReparacion() + ".dat");
-		guardar(r, f);
+		File f = new File(facturas + fa.getCodigo() + ".dat");
+		guardar(fa, f);
 	}
 
 	// ===== cargar =====
@@ -173,10 +180,10 @@ public class Archivos {
 		return (OrdenPend) cargar(f);
 	}
 	
-	public static Reparacion cargarReparacion(String cod)
+	public static Factura cargarFactura(String cod)
 	{
-		File f = new File(reparaciones + cod + ".dat");
-		return (Reparacion) cargar(f);
+		File f = new File(facturas + cod + ".dat");
+		return (Factura) cargar(f);
 	}
 	
 	// ===== borrar archivos =====
@@ -190,6 +197,19 @@ public class Archivos {
 		else
 		{
 			Log.error("Error al borrar la orden primaria " + cod);
+		}
+	}
+	
+	public static void BorrarOrdenPend(String cod)
+	{
+		File f = new File(pendientes + cod + ".dat");
+		if (f.delete())
+		{
+			Log.orden("Se ha borrado la orden " + cod);
+		}
+		else
+		{
+			Log.error("Error al borrar la orden pendiente " + cod);
 		}
 	}
 
@@ -246,9 +266,9 @@ public class Archivos {
 		return listar(listaOriginal);
 	}
 	
-	public static ArrayList<String> listarReparaciones()
+	public static ArrayList<String> listarFacturas()
 	{
-		File[] listaOriginal = new File(reparaciones).listFiles();
+		File[] listaOriginal = new File(facturas).listFiles();
 		return listar(listaOriginal);
 	}
 
@@ -331,17 +351,17 @@ public class Archivos {
 
 		return pendientes;
 	}
-	public static ArrayList<Reparacion> cargarTodosReparacion()
+	public static ArrayList<Factura> cargarTodosFacturas()
 	{
-		ArrayList<String> nombres = listarReparaciones();
-		ArrayList<Reparacion> reparaciones = new ArrayList<Reparacion>();
+		ArrayList<String> nombres = listarFacturas();
+		ArrayList<Factura> facturas = new ArrayList<Factura>();
 
 		for (int i = 0; i < nombres.size(); i++)
 		{
-			reparaciones.add(cargarReparacion(nombres.get(i)));
+			facturas.add(cargarFactura(nombres.get(i)));
 		}
 
-		return reparaciones;
+		return facturas;
 	}
 
 	// ===== ajustes =====

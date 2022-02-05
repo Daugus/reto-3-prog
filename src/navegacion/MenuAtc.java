@@ -16,6 +16,7 @@ import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
 import funciones.Log;
 import funciones.Salir;
+import ordenes.CrearOrdenPrim;
 
 /**
  * 

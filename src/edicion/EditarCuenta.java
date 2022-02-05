@@ -1,6 +1,7 @@
 package edicion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -78,168 +79,184 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		setResizable(false);
 		setTitle("Agregar cuenta");
 		
-		setBounds(100, 100, 657, 524);
+		setBounds(100, 100, 730, 480);
+		getContentPane().setPreferredSize(new Dimension(730, 480));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		JLabel lblFechaNacimiento = new JLabel("Fecha de nacimiento:");
-		lblFechaNacimiento.setBounds(10, 169, 142, 56);
+		lblFechaNacimiento.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFechaNacimiento.setBounds(380, 25, 150, 35);
 		panelPrincipal.add(lblFechaNacimiento);
 		
 		txtFechaNacimientoD = new JTextField();
 		txtFechaNacimientoD.setColumns(10);
-		txtFechaNacimientoD.setBounds(162, 184, 34, 31);
+		txtFechaNacimientoD.setBounds(530, 25, 35, 35);
 		panelPrincipal.add(txtFechaNacimientoD);
 		
 		txtFechaNacimientoM = new JTextField();
 		txtFechaNacimientoM.setColumns(10);
-		txtFechaNacimientoM.setBounds(200, 184, 34, 31);
+		txtFechaNacimientoM.setBounds(570, 25, 35, 35);
 		panelPrincipal.add(txtFechaNacimientoM);
 		
 		txtFechaNacimientoA = new JTextField();
 		txtFechaNacimientoA.setColumns(10);
-		txtFechaNacimientoA.setBounds(237, 184, 70, 31);
+		txtFechaNacimientoA.setBounds(610, 25, 70, 35);
 		panelPrincipal.add(txtFechaNacimientoA);
 		
 		JLabel lblTel = new JLabel("Teléfono:");
-		lblTel.setBounds(85, 127, 66, 46);
+		lblTel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTel.setBounds(50, 160, 150, 35);
 		panelPrincipal.add(lblTel);
 		
 		txtTel = new JTextField();
 		txtTel.setColumns(10);
-		txtTel.setBounds(189, 137, 118, 31);
+		txtTel.setBounds(200, 160, 150, 35);
 		panelPrincipal.add(txtTel);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(27, 86, 65, 49);
+		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblApellidos.setBounds(50, 115, 150, 35);
 		panelPrincipal.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(102, 97, 205, 31);
+		txtApellidos.setBounds(200, 115, 150, 35);
 		panelPrincipal.add(txtApellidos);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(86, 42, 65, 56);
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNombre.setBounds(50, 70, 150, 35);
 		panelPrincipal.add(lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(189, 57, 118, 31);
+		txtNombre.setBounds(200, 70, 150, 35);
 		panelPrincipal.add(txtNombre);
 		
 		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setBounds(96, 0, 55, 56);
+		lblDNI.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDNI.setBounds(50, 25, 150, 35);
 		panelPrincipal.add(lblDNI);
 		
 		txtDNI = new JTextField();
 		txtDNI.setColumns(10);
-		txtDNI.setBounds(189, 15, 118, 31);
+		txtDNI.setBounds(200, 25, 150, 35);
 		panelPrincipal.add(txtDNI);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(368, 5, 48, 56);
+		lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEmail.setBounds(50, 205, 80, 35);
 		panelPrincipal.add(lblEmail);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(414, 20, 219, 31);
+		txtEmail.setBounds(130, 205, 220, 35);
 		panelPrincipal.add(txtEmail);
 		
 		JLabel lblCodPostal = new JLabel("Codigo Postal:");
-		lblCodPostal.setBounds(414, 57, 94, 49);
+		lblCodPostal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCodPostal.setBounds(380, 70, 150, 35);
 		panelPrincipal.add(lblCodPostal);
 		
 		txtCodPostal = new JTextField();
 		txtCodPostal.setColumns(10);
-		txtCodPostal.setBounds(515, 64, 118, 31);
+		txtCodPostal.setBounds(530, 70, 150, 35);
 		panelPrincipal.add(txtCodPostal);
 		
 		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setBounds(467, 88, 48, 56);
+		lblCalle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCalle.setBounds(380, 115, 150, 35);
 		panelPrincipal.add(lblCalle);
 		
 		txtCalle = new JTextField();
 		txtCalle.setColumns(10);
-		txtCalle.setBounds(515, 103, 118, 31);
+		txtCalle.setBounds(530, 115, 150, 35);
 		panelPrincipal.add(txtCalle);
 		
 		JLabel lblPortal = new JLabel("Nº Portal:");
-		lblPortal.setBounds(437, 130, 71, 56);
+		lblPortal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPortal.setBounds(380, 160, 150, 35);
 		panelPrincipal.add(lblPortal);
 		
 		txtPortal = new JTextField();
 		txtPortal.setColumns(10);
-		txtPortal.setBounds(515, 145, 118, 31);
+		txtPortal.setBounds(530, 160, 150, 35);
 		panelPrincipal.add(txtPortal);
 		
 		JLabel lblPiso = new JLabel("Piso:");
-		lblPiso.setBounds(467, 172, 40, 56);
+		lblPiso.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPiso.setBounds(380, 205, 150, 35);
 		panelPrincipal.add(lblPiso);
 		
 		txtPiso = new JTextField();
 		txtPiso.setColumns(10);
-		txtPiso.setBounds(515, 187, 118, 31);
+		txtPiso.setBounds(530, 205, 150, 35);
 		panelPrincipal.add(txtPiso);
 		
 		JLabel lblPuerta = new JLabel("Puerta:");
-		lblPuerta.setBounds(453, 217, 64, 56);
+		lblPuerta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPuerta.setBounds(380, 250, 150, 35);
 		panelPrincipal.add(lblPuerta);
 		
 		txtPuerta = new JTextField();
 		txtPuerta.setColumns(10);
-		txtPuerta.setBounds(515, 232, 118, 31);
+		txtPuerta.setBounds(530, 250, 150, 35);
 		panelPrincipal.add(txtPuerta);
 		
 		cmbTema = new JComboBox<String>();
 		cmbTema.addItem("Oscuro");
 		cmbTema.addItem("Claro");
-		cmbTema.setBounds(491, 289, 130, 40);
+		cmbTema.setBounds(530, 310, 150, 35);
 		panelPrincipal.add(cmbTema);
 		
 		cmbFuente = new JComboBox<String>();
 		cmbFuente.addItem("Segoe UI");
 		cmbFuente.addItem("Tahoma");
-		cmbFuente.setBounds(491, 339, 130, 40);
+		cmbFuente.setBounds(530, 355, 150, 35);
 		panelPrincipal.add(cmbFuente);
 		
 		lblFuente = new JLabel("Fuente:");
-		lblFuente.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFuente.setBounds(340, 345, 130, 40);
+		lblFuente.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFuente.setBounds(380, 355, 150, 35);
 		panelPrincipal.add(lblFuente);
 		
 		lblTema = new JLabel("Tema:");
-		lblTema.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTema.setBounds(340, 295, 130, 40);
+		lblTema.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTema.setBounds(380, 310, 150, 35);
 		panelPrincipal.add(lblTema);
 		
 		pwdPassword = new JPasswordField();
 		pwdPassword.setColumns(10);
-		pwdPassword.setBounds(111, 289, 211, 31);
+		pwdPassword.setBounds(200, 332, 150, 36);
 		panelPrincipal.add(pwdPassword);
 		
 		cmbCuenta = new JComboBox<String>();
 		cmbCuenta.addItem("Mecánico");
 		cmbCuenta.addItem("Atención al cliente");
-		cmbCuenta.setBounds(135, 345, 169, 31);
+		cmbCuenta.setBounds(200, 250, 150, 35);
 		panelPrincipal.add(cmbCuenta);
 		
 		JLabel lblCuenta = new JLabel("Tipo de Cuenta:");
-		lblCuenta.setBounds(20, 335, 116, 46);
+		lblCuenta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCuenta.setBounds(50, 250, 150, 35);
 		panelPrincipal.add(lblCuenta);
 		
 		JLabel lblPassword = new JLabel("Contraseña:");
-		lblPassword.setBounds(20, 279, 94, 46);
+		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPassword.setBounds(50, 332, 150, 36);
 		panelPrincipal.add(lblPassword);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(105, 421, 108, 42);
+		btnCancelar.setBounds(177, 415, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(255, 421, 188, 42);
+		btnGuardar.setBounds(373, 415, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		// ===== Listeners =====

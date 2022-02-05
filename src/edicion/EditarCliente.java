@@ -1,6 +1,7 @@
 package edicion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -29,6 +30,7 @@ import clases.Fecha;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
+import javax.swing.SwingConstants;
 
 /**
  * 
@@ -77,7 +79,10 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		setResizable(false);
 		setTitle("Agregar nuevo cliente");
 		
-		setBounds(100, 100, 638, 510);
+		setBounds(100, 100, 730, 480);
+		getContentPane().setPreferredSize(new Dimension(730, 480));
+		pack();
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,161 +90,175 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(123, 396, 108, 42);
+		btnCancelar.setBounds(177, 415, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(273, 396, 188, 42);
+		btnGuardar.setBounds(373, 415, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		JLabel lblPuerta = new JLabel("Puerta:");
-		lblPuerta.setBounds(434, 223, 61, 56);
+		lblPuerta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPuerta.setBounds(380, 250, 150, 35);
 		panelPrincipal.add(lblPuerta);
 		
 		txtPuerta = new JTextField();
 		txtPuerta.setColumns(10);
-		txtPuerta.setBounds(496, 238, 118, 31);
+		txtPuerta.setBounds(530, 250, 150, 35);
 		panelPrincipal.add(txtPuerta);
 		
 		JLabel lblPiso = new JLabel("Piso:");
-		lblPiso.setBounds(448, 178, 42, 56);
+		lblPiso.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPiso.setBounds(380, 205, 150, 35);
 		panelPrincipal.add(lblPiso);
 		
 		txtPiso = new JTextField();
 		txtPiso.setColumns(10);
-		txtPiso.setBounds(496, 193, 118, 31);
+		txtPiso.setBounds(530, 205, 150, 35);
 		panelPrincipal.add(txtPiso);
 		
 		JLabel lblPortal = new JLabel("Nº Portal:");
-		lblPortal.setBounds(418, 136, 74, 56);
+		lblPortal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPortal.setBounds(380, 160, 150, 35);
 		panelPrincipal.add(lblPortal);
 		
 		txtPortal = new JTextField();
 		txtPortal.setColumns(10);
-		txtPortal.setBounds(496, 151, 118, 31);
+		txtPortal.setBounds(530, 160, 150, 35);
 		panelPrincipal.add(txtPortal);
 		
 		txtCalle = new JTextField();
 		txtCalle.setColumns(10);
-		txtCalle.setBounds(496, 109, 118, 31);
+		txtCalle.setBounds(530, 115, 150, 35);
 		panelPrincipal.add(txtCalle);
 		
 		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setBounds(448, 94, 38, 56);
+		lblCalle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCalle.setBounds(380, 115, 150, 35);
 		panelPrincipal.add(lblCalle);
 		
 		JLabel lblCodPostal = new JLabel("Código Postal:");
-		lblCodPostal.setBounds(395, 63, 100, 49);
+		lblCodPostal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCodPostal.setBounds(380, 70, 150, 35);
 		panelPrincipal.add(lblCodPostal);
 		
 		txtCodPostal = new JTextField();
 		txtCodPostal.setColumns(10);
-		txtCodPostal.setBounds(496, 70, 118, 31);
+		txtCodPostal.setBounds(530, 70, 150, 35);
 		panelPrincipal.add(txtCodPostal);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(414, 26, 200, 31);
+		txtEmail.setBounds(130, 205, 220, 35);
 		panelPrincipal.add(txtEmail);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(368, 11, 48, 56);
+		lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEmail.setBounds(50, 205, 80, 35);
 		panelPrincipal.add(lblEmail);
 		
 		txtMatricula = new JTextField();
 		txtMatricula.setColumns(10);
-		txtMatricula.setBounds(108, 333, 118, 34);
+		txtMatricula.setBounds(275, 355, 150, 35);
 		panelPrincipal.add(txtMatricula);
 		
 		btnAgregarMatricula = new JButton("Agregar");
-		btnAgregarMatricula.setBounds(234, 333, 118, 34);
+		btnAgregarMatricula.setBounds(435, 355, 120, 35);
 		panelPrincipal.add(btnAgregarMatricula);
 		
 		cmbVehiculos = new JComboBox<String>();
-		cmbVehiculos.setBounds(108, 291, 118, 34);
+		cmbVehiculos.setBounds(275, 310, 150, 35);
 		panelPrincipal.add(cmbVehiculos);
 		
 		btnEliminarMatricula = new JButton("Eliminar");
-		btnEliminarMatricula.setBounds(234, 291, 118, 34);
+		btnEliminarMatricula.setBounds(435, 310, 120, 35);
 		panelPrincipal.add(btnEliminarMatricula);
 		
 		JLabel lblMatricula = new JLabel("Matrícula");
-		lblMatricula.setBounds(20, 323, 66, 56);
+		lblMatricula.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMatricula.setBounds(175, 355, 100, 35);
 		panelPrincipal.add(lblMatricula);
 		
 		JLabel lblVehiculos = new JLabel("Vehículos:");
-		lblVehiculos.setBounds(20, 289, 78, 46);
+		lblVehiculos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblVehiculos.setBounds(175, 310, 100, 35);
 		panelPrincipal.add(lblVehiculos);
 		
 		JLabel lblFechaAlta = new JLabel("Fecha de alta:");
-		lblFechaAlta.setBounds(12, 234, 101, 46);
+		lblFechaAlta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFechaAlta.setBounds(50, 250, 150, 35);
 		panelPrincipal.add(lblFechaAlta);
 		
 		JLabel lblFechaNacimiento = new JLabel("Fecha nacimiento:");
-		lblFechaNacimiento.setBounds(10, 180, 142, 56);
+		lblFechaNacimiento.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFechaNacimiento.setBounds(380, 25, 150, 35);
 		panelPrincipal.add(lblFechaNacimiento);
 		
 		JLabel lblTel = new JLabel("Teléfono:");
-		lblTel.setBounds(85, 138, 66, 46);
+		lblTel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTel.setBounds(50, 160, 150, 35);
 		panelPrincipal.add(lblTel);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(20, 97, 65, 49);
+		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblApellidos.setBounds(50, 115, 150, 35);
 		panelPrincipal.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(86, 108, 193, 31);
+		txtApellidos.setBounds(200, 115, 150, 35);
 		panelPrincipal.add(txtApellidos);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(86, 53, 65, 56);
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNombre.setBounds(50, 70, 150, 35);
 		panelPrincipal.add(lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(161, 68, 118, 31);
+		txtNombre.setBounds(200, 70, 150, 35);
 		panelPrincipal.add(txtNombre);
 		
 		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setBounds(96, 11, 55, 56);
+		lblDNI.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDNI.setBounds(50, 25, 150, 35);
 		panelPrincipal.add(lblDNI);
 		
 		txtDNI = new JTextField();
 		txtDNI.setColumns(10);
-		txtDNI.setBounds(161, 26, 118, 31);
+		txtDNI.setBounds(200, 25, 150, 35);
 		panelPrincipal.add(txtDNI);
 		
 		txtTel = new JTextField();
 		txtTel.setColumns(10);
-		txtTel.setBounds(161, 148, 118, 31);
+		txtTel.setBounds(200, 160, 150, 35);
 		panelPrincipal.add(txtTel);
 		
 		txtFechaNacimientoD = new JTextField();
 		txtFechaNacimientoD.setColumns(10);
-		txtFechaNacimientoD.setBounds(134, 195, 34, 31);
+		txtFechaNacimientoD.setBounds(530, 25, 35, 35);
 		panelPrincipal.add(txtFechaNacimientoD);
 		
 		txtFechaAltaD = new JTextField("");
-		txtFechaAltaD.setBounds(129, 239, 32, 34);
+		txtFechaAltaD.setBounds(200, 250, 35, 35);
 		panelPrincipal.add(txtFechaAltaD);
 		
 		txtFechaAltaM = new JTextField("");
-		txtFechaAltaM.setBounds(171, 239, 32, 34);
+		txtFechaAltaM.setBounds(240, 250, 35, 35);
 		panelPrincipal.add(txtFechaAltaM);
 		
 		txtFechaNacimientoM = new JTextField();
 		txtFechaNacimientoM.setColumns(10);
-		txtFechaNacimientoM.setBounds(172, 195, 34, 31);
+		txtFechaNacimientoM.setBounds(570, 25, 35, 35);
 		panelPrincipal.add(txtFechaNacimientoM);
 		
 		txtFechaNacimientoA = new JTextField();
 		txtFechaNacimientoA.setColumns(10);
-		txtFechaNacimientoA.setBounds(209, 195, 70, 31);
+		txtFechaNacimientoA.setBounds(610, 25, 70, 35);
 		panelPrincipal.add(txtFechaNacimientoA);
 		
 		txtFechaAltaA = new JTextField("");
-		txtFechaAltaA.setBounds(213, 239, 66, 34);
+		txtFechaAltaA.setBounds(280, 250, 70, 35);
 		panelPrincipal.add(txtFechaAltaA);
 
 		// ===== modelos =====

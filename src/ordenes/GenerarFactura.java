@@ -1,4 +1,4 @@
-package navegacion;
+package ordenes;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +27,7 @@ import clases.Reparacion;
 import clases.Vehiculo;
 import funciones.Salir;
 import funciones.Tablas;
+import navegacion.Inicio;
 
 /**
  * 

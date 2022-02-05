@@ -1,6 +1,7 @@
 package edicion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -27,6 +28,7 @@ import clases.Vehiculo;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
+import javax.swing.SwingConstants;
 
 /**
  * 
@@ -65,107 +67,120 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		setResizable(false);
 		setTitle("Agregar nuevo vehículo");
 		
-		setBounds(100, 100, 539, 355);
+		setBounds(100, 100, 630, 330);
+		getContentPane().setPreferredSize(new Dimension(630, 330));
+		pack();
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(78, 250, 94, 46);
+		btnCancelar.setBounds(127, 265, 180, 40);
 		panelPrincipal.add(btnCancelar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(249, 250, 173, 46);
+		btnGuardar.setBounds(323, 265, 180, 40);
 		panelPrincipal.add(btnGuardar);
 		
 		JLabel lblKmRecorridos = new JLabel("KM recorridos:");
-		lblKmRecorridos.setBounds(10, 161, 152, 56);
+		lblKmRecorridos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblKmRecorridos.setBounds(50, 205, 100, 35);
 		panelPrincipal.add(lblKmRecorridos);
 		
 		JLabel lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(10, 126, 116, 49);
+		lblMarca.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMarca.setBounds(50, 160, 100, 35);
 		panelPrincipal.add(lblMarca);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
-		lblModelo.setBounds(10, 87, 116, 49);
+		lblModelo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblModelo.setBounds(50, 115, 100, 35);
 		panelPrincipal.add(lblModelo);
 		
 		JLabel lblBastidor = new JLabel("Nº Bastidor:");
-		lblBastidor.setBounds(10, 47, 101, 56);
+		lblBastidor.setHorizontalAlignment(SwingConstants.LEFT);
+		lblBastidor.setBounds(50, 70, 100, 35);
 		panelPrincipal.add(lblBastidor);
 		
 		JLabel lblMatricula = new JLabel("Matricula:");
-		lblMatricula.setBounds(10, 11, 140, 56);
+		lblMatricula.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMatricula.setBounds(50, 25, 100, 35);
 		panelPrincipal.add(lblMatricula);
 		
 		txtMatricula = new JTextField();
 		txtMatricula.setColumns(10);
-		txtMatricula.setBounds(124, 26, 95, 31);
+		txtMatricula.setBounds(150, 25, 150, 35);
 		panelPrincipal.add(txtMatricula);
 		
 		txtBastidor = new JTextField();
 		txtBastidor.setColumns(10);
-		txtBastidor.setBounds(124, 62, 95, 31);
+		txtBastidor.setBounds(150, 70, 150, 35);
 		panelPrincipal.add(txtBastidor);
 		
 		txtModelo = new JTextField();
 		txtModelo.setColumns(10);
-		txtModelo.setBounds(124, 98, 95, 31);
+		txtModelo.setBounds(150, 115, 150, 35);
 		panelPrincipal.add(txtModelo);
 		
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(124, 137, 95, 31);
+		txtMarca.setBounds(150, 160, 150, 35);
 		panelPrincipal.add(txtMarca);
 		
 		txtKmRecorridos = new JTextField();
 		txtKmRecorridos.setColumns(10);
-		txtKmRecorridos.setBounds(124, 175, 94, 31);
+		txtKmRecorridos.setBounds(150, 205, 150, 35);
 		panelPrincipal.add(txtKmRecorridos);
 		
 		cmbClientes = new JComboBox<String>();
-		cmbClientes.setBounds(408, 180, 95, 31);
+		cmbClientes.setBounds(430, 205, 150, 35);
 		panelPrincipal.add(cmbClientes);
 		
 		JLabel lblPropietario = new JLabel("Propietario:");
-		lblPropietario.setBounds(312, 161, 81, 56);
+		lblPropietario.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPropietario.setBounds(330, 205, 100, 35);
 		panelPrincipal.add(lblPropietario);
 		
 		JLabel lblFechaITV = new JLabel("Año ITV:");
-		lblFechaITV.setBounds(312, 126, 81, 56);
+		lblFechaITV.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFechaITV.setBounds(330, 160, 100, 35);
 		panelPrincipal.add(lblFechaITV);
 		
 		txtFechaITV = new JTextField();
 		txtFechaITV.setColumns(10);
-		txtFechaITV.setBounds(408, 141, 95, 31);
+		txtFechaITV.setBounds(430, 160, 150, 35);
 		panelPrincipal.add(txtFechaITV);
 		
 		txtTipo = new JTextField();
 		txtTipo.setColumns(10);
-		txtTipo.setBounds(408, 105, 95, 31);
+		txtTipo.setBounds(430, 115, 150, 35);
 		panelPrincipal.add(txtTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(348, 83, 53, 56);
+		lblTipo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTipo.setBounds(330, 115, 100, 35);
 		panelPrincipal.add(lblTipo);
 		
 		txtColor = new JTextField();
 		txtColor.setColumns(10);
-		txtColor.setBounds(408, 66, 95, 31);
+		txtColor.setBounds(430, 70, 150, 35);
 		panelPrincipal.add(txtColor);
 		
 		JLabel lblColor = new JLabel("Color:");
-		lblColor.setBounds(355, 47, 53, 56);
+		lblColor.setHorizontalAlignment(SwingConstants.LEFT);
+		lblColor.setBounds(330, 70, 100, 35);
 		panelPrincipal.add(lblColor);
 		
 		JLabel lblCilindrada = new JLabel("Cilindrada:");
-		lblCilindrada.setBounds(324, 11, 73, 56);
+		lblCilindrada.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCilindrada.setBounds(330, 25, 100, 35);
 		panelPrincipal.add(lblCilindrada);
 		
 		txtCilindrada = new JTextField();
 		txtCilindrada.setColumns(10);
-		txtCilindrada.setBounds(408, 26, 95, 31);
+		txtCilindrada.setBounds(430, 25, 150, 35);
 		panelPrincipal.add(txtCilindrada);
 		
 		// ===== modelos =====

@@ -1,4 +1,4 @@
-package navegacion;
+package ordenes;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,6 +33,7 @@ import edicion.EditarReparacion;
 import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
+import navegacion.Inicio;
 
 /**
  * 
@@ -69,8 +70,8 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		setResizable(false);
 		setTitle("Crear orden pendiente");
 		
-		setBounds(100, 100, 790, 715);
-		getContentPane().setPreferredSize(new Dimension(790, 715));
+		setBounds(100, 100, 790, 720);
+		getContentPane().setPreferredSize(new Dimension(790, 720));
 		pack();
 
 		panelPrincipal = new JPanel();
@@ -376,7 +377,16 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 			{
 				Archivos.borrarOrdenPrim(primaria.getCodigo());
 				
-				Archivos.guardarOrdenPend(new OrdenPend(primaria, alReparaciones));
+				Archivos.guardarOrdenPend(new OrdenPend(primaria, Inicio.cuentaActual, alReparaciones));
+
+				JOptionPane.showMessageDialog(this, (String) "Se ha convertido la order primaria en una orden pendiente", "INFO",
+						JOptionPane.INFORMATION_MESSAGE);
+				
+				ListaOrdenesPrim lop = new ListaOrdenesPrim();
+				lop.setLocationRelativeTo(null);
+				lop.setVisible(true);
+			
+				this.dispose();
 			}
 			else
 			{
@@ -426,9 +436,9 @@ public class CrearOrdenPend extends JFrame implements ActionListener, WindowList
 		}
 		else if (o == btnVolver)
 		{
-			ListaOrdenesPrim mat = new ListaOrdenesPrim();
-			mat.setLocationRelativeTo(null);
-			mat.setVisible(true);
+			ListaOrdenesPrim lop = new ListaOrdenesPrim();
+			lop.setLocationRelativeTo(null);
+			lop.setVisible(true);
 			
 			this.dispose();
 		}
