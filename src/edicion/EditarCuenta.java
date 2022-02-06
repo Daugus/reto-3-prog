@@ -75,6 +75,8 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 	
+	Vector<Component> vectorOrden;
+
 	private boolean edicion;
 	
 	public EditarCuenta()
@@ -337,7 +339,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		cmbFuente.setForeground(Inicio.colorFuenteObjetos);
 		
 		// ===== orden de tabulación =====
-		Vector<Component> vectorOrden = new Vector<Component>();
+		vectorOrden = new Vector<Component>();
 		vectorOrden.addAll(camposTexto);
 		vectorOrden.add(cmbCuenta);
 		vectorOrden.add(pwdPassword);
@@ -356,6 +358,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 				
 		txtDNI.setText(cuenta.getDNI());
 		txtDNI.setEnabled(false);
+		vectorOrden.remove(txtDNI);
 				
 		txtNombre.setText(cuenta.getNombre());
 		txtApellidos.setText(cuenta.getApellidos());
@@ -365,10 +368,13 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 				
 		txtFechaNacimientoD.setText(String.valueOf(cuenta.getFechaNacimiento().getDay()));
 		txtFechaNacimientoD.setEnabled(false);
+		vectorOrden.remove(txtFechaNacimientoD);
 		txtFechaNacimientoM.setText(String.valueOf(cuenta.getFechaNacimiento().getMonth()));
 		txtFechaNacimientoM.setEnabled(false);
+		vectorOrden.remove(txtFechaNacimientoM);
 		txtFechaNacimientoA.setText(String.valueOf(cuenta.getFechaNacimiento().getYear()));
 		txtFechaNacimientoA.setEnabled(false);
+		vectorOrden.remove(txtFechaNacimientoA);
 				
 		txtCodPostal.setText(String.valueOf(cuenta.getDireccion().getCodPostal()));
 		txtCalle.setText(cuenta.getDireccion().getCalle());
@@ -401,112 +407,134 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		lblTema.setVisible(false);
 		lblFuente.setVisible(false);
 		cmbTema.setVisible(false);
+		vectorOrden.remove(cmbTema);
 		cmbFuente.setVisible(false);
+		vectorOrden.remove(cmbFuente);
+
+		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
+		setFocusTraversalPolicy(orden);
+	}
+	
+	private boolean guardar()
+	{
+		try
+		{
+			String dni = txtDNI.getText();
+			
+			String nombre = txtNombre.getText();
+			String apellidos = txtApellidos.getText();
+			
+			int tel = Integer.parseInt(txtTel.getText());
+			String email = txtEmail.getText();
+			
+			int dN = Integer.parseInt(txtFechaNacimientoD.getText());
+			int mN = Integer.parseInt(txtFechaNacimientoM.getText());
+			int aN = Integer.parseInt(txtFechaNacimientoA.getText());
+			
+			int codPostal = Integer.parseInt(txtCodPostal.getText());
+			String calle = txtCalle.getText();
+			int portal = Integer.parseInt(txtPortal.getText());
+			int piso = Integer.parseInt(txtPiso.getText());
+			String puerta = txtPuerta.getText();
+			
+			String password = new String(pwdPassword.getPassword());
+			boolean codigo = false;
+			
+			ArrayList<String> camposTxt = new ArrayList<String>();
+			camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, password));
+			
+			if (camposTxt.contains(""))
+			{
+				throw new Exception("Campo vacio");
+			}
+			else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (dN < 1 || mN < 1 || aN < 1 || dN > 31 || mN > 12)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+			{
+				if (!edicion && Archivos.listarCuentas().contains(dni))
+				{
+					JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					Fecha fechaNacimiento = new Fecha(dN, mN, aN);
+					Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
+					
+					int opcion = cmbCuenta.getSelectedIndex();
+					switch (opcion)
+					{
+					case 0:
+						// mecánico
+						codigo = true;
+						break;
+					case 1:
+						// atención al cliente
+						codigo = false;
+						break;
+					}
+					
+					String tema = (String) cmbTema.getSelectedItem();
+					String fuente = (String) cmbFuente.getSelectedItem();
+					
+					boolean temaOscuro = true;
+					if (tema.equals("Oscuro"))
+					{
+						temaOscuro = true;
+					}
+					else if (tema.equals("Claro"))
+					{
+						temaOscuro = false;
+					}
+					
+					Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
+							email, fechaNacimiento,
+							direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
+					
+					return true;
+				}
+			}
+		}
+		catch (Exception cv)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Campo vacío o incorrecto", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		return false;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
+
+		int guardar = JOptionPane.YES_OPTION;
+
 		if (o == btnCancelar)
 		{
-			this.dispose();
+			guardar = Salir.edicion(true);
 		}
-		else
+		
+		boolean valido = false;
+		
+		if (guardar == JOptionPane.YES_OPTION)
 		{
-			try
-			{
-				String dni = txtDNI.getText();
-				
-				String nombre = txtNombre.getText();
-				String apellidos = txtApellidos.getText();
-				
-				int tel = Integer.parseInt(txtTel.getText());
-				String email = txtEmail.getText();
-				
-				int dN = Integer.parseInt(txtFechaNacimientoD.getText());
-				int mN = Integer.parseInt(txtFechaNacimientoM.getText());
-				int aN = Integer.parseInt(txtFechaNacimientoA.getText());
-				
-				int codPostal = Integer.parseInt(txtCodPostal.getText());
-				String calle = txtCalle.getText();
-				int portal = Integer.parseInt(txtPortal.getText());
-				int piso = Integer.parseInt(txtPiso.getText());
-				String puerta = txtPuerta.getText();
-				
-				String password = new String(pwdPassword.getPassword());
-				boolean codigo = false;
-
-				ArrayList<String> camposTxt = new ArrayList<String>();
-				camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, password));
-				
-				if (camposTxt.contains(""))
-				{
-					throw new Exception("Campo vacio");
-				}
-				else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else if (dN < 1 || mN < 1 || aN < 1 || dN > 31 || mN > 12)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else 
-				{
-					if (!edicion && Archivos.listarCuentas().contains(dni))
-					{
-						JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					else
-					{
-						Fecha fechaNacimiento = new Fecha(dN, mN, aN);
-						Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
-						
-						int opcion = cmbCuenta.getSelectedIndex();
-						switch (opcion)
-						{
-						case 0:
-							// mecánico
-							codigo = true;
-							break;
-						case 1:
-							// atención al cliente
-							codigo = false;
-							break;
-						}
-						
-						String tema = (String) cmbTema.getSelectedItem();
-						String fuente = (String) cmbFuente.getSelectedItem();
-						
-						boolean temaOscuro = true;
-						if (tema.equals("Oscuro"))
-						{
-							temaOscuro = true;
-						}
-						else if (tema.equals("Claro"))
-						{
-							temaOscuro = false;
-						}
-						
-						Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
-								email, fechaNacimiento,
-								direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
-
-						AdministrarCuentas.actualizarTabla();
-
-						edicion = false;
-						this.dispose();
-					}
-				}
-			}
-			catch (Exception cv)
-			{
-				JOptionPane.showMessageDialog(this, (String) "Campo vacío o incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-		    }
+			valido = guardar();
+		}
+		
+		if (guardar == JOptionPane.NO_OPTION || valido)
+		{
+			AdministrarCuentas.actualizarTabla();
+			AdministrarCuentas.botones(true);
+			this.dispose();
 		}
 	}
 
@@ -527,7 +555,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		btnCancelar.doClick();
 	}
 
 	@Override

@@ -38,11 +38,13 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	
 	public static JTable tblVehiculos;
 
-	private JButton btnVolver;
-	private JButton btnEditar;
-	private JButton btnAgregar;
+	private static JButton btnVolver;
+	private static JButton btnEditar;
+	private static JButton btnAgregar;
 
 	private Vehiculo vehiculo;
+	
+	private static boolean bloqueado;
 
 	public AdministrarVehiculos()
 	{
@@ -155,6 +157,15 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		}
 	}
 	
+	public static void botones(boolean estado)
+	{
+		btnAgregar.setEnabled(estado);
+		btnEditar.setEnabled(estado);
+		btnVolver.setEnabled(estado);
+		
+		bloqueado = !estado;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -162,6 +173,8 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		
 		if (o == btnAgregar)
 		{
+			botones(false);
+
 			EditarVehiculo ev = new EditarVehiculo();
 			ev.setLocationRelativeTo(null);
 			ev.setVisible(true);
@@ -172,6 +185,8 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 			if (row >= 0)
 			{
 				vehiculo = Archivos.cargarVehiculo((String) tblVehiculos.getValueAt(row, 0));
+
+				botones(false);
 
 				EditarVehiculo ev = new EditarVehiculo();
 				ev.modoEdicion(vehiculo);
@@ -198,7 +213,14 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		if (bloqueado)
+		{
+			Salir.error();
+		}
+		else
+		{
+			Salir.general(this);
+		}
 	}
 
 	@Override

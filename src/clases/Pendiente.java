@@ -1,10 +1,9 @@
 package clases;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Pendiente extends Primaria implements Serializable
+public class Pendiente extends Primaria
 {
 	private static final long serialVersionUID = 6717239572208402072L;
 	

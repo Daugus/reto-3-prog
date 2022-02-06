@@ -1,10 +1,9 @@
 package clases;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Factura extends Pendiente implements Serializable
+public class Factura extends Pendiente
 {
 	private static final long serialVersionUID = 6717239572208402072L;
 	

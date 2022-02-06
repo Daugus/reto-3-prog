@@ -38,10 +38,13 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	private JPanel panelPrincipal;
 	
 	private static JTable tblMateriales;
-	private JButton btnVolver;
-	private JButton btnEditar;
-	private JButton btnAgregar;
+	private static JButton btnVolver;
+	private static JButton btnEditar;
+	private static JButton btnAgregar;
+
 	private Material material;
+	
+	private static boolean bloqueado;
 
 	public AdministrarMateriales()
 	{
@@ -156,6 +159,15 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		Tablas.ajustarColumnas(tblMateriales);
 	}
 
+	public static void botones(boolean estado)
+	{
+		btnAgregar.setEnabled(estado);
+		btnEditar.setEnabled(estado);
+		btnVolver.setEnabled(estado);
+		
+		bloqueado = !estado;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -163,6 +175,8 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		
 		if (o == btnAgregar)
 		{
+			botones(false);
+
 			EditarMaterial em = new EditarMaterial();
 			em.setLocationRelativeTo(null);
 			em.setVisible(true);
@@ -173,6 +187,8 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 			if (row >= 0)
 			{
 				material = Archivos.cargarMaterial((String) tblMateriales.getValueAt(row, 0));
+
+				botones(false);
 
 				EditarMaterial em = new EditarMaterial();
 				em.modoEdicion(material);
@@ -199,7 +215,14 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		if (bloqueado)
+		{
+			Salir.error();
+		}
+		else
+		{
+			Salir.general(this);
+		}
 	}
 
 	@Override

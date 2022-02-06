@@ -1,10 +1,9 @@
 package clases;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Cliente extends Persona implements Serializable
+public class Cliente extends Persona
 {
 	private static final long serialVersionUID = -4712701685349672058L;
 

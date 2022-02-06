@@ -37,11 +37,13 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 
 	private JPanel panelPrincipal;
 	private static JTable tblClientes;
-	private JButton btnVolver;
-	private JButton btnEditar;
-	private JButton btnAgregar;
+	private static JButton btnVolver;
+	private static JButton btnEditar;
+	private static JButton btnAgregar;
 	
 	private Cliente cliente;
+	
+	private static boolean bloqueado;
 
 	public AdministrarClientes()
 	{
@@ -157,6 +159,15 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		Tablas.ajustarColumnas(tblClientes);
 	}
 	
+	public static void botones(boolean estado)
+	{
+		btnAgregar.setEnabled(estado);
+		btnEditar.setEnabled(estado);
+		btnVolver.setEnabled(estado);
+		
+		bloqueado = !estado;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -164,6 +175,8 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		
 		if (o == btnAgregar)
 		{
+			botones(false);
+
 			EditarCliente ec = new EditarCliente();
 			ec.setLocationRelativeTo(null);
 			ec.setVisible(true);
@@ -174,6 +187,8 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 			if (row >= 0)
 			{
 				cliente = Archivos.cargarCliente((String) tblClientes.getValueAt(row, 0));
+				
+				botones(false);
 
 				EditarCliente ec = new EditarCliente();
 				ec.modoEdicion(cliente);
@@ -200,7 +215,14 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		if (bloqueado)
+		{
+			Salir.error();
+		}
+		else
+		{
+			Salir.general(this);
+		}
 	}
 
 	@Override

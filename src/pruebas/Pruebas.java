@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
+
 import clases.*;
 import funciones.*;
 
@@ -121,5 +123,13 @@ public class Pruebas
 //		System.out.println(Archivos.cargarVehiculo("vtest1"));
 		
 //		Log.borrarPendiente("test");
+		
+//		int a = JOptionPane.showOptionDialog(null, "cuerpo", "título",
+//				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+//				new Object[] {"sí", "no", "cancelar"}, "sí");
+//		System.out.println(JOptionPane.YES_OPTION);
+//		System.out.println(JOptionPane.NO_OPTION);
+//		System.out.println(JOptionPane.CANCEL_OPTION);
+//		System.out.println(a);
 	}
 }

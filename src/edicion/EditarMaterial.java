@@ -142,60 +142,77 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 		txtPrecio.setText(String.valueOf(material.getPrecio()));
 	}
+	
+	private boolean guardar()
+	{
+		try
+		{
+			String nombre = txtNombre.getText();
+			String p = txtPrecio.getText();
+			
+			if (nombre.equals("") || p.equals(""))
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				p = p.replaceAll(",", ".");
+				double precio = Double.parseDouble(p);
+				if (precio > 0)
+				{
+					if (!edicion && Archivos.listarMateriales().contains(nombre))
+					{
+						JOptionPane.showMessageDialog(this, (String) "Material ya existe", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					else
+					{
+						Archivos.guardarMaterial(new Material(nombre,precio));
+						
+						return true;
+					}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(this, (String) "Precio no válido, precio no puede ser menor que 0", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+		catch (NumberFormatException nfe)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		return false;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object o = ae.getSource();
 		
+		int guardar = JOptionPane.YES_OPTION;
+
 		if (o == btnCancelar)
 		{
-			this.dispose();
+			guardar = Salir.edicion(true);
 		}
-		else
+		
+		boolean valido = false;
+		
+		if (guardar == JOptionPane.YES_OPTION)
 		{
-			try
-			{
-				String nombre = txtNombre.getText();
-				String p = txtPrecio.getText();
-
-				if (nombre.equals("") || p.equals(""))
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else
-				{
-					p = p.replaceAll(",", ".");
-					double precio = Double.parseDouble(p);
-					if (precio > 0)
-					{
-						if (!edicion && Archivos.listarMateriales().contains(nombre))
-						{
-							JOptionPane.showMessageDialog(this, (String) "Material ya existe", "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-						}
-						else
-						{
-							Archivos.guardarMaterial(new Material(nombre,precio));
-							
-							AdministrarMateriales.actualizarTabla();
-							
-							this.dispose();
-						}
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(this, (String) "Precio no válido, precio no puede ser menor que 0", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-			catch (NumberFormatException nfe)
-			{
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			valido = guardar();
+		}
+		
+		if (guardar == JOptionPane.NO_OPTION || valido)
+		{
+			AdministrarMateriales.actualizarTabla();
+			AdministrarMateriales.botones(true);
+			this.dispose();
 		}
 	}
 
@@ -216,7 +233,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		btnCancelar.doClick();
 	}
 
 	@Override

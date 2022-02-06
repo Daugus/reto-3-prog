@@ -40,6 +40,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	
 	public Login()
 	{
+		Archivos.reiniciarAjustes();
 
 		setResizable(false);
 		setTitle("Login");

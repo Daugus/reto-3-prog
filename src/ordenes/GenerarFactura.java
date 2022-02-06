@@ -328,7 +328,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		Salir.general(this);
 	}
 
 	@Override

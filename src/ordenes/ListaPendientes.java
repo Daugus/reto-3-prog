@@ -183,7 +183,7 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		Salir.general(this);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package funciones;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -391,5 +393,16 @@ public class Archivos {
 
 		Inicio.colorFuente = Inicio.cuentaActual.getAjustes().getColorFuente();
 		Inicio.colorFuenteObjetos = Inicio.cuentaActual.getAjustes().getColorFuenteObjetos();
+	}
+	
+	public static void reiniciarAjustes()
+	{
+		Inicio.fuente = new Font("Segoe UI", Font.PLAIN, 13);
+		Inicio.fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
+
+		Inicio.colorFondo = Color.DARK_GRAY;
+		Inicio.colorFondoObjetos = Color.LIGHT_GRAY;
+		Inicio.colorFuente = Color.WHITE;
+		Inicio.colorFuenteObjetos = Color.BLACK;
 	}
 }

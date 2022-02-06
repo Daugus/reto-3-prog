@@ -46,11 +46,11 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 	private JPanel panelPrincipal;
 
-	private JButton btnVolver;
-	private JButton btnCrear;
-	private JButton btnAgregar;
-	private JButton btnEditar;
-	private JButton btnEliminar;
+	private static JButton btnVolver;
+	private static JButton btnCrear;
+	private static JButton btnAgregar;
+	private static JButton btnEditar;
+	private static JButton btnEliminar;
 
 	private JLabel lblCodigoTxt;
 	private JLabel lblComentarioTxt;
@@ -64,6 +64,8 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	private static ArrayList<MaterialUsado> alMaterialesGeneral = new ArrayList<MaterialUsado>();
 	
 	private Primaria primaria;
+
+	private static boolean bloqueado;
 
 	public CrearPendiente()
 	{
@@ -361,6 +363,17 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		}
 	}
 	
+	public static void botones(boolean estado)
+	{
+		btnAgregar.setEnabled(estado);
+		btnEditar.setEnabled(estado);
+		btnEliminar.setEnabled(estado);
+		btnVolver.setEnabled(estado);
+		btnCrear.setEnabled(estado);
+		
+		bloqueado = !estado;
+	}
+	
 	public static ArrayList<Reparacion> getReparaciones()
 	{
 		return alReparaciones;
@@ -448,7 +461,14 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		if (bloqueado)
+		{
+			Salir.error();
+		}
+		else
+		{
+			Salir.general(this);
+		}
 	}
 
 	@Override

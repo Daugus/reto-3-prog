@@ -300,6 +300,82 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		Tablas.ajustarColumnas(tblMateriales);
 	}
 	
+	private boolean agregar()
+	{
+		if (tblMateriales.getRowCount() > 0)
+		{
+			try
+			{
+				String descripcion = txtDescripcion.getText();
+				int horas = Integer.parseInt(txtHoras.getText());
+				double manoObra = Double.parseDouble(txtManoObra.getText());
+				
+				if (descripcion.equals(""))
+				{
+					JOptionPane.showMessageDialog(this, (String) "Campo de descripción vacío", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else if (horas < 1 || manoObra < 1)
+				{
+					JOptionPane.showMessageDialog(this, (String) "Campo numérico no válido", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					ArrayList<Reparacion> al = CrearPendiente.getReparaciones();
+					int posicion = 0;
+					boolean existe = false;
+					for (int i = 0; i < al.size(); i++)
+					{
+						if (al.get(i).getDescripcion().equals(descripcion))
+						{
+							posicion = i;
+							existe = true;
+						}
+					}
+					
+					if (existe)
+					{
+						if (edicion)
+						{
+							al.remove(posicion);
+							al.add(new Reparacion(descripcion, horas, manoObra,
+									new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+							
+							CrearPendiente.actualizarTablas();
+							
+							this.dispose();
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(this, (String) "La reparación ya ha sido agregada", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else
+					{
+						al.add(new Reparacion(descripcion, horas, manoObra,
+								new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
+						
+						return true;
+					}
+				}
+			}
+			catch (NumberFormatException nfe)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this, (String) "No se ha agregado ningún material", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -348,84 +424,26 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		else if (o == btnCancelar)
-		{
-//			Salir.siNo();
-			this.dispose();
-		}
 		else
 		{
-			if (tblMateriales.getRowCount() > 0)
+			int guardar = JOptionPane.YES_OPTION;
+			
+			if (o == btnCancelar)
 			{
-				try
-				{
-					String descripcion = txtDescripcion.getText();
-					int horas = Integer.parseInt(txtHoras.getText());
-					double manoObra = Double.parseDouble(txtManoObra.getText());
-					
-					if (descripcion.equals(""))
-					{
-						JOptionPane.showMessageDialog(this, (String) "Campo de descripción vacío", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					else if (horas < 1 || manoObra < 1)
-					{
-						JOptionPane.showMessageDialog(this, (String) "Campo numérico no válido", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					else
-					{
-						ArrayList<Reparacion> al = CrearPendiente.getReparaciones();
-						int posicion = 0;
-						boolean existe = false;
-						for (int i = 0; i < al.size(); i++)
-						{
-							if (al.get(i).getDescripcion().equals(descripcion))
-							{
-								posicion = i;
-								existe = true;
-							}
-						}
-						
-						if (existe)
-						{
-							if (edicion)
-							{
-								al.remove(posicion);
-								al.add(new Reparacion(descripcion, horas, manoObra,
-										new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
-								
-								CrearPendiente.actualizarTablas();
-								
-								this.dispose();
-							}
-							else
-							{
-								JOptionPane.showMessageDialog(this, (String) "La reparación ya ha sido agregada", "ERROR",
-										JOptionPane.ERROR_MESSAGE);
-							}
-						}
-						else
-						{
-							al.add(new Reparacion(descripcion, horas, manoObra,
-									new Fecha(), Inicio.cuentaActual, alMaterialesUsados));
-							
-							CrearPendiente.actualizarTablas();
-							
-							this.dispose();
-						}
-					}
-				}
-				catch (NumberFormatException nfe)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				guardar = Salir.edicion(true);
 			}
-			else
+			
+			boolean valido = false;
+			
+			if (guardar == JOptionPane.YES_OPTION)
 			{
-				JOptionPane.showMessageDialog(this, (String) "No se ha agregado ningún material", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+				valido = agregar();
+			}
+			
+			if (guardar == JOptionPane.NO_OPTION || valido)
+			{
+				CrearPendiente.actualizarTablas();
+				this.dispose();
 			}
 		}
 	}
@@ -447,7 +465,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		btnCancelar.doClick();
 	}
 
 	@Override

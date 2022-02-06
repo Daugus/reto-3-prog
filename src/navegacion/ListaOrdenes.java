@@ -141,7 +141,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		Salir.general(this);
 	}
 
 	@Override

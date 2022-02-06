@@ -39,11 +39,13 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	
 	private static JTable tblCuentas;
 
-	private JButton btnVolver;
-	private JButton btnAgregar;
-	private JButton btnEditar;
+	private static JButton btnVolver;
+	private static JButton btnAgregar;
+	private static JButton btnEditar;
 	
 	private Cuenta cuenta;
+	
+	private static boolean bloqueado;
 
 	public AdministrarCuentas()
 	{
@@ -160,6 +162,15 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		Tablas.ajustarColumnas(tblCuentas);
 	}
 	
+	public static void botones(boolean estado)
+	{
+		btnAgregar.setEnabled(estado);
+		btnEditar.setEnabled(estado);
+		btnVolver.setEnabled(estado);
+		
+		bloqueado = !estado;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -167,6 +178,8 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		
 		if (o == btnAgregar)
 		{
+			botones(false);
+
 			EditarCuenta ec = new EditarCuenta();
 			ec.setLocationRelativeTo(null);
 			ec.setVisible(true);
@@ -177,6 +190,8 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 			if (row >= 0)
 			{
 				cuenta = Archivos.cargarCuenta((String) tblCuentas.getValueAt(row, 0));
+
+				botones(false);
 
 				EditarCuenta ec = new EditarCuenta();
 				ec.modoEdicion(cuenta);
@@ -203,7 +218,14 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		if (bloqueado)
+		{
+			Salir.error();
+		}
+		else
+		{
+			Salir.general(this);
+		}
 	}
 
 	@Override

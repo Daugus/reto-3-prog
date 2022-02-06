@@ -280,7 +280,7 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		Salir.general(this);
 	}
 
 	@Override

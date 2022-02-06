@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarCuentas;
 import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
+import funciones.Archivos;
 import funciones.Log;
 import funciones.Salir;
 import ordenes.CrearPrimaria;
@@ -89,6 +90,9 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		btnAjustes.addActionListener(this);
 
 		// ===== ajustes de usuario =====
+		// recargar los ajustes en caso de que se hayan editado
+		Archivos.cargarAjustes();
+
 		// --- fuente ---
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnOrden.setFont(Inicio.fuenteObjetos);
@@ -176,7 +180,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		Salir.general(this);
 	}
 
 	@Override

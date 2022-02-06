@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -43,6 +44,8 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
+	
+	private boolean cambios = false;
 
 	public EditarAjustes() {
 		setResizable(false);
@@ -97,6 +100,8 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		// --- Action ---
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
+		cmbFondo.addActionListener(this);
+		cmbFuente.addActionListener(this);
 		
 		// ===== ajustes de usuario =====
 		// --- fuente ---
@@ -147,66 +152,66 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		cmbFondo.setSelectedItem(tema);
 		cmbFuente.setSelectedItem(fuente);
 	}
+	
+	private void guardar()
+	{
+		String tema = (String) cmbFondo.getSelectedItem();
+		String fuente = (String) cmbFuente.getSelectedItem();
+		
+		boolean temaOscuro = true;
+		if (tema.equals("Oscuro"))
+		{
+			temaOscuro = true;
+		}
+		else if (tema.equals("Claro"))
+		{
+			temaOscuro = false;
+		}
+		
+		Archivos.guardarAjustes(new Ajustes(temaOscuro, fuente));
+		
+		Archivos.cargarAjustes();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object o = ae.getSource();
 		
-		if (o == btnCancelar)
+		if (o == cmbFondo || o == cmbFuente)
 		{
-			if (Inicio.cuentaActual.getMecanico())
-			{
-				MenuMec mm = new MenuMec();
-				this.setVisible(false);
-				mm.setLocationRelativeTo(null);
-				mm.setVisible(true);
-			}
-			else
-			{
-				MenuAtc ma = new MenuAtc();
-				this.setVisible(false);
-				ma.setLocationRelativeTo(null);
-				ma.setVisible(true);
-			}
-
-			this.dispose();
+			cambios = true;
 		}
-		else if (o == btnGuardar)
+		else
 		{
-			String tema = (String) cmbFondo.getSelectedItem();
-			String fuente = (String) cmbFuente.getSelectedItem();
+			int guardar = JOptionPane.YES_OPTION;
+			if (o == btnCancelar)
+			{
+				guardar = Salir.edicion(cambios);
+			}
 
-			boolean temaOscuro = true;
-			if (tema.equals("Oscuro"))
+			if (guardar != JOptionPane.CANCEL_OPTION)
 			{
-				temaOscuro = true;
+				if (guardar == JOptionPane.YES_OPTION)
+				{
+					guardar();
+				}
+				
+				JFrame menu;
+				if (Inicio.cuentaActual.getMecanico())
+				{
+					menu = new MenuMec();
+				}
+				else
+				{
+					menu = new MenuAtc();
+				}
+				
+				menu.setLocationRelativeTo(null);
+				menu.setVisible(true);
+				
+				this.dispose();
 			}
-			else if (tema.equals("Claro"))
-			{
-				temaOscuro = false;
-			}
-			
-			Archivos.guardarAjustes(new Ajustes(temaOscuro, fuente));
-						
-			Archivos.cargarAjustes();
-
-			if (Inicio.cuentaActual.getMecanico())
-			{
-				MenuMec mm = new MenuMec();
-				this.setVisible(false);
-				mm.setLocationRelativeTo(null);
-				mm.setVisible(true);
-			}
-			else
-			{
-				MenuAtc ma = new MenuAtc();
-				this.setVisible(false);
-				ma.setLocationRelativeTo(null);
-				ma.setVisible(true);
-			}
-			
-			this.dispose();
 		}
 	}
 
@@ -227,7 +232,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		btnCancelar.doClick();
 	}
 
 	@Override

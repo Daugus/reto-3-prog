@@ -286,89 +286,105 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 			txtModelo.setEnabled(false);
 		}
 	}
+	
+	private boolean guardar()
+	{
+		try
+		{
+			String matricula = txtMatricula.getText();
+			String bastidor = txtBastidor.getText();
+			
+			String marca = txtMarca.getText();
+			String modelo = txtModelo.getText();
+			String color = txtColor.getText();
+			
+			int cilindrada = Integer.parseInt(txtCilindrada.getText());
+			
+			int kmRecorridos = Integer.parseInt(txtKmRecorridos.getText());
+			int aITV = Integer.parseInt(txtFechaITV.getText());
+			
+			String tipo = txtTipo.getText();
+			
+			ArrayList<String> camposTxt = new ArrayList<String>();
+			camposTxt.addAll(Arrays.asList(matricula, bastidor, marca, modelo, color, tipo));
+			
+			if (camposTxt.contains("") || cmbClientes.getSelectedIndex() < 0)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (cilindrada < 1 || kmRecorridos < 1 || aITV < 1)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+			{
+				String propietario = (String) cmbClientes.getSelectedItem();
+				
+				Fecha fechaITV = new Fecha(aITV);
+				
+				if (!edicion && Archivos.listarVehiculos().contains(matricula))
+				{
+					JOptionPane.showMessageDialog(this, (String) "Vehículo ya existe", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					Archivos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario,
+							marca, modelo, color, cilindrada, kmRecorridos, fechaITV, tipo));
+					
+					for (Cliente c : Archivos.cargarTodosClientes())
+					{
+						if (c.getVehiculos().contains(matricula) && !c.getDNI().equals(propietario))
+						{
+							c.getVehiculos().remove(matricula);
+							Archivos.guardarCliente(c);
+						}
+						
+						if (c.getDNI().equals(propietario) && !c.getVehiculos().contains(matricula))
+						{
+							c.getVehiculos().add(matricula);
+							Archivos.guardarCliente(c);
+						}
+					}
+					
+					return true;
+				}
+			}
+		}
+		catch (NumberFormatException npe)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		return false;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		
+		int guardar = JOptionPane.YES_OPTION;
+
 		if (o == btnCancelar)
 		{
-			this.dispose();
+			guardar = Salir.edicion(true);
 		}
-		else
+		
+		boolean valido = false;
+		
+		if (guardar == JOptionPane.YES_OPTION)
 		{
-			try
-			{
-				String matricula = txtMatricula.getText();
-				String bastidor = txtBastidor.getText();
-
-				String marca = txtMarca.getText();
-				String modelo = txtModelo.getText();
-				String color = txtColor.getText();
-
-				int cilindrada = Integer.parseInt(txtCilindrada.getText());
-
-				int kmRecorridos = Integer.parseInt(txtKmRecorridos.getText());
-				int aITV = Integer.parseInt(txtFechaITV.getText());
-			
-				String tipo = txtTipo.getText();
-
-				ArrayList<String> camposTxt = new ArrayList<String>();
-				camposTxt.addAll(Arrays.asList(matricula, bastidor, marca, modelo, color, tipo));
-		    
-				if (camposTxt.contains("") || cmbClientes.getSelectedIndex() < 0)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else if (cilindrada < 1 || kmRecorridos < 1 || aITV < 1)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else 
-				{
-					String propietario = (String) cmbClientes.getSelectedItem();
-
-					Fecha fechaITV = new Fecha(aITV);
-					
-					if (!edicion && Archivos.listarVehiculos().contains(matricula))
-					{
-						JOptionPane.showMessageDialog(this, (String) "Vehículo ya existe", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					else
-					{
-						Archivos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario,
-								marca, modelo, color, cilindrada, kmRecorridos, fechaITV, tipo));
-						
-						for (Cliente c : Archivos.cargarTodosClientes())
-						{
-							if (c.getVehiculos().contains(matricula) && !c.getDNI().equals(propietario))
-							{
-								c.getVehiculos().remove(matricula);
-								Archivos.guardarCliente(c);
-							}
-
-							if (c.getDNI().equals(propietario) && !c.getVehiculos().contains(matricula))
-							{
-								c.getVehiculos().add(matricula);
-								Archivos.guardarCliente(c);
-							}
-						}
-						
-						AdministrarVehiculos.actualizarTabla();
-						
-						edicion = false;
-						this.dispose();
-					}
-				}
-			}
-			catch (NumberFormatException npe)
-			{
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			valido = guardar();
+		}
+		
+		if (guardar == JOptionPane.NO_OPTION || valido)
+		{
+			AdministrarVehiculos.actualizarTabla();
+			AdministrarVehiculos.botones(true);
+			this.dispose();
 		}
 	}
 		
@@ -389,7 +405,8 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		Salir.general(this);
+		// TODO
 	}
 
 	@Override

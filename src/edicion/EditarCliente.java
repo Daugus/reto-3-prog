@@ -78,7 +78,9 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 	private JComboBox<String> cmbVehiculos;
 	
 	private ArrayList<String> alMatriculasBorradas = new ArrayList<String>();
-	
+
+	Vector<Component> vectorOrden;
+
 	private boolean edicion;
 
 	public EditarCliente() {
@@ -345,7 +347,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		cmbVehiculos.setForeground(Inicio.colorFuenteObjetos);
 
 		// ===== orden de tabulación =====
-		Vector<Component> vectorOrden = new Vector<Component>();
+		vectorOrden = new Vector<Component>();
 		vectorOrden.addAll(camposTexto);
 		vectorOrden.remove(txtMatricula);
 		vectorOrden.add(cmbVehiculos);
@@ -363,6 +365,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 		txtDNI.setText(cliente.getDNI());
 		txtDNI.setEnabled(false);
+		vectorOrden.remove(txtDNI);
 
 		txtNombre.setText(cliente.getNombre());
 		txtApellidos.setText(cliente.getApellidos());
@@ -372,17 +375,23 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 		txtFechaNacimientoD.setText(String.valueOf(cliente.getFechaNacimiento().getDay()));
 		txtFechaNacimientoD.setEnabled(false);
+		vectorOrden.remove(txtFechaNacimientoD);
 		txtFechaNacimientoM.setText(String.valueOf(cliente.getFechaNacimiento().getMonth()));
 		txtFechaNacimientoM.setEnabled(false);
+		vectorOrden.remove(txtFechaNacimientoM);
 		txtFechaNacimientoA.setText(String.valueOf(cliente.getFechaNacimiento().getYear()));
 		txtFechaNacimientoA.setEnabled(false);
+		vectorOrden.remove(txtFechaNacimientoA);
 
 		txtFechaAltaD.setText(String.valueOf(cliente.getFechaAlta().getDay()));
 		txtFechaAltaD.setEnabled(false);
+		vectorOrden.remove(txtFechaAltaD);
 		txtFechaAltaM.setText(String.valueOf(cliente.getFechaAlta().getMonth()));
 		txtFechaAltaM.setEnabled(false);
+		vectorOrden.remove(txtFechaAltaM);
 		txtFechaAltaA.setText(String.valueOf(cliente.getFechaAlta().getYear()));
 		txtFechaAltaA.setEnabled(false);
+		vectorOrden.remove(txtFechaAltaA);
 
 		txtCodPostal.setText(String.valueOf(cliente.getDireccion().getCodPostal()));
 		txtCalle.setText(cliente.getDireccion().getCalle());
@@ -392,17 +401,130 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 		dcbmVehiculos.addAll(cliente.getVehiculos());
 		dcbmVehiculos.setSelectedItem(cmbVehiculos.getSelectedItem());
+
+		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
+		setFocusTraversalPolicy(orden);
+	}
+	
+	private boolean guardar()
+	{
+		try
+		{
+			String dni = txtDNI.getText();
+			
+			String nombre = txtNombre.getText();
+			String apellidos = txtApellidos.getText();
+			
+			int tel = Integer.parseInt(txtTel.getText());
+			String email = txtEmail.getText();
+			
+			int dN = Integer.parseInt(txtFechaNacimientoD.getText());
+			int mN = Integer.parseInt(txtFechaNacimientoM.getText());
+			int aN = Integer.parseInt(txtFechaNacimientoA.getText());
+			
+			int codPostal = Integer.parseInt(txtCodPostal.getText());
+			String calle = txtCalle.getText();
+			int portal = Integer.parseInt(txtPortal.getText());
+			int piso = Integer.parseInt(txtPiso.getText());
+			String puerta = txtPuerta.getText();
+			
+			Fecha fechaAlta;
+			Calendar now = Calendar.getInstance();
+			int dA = now.get(Calendar.DATE);
+			int mA = now.get(Calendar.MONTH) + 1;
+			int aA = now.get(Calendar.YEAR);
+			fechaAlta = new Fecha(dA ,mA ,aA);
+			
+			ArrayList<String> matriculas = new ArrayList<String>();
+			for (int i = 0; i < dcbmVehiculos.getSize(); i++)
+			{
+				matriculas.add(dcbmVehiculos.getElementAt(i));
+			}
+			String matricula = (String) cmbVehiculos.getSelectedItem();
+			
+			ArrayList<String> camposTxt = new ArrayList<String>();
+			camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, matricula));
+			
+			if (camposTxt.contains(""))
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (dN < 1 || mN < 1 || aN < 1 || dN > 31 || mN > 12)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (matriculas.size() == 0)
+			{
+				JOptionPane.showMessageDialog(this, (String) "No hay ningún vehículo agregado", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+			{
+				Fecha fechaNacimiento = new Fecha(dN, mN, aN);
+				Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
+				
+				if (!edicion && Archivos.listarClientes().contains(dni))
+				{
+					JOptionPane.showMessageDialog(this, (String) "Cliente ya existe", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					Archivos.guardarCliente(new Cliente(dni, nombre, apellidos, tel,
+							email, fechaNacimiento, direccion, fechaAlta, matriculas));
+					
+					for (String ma : alMatriculasBorradas)
+					{
+						Vehiculo v = Archivos.cargarVehiculo(ma);
+						v.setPropietario("");
+						Archivos.guardarVehiculo(v);
+						
+						JOptionPane.showMessageDialog(this, (String) "El vehículo con la matrícula" + ma + " ya no tiene un propietario seleccionado", "INFO",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+					for (String ma : matriculas)
+					{
+						if (!Archivos.listarVehiculos().contains(ma))
+						{
+							Archivos.guardarVehiculo(new Vehiculo(ma, dni));
+						}
+						else
+						{
+							Vehiculo v = Archivos.cargarVehiculo(ma);
+							if (!v.getPropietario().equals(dni))
+							{
+								v.setPropietario(dni);
+								Archivos.guardarVehiculo(v);
+							}
+						}
+						
+						return true;
+					}
+				}
+			}
+		}
+		catch (NumberFormatException npe)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		return false;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		
-		if (o == btnCancelar)
-		{
-			this.dispose();
-		}
-		else if (o == txtMatricula || o == btnAgregarMatricula)
+		if (o == txtMatricula || o == btnAgregarMatricula)
 		{
 			String matricula = txtMatricula.getText();
 			if (matricula.equals(""))
@@ -450,110 +572,24 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		}
 		else
 		{
-			try
+			int guardar = JOptionPane.YES_OPTION;
+			if (o == btnCancelar)
 			{
-				String dni = txtDNI.getText();
-
-				String nombre = txtNombre.getText();
-				String apellidos = txtApellidos.getText();
-
-				int tel = Integer.parseInt(txtTel.getText());
-				String email = txtEmail.getText();
-
-				int dN = Integer.parseInt(txtFechaNacimientoD.getText());
-				int mN = Integer.parseInt(txtFechaNacimientoM.getText());
-				int aN = Integer.parseInt(txtFechaNacimientoA.getText());
-
-				int codPostal = Integer.parseInt(txtCodPostal.getText());
-				String calle = txtCalle.getText();
-				int portal = Integer.parseInt(txtPortal.getText());
-				int piso = Integer.parseInt(txtPiso.getText());
-				String puerta = txtPuerta.getText();
-			
-				Fecha fechaAlta;
-		    	Calendar now = Calendar.getInstance();
-		    	int dA = now.get(Calendar.DATE);
-		    	int mA = now.get(Calendar.MONTH) + 1;
-		    	int aA = now.get(Calendar.YEAR);
-		    	fechaAlta = new Fecha(dA ,mA ,aA);
-		    
-		    	ArrayList<String> matriculas = new ArrayList<String>();
-		    	for (int i = 0; i < dcbmVehiculos.getSize(); i++)
-		    	{
-		    		matriculas.add(dcbmVehiculos.getElementAt(i));
-		    	}
-		    	String matricula = (String) cmbVehiculos.getSelectedItem();
-
-				ArrayList<String> camposTxt = new ArrayList<String>();
-				camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, matricula));
-
-				if (camposTxt.contains(""))
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else if (dN < 1 || mN < 1 || aN < 1 || dN > 31 || mN > 12)
-				{
-					JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else 
-				{
-					Fecha fechaNacimiento = new Fecha(dN, mN, aN);
-					Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
-
-					if (!edicion && Archivos.listarMateriales().contains(dni))
-					{
-						JOptionPane.showMessageDialog(this, (String) "Cliente ya existe", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					else
-					{
-						Archivos.guardarCliente(new Cliente(dni, nombre, apellidos, tel,
-								email, fechaNacimiento, direccion, fechaAlta, matriculas));
-						
-						for (String ma : alMatriculasBorradas)
-						{
-							Vehiculo v = Archivos.cargarVehiculo(ma);
-							v.setPropietario("");
-							Archivos.guardarVehiculo(v);
-
-							JOptionPane.showMessageDialog(this, (String) "El vehículo con la matrícula" + ma + " ya no tiene un propietario seleccionado", "INFO",
-									JOptionPane.INFORMATION_MESSAGE);
-						}
-
-						for (String ma : matriculas)
-						{
-							if (!Archivos.listarVehiculos().contains(ma))
-							{
-								Archivos.guardarVehiculo(new Vehiculo(ma, dni));
-							}
-							else
-							{
-								Vehiculo v = Archivos.cargarVehiculo(ma);
-								if (!v.getPropietario().equals(dni))
-								{
-									v.setPropietario(dni);
-									Archivos.guardarVehiculo(v);
-								}
-							}
-						}
-						
-						AdministrarClientes.actualizarTabla();
-						
-						this.dispose();
-					}
-				}
+				guardar = Salir.edicion(true);
 			}
-			catch (NumberFormatException npe)
+
+			boolean valido = false;
+			
+			if (guardar == JOptionPane.YES_OPTION)
 			{
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+				valido = guardar();
+			}
+			
+			if (guardar == JOptionPane.NO_OPTION || valido)
+			{
+				AdministrarClientes.actualizarTabla();
+				AdministrarClientes.botones(true);
+				this.dispose();
 			}
 		}
 	}
@@ -575,7 +611,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general();
+		btnCancelar.doClick();
 	}
 
 	@Override
