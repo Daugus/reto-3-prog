@@ -17,10 +17,8 @@ public class Pruebas
 {
 	public static void main(String[] args)
 	{
-		// ===== crear carpetas =====
 		Archivos.crearCarpetas();
 
-		// ===== objetos de prueba =====
 //		Archivos.guardarCuenta(new Cuenta("Y0723663M", "Augusto Augusto", "de la Cámara de la Cámara de la Cámara", 664860653,
 //				"augustodelacamara@mail.com", new Fecha(26, 12, 2002),
 //				new Direccion(48007, "Travesía Ciudad Jardín", 42, 12, "Izquierda"), true, "augusto123", new Ajustes()));
@@ -56,22 +54,17 @@ public class Pruebas
 //
 //		Archivos.guardarOrdenPrim(new OrdenPrim("1", "comentario de prueba", new Fecha(), juan, vJuan));
 		
-		// ===== ArrayLists de prueba =====
 //		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 //		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
-		// ===== agregar objetos cargados a las ArrayLists (necesario especificar tipo) =====
 //		cuentas.add((Cuenta) Archivos.cargar("Y0723663M", "Cuenta"));
 //		vehiculos.add((Vehiculo) Archivos.cargar("1234abc", "Vehiculo"));
 		
-		// ===== sacar ArrayLists por pantalla =====
 //		System.out.println(cuentas);
 //		System.out.println(vehiculos);
 		
-		// ===== listar clientes existentes =====
 //		System.out.println(Archivos.listarClientes());
 		
-		// ===== pruebas =====
 //		System.out.println(Archivos.cargarCliente("04772641A"));
 //		System.out.println(Archivos.cargarMaterial("a"));
 //		funciones.Archivos.guardarMaterial(new Material("test", 2.0));
@@ -81,7 +74,6 @@ public class Pruebas
 //		Archivos.guardarMaterial(new Material("atest", 30.0));
 //		Archivos.guardarMaterial(new Material("btest", 30.0));
 
-		// ===== fecha =====
 //		Calendar calendar = Calendar.getInstance();
 //		SimpleDateFormat sdf = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
 //		System.out.println(sdf.format(calendar.getTime()));
@@ -132,6 +124,8 @@ public class Pruebas
 //		System.out.println(JOptionPane.CANCEL_OPTION);
 //		System.out.println(a);
 		
-		System.out.println(Archivos.cargarFactura(Archivos.listarFacturas().get(0)));
+//		System.out.println(Archivos.cargarFactura(Archivos.listarFacturas().get(0)));
+		
+//		System.out.println(new Fecha(1, 1, 22));
 	}
 }

@@ -26,7 +26,6 @@ public class Inicio
 	{
 		Archivos.crearCarpetas();
 
-		Login l = new Login();
-		l.setVisible(true);
+		new Login().setVisible(true);
 	}
 }
