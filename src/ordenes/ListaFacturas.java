@@ -19,6 +19,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import clases.Factura;
 import clases.Pendiente;
 import funciones.Archivos;
 import funciones.Salir;
@@ -30,24 +31,24 @@ import navegacion.ListaOrdenes;
  * @author Grupo 2
  *
  */
-public class ListaPendientes extends JFrame implements ActionListener, WindowListener
+public class ListaFacturas extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
 	
-	private JTable tblPendientes;
+	private JTable tblFacturas;
 
 	private JButton btnVolver;
 	private JButton btnCargar;
 
-	ArrayList<Pendiente> alPendientes;
+	ArrayList<Factura> alFacturas;
 
-	private static Pendiente ordenPend;
+	private static Factura factura;
 
-	public ListaPendientes()
+	public ListaFacturas()
 	{
 		setResizable(false);
-		setTitle("Lista de Órdenes Pendientes | " + Inicio.cuentaActual.getNombre());
+		setTitle("Lista de Facturas | " + Inicio.cuentaActual.getNombre());
 
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
@@ -74,20 +75,20 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 
 		// ===== modelos =====
 		// --- crear ---
-		DefaultTableModel dtmPendientes = new DefaultTableModel();
-		dtmPendientes.addColumn("Fecha");
-		dtmPendientes.addColumn("Cliente");
-		dtmPendientes.addColumn("Vehículo");
+		DefaultTableModel dtmFacturas = new DefaultTableModel();
+		dtmFacturas.addColumn("Fecha");
+		dtmFacturas.addColumn("Cliente");
+		dtmFacturas.addColumn("Vehículo");
 		
-		alPendientes = Archivos.cargarTodosPendientes();
-		alPendientes.sort(Comparator.reverseOrder());
-		for (Pendiente op : alPendientes)
+		alFacturas = Archivos.cargarTodosFacturas();
+		alFacturas.sort(Comparator.reverseOrder());
+		for (Pendiente op : alFacturas)
 		{
-			dtmPendientes.addRow(new Object[] {op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula()});
+			dtmFacturas.addRow(new Object[] {op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula()});
 		}
 
 		// --- asignar ---
-		tblPendientes = new JTable(dtmPendientes)
+		tblFacturas = new JTable(dtmFacturas)
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -96,12 +97,12 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 				return false;
 			}
 		};
-		tblPendientes.setRowHeight(20);
-		tblPendientes.setFillsViewportHeight(true);
-		tblPendientes.getTableHeader().setReorderingAllowed(false);
-		tblPendientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblFacturas.setRowHeight(20);
+		tblFacturas.setFillsViewportHeight(true);
+		tblFacturas.getTableHeader().setReorderingAllowed(false);
+		tblFacturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		scrollPendientes.setViewportView(tblPendientes);
+		scrollPendientes.setViewportView(tblFacturas);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -113,8 +114,8 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
 		
-		tblPendientes.getTableHeader().setFont(Inicio.fuenteObjetos);
-		tblPendientes.setFont(Inicio.fuente);
+		tblFacturas.getTableHeader().setFont(Inicio.fuenteObjetos);
+		tblFacturas.setFont(Inicio.fuente);
 
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnCargar.setFont(Inicio.fuenteObjetos);
@@ -123,13 +124,13 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		tblPendientes.getTableHeader().setBackground(Inicio.colorFondoObjetos);
-		tblPendientes.setBackground(Inicio.colorFondoObjetos);
+		tblFacturas.getTableHeader().setBackground(Inicio.colorFondoObjetos);
+		tblFacturas.setBackground(Inicio.colorFondoObjetos);
 
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
 		
-		tblPendientes.setForeground(Inicio.colorFuenteObjetos);
+		tblFacturas.setForeground(Inicio.colorFuenteObjetos);
 
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
@@ -142,30 +143,30 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 
 		if (o == btnCargar)
 		{
-			int row = tblPendientes.getSelectedRow();
+			int row = tblFacturas.getSelectedRow();
 			if (row >= 0)
 			{
 				try
 				{
-					ordenPend = alPendientes.get(row);
+					factura = alFacturas.get(row);
 					
-					GenerarFactura gf = new GenerarFactura();
-					gf.cargarDatos(ordenPend);
+					MostrarFactura mf = new MostrarFactura();
+					mf.cargarDatos(factura);
 					
-					gf.setLocationRelativeTo(null);
-					gf.setVisible(true);
+					mf.setLocationRelativeTo(null);
+					mf.setVisible(true);
 					
 					this.dispose();
 				}
 				catch (NullPointerException npe)
 				{
-					JOptionPane.showMessageDialog (null, "La Orden Pendiente seleccionada no existe", "ERROR",
+					JOptionPane.showMessageDialog (null, "La factura seleccionada no existe", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(this, (String) "No hay ninguna orden seleccionada", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "No hay ninguna factura seleccionada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}

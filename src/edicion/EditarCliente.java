@@ -85,7 +85,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 	public EditarCliente() {
 		setResizable(false);
-		setTitle("Agregar nuevo cliente");
+		setTitle("Agregar nuevo cliente | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 730, 480);
 		getContentPane().setPreferredSize(new Dimension(730, 480));
@@ -361,7 +361,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 	{
 		edicion = true;
 		
-		setTitle("Editar " + cliente.getDNI());
+		setTitle("Editar " + cliente.getDNI() + " | " + Inicio.cuentaActual.getNombre());
 
 		txtDNI.setText(cliente.getDNI());
 		txtDNI.setEnabled(false);
@@ -440,10 +440,9 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 			{
 				matriculas.add(dcbmVehiculos.getElementAt(i));
 			}
-			String matricula = (String) cmbVehiculos.getSelectedItem();
 			
 			ArrayList<String> camposTxt = new ArrayList<String>();
-			camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, matricula));
+			camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta));
 			
 			if (camposTxt.contains(""))
 			{
@@ -486,7 +485,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 						v.setPropietario("");
 						Archivos.guardarVehiculo(v);
 						
-						JOptionPane.showMessageDialog(this, (String) "El vehículo con la matrícula" + ma + " ya no tiene un propietario seleccionado", "INFO",
+						JOptionPane.showMessageDialog(this, (String) "El vehículo con la matrícula " + ma + " ya no tiene un propietario seleccionado", "INFO",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 					
@@ -505,9 +504,9 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 								Archivos.guardarVehiculo(v);
 							}
 						}
-						
-						return true;
 					}
+
+					return true;
 				}
 			}
 		}
@@ -575,7 +574,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 			int guardar = JOptionPane.YES_OPTION;
 			if (o == btnCancelar)
 			{
-				guardar = Salir.edicion(true);
+				guardar = Salir.edicion();
 			}
 
 			boolean valido = false;

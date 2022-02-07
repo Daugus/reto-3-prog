@@ -152,30 +152,20 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				{
 					Log.login();
 
-					if (Inicio.cuentaActual.getMecanico())
+					JFrame menu = null;
+					if (Inicio.cuentaActual.esMecanico())
 					{
-						// mecánico
-						Inicio.cuentaActual.setMecanico(true);
-						
-						MenuMec mm = new MenuMec();
-						this.setVisible(false);
-						mm.setLocationRelativeTo(null);
-						mm.setVisible(true);
-						
-						this.dispose();
+						menu = new MenuMec();
 					}
 					else
 					{
-						// atención cliente (admin)
-						Inicio.cuentaActual.setMecanico(false);
-						
-						MenuAtc ma = new MenuAtc();
-						this.setVisible(false);
-						ma.setLocationRelativeTo(null);
-						ma.setVisible(true);
-						
-						this.dispose();
+						menu = new MenuAtc();
 					}
+
+					menu.setLocationRelativeTo(null);
+					menu.setVisible(true);
+						
+					this.dispose();
 				}
 			}
 			catch (NullPointerException npe)

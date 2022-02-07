@@ -48,7 +48,7 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 	public ListaPrimarias()
 	{
 		setResizable(false);
-		setTitle("Lista de Órdenes Primarias");
+		setTitle("Lista de Órdenes Primarias | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
@@ -172,19 +172,18 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		}
 		else
 		{
-			// btnVolver
-			if (Inicio.cuentaActual.getMecanico())
+			JFrame ventana = null;
+			if (Inicio.cuentaActual.esMecanico())
 			{
-				MenuMec mm = new MenuMec();
-				mm.setLocationRelativeTo(null);
-				mm.setVisible(true);
+				ventana = new MenuMec();
 			}
-			else {
-				ListaOrdenes lo = new ListaOrdenes();
-				lo.setLocationRelativeTo(null);
-				lo.setVisible(true);
+			else
+			{
+				ventana = new ListaOrdenes();
 			}
 
+			ventana.setLocationRelativeTo(null);
+			ventana.setVisible(true);
 			this.dispose();
 		}
 	}

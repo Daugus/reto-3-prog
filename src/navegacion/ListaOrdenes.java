@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import funciones.Salir;
+import ordenes.ListaFacturas;
 import ordenes.ListaPendientes;
 import ordenes.ListaPrimarias;
 
@@ -35,7 +36,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 
 	{
 		setResizable(false);
-		setTitle("Órdenes");
+		setTitle("Órdenes | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 330, 295);
 		getContentPane().setPreferredSize(new Dimension(330, 295));
@@ -99,29 +100,9 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	{
 		Object o = e.getSource();
 		
-		if (o == btnPrimarias)
+		if (o == btnVolver)
 		{
-			ListaPrimarias lop = new ListaPrimarias();
-			lop.setLocationRelativeTo(null);
-			lop.setVisible(true);
-
-			this.dispose();
-		}
-		else if (o == btnPendientes)
-		{
-			ListaPendientes lop = new ListaPendientes();
-			lop.setLocationRelativeTo(null);
-			lop.setVisible(true);
-			
-			this.dispose();
-		}
-		else if (o == btnFacturas)
-		{
-			
-		}
-		else if (o == btnVolver)
-		{
-			if (Inicio.cuentaActual.getMecanico())
+			if (Inicio.cuentaActual.esMecanico())
 			{
 				MenuMec mm = new MenuMec();
 				mm.setLocationRelativeTo(null);
@@ -133,7 +114,28 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 				ma.setLocationRelativeTo(null);
 				ma.setVisible(true);
 			}
+			
+			this.dispose();
+		}
+		else
+		{
+			JFrame lista = null;
+			if (o == btnPrimarias)
+			{
+				lista = new ListaPrimarias();
+			}
+			else if (o == btnPendientes)
+			{
+				lista = new ListaPendientes();
+			}
+			else if (o == btnFacturas)
+			{
+				lista = new ListaFacturas();
+			}
 
+			lista.setLocationRelativeTo(null);
+			lista.setVisible(true);
+			
 			this.dispose();
 		}
 	}

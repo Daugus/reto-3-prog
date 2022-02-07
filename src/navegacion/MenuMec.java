@@ -30,12 +30,12 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 
 	private JButton btnAjustes;
 	private JButton btnOrdenPrim;
-	private JButton btnVolver;
+	private JButton btnCerrarSesion;
 	
 	public MenuMec()
 	{
 		setResizable(false);
-		setTitle("Menú mecánico");
+		setTitle("Menú mecánico | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 576, 221);
 		getContentPane().setPreferredSize(new Dimension(576, 221));
@@ -54,9 +54,9 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		btnOrdenPrim.setBounds(173, 68, 230, 60);
 		panelPrincipal.add(btnOrdenPrim);
 		
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 171, 180, 40);
-		panelPrincipal.add(btnVolver);
+		btnCerrarSesion = new JButton("Cerrar sesión");
+		btnCerrarSesion.setBounds(10, 171, 180, 40);
+		panelPrincipal.add(btnCerrarSesion);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -65,7 +65,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 
 		// --- Action ---
 		// - JButton -
-		btnVolver.addActionListener(this);
+		btnCerrarSesion.addActionListener(this);
 		btnOrdenPrim.addActionListener(this);
 		btnAjustes.addActionListener(this);
 
@@ -74,7 +74,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		Archivos.cargarAjustes();
 
 		// --- fuente ---
-		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnCerrarSesion.setFont(Inicio.fuenteObjetos);
 		btnOrdenPrim.setFont(Inicio.fuenteObjetos);
 		btnAjustes.setFont(Inicio.fuenteObjetos);
 
@@ -82,12 +82,12 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnCerrarSesion.setBackground(Inicio.colorFondoObjetos);
 		btnOrdenPrim.setBackground(Inicio.colorFondoObjetos);
 		btnAjustes.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
-		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnCerrarSesion.setForeground(Inicio.colorFuenteObjetos);
 		btnOrdenPrim.setForeground(Inicio.colorFuenteObjetos);
 		btnAjustes.setForeground(Inicio.colorFuenteObjetos);
 	}
@@ -106,7 +106,7 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 			
 			this.dispose();
 		}
-		else if (o == btnVolver)
+		else if (o == btnCerrarSesion)
 		{
 			Login l = new Login();
 			l.setLocationRelativeTo(null);

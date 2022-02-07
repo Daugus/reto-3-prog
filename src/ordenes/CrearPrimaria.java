@@ -63,7 +63,7 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 	public CrearPrimaria()
 	{
 		setResizable(false);
-		setTitle("Crear orden de trabajo");
+		setTitle("Crear orden de trabajo | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 600, 355);
 		getContentPane().setPreferredSize(new Dimension(600, 355));

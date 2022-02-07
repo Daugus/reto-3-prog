@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-//import java.io.FileOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,9 +18,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-//import com.itextpdf.text.Document;
-//import com.itextpdf.text.Image;
-//import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import clases.Cuenta;
 import funciones.Archivos;
@@ -171,15 +171,15 @@ public class PruebasTablas extends JFrame implements ActionListener
 	{
 		try
 		{
-//			Document d = new Document();
-//			PdfWriter writer = PdfWriter.getInstance(d, new FileOutputStream(fileName));
-//			d.open();
+			Document d = new Document();
+			PdfWriter writer = PdfWriter.getInstance(d, new FileOutputStream(fileName));
+			d.open();
 			
-//			Image iTextImage = Image.getInstance(writer, awtImage, 1);
-//	         iTextImage.scalePercent(80);
-//	         d.add(iTextImage);
-//			
-//			d.close();
+			Image iTextImage = Image.getInstance(writer, awtImage, 1);
+	        iTextImage.scalePercent(80);
+	        d.add(iTextImage);
+			
+			d.close();
 		}
 		catch (Exception e)
 		{
@@ -203,12 +203,26 @@ public class PruebasTablas extends JFrame implements ActionListener
 		if (o == btnPDF)
 		{
 			btnPDF.setVisible(false);
+			btnAgregarLargo.setVisible(false);
+			btnBorrarLargo.setVisible(false);
+			btnPK.setVisible(false);
 			panelPrincipal.setBackground(Color.WHITE);
+			tblCuentas.setBackground(Color.WHITE);
+			tblCuentas.setForeground(Color.BLACK);
+			tblCuentas.getTableHeader().setBackground(Color.WHITE);
+
 			java.awt.Image image = getImageFromPanel(panelPrincipal);
-			String fileName = "D:\\tmp\\newfile.pdf";
+			String fileName = "D:\\tmp\\test.pdf";
 			printToPDF(image, fileName);
+
 			btnPDF.setVisible(true);
+			btnAgregarLargo.setVisible(true);
+			btnBorrarLargo.setVisible(true);
+			btnPK.setVisible(true);
 			panelPrincipal.setBackground(Color.DARK_GRAY);
+			tblCuentas.setBackground(Color.LIGHT_GRAY);
+			tblCuentas.setForeground(Inicio.colorFuenteObjetos);
+			tblCuentas.getTableHeader().setBackground(Color.LIGHT_GRAY);
 		}
 		else if (o == btnPK)
 		{

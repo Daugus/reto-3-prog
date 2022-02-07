@@ -35,6 +35,7 @@ import clases.Reparacion;
 import funciones.Archivos;
 import funciones.Salir;
 import funciones.Tablas;
+import funciones.General;
 import navegacion.Inicio;
 import ordenes.CrearPendiente;
 import javax.swing.SwingConstants;
@@ -67,7 +68,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	public EditarReparacion()
 	{
 		setResizable(false);
-		setTitle("Agregar reparación");
+		setTitle("Agregar reparación | " + Inicio.cuentaActual.getNombre());
 
 		setBounds(100, 100, 700, 470);
 		getContentPane().setPreferredSize(new Dimension(700, 470));
@@ -273,7 +274,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	public void modoEdicion(Reparacion r)
 	{
 		edicion = true;
-		setTitle("Editar " + r.getDescripcion());
+		setTitle("Editar " + r.getDescripcion() + " | " + Inicio.cuentaActual.getNombre());
 		
 		txtDescripcion.setText(r.getDescripcion());
 		txtDescripcion.setEnabled(false);
@@ -294,7 +295,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 		for (MaterialUsado m : alMaterialesUsados)
 		{
-			dtm.addRow(new Object[] {m.getNombre(), m.getPrecio(), m.getCantidad()});
+			dtm.addRow(new Object[] {m.getNombre(), General.formatear(m.getPrecio()), m.getCantidad()});
 		}
 		
 		Tablas.ajustarColumnas(tblMateriales);
@@ -430,7 +431,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 			
 			if (o == btnCancelar)
 			{
-				guardar = Salir.edicion(true);
+				guardar = Salir.edicion();
 			}
 			
 			boolean valido = false;

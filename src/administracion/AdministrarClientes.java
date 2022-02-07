@@ -49,7 +49,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	{
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar clientes");
+		setTitle("Administrar clientes | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));

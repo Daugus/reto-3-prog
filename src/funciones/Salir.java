@@ -43,18 +43,11 @@ public class Salir
 		}
 	}
 	
-	public static int edicion(boolean cambios)
+	public static int edicion()
 	{
-		int opcion = JOptionPane.CANCEL_OPTION;
-
-		if (cambios)
-		{
-			opcion = JOptionPane.showOptionDialog(null, (String) "¿Desea guardar antes de salir?", "INFO",
-					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-					new Object[] {"Sí", "No", "Cancelar"}, "Sí");
-		}
-
-		return opcion;
+		return JOptionPane.showOptionDialog(null, (String) "¿Desea guardar antes de salir?", "INFO",
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				new Object[] {"Sí", "No", "Cancelar"}, "Sí");
 	}
 	
 	public static void error()

@@ -44,12 +44,10 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
-	
-	private boolean cambios = false;
 
 	public EditarAjustes() {
 		setResizable(false);
-		setTitle("Editar ajustes");
+		setTitle("Editar ajustes | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 396, 195);
 		getContentPane().setPreferredSize(new Dimension(396, 195));
@@ -100,8 +98,6 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		// --- Action ---
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
-		cmbFondo.addActionListener(this);
-		cmbFuente.addActionListener(this);
 		
 		// ===== ajustes de usuario =====
 		// --- fuente ---
@@ -178,40 +174,33 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	{
 		Object o = ae.getSource();
 		
-		if (o == cmbFondo || o == cmbFuente)
+		int guardar = JOptionPane.YES_OPTION;
+		if (o == btnCancelar)
 		{
-			cambios = true;
+			guardar = Salir.edicion();
 		}
-		else
+		
+		if (guardar != JOptionPane.CANCEL_OPTION)
 		{
-			int guardar = JOptionPane.YES_OPTION;
-			if (o == btnCancelar)
+			if (guardar == JOptionPane.YES_OPTION)
 			{
-				guardar = Salir.edicion(cambios);
+				guardar();
 			}
-
-			if (guardar != JOptionPane.CANCEL_OPTION)
+			
+			JFrame menu;
+			if (Inicio.cuentaActual.esMecanico())
 			{
-				if (guardar == JOptionPane.YES_OPTION)
-				{
-					guardar();
-				}
-				
-				JFrame menu;
-				if (Inicio.cuentaActual.getMecanico())
-				{
-					menu = new MenuMec();
-				}
-				else
-				{
-					menu = new MenuAtc();
-				}
-				
-				menu.setLocationRelativeTo(null);
-				menu.setVisible(true);
-				
-				this.dispose();
+				menu = new MenuMec();
 			}
+			else
+			{
+				menu = new MenuAtc();
+			}
+			
+			menu.setLocationRelativeTo(null);
+			menu.setVisible(true);
+			
+			this.dispose();
 		}
 	}
 

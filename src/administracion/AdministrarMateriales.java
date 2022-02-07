@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Material;
 import edicion.EditarMaterial;
 import funciones.Archivos;
+import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -50,7 +51,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	{
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar materiales");
+		setTitle("Administrar materiales | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
@@ -153,7 +154,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		ArrayList<Material> materiales = Archivos.cargarTodosMateriales();
 		for (Material m : materiales)
 		{
-			dtm.addRow(new Object[] {m.getNombre(), m.getPrecio()});
+			dtm.addRow(new Object[] {m.getNombre(), General.formatear(m.getPrecio())});
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);

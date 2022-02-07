@@ -45,7 +45,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 	public EditarMaterial() {
 		setResizable(false);
-		setTitle("Agregar material");
+		setTitle("Agregar material | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 396, 200);
 		getContentPane().setPreferredSize(new Dimension(396, 200));
@@ -135,7 +135,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	{
 		edicion = true;
 		
-		setTitle("Editar " + material.getNombre());
+		setTitle("Editar " + material.getNombre() + " | " + Inicio.cuentaActual.getNombre());
 			
 		txtNombre.setText(material.getNombre());
 		txtNombre.setEnabled(false);
@@ -195,10 +195,9 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		Object o = ae.getSource();
 		
 		int guardar = JOptionPane.YES_OPTION;
-
 		if (o == btnCancelar)
 		{
-			guardar = Salir.edicion(true);
+			guardar = Salir.edicion();
 		}
 		
 		boolean valido = false;
@@ -212,6 +211,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		{
 			AdministrarMateriales.actualizarTabla();
 			AdministrarMateriales.botones(true);
+
 			this.dispose();
 		}
 	}

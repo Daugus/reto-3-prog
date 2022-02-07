@@ -57,7 +57,7 @@ public class Tablas
 		
 		tbl.getColumnModel().getColumn(0).setCellRenderer(renderer);
 
-		tbl.getColumnModel().getColumn(0).setPreferredWidth(120);
-		tbl.getColumnModel().getColumn(0).setMaxWidth(120);
+		tbl.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tbl.getColumnModel().getColumn(0).setMaxWidth(150);
 	}
 }

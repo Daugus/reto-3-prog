@@ -82,7 +82,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	public EditarCuenta()
 	{
 		setResizable(false);
-		setTitle("Agregar cuenta");
+		setTitle("Agregar cuenta | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 730, 480);
 		getContentPane().setPreferredSize(new Dimension(730, 480));
@@ -354,7 +354,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	{
 		edicion = true;
 		
-		setTitle("Editar " + cuenta.getDNI());
+		setTitle("Editar " + cuenta.getDNI() + " | " + Inicio.cuentaActual.getNombre());
 				
 		txtDNI.setText(cuenta.getDNI());
 		txtDNI.setEnabled(false);
@@ -384,7 +384,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		
 		pwdPassword.setText(cuenta.getPassword());
 				
-		if (!cuenta.getMecanico())
+		if (!cuenta.esMecanico())
 		{
 			cmbCuenta.setSelectedItem("Atención al cliente");
 		}
@@ -520,7 +520,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 		if (o == btnCancelar)
 		{
-			guardar = Salir.edicion(true);
+			guardar = Salir.edicion();
 		}
 		
 		boolean valido = false;

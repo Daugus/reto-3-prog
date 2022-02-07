@@ -53,7 +53,7 @@ public class Cliente extends Persona
 	{
 		return super.toString() +
 				", fecha de alta: " + fechaAlta +
-				", vehíulos: " + vehiculos;
+				", vehículos: " + vehiculos;
 	}
 
 	// --- comparacion ---

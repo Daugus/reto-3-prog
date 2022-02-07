@@ -131,5 +131,7 @@ public class Pruebas
 //		System.out.println(JOptionPane.NO_OPTION);
 //		System.out.println(JOptionPane.CANCEL_OPTION);
 //		System.out.println(a);
+		
+		System.out.println(Archivos.cargarFactura(Archivos.listarFacturas().get(0)));
 	}
 }

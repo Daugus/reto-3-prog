@@ -30,7 +30,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 
 	private JPanel panelPrincipal;
 
-	private JButton btnVolver;
+	private JButton btnCerrarSesion;
 	private JButton btnOrden;
 	private JButton btnNuevaOrdenPrim;
 	private JButton btnCuentas;
@@ -40,7 +40,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 	public MenuAtc()
 	{
 		setResizable(false);
-		setTitle("Menú de atención al cliente");
+		setTitle("Menú de atención al cliente | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 575, 220);
 		getContentPane().setPreferredSize(new Dimension(575, 220));
@@ -55,9 +55,9 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		btnAjustes.setBounds(385, 170, 180, 40);
 		panelPrincipal.add(btnAjustes);
 		
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 170, 180, 40);
-		panelPrincipal.add(btnVolver);
+		btnCerrarSesion = new JButton("Cerrar sesión");
+		btnCerrarSesion.setBounds(10, 170, 180, 40);
+		panelPrincipal.add(btnCerrarSesion);
 		
 		btnOrden = new JButton("Lista órdenes de trabajo");
 		btnOrden.setBounds(50, 10, 230, 60);
@@ -82,7 +82,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 
 		// --- Action ---
 		// - JButton -
-		btnVolver.addActionListener(this);
+		btnCerrarSesion.addActionListener(this);
 		btnOrden.addActionListener(this);
 		btnNuevaOrdenPrim.addActionListener(this);
 		btnCuentas.addActionListener(this);
@@ -94,7 +94,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		Archivos.cargarAjustes();
 
 		// --- fuente ---
-		btnVolver.setFont(Inicio.fuenteObjetos);
+		btnCerrarSesion.setFont(Inicio.fuenteObjetos);
 		btnOrden.setFont(Inicio.fuenteObjetos);
 		btnNuevaOrdenPrim.setFont(Inicio.fuenteObjetos);
 		btnCuentas.setFont(Inicio.fuenteObjetos);
@@ -105,7 +105,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		btnVolver.setBackground(Inicio.colorFondoObjetos);
+		btnCerrarSesion.setBackground(Inicio.colorFondoObjetos);
 		btnOrden.setBackground(Inicio.colorFondoObjetos);
 		btnNuevaOrdenPrim.setBackground(Inicio.colorFondoObjetos);
 		btnCuentas.setBackground(Inicio.colorFondoObjetos);
@@ -113,7 +113,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		btnAjustes.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
-		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnCerrarSesion.setForeground(Inicio.colorFuenteObjetos);
 		btnOrden.setForeground(Inicio.colorFuenteObjetos);
 		btnNuevaOrdenPrim.setForeground(Inicio.colorFuenteObjetos);
 		btnCuentas.setForeground(Inicio.colorFuenteObjetos);
@@ -141,7 +141,7 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 			
 			this.dispose();
 		}
-		else if (o == btnVolver)
+		else if (o == btnCerrarSesion)
 		{
 			Login l = new Login();
 			l.setLocationRelativeTo(null);

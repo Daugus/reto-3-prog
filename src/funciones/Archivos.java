@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import clases.Ajustes;
 import clases.Cliente;
@@ -91,6 +92,7 @@ public class Archivos {
 
 	public static void guardarCliente(Cliente c)
 	{
+		c.getVehiculos().sort(Comparator.naturalOrder());
 		File f = new File(clientes + c.getDNI() + ".dat");
 		Log.cliente(c.getDNI());
 		guardar(c, f);

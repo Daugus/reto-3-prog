@@ -66,7 +66,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	
 	public EditarVehiculo() {
 		setResizable(false);
-		setTitle("Agregar nuevo vehículo");
+		setTitle("Agregar nuevo vehículo | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 630, 330);
 		getContentPane().setPreferredSize(new Dimension(630, 330));
@@ -257,7 +257,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	{
 		edicion = true;
 
-		setTitle("Editar " + vehiculo.getMatricula());
+		setTitle("Editar " + vehiculo.getMatricula() + " | " + Inicio.cuentaActual.getNombre());
 		
 		txtMatricula.setText(vehiculo.getMatricula());
 		txtBastidor.setText(vehiculo.getBastidor());
@@ -313,7 +313,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			else if (cilindrada < 1 || kmRecorridos < 1 || aITV < 1)
+			else if (cilindrada < 1 || kmRecorridos < 0 || aITV < 1)
 			{
 				JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
@@ -370,7 +370,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 
 		if (o == btnCancelar)
 		{
-			guardar = Salir.edicion(true);
+			guardar = Salir.edicion();
 		}
 		
 		boolean valido = false;
@@ -405,8 +405,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		Salir.general(this);
-		// TODO
+		btnCancelar.doClick();
 	}
 
 	@Override

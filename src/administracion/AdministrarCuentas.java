@@ -51,7 +51,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	{
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar cuentas");
+		setTitle("Administrar cuentas | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));

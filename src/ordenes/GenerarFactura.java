@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,10 +22,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Cliente;
+import clases.Factura;
 import clases.MaterialUsado;
 import clases.Pendiente;
 import clases.Reparacion;
 import clases.Vehiculo;
+import funciones.Archivos;
+import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -51,13 +55,16 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	private JTable tblMateriales;
 	
 	private Pendiente pendiente;
+
 	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
+
+	private JCheckBox chkAprobar;
 
 	public GenerarFactura()
 	{
 		setResizable(false);
-		setTitle("Generar factura");
+		setTitle("Generar factura | " + Inicio.cuentaActual.getNombre());
 		
 		setBounds(100, 100, 790, 510);
 		getContentPane().setPreferredSize(new Dimension(790, 510));
@@ -83,6 +90,10 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		lblCodigoTxt = new JLabel("");
 		lblCodigoTxt.setBounds(160, 185, 250, 35);
 		panelPrincipal.add(lblCodigoTxt);
+
+		chkAprobar = new JCheckBox("¿Factura aprobada?");
+		chkAprobar.setBounds(595, 470, 150, 23);
+		panelPrincipal.add(chkAprobar);
 
 		// ===== barras de desplazamiento =====
 		// --- reparaciones ---
@@ -180,6 +191,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		// --- Action ---
 		btnVolver.addActionListener(this);
 		btnGenerar.addActionListener(this);
+		chkAprobar.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente y color ---
@@ -224,6 +236,10 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 		tblCliente.setForeground(Inicio.colorFuenteObjetos);
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
+		
+		chkAprobar.setFont(Inicio.fuenteObjetos);
+		chkAprobar.setBackground(Inicio.colorFondoObjetos);
+		chkAprobar.setForeground(Inicio.colorFuenteObjetos);
 	}
 	
 	public void cargarDatos(Pendiente op)
@@ -282,7 +298,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 		for (Reparacion r : alReparaciones)
 		{
-			dtmReparaciones.addRow(new Object[] {r.getDescripcion(), r.getHoras(), r.getManoObra()});
+			dtmReparaciones.addRow(new Object[] {r.getDescripcion(), r.getHoras(), General.formatear(r.getManoObra())});
 			alMateriales.addAll(r.getMaterialesUsados());
 		}
 		
@@ -294,12 +310,15 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		
 		for (MaterialUsado mu : alMateriales)
 		{
-			dtmMateriales.addRow(new Object[] {mu.getNombre(), mu.getPrecio(), mu.getCantidad()});
+			dtmMateriales.addRow(new Object[] {mu.getNombre(), General.formatear(mu.getPrecio()), mu.getCantidad()});
 		}
 				
 		// ===== estilizar tablas =====
 		Tablas.vertical(tblCliente);
 		Tablas.vertical(tblVehiculo);
+		
+		// ===== deshabilitar botón de generar factura =====
+		btnGenerar.setEnabled(false);
 	}
 	
 	@Override
@@ -307,18 +326,22 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	{
 		Object o = e.getSource();
 
-		if (o == btnGenerar)
+		if (o == chkAprobar)
 		{
-//			Archivos.borrarOrdenPrim(pendiente.getCodigo());
+			btnGenerar.setEnabled(chkAprobar.isSelected());
+		}
+		else if (o == btnGenerar)
+		{
+			Archivos.borrarPendiente(pendiente.getCodigo());
 				
 			// TODO: crear frame de factura para convertir en pdf
-//			Archivos.guardarOrdenPend(new OrdenPend(pendiente, alReparaciones));
+			Archivos.guardarFactura(new Factura(pendiente));
 		}
 		else if (o == btnVolver)
 		{
-			ListaPrimarias mat = new ListaPrimarias();
-			mat.setLocationRelativeTo(null);
-			mat.setVisible(true);
+			ListaPendientes lp = new ListaPendientes();
+			lp.setLocationRelativeTo(null);
+			lp.setVisible(true);
 			
 			this.dispose();
 		}

@@ -127,7 +127,7 @@ public class Cuenta extends Persona
 		this.password = password;
 	}
 
-	public boolean getMecanico()
+	public boolean esMecanico()
 	{
 		return mecanico;
 	}
