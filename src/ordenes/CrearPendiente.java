@@ -58,6 +58,9 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 	private JTable tblCliente;
 	private JTable tblVehiculo;
+	
+	private JScrollPane scrollReparaciones;
+	private JScrollPane scrollMateriales;
 	private static JTable tblReparaciones;
 	private static JTable tblMateriales;
 	
@@ -71,10 +74,19 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	public CrearPendiente()
 	{
 		setResizable(false);
-		setTitle("Crear orden pendiente | " + Inicio.cuentaActual.getNombre());
 		
-		setBounds(100, 100, 790, 720);
-		getContentPane().setPreferredSize(new Dimension(790, 720));
+		if (Inicio.cuentaActual.esMecanico())
+		{
+			setTitle("Crear orden pendiente | " + Inicio.cuentaActual.getNombre());
+			setBounds(100, 100, 790, 720);
+			getContentPane().setPreferredSize(new Dimension(790, 720));
+		}
+		else
+		{
+			setTitle("Mostrar orden primaria | " + Inicio.cuentaActual.getNombre());
+			setBounds(100, 100, 790, 430);
+			getContentPane().setPreferredSize(new Dimension(790, 430));
+		}
 		pack();
 
 		panelPrincipal = new JPanel();
@@ -121,12 +133,12 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 		// ===== barras de desplazamiento =====
 		// --- reparaciones ---
-		JScrollPane scrollReparaciones = new JScrollPane();
+		scrollReparaciones = new JScrollPane();
 		scrollReparaciones.setBounds(10, 370, 420, 200);
 		panelPrincipal.add(scrollReparaciones);
 
 		// --- piezas ---
-		JScrollPane scrollMateriales = new JScrollPane();
+		scrollMateriales = new JScrollPane();
 		scrollMateriales.setBounds(445, 370, 335, 200);
 		panelPrincipal.add(scrollMateriales);
 
@@ -282,11 +294,9 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	public void cargarDatos(Primaria op)
 	{
 		primaria = new Primaria(op);
+
 		if (!Inicio.cuentaActual.esMecanico())
 		{
-			setBounds(100, 100, 790, 430);
-			getContentPane().setPreferredSize(new Dimension(790, 430));
-
 			btnAgregar.setVisible(false);
 			btnCrear.setVisible(false);
 			btnEditar.setVisible(false);
@@ -294,8 +304,8 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 			
 			btnVolver.setBounds(305, 380, 180, 40);
 			
-			tblReparaciones.setVisible(false);
-			tblMateriales.setVisible(false);
+			scrollReparaciones.setVisible(false);
+			scrollMateriales.setVisible(false);
 		}
 
 		// ===== datos cliente =====

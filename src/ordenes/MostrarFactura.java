@@ -148,6 +148,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblReparaciones.setRowHeight(20);
 		tblReparaciones.setFillsViewportHeight(true);
 		tblReparaciones.getTableHeader().setReorderingAllowed(false);
+		tblReparaciones.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblReparaciones.getTableHeader().setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblReparaciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollReparaciones.setViewportView(tblReparaciones);
 
@@ -161,6 +163,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblMateriales.setRowHeight(20);
 		tblMateriales.setFillsViewportHeight(true);
 		tblMateriales.getTableHeader().setReorderingAllowed(false);
+		tblMateriales.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblMateriales.getTableHeader().setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollMateriales.setViewportView(tblMateriales);
 
@@ -173,6 +177,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		};
 		tblTotal.setBounds(640, 410, 200, 100);
 		tblTotal.setRowHeight(20);
+		tblTotal.getTableHeader().setReorderingAllowed(false);
+		tblTotal.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblTotal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelPrincipal.add(tblTotal);
 
