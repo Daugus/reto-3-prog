@@ -88,6 +88,8 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 			getContentPane().setPreferredSize(new Dimension(790, 430));
 		}
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -414,9 +416,8 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 				JOptionPane.showMessageDialog(this, (String) "Se ha convertido la order primaria en una orden pendiente", "INFO",
 						JOptionPane.INFORMATION_MESSAGE);
 				
-				ListaPrimarias lop = new ListaPrimarias();
-				lop.setLocationRelativeTo(null);
-				lop.setVisible(true);
+				ListaPrimarias lp = new ListaPrimarias();
+				lp.setVisible(true);
 			
 				this.dispose();
 			}
@@ -429,7 +430,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		else if (o == btnAgregar)
 		{
 			EditarReparacion er = new EditarReparacion();
-			er.setLocationRelativeTo(null);
 			er.setVisible(true);
 		}
 		else if (o == btnEditar)
@@ -440,7 +440,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 			if (row >= 0)
 			{
 				er.modoEdicion(alReparaciones.get(row));
-				er.setLocationRelativeTo(null);
 				er.setVisible(true);
 			}
 			else
@@ -469,7 +468,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		else if (o == btnVolver)
 		{
 			ListaPrimarias lop = new ListaPrimarias();
-			lop.setLocationRelativeTo(null);
 			lop.setVisible(true);
 			
 			this.dispose();

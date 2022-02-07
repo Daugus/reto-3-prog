@@ -56,6 +56,8 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
@@ -179,7 +181,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 			botones(false);
 
 			EditarMaterial em = new EditarMaterial();
-			em.setLocationRelativeTo(null);
 			em.setVisible(true);
 		}
 		else if (o == btnEditar)
@@ -194,7 +195,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 				EditarMaterial em = new EditarMaterial();
 				em.modoEdicion(material);
 			
-				em.setLocationRelativeTo(null);
 				em.setVisible(true);
 			}
 			else
@@ -206,7 +206,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		else if (o == btnVolver)
 		{
 			MenuAtc ma = new MenuAtc();
-			ma.setLocationRelativeTo(null);
 			ma.setVisible(true);
 			
 			this.dispose();

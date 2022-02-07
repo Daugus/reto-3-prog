@@ -71,6 +71,8 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		setBounds(100, 100, 630, 330);
 		getContentPane().setPreferredSize(new Dimension(630, 330));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));

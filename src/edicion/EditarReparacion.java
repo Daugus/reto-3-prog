@@ -73,6 +73,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		setBounds(100, 100, 700, 470);
 		getContentPane().setPreferredSize(new Dimension(700, 470));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -40,6 +40,8 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		setBounds(100, 100, 576, 221);
 		getContentPane().setPreferredSize(new Dimension(576, 221));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,7 +102,6 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		if (o == btnOrdenPrim)
 		{
 			ListaPrimarias lop = new ListaPrimarias();
-			lop.setLocationRelativeTo(null);
 			this.setVisible(false);
 			lop.setVisible(true);
 			
@@ -109,7 +110,6 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		else if (o == btnCerrarSesion)
 		{
 			Login l = new Login();
-			l.setLocationRelativeTo(null);
 			l.setVisible(true);
 			Log.logout();
 			
@@ -119,7 +119,6 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 		{
 			EditarAjustes ea = new EditarAjustes();
 
-			ea.setLocationRelativeTo(null);
 			ea.setVisible(true);
 
 			this.dispose();

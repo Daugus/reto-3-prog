@@ -21,7 +21,6 @@ public class Salir
 				Log.logout();
 
 				Login l = new Login();
-				l.setLocationRelativeTo(null);
 				l.setVisible(true);
 
 				Frame[] frames = Frame.getFrames();

@@ -48,6 +48,8 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		setBounds(100, 100, 350, 200);
 		getContentPane().setPreferredSize(new Dimension(350, 200));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -162,7 +164,6 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 						menu = new MenuAtc();
 					}
 
-					menu.setLocationRelativeTo(null);
 					menu.setVisible(true);
 						
 					this.dispose();

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -69,6 +70,8 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		setBounds(100, 100, 790, 510);
 		getContentPane().setPreferredSize(new Dimension(790, 510));
 		pack();
+		
+		setLocationRelativeTo(null);
 		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -330,17 +333,19 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		{
 			btnGenerar.setEnabled(chkAprobar.isSelected());
 		}
-		else if (o == btnGenerar)
+		else
 		{
-			Archivos.borrarPendiente(pendiente.getCodigo());
+			if (o == btnGenerar)
+			{
+				Archivos.borrarPendiente(pendiente.getCodigo());
 				
-			// TODO: crear frame de factura para convertir en pdf
-			Archivos.guardarFactura(new Factura(pendiente));
-		}
-		else if (o == btnVolver)
-		{
+				Archivos.guardarFactura(new Factura(pendiente));
+				
+				JOptionPane.showMessageDialog(this, (String) "Se ha generado la factura", "INFO",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			
 			ListaPendientes lp = new ListaPendientes();
-			lp.setLocationRelativeTo(null);
 			lp.setVisible(true);
 			
 			this.dispose();

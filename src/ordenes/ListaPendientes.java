@@ -52,6 +52,8 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -152,7 +154,6 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 					GenerarFactura gf = new GenerarFactura();
 					gf.cargarDatos(ordenPend);
 					
-					gf.setLocationRelativeTo(null);
 					gf.setVisible(true);
 					
 					this.dispose();
@@ -173,7 +174,6 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		{
 			// btnVolver
 			ListaOrdenes lo = new ListaOrdenes();
-			lo.setLocationRelativeTo(null);
 			lo.setVisible(true);
 
 			this.dispose();

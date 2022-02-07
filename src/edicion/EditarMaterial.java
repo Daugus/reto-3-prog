@@ -51,6 +51,8 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		getContentPane().setPreferredSize(new Dimension(396, 200));
 		pack();
 		
+		setLocationRelativeTo(null);
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);

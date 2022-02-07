@@ -61,6 +61,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		getContentPane().setPreferredSize(new Dimension(850, 520));
 		pack();
 		
+		setLocationRelativeTo(null);
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
@@ -315,7 +317,6 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 	public void actionPerformed(ActionEvent e)
 	{
 		ListaFacturas lf = new ListaFacturas();
-		lf.setLocationRelativeTo(null);
 		lf.setVisible(true);
 		
 		this.dispose();

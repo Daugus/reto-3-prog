@@ -54,6 +54,8 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -178,7 +180,6 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 			botones(false);
 
 			EditarCliente ec = new EditarCliente();
-			ec.setLocationRelativeTo(null);
 			ec.setVisible(true);
 		}
 		else if (o == btnEditar)
@@ -193,7 +194,6 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 				EditarCliente ec = new EditarCliente();
 				ec.modoEdicion(cliente);
 			
-				ec.setLocationRelativeTo(null);
 				ec.setVisible(true);
 			}
 			else
@@ -205,7 +205,6 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		else if (o == btnVolver)
 		{
 			CrearPrimaria cop = new CrearPrimaria();
-			cop.setLocationRelativeTo(null);
 			cop.setVisible(true);
 			
 			this.dispose();

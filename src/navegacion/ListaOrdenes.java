@@ -41,6 +41,8 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		setBounds(100, 100, 330, 295);
 		getContentPane().setPreferredSize(new Dimension(330, 295));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -105,13 +107,11 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 			if (Inicio.cuentaActual.esMecanico())
 			{
 				MenuMec mm = new MenuMec();
-				mm.setLocationRelativeTo(null);
 				mm.setVisible(true);
 			}
 			else
 			{
 				MenuAtc ma = new MenuAtc();
-				ma.setLocationRelativeTo(null);
 				ma.setVisible(true);
 			}
 			
@@ -133,7 +133,6 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 				lista = new ListaFacturas();
 			}
 
-			lista.setLocationRelativeTo(null);
 			lista.setVisible(true);
 			
 			this.dispose();

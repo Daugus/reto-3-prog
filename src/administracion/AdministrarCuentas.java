@@ -57,6 +57,8 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
 		
+		setLocationRelativeTo(null);
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -181,7 +183,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 			botones(false);
 
 			EditarCuenta ec = new EditarCuenta();
-			ec.setLocationRelativeTo(null);
 			ec.setVisible(true);
 		}
 		else if (o == btnEditar)
@@ -196,7 +197,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 				EditarCuenta ec = new EditarCuenta();
 				ec.modoEdicion(cuenta);
 			
-				ec.setLocationRelativeTo(null);
 				ec.setVisible(true);
 			}
 			else
@@ -208,7 +208,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		else if (o == btnVolver)
 		{
 			MenuAtc ma = new MenuAtc();
-			ma.setLocationRelativeTo(null);
 			ma.setVisible(true);
 			
 			this.dispose();

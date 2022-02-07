@@ -91,6 +91,8 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		getContentPane().setPreferredSize(new Dimension(730, 480));
 		pack();
 		
+		setLocationRelativeTo(null);
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));

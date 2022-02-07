@@ -55,6 +55,8 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Inicio.colorFondo);
@@ -176,7 +178,6 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 			botones(false);
 
 			EditarVehiculo ev = new EditarVehiculo();
-			ev.setLocationRelativeTo(null);
 			ev.setVisible(true);
 		}
 		else if (o == btnEditar)
@@ -191,7 +192,6 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 				EditarVehiculo ev = new EditarVehiculo();
 				ev.modoEdicion(vehiculo);
 			
-				ev.setLocationRelativeTo(null);
 				ev.setVisible(true);
 			}
 			else
@@ -203,7 +203,6 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		else if (o == btnVolver)
 		{
 			CrearPrimaria cop = new CrearPrimaria();
-			cop.setLocationRelativeTo(null);
 			cop.setVisible(true);
 			
 			this.dispose();

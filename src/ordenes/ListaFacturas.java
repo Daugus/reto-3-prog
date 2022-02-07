@@ -53,6 +53,8 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -153,7 +155,6 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 					MostrarFactura mf = new MostrarFactura();
 					mf.cargarDatos(factura);
 					
-					mf.setLocationRelativeTo(null);
 					mf.setVisible(true);
 					
 					this.dispose();
@@ -174,7 +175,6 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		{
 			// btnVolver
 			ListaOrdenes lo = new ListaOrdenes();
-			lo.setLocationRelativeTo(null);
 			lo.setVisible(true);
 
 			this.dispose();

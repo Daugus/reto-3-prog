@@ -54,6 +54,8 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		getContentPane().setPreferredSize(new Dimension(700, 285));
 		pack();
 		
+		setLocationRelativeTo(null);
+		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
@@ -153,7 +155,6 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 					CrearPendiente cop = new CrearPendiente();
 					cop.cargarDatos(ordenPrim);
 					
-					cop.setLocationRelativeTo(null);
 					cop.setVisible(true);
 					
 					this.dispose();
@@ -182,7 +183,6 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 				ventana = new ListaOrdenes();
 			}
 
-			ventana.setLocationRelativeTo(null);
 			ventana.setVisible(true);
 			this.dispose();
 		}

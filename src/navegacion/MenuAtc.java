@@ -45,6 +45,8 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		setBounds(100, 100, 575, 220);
 		getContentPane().setPreferredSize(new Dimension(575, 220));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,7 +130,6 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		if (o == btnOrden)
 		{
 			ListaOrdenes lo = new ListaOrdenes();
-			lo.setLocationRelativeTo(null);
 			lo.setVisible(true);
 			
 			this.dispose();
@@ -136,7 +137,6 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		else if (o == btnNuevaOrdenPrim)
 		{
 			CrearPrimaria cop = new CrearPrimaria();
-			cop.setLocationRelativeTo(null);
 			cop.setVisible(true);
 			
 			this.dispose();
@@ -144,7 +144,6 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		else if (o == btnCerrarSesion)
 		{
 			Login l = new Login();
-			l.setLocationRelativeTo(null);
 			l.setVisible(true);
 			Log.logout();
 			
@@ -153,7 +152,6 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		else if (o == btnCuentas)
 		{
 			AdministrarCuentas ac = new AdministrarCuentas();
-			ac.setLocationRelativeTo(null);
 			ac.setVisible(true);
 			
 			this.dispose();
@@ -161,7 +159,6 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		else if (o == btnMateriales)
 		{
 			AdministrarMateriales am = new AdministrarMateriales();
-			am.setLocationRelativeTo(null);
 			am.setVisible(true);
 
 			this.dispose();
@@ -170,7 +167,6 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 		{
 			EditarAjustes ea = new EditarAjustes();
 
-			ea.setLocationRelativeTo(null);
 			ea.setVisible(true);
 
 			this.dispose();

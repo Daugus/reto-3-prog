@@ -52,6 +52,8 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		setBounds(100, 100, 396, 195);
 		getContentPane().setPreferredSize(new Dimension(396, 195));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -197,7 +199,6 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 				menu = new MenuAtc();
 			}
 			
-			menu.setLocationRelativeTo(null);
 			menu.setVisible(true);
 			
 			this.dispose();

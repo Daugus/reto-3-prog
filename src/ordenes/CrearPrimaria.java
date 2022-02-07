@@ -68,6 +68,8 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		setBounds(100, 100, 600, 355);
 		getContentPane().setPreferredSize(new Dimension(600, 355));
 		pack();
+		
+		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -205,7 +207,6 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		else if (o == btnClientes)
 		{
 			AdministrarClientes ac = new AdministrarClientes();
-			ac.setLocationRelativeTo(null);
 			ac.setVisible(true);
 			
 			this.dispose();
@@ -213,7 +214,6 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		else if (o == btnVehiculos)
 		{
 			AdministrarVehiculos av = new AdministrarVehiculos();
-			av.setLocationRelativeTo(null);
 			av.setVisible(true);
 
 			this.dispose();
@@ -221,7 +221,6 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		else if (o == btnVolver)
 		{
 			MenuAtc ma = new MenuAtc();
-			ma.setLocationRelativeTo(null);
 			ma.setVisible(true);
 
 			this.dispose();
