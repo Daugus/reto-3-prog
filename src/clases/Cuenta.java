@@ -2,6 +2,11 @@ package clases;
 
 import java.util.Objects;
 
+/**
+ * esta clase difiene cuenta que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Cuenta extends Persona
 {
 	private static final long serialVersionUID = -1206167340211110010L;
@@ -12,7 +17,9 @@ public class Cuenta extends Persona
 	private Ajustes ajustes;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * constructor por defecto 
+	 */
 	public Cuenta()
 	{
 		super();
@@ -21,7 +28,10 @@ public class Cuenta extends Persona
 		password = "";
 		ajustes = new Ajustes();
 	}
-	
+	/**
+	 * constructor personalizado
+	 * @param cod codigo del mecanico
+	 */
 	public Cuenta(boolean cod)
 	{
 		super();
@@ -29,7 +39,10 @@ public class Cuenta extends Persona
 		mecanico = cod;
 	}
 	
-	// --- copia ---
+	/**
+	 * constructor copia
+	 * @param other copia del constructor por defecto
+	 */
 	public Cuenta(Cuenta other)
 	{
 		super(other);
@@ -40,7 +53,12 @@ public class Cuenta extends Persona
 	}
 	
 	// --- personalizados ---
-	// Persona por defecto con código, contraseña y ajustes personalizados
+	/**
+	 * persona por defecto
+	 * @param cod de persona
+	 * @param p contaseña 
+	 * @param a ajustes personalizados
+	 */
 	public Cuenta(boolean cod, String p, Ajustes a)
 	{
 		super();
@@ -51,6 +69,19 @@ public class Cuenta extends Persona
 	}
 
 	// Persona nueva con código, contraseña y ajustes personalizados
+	/**
+	 * persona nueva
+	 * @param d
+	 * @param n
+	 * @param a
+	 * @param t
+	 * @param e
+	 * @param fn
+	 * @param dir
+	 * @param cod
+	 * @param pa
+	 * @param aj
+	 */
 	public Cuenta(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, boolean cod, String pa, Ajustes aj)
 	{
 		super(d, n, a, t, e, fn, dir);

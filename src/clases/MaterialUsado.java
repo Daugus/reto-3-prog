@@ -10,7 +10,9 @@ public class MaterialUsado extends Material
 	private int cantidad;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * materialUsado por defecto
+	 */
 	public MaterialUsado()
 	{
 		super();
@@ -18,7 +20,10 @@ public class MaterialUsado extends Material
 		cantidad = 1;
 	}
 
-	// --- copia ---
+	/**
+	 * 
+	 * @param other copia
+	 */
 	public MaterialUsado(MaterialUsado other)
 	{
 		super(other);

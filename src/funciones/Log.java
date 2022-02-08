@@ -6,7 +6,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import navegacion.Inicio;
-
+/**
+ * esta clase difiene logs que se generaran durante el 
+ * proceso de la ejecucion del programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Log 
 {
 	// ===== rutas =====

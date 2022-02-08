@@ -22,6 +22,12 @@ import clases.Primaria;
 import clases.Vehiculo;
 import navegacion.Inicio;
 
+/**
+ * esta clase difiene como se guardaran los datos en archivos
+ *  durante la ejecucion del programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Archivos {
 	// ===== rutas =====
 	private static String raiz = "C:\\RKA\\";

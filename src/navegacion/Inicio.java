@@ -7,9 +7,9 @@ import clases.Cuenta;
 import funciones.Archivos;
 
 /**
- * 
+ * esta clase difiene el main del programa
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class Inicio
 {
@@ -21,7 +21,10 @@ public class Inicio
 	public static Color colorFondoObjetos = Color.LIGHT_GRAY;
 	public static Color colorFuente = Color.WHITE;
 	public static Color colorFuenteObjetos = Color.BLACK;
-
+	/**
+	 * 
+	 * @param args main de arranque del programa
+	 */
 	public static void main(String[] args)
 	{
 		Archivos.crearCarpetas();

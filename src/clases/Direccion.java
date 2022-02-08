@@ -3,6 +3,11 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * esta clase difiene direcccion que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Direccion implements Comparable<Direccion>, Serializable
 {
 	private static final long serialVersionUID = 5402725963046351341L;
@@ -15,7 +20,9 @@ public class Direccion implements Comparable<Direccion>, Serializable
 	private String puerta;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * constructor por defecto 
+	 */
 	public Direccion()
 	{
 		codPostal = 01001;
@@ -25,7 +32,10 @@ public class Direccion implements Comparable<Direccion>, Serializable
 		puerta = "A";
 	}
 	
-	// --- copia ---
+	/**
+	 * constructor copia
+	 * @param other copia del constructor por defecto
+	 */
 	public Direccion(Direccion other)
 	{
 		this.codPostal = other.codPostal;
@@ -36,6 +46,14 @@ public class Direccion implements Comparable<Direccion>, Serializable
 	}
 	
 	// --- personalizado ---
+	/**
+	 * si la direccion no comple sierto datos establicidos asigna unos por defecto
+	 * @param cp codigo postal
+	 * @param c calle
+	 * @param po portal
+	 * @param pi piso
+	 * @param pu puerta
+	 */
 	public Direccion(int cp, String c, int po, int pi, String pu)
 	{
 		// - codPostal -

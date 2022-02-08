@@ -3,6 +3,11 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * esta clase difiene material que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Material implements Comparable<Material>, Serializable
 {
 	private static final long serialVersionUID = -4533693024823055118L;
@@ -12,21 +17,30 @@ public class Material implements Comparable<Material>, Serializable
 	private double precio;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * constructor por defecto
+	 */
 	public Material()
 	{
 		nombre = "";
 		precio = 1.0;
 	}
 	
-	// --- copia ---
+	/**
+	 * material 
+	 * @param m copia de constructor por defecto
+	 */
 	public Material(Material m)
 	{
 		this.nombre = m.nombre;
 		this.precio = m.precio;
 	}
 	
-	// --- personalizado ---
+	/**
+	 * material personalizado
+	 * @param n nombre
+	 * @param p precio
+	 */
 	public Material(String n, double p)
 	{
 		nombre = n;

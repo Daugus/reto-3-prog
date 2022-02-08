@@ -27,7 +27,7 @@ import navegacion.Inicio;
 import ordenes.CrearPrimaria;
 
 /**
- * 
+ * esta clase administra clientes del programa lo cual carga datos de la misma 
  * @author Grupo 2
  * @version 2.0.1
  *
@@ -46,7 +46,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	private static boolean bloqueado;
 	
 	/**
-	 * constructor añade los elementos de la ventana
+	 * constructor carga los elementos de la ventana
 	 *  
 	 */
 	public AdministrarClientes()
@@ -97,8 +97,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 			private static final long serialVersionUID = 1L;
 			
 			/**
-			 * @return devuelve false
-			 *  @param row, column cada vez que se hace double click impede modificar sus datos
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
 			 */
 			public boolean isCellEditable(int row, int column)
 			{
@@ -154,9 +157,9 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 	/**
-	 * metodo actualiza la tabla carga los datos de la tabla 
-	 * @see llama al metodo cargar que añade los clientes a un array
-	 * @see llama al metodo ajustarColumnas para ajustar tamaño de la tabla
+	 * este metodo actualiza la tabla y carga los datos de la tabla cuentas
+	 * @see Archivos.cargarTodosClientes
+	 * 
 	 */
 	public static void actualizarTabla()
 	{
@@ -173,8 +176,8 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		Tablas.ajustarColumnas(tblClientes);
 	}
 	/**
-	 * 
-	 * @param estado modifica la visivilidad de buttones segun el estado 
+	 * modifica la vicivilidad de buttones segun el estado pasado como paramento
+	 * @param estado si el estado es verdadero enabilita los seguientes buttones
 	 * 
 	 */
 	public static void botones(boolean estado)
@@ -187,6 +190,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	}
 	
 	@Override
+	/**
+	 * 
+	 * invocado cuando una accion ocurre sobre los elementos
+	 * @param e el evento a procesar
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		Object o = e.getSource();
@@ -228,6 +236,10 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	}
 
 	@Override
+	/**
+	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * @param e el evento a procesar
+	 */
 	public void windowClosing(WindowEvent e)
 	{
 		if (bloqueado)

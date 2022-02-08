@@ -8,7 +8,11 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import navegacion.Inicio;
-
+/**
+ * esta clase difiene la forma de crear las tablas 
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Tablas
 {
 	// ===== cambiar tamaño de columnas según su contenido =====

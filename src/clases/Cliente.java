@@ -2,7 +2,11 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
+/**
+ * esta clase difiene fechaAlta al vehiculo que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Cliente extends Persona
 {
 	private static final long serialVersionUID = -4712701685349672058L;
@@ -12,7 +16,9 @@ public class Cliente extends Persona
 	private ArrayList<String> vehiculos = new ArrayList<String>();
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * constructor por defecto 
+	 */
 	public Cliente()
 	{
 		super();
@@ -20,7 +26,10 @@ public class Cliente extends Persona
 		fechaAlta = new Fecha();
 	}	
 	
-	// --- copia ---
+	/**
+	 * constructor copia
+	 * @param other copia del constructor por defecto
+	 */
 	public Cliente(Cliente other)
 	{
 		super(other);
@@ -29,7 +38,10 @@ public class Cliente extends Persona
 	}	
 	
 	// --- personalizados ---
-	// Persona por defecto con fecha personalizada
+	/**
+	 * constructor cliente por defecto
+	 * @param fa fecha personalizada
+	 */
 	public Cliente(Fecha fa)
 	{
 		super();
@@ -37,7 +49,18 @@ public class Cliente extends Persona
 		this.fechaAlta = new Fecha(fa);
 	}
 	
-	// Persona nueva con fecha personalizada
+	/**
+	 * constructor personalizado
+	 * @param d
+	 * @param n
+	 * @param a
+	 * @param t
+	 * @param e
+	 * @param fn 
+	 * @param dir direccion
+	 * @param fa
+	 * @param v
+	 */
 	public Cliente(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, Fecha fa, ArrayList<String> v)
 	{
 		super(d, n, a, t, e, fn, dir);

@@ -3,6 +3,11 @@ package clases;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * esta clase difiene facturas que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Factura extends Pendiente {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -26,7 +31,10 @@ public class Factura extends Pendiente {
 		total = 0;
 	}
 
-	// --- copia ---
+	/**
+	 * constructor copia
+	 * @param other copia del constructor por defecto
+	 */
 	public Factura(Factura other) {
 		super(other);
 
@@ -43,7 +51,10 @@ public class Factura extends Pendiente {
 
 		calcularTotal();
 	}
-
+	/**
+	 * genera un codigo y calcula el total de la factura pendiente
+	 * @param pendiente 
+	 */
 	public Factura(Pendiente pendiente) {
 		super(pendiente);
 

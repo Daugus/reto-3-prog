@@ -5,6 +5,11 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * esta clase difiene fuentes y colores mas temas que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Ajustes implements Serializable
 {
 	private static final long serialVersionUID = -4533693024823055118L;
@@ -13,14 +18,15 @@ public class Ajustes implements Serializable
 	private boolean tema;
 	private Font fuente;
 	private Font fuenteObjetos;
-
 	private Color colorFondo;
 	private Color colorFondoObjetos;
 	private Color colorFuente;
 	private Color colorFuenteObjetos;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * constructor por defecto 
+	 */
 	public Ajustes()
 	{
 		fuente = new Font("Segoe UI", Font.PLAIN, 13);
@@ -33,7 +39,10 @@ public class Ajustes implements Serializable
 		colorFuenteObjetos = Color.BLACK;
 	}
 	
-	// --- copia ---
+	/**
+	 * constructor copia
+	 * @param other copia del constructor por defecto
+	 */
 	public Ajustes(Ajustes other)
 	{
 		this.fuente = other.fuente;
@@ -47,6 +56,11 @@ public class Ajustes implements Serializable
 	}
 	
 	// --- personalizado ---
+	/**
+	 * constructor personalizado 
+	 * @param fo cambia tema si le pasa por parametro true
+	 * @param fu 
+	 */
 	public Ajustes(boolean fo, String fu)
 	{
 		fuente = new Font(fu, Font.PLAIN, 13);

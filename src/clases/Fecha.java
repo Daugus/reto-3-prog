@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
 
+/**
+ * esta clase difiene fecha  que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Fecha implements Comparable<Fecha>, Serializable
 {
 	private static final long serialVersionUID = 5402725963046351341L;
@@ -14,7 +19,9 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	private int year;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * constructor por defecto 
+	 */
 	public Fecha()
 	{
 		day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -22,7 +29,10 @@ public class Fecha implements Comparable<Fecha>, Serializable
 		year = Calendar.getInstance().get(Calendar.YEAR);
 	}
 	
-	// --- copia ---
+	/**
+	 * 
+	 * @param other copia constructor por defecto
+	 */
 	public Fecha(Fecha other)
 	{
 		this.day = other.day;
@@ -30,14 +40,23 @@ public class Fecha implements Comparable<Fecha>, Serializable
 		this.year = other.year;
 	}
 	
-	// --- personalizado ---
+	/**
+	 * fecha con dia y mes establicidos por defecto
+	 * @param a se le pasa un año 
+	 */
 	public Fecha(int a)
 	{
 		day = 1;
 		month = 1;
 		year = a;
 	}
-
+	/**
+	 * fecha que se le pasan parametros, si le pasan datos imcorrecctos difiene 
+	 * unos por defecto
+	 * @param d dia
+	 * @param m mes
+	 * @param a año
+	 */
 	public Fecha(int d, int m, int a)
 	{
 		if (m < 1) {
