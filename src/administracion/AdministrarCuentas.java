@@ -29,6 +29,7 @@ import navegacion.MenuAtc;
 /**
  * 
  * @author Grupo 2
+ * @version 2.0.1
  *
  */
 public class AdministrarCuentas extends JFrame implements ActionListener, WindowListener
@@ -46,7 +47,11 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	private Cuenta cuenta;
 	
 	private static boolean bloqueado;
-
+	
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public AdministrarCuentas()
 	{
 		setBackground(new Color(255, 255, 255));
@@ -94,7 +99,10 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		tblCuentas = new JTable(dtmCuentas)
 		{
 			private static final long serialVersionUID = 1L;
-
+			/**
+			 * @param row column 
+			 * @return devuelve false 
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;
@@ -148,7 +156,11 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+	/**
+	 * metodo, actualiza la tabla carga los datos de la tabla 
+	 * @see llama al metodo cargar que añade las cuentas a un array
+	 * @see llama al metodo ajustarColumnas para ajustar tamaño de la tabla
+	 */
 	public static void actualizarTabla()
 	{
 		DefaultTableModel dtm = (DefaultTableModel) tblCuentas.getModel();
@@ -163,7 +175,10 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		
 		Tablas.ajustarColumnas(tblCuentas);
 	}
-	
+	/**
+	 * @return devuelve false
+	 *  @param row, column cada vez que se hace double click impede modificar sus datos
+	 */
 	public static void botones(boolean estado)
 	{
 		btnAgregar.setEnabled(estado);

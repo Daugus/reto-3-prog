@@ -29,22 +29,26 @@ import ordenes.CrearPrimaria;
 /**
  * 
  * @author Grupo 2
+ * @version 2.0.1
  *
  */
+	
 public class AdministrarClientes extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1531539371445418371L;
-
+	
 	private JPanel panelPrincipal;
 	private static JTable tblClientes;
 	private static JButton btnVolver;
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
-	
 	private Cliente cliente;
-	
 	private static boolean bloqueado;
-
+	
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public AdministrarClientes()
 	{
 		setBackground(new Color(255, 255, 255));
@@ -91,7 +95,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		tblClientes = new JTable(dtmClientes)
 		{
 			private static final long serialVersionUID = 1L;
-
+			
+			/**
+			 * @return devuelve false
+			 *  @param row, column cada vez que se hace double click impede modificar sus datos
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;
@@ -145,7 +153,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+	/**
+	 * metodo actualiza la tabla carga los datos de la tabla 
+	 * @see llama al metodo cargar que añade los clientes a un array
+	 * @see llama al metodo ajustarColumnas para ajustar tamaño de la tabla
+	 */
 	public static void actualizarTabla()
 	{
 		DefaultTableModel dtm = (DefaultTableModel) tblClientes.getModel();
@@ -160,7 +172,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 
 		Tablas.ajustarColumnas(tblClientes);
 	}
-	
+	/**
+	 * 
+	 * @param estado modifica la visivilidad de buttones segun el estado 
+	 * 
+	 */
 	public static void botones(boolean estado)
 	{
 		btnAgregar.setEnabled(estado);

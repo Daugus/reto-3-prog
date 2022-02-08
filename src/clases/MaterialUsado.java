@@ -79,7 +79,6 @@ public class MaterialUsado extends Material
 		return cantidad;
 	}
 	
-
 	public void setCantidad(int c)
 	{
 		cantidad = c;

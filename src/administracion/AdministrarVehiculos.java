@@ -45,7 +45,10 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	private Vehiculo vehiculo;
 	
 	private static boolean bloqueado;
-
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public AdministrarVehiculos()
 	{
 		setBackground(new Color(255, 255, 255));
@@ -92,7 +95,10 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		tblVehiculos = new JTable(dtmVehiculos)
 		{
 			private static final long serialVersionUID = 1L;
-
+			/**
+			 * @return devuelve false
+			 *  @param row, column cada vez que se hace double click impede modificar sus datos
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;

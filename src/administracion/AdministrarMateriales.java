@@ -30,6 +30,7 @@ import navegacion.MenuAtc;
 /**
  * 
  * @author Grupo 2
+ * @version 2.0.1
  *
  */
 public class AdministrarMateriales extends JFrame implements ActionListener, WindowListener
@@ -46,7 +47,9 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	private Material material;
 	
 	private static boolean bloqueado;
-
+	/**
+	 * constructor que difiene todos los elemetos de la ventana 
+	 */
 	public AdministrarMateriales()
 	{
 		setBackground(new Color(255, 255, 255));
@@ -92,7 +95,10 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		tblMateriales = new JTable(dtmMateriales)
 		{
 			private static final long serialVersionUID = -6533314169471135820L;
-
+			/**
+			 * @return devuelve false
+			 *  @param row, column cada vez que se hace double click impede modificar sus datos
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;

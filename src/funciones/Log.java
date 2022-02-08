@@ -22,6 +22,14 @@ public class Log
 	private static String sesion = raiz + "sesion.log";
 	
 	// ====== generar logs =======
+	/**
+	 * genera logs pasandle tres parametros 
+	 * @param rutaArchivo donde se guardara el mensaje
+	 * @param mensaje a grabar 
+	 * @param error boolean si es error o info //por defecto error
+	 * @see Logger
+	 * @exception si la ruta no existe 
+	 */
 	private static void grabar(String rutaArchivo, String mensaje, boolean error)
 	{
 		Logger logger = Logger.getLogger("log");
@@ -58,7 +66,11 @@ public class Log
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * guarda el menaje pasado como parametro en la carpeta de logs/ordenes como info
+	 * @param mensaje que se guarda en el log
+	 * @see Logger
+	 */
 	private static void orden(String mensaje)
 	{
 		grabar(ordenes, mensaje, false);
@@ -66,47 +78,84 @@ public class Log
 
 	// --- individuales ---
 	// - guardado -
+	/**
+	 * guarda el menaje y codigo de material pasado como parametro en la carpeta de logs/materiales como info
+	 * @param cod de matrial a guardar
+	 * @see Logger
+	 */
 	public static void material(String cod)
 	{
 		grabar(materiales, "se ha guardado el material " + cod, false);
 	}
-
+	/**
+	 * guarda el menaje y matricula del vehiculo pasado como parametro en la carpeta de logs/vehiculo como info
+	 * @param cod matricula del vehiculo que se guarda en el log
+	 * @see Logger
+	 */
 	public static void vehiculo(String cod)
 	{
 		grabar(vehiculos, "se ha guardado el vehículo " + cod, false);
 	}
-
+	/**
+	 * guarda el menaje y dni pasado como parametro en la carpeta de logs/clientes como info
+	 * @param cod  dni del cliente que se guarda en el log
+	 * @see Logger
+	 */
 	public static void cliente(String cod)
 	{
 		grabar(clientes, "se ha guardado el cliente " + cod, false);
 	}
-
+	/**
+	 * guarda el menaje y dni pasado como parametro en la carpeta de logs/cuentas como info
+	 * @param cod  dni de la cuenta que se guarda en el log
+	 * @see Logger
+	 */
 	public static void cuenta(String cod)
 	{
 		grabar(cuentas, "se ha guardado la cuenta " + cod, false);
 	}
-	
+	/**
+	 * guarda el menaje y dni pasado como parametro en la carpeta de logs/cuentas como info
+	 * @param cod  dni de la cuenta que se guarda en el log
+	 * @see Logger
+	 */
 	public static void ajustes(String cod)
 	{
 		grabar(cuentas, "se han cambiado los ajustes de " + cod, false);
 	}
-	
+	/**
+	 * guarda el menaje y codigo de orden primaria pasado como parametro en la carpeta de logs/ordenes como info
+	 * @param cod  numero de la orden primaria que se guarda en el log
+	 * @see Logger
+	 */
 	public static void primaria(String cod)
 	{
 		grabar(ordenes, "se ha guardado la orden primaria " + cod, false);
 	}
-	
+	/**
+	 * guarda el menaje y codigo de orden pendiente pasado como parametro en la carpeta de logs/ordenes como info
+	 * @param cod  numero de la orden pendiente que se guarda en el log
+	 * @see Logger
+	 */
 	public static void pendiente(String cod)
 	{
 		grabar(ordenes, "se ha guardado la orden pendiente " + cod, false);
 	}
-	
+	/**
+	 * guarda el menaje y codigo de la factura pasado como parametro en la carpeta de logs/ordenes como info
+	 * @param cod  numero de la factura que se guarda en el log
+	 * @see Logger
+	 */
 	public static void factura(String cod)
 	{
 		grabar(ordenes, "se ha guardado la factura " + cod, false);
 	}
 	
 	// - inicio y salida -
+	/**
+	 * guarda el menaje y usuario de la cuenta actual  en la carpeta de logs/sesion como info
+	 * @see Logger
+	 */
 	public static void login()
 	{
 		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha iniciado sesión";

@@ -133,7 +133,6 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable
 				&& Objects.equals(modelo, other.modelo) && bastidor == other.bastidor
 				&& Objects.equals(tipo, other.tipo) && Objects.equals(propietario, other.propietario);
 	}
-	
 
 	@Override
 	public int compareTo(Vehiculo other)

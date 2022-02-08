@@ -100,25 +100,37 @@ public class Factura extends Pendiente {
 	}
 
 	/**
-	 * 
+	 * accede a la propiedad costaReparaciones
 	 * @return devuelve costeReparaciones
 	 */
 	public double getCosteReparaciones() {
 		return costeReparaciones;
 	}
-
+	/**
+	 * accede a la propiedad costeMateriales
+	 * @return devuelve costeMateriales
+	 */
 	public double getCosteMateriales() {
 		return costeMateriales;
 	}
-
+	/**
+	 * accede a la propiedad subtotal
+	 * @return devuelve subtotal
+	 */
 	public double getSubtotal() {
 		return subtotal;
 	}
-
+	/**
+	 * accede a la propiedad iva
+	 * @return devuelve iva
+	 */
 	public double getIva() {
 		return iva;
 	}
-
+	/**
+	 * accede a la propiedad total
+	 * @return devuelve total
+	 */
 	public double getTotal() {
 		return total;
 	}

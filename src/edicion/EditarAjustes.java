@@ -44,7 +44,10 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
-
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public EditarAjustes() {
 		setResizable(false);
 		setTitle("Editar ajustes | " + Inicio.cuentaActual.getNombre());
