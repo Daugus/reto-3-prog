@@ -168,7 +168,13 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblCliente = new JTable(dtmCliente)
 		{
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -183,7 +189,13 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblVehiculo = new JTable(dtmVehiculo)
 		{
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -197,7 +209,13 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 		tblReparaciones = new JTable(dtmReparaciones) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -210,7 +228,13 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}

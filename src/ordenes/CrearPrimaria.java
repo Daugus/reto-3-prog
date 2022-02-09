@@ -29,9 +29,9 @@ import navegacion.Inicio;
 import navegacion.MenuAtc;
 
 /**
- * 
+ * esta clase difiene la ventana CrearPrimaria
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class CrearPrimaria extends JFrame implements ActionListener, WindowListener
 {
@@ -59,7 +59,9 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 	
 	private Cliente cliente;
 	private Vehiculo vehiculo;
-
+	/**
+	 * constructor que carga la ventana CrearPrimaria
+	 */
 	public CrearPrimaria()
 	{
 		setResizable(false);

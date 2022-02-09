@@ -18,9 +18,9 @@ import funciones.Salir;
 import ordenes.ListaPrimarias;
 
 /**
- * 
+ * esta clase difiene la ventana de mecanico
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class MenuMec extends JFrame implements ActionListener, WindowListener
 {
@@ -31,7 +31,9 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener
 	private JButton btnAjustes;
 	private JButton btnOrdenPrim;
 	private JButton btnCerrarSesion;
-	
+	/**
+	 * contiene la ventana de acceso mecanico
+	 */
 	public MenuMec()
 	{
 		setResizable(false);

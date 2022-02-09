@@ -39,7 +39,11 @@ import funciones.General;
 import navegacion.Inicio;
 import ordenes.CrearPendiente;
 import javax.swing.SwingConstants;
-
+/**
+ * esta clase edita datos de una reparacion
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener
 {
 	private static final long serialVersionUID = 1L;
@@ -64,7 +68,10 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	private JTextField txtDescripcion;
 	
 	private boolean edicion;
-
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public EditarReparacion()
 	{
 		setResizable(false);
@@ -159,7 +166,12 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 		tblMateriales = new JTable(dtmMaterial) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -272,7 +284,12 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 		tblMateriales.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+	/**
+	 * accede a datos almacenados de reparacion pasado como parametro,
+	 * habilita siertos campos para poder modificarlos
+	 * @param r objeto Reparacion
+	 * @see Reparacion
+	 */
 	public void modoEdicion(Reparacion r)
 	{
 		edicion = true;

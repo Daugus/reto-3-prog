@@ -36,9 +36,9 @@ import funciones.Salir;
 import navegacion.Inicio;
 
 /**
- * 
+ * esta clase edita datos de cuenta
  * @author Grupo 2
- * 
+ * @version 2.0.1
  */
 public class EditarCuenta extends JFrame implements ActionListener, WindowListener, FocusListener
 {
@@ -75,10 +75,13 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 	
-	Vector<Component> vectorOrden;
+	private Vector<Component> vectorOrden;
 
 	private boolean edicion;
-	
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public EditarCuenta()
 	{
 		setResizable(false);
@@ -351,7 +354,11 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
 	}
-	
+	/**
+	 * accede a datos almacenados de cuenta pasado como parametro,
+	 * habilita siertos campos para poder modificarlos
+	 * @param cuenta objeto cuenta
+	 */
 	public void modoEdicion(Cuenta cuenta)
 	{
 		edicion = true;

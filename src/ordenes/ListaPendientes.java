@@ -26,9 +26,9 @@ import navegacion.Inicio;
 import navegacion.ListaOrdenes;
 
 /**
- * 
+ * esta clase difiene la ventana listaado ordenes pendientes
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class ListaPendientes extends JFrame implements ActionListener, WindowListener
 {
@@ -43,7 +43,9 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 	ArrayList<Pendiente> alPendientes;
 
 	private static Pendiente ordenPend;
-
+	/**
+	 * construe la ventana de listado ordenes pendientes 
+	 */
 	public ListaPendientes()
 	{
 		setResizable(false);
@@ -92,7 +94,13 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		tblPendientes = new JTable(dtmPendientes)
 		{
 			private static final long serialVersionUID = 1L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;

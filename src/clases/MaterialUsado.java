@@ -2,6 +2,13 @@ package clases;
 
 import java.util.Objects;
 
+/**
+ * esta clase administra materialesUsados 
+ * @author Grupo 2
+ * @version 2.0.1
+ *
+ */
+	
 public class MaterialUsado extends Material
 {
 	private static final long serialVersionUID = -4881100923692845852L;
@@ -21,7 +28,7 @@ public class MaterialUsado extends Material
 	}
 
 	/**
-	 * 
+	 * material copia
 	 * @param other copia
 	 */
 	public MaterialUsado(MaterialUsado other)
@@ -32,13 +39,23 @@ public class MaterialUsado extends Material
 	}
 
 	// --- personalizados ---
+	/**
+	 * material personalizado con parametros
+	 * @param m material de la clase material
+	 * @param c int cantidad
+	 */
 	public MaterialUsado(Material m, int c)
 	{
 		super(m);
 		
 		cantidad = c;
 	}
-	
+	/**
+	 * material personalizado hereda propiedades del super mas la propiedad cantidad
+	 * @param n String nombre de material
+	 * @param p double precio material
+	 * @param c int cantidad material
+	 */
 	public MaterialUsado(String n, double p, int c)
 	{
 		super(n, p);

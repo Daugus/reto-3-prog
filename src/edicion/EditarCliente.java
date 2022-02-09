@@ -37,9 +37,9 @@ import navegacion.Inicio;
 import javax.swing.SwingConstants;
 
 /**
- * 
+ * esta clase edita datos asignadoo al cliente
  * @author Grupo 2
- * 
+ * @version 2.0.1
  */
 public class EditarCliente extends JFrame implements ActionListener, FocusListener, WindowListener
 {
@@ -78,11 +78,12 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 	private JComboBox<String> cmbVehiculos;
 	
 	private ArrayList<String> alMatriculasBorradas = new ArrayList<String>();
-
-	Vector<Component> vectorOrden;
-
+	private Vector<Component> vectorOrden;
 	private boolean edicion;
-
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public EditarCliente() {
 		setResizable(false);
 		setTitle("Agregar nuevo cliente | " + Inicio.cuentaActual.getNombre());
@@ -358,7 +359,11 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
 	}
-
+	/**
+	 * accede a datos almacenados de cliente pasado como parametro,
+	 * habilita siertos campos para poder modificarlos
+	 * @param cliente objeto cliente
+	 */
 	public void modoEdicion(Cliente cliente)
 	{
 		edicion = true;
@@ -557,7 +562,10 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 				if (cmbVehiculos.getSelectedIndex() >= 0)
 				{
 					dcbmVehiculos.removeElement(seleccion);
-					alMatriculasBorradas.add(seleccion);
+					if (edicion)
+					{
+						alMatriculasBorradas.add(seleccion);
+					}
 				}
 				else
 				{

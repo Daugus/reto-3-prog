@@ -3,6 +3,12 @@ package clases;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * esta clase difiene ordenes pendientes que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
+	
 public class Pendiente extends Primaria
 {
 	private static final long serialVersionUID = 6717239572208402072L;
@@ -11,7 +17,9 @@ public class Pendiente extends Primaria
 	private ArrayList<Reparacion> reparaciones;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * orden pendiente por defecto
+	 */
 	public Pendiente()
 	{
 		super();
@@ -20,7 +28,10 @@ public class Pendiente extends Primaria
 		reparaciones = new ArrayList<Reparacion>();
 	}
 	
-	// --- copia ---
+	/**
+	 * orden pendiente por defecto
+	 * @param other copia
+	 */
 	public Pendiente(Pendiente other)
 	{
 		super(other);
@@ -28,14 +39,26 @@ public class Pendiente extends Primaria
 		reparaciones = new ArrayList<Reparacion>(other.reparaciones);
 	}
 	
-	// --- personalizados ---
+	/**
+	 * orden pendiente personalizado
+	 * @param com String comentario de la orden
+	 * @param c objeto cliente 
+	 * @param v objeto vehiculo
+	 * @param mec objeto mecanico
+	 * @param r arraylist para agrupar datos
+	 */
 	public Pendiente(String com, Cliente c, Vehiculo v, Cuenta mec, ArrayList<Reparacion> r)
 	{
 		super(com, c, v, mec);
 		
 		reparaciones = new ArrayList<Reparacion>(r);
 	}
-	
+	/**
+	 * orden pendiente personalizado
+	 * @param primaria objeto orden primaria
+	 * @param mec objeto mecanico
+	 * @param r arraylist para agrupar datos
+	 */
 	public Pendiente(Primaria primaria, Cuenta mec, ArrayList<Reparacion> r)
 	{
 		super(primaria);

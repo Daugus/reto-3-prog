@@ -26,9 +26,9 @@ import navegacion.MenuAtc;
 import navegacion.MenuMec;
 
 /**
- * 
+ * esta clase edita color, fuente, tema y aspecto del programa
  * @author Grupo 2
- * 
+ * @version 2.0.1
  */
 public class EditarAjustes extends JFrame implements ActionListener, WindowListener, FocusListener
 {
@@ -38,8 +38,13 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private JLabel lblFuente;
 	private JLabel lblFondo;
-	
+	/**
+	 * propiedad cmbFondo contiene listado de fondos
+	 */
 	public JComboBox<String> cmbFondo;
+	/**
+	 * propiedad cmbFuente contiene listado de fuentes
+	 */
 	public JComboBox<String> cmbFuente;
 
 	private JButton btnCancelar;
@@ -174,7 +179,12 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		Archivos.cargarAjustes();
 	}
 
-	@Override
+	
+	/**
+	 * invocado cuando ocurre una acction
+	 * @param ae el evento a procesar
+	 * @see actionPerformed
+	 */
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object o = ae.getSource();
@@ -208,7 +218,11 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando un componente de texto esta infocado
+	 * @param fg evnto a prosesar
+	 * 
+	 */
 	public void focusGained(FocusEvent fg)
 	{
 		JTextComponent txt = (JTextComponent) fg.getSource();

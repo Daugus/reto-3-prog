@@ -5,6 +5,13 @@ import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
 import java.util.Vector;
 
+/**
+ * esta clase hace referencia a la tabulacion de componentes de las tabls
+ * @author Grupo 2
+ * @version 2.0.1
+ *
+ */
+	
 public class OrdenTabulacion extends FocusTraversalPolicy
 {
 	// ===== propiedades =====

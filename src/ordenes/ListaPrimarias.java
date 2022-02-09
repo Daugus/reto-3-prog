@@ -27,9 +27,9 @@ import navegacion.ListaOrdenes;
 import navegacion.MenuMec;
 
 /**
- * 
+ * esta clase difiene la ventana ListaPrimarias
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class ListaPrimarias extends JFrame implements ActionListener, WindowListener
 {
@@ -44,7 +44,9 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 	ArrayList<Primaria> alPrimarias;
 
 	private static Primaria ordenPrim;
-
+	/**
+	 * constructor que carga la ventana ListaPrimarias
+	 */
 	public ListaPrimarias()
 	{
 		setResizable(false);
@@ -93,7 +95,13 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		tblPrimarias = new JTable(dtmPrimarias)
 		{
 			private static final long serialVersionUID = 1L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;

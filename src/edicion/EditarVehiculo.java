@@ -26,15 +26,16 @@ import javax.swing.text.JTextComponent;
 import administracion.AdministrarVehiculos;
 import clases.Cliente;
 import clases.Fecha;
+import clases.Reparacion;
 import clases.Vehiculo;
 import funciones.Archivos;
 import funciones.Salir;
 import navegacion.Inicio;
 
 /**
- * 
+ * esta clase edita datos de un vehiculo
  * @author Grupo 2
- * 
+ * @version 2.0.1
  */
 public class EditarVehiculo extends JFrame implements ActionListener, FocusListener, WindowListener
 {
@@ -63,7 +64,10 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	private JButton btnGuardar;
 	
 	private boolean edicion;
-	
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public EditarVehiculo() {
 		setResizable(false);
 		setTitle("Agregar nuevo vehículo | " + Inicio.cuentaActual.getNombre());
@@ -254,7 +258,12 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		cmbClientes.setBackground(Inicio.colorFondoObjetos);
 		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+	/**
+	 * accede a datos almacenados de reparacion pasado como parametro,
+	 * habilita siertos campos para poder modificarlos
+	 * @param r objeto Reparacion
+	 * @see Vehiculo
+	 */
 	public void modoEdicion(Vehiculo vehiculo)
 	{
 		edicion = true;

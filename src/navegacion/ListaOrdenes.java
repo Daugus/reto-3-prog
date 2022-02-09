@@ -23,18 +23,18 @@ import ordenes.ListaPrimarias;
  */
 public class ListaOrdenes extends JFrame implements ActionListener, WindowListener
 {
-	public ListaOrdenes() {
-	}
 	private static final long serialVersionUID = 1531539371445418371L;
-
 	private JPanel panelPrincipal;
-
 	private JButton btnPrimarias;
 	private JButton btnPendientes;
 	private JButton btnFacturas;
 	private JButton btnVolver;
 
-	{
+	/**
+	 * constructor por defecto 
+	 */
+	public ListaOrdenes() {
+	
 		setResizable(false);
 		setTitle("Órdenes | " + Inicio.cuentaActual.getNombre());
 		

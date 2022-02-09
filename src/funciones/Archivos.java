@@ -21,10 +21,9 @@ import clases.Pendiente;
 import clases.Primaria;
 import clases.Vehiculo;
 import navegacion.Inicio;
-
 /**
- * esta clase difiene como se guardaran los datos en archivos
- *  durante la ejecucion del programa
+ * esta clase difiene la manera de crear 
+ * carpetas y archivos de manera rubusta
  * @author Grupo 2
  * @version 2.0.1
  */
@@ -42,7 +41,10 @@ public class Archivos {
 	private static String primarias = raiz + "Primaria\\";
 	private static String pendientes = raiz + "Pendiente\\";
 	
-	// ===== crear carpetas en caso de que no existan ======
+	/**
+	 * crear carpetas en caso de que no existan 
+	 * lleva un arr
+	 */
 	public static void crearCarpetas()
 	{
 		ArrayList<String> directorios = new ArrayList<String>();
@@ -59,7 +61,12 @@ public class Archivos {
 		}
 	}
 
-	// ===== guardar =====
+	
+	/**
+	 * metodo que graba y guarda serializable requiere dos parametros para su correcta funcionalidad
+	 * @param o objeto a grabar 
+	 * @param f archivo donde se guarda 
+	 */
 	private static void guardar(Object o, File f)
 	{
 		FileOutputStream fos;
@@ -80,22 +87,33 @@ public class Archivos {
 			Log.error("error al guardar el objeto");
 		}
 	}
-
-	// --- individuales ---
+	/**
+	 * metodo que guarda un material pasado como parametro
+	 * @param m material a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarMaterial(Material m)
 	{
 		File f = new File(materiales + m.getNombre() + ".dat");
 		Log.material(m.getNombre());
 		guardar(m, f);
 	}
-
+	/**
+	 * metodo que guarda un vehiculo pasado como parametro
+	 * @param v vehiculo a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarVehiculo(Vehiculo v)
 	{
 		File f = new File(vehiculos + v.getMatricula() + ".dat");
 		Log.vehiculo(v.getMatricula());
 		guardar(v, f);
 	}
-
+	/**
+	 * metodo que guarda un cliente pasado como parametro
+	 * @param c cliente a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarCliente(Cliente c)
 	{
 		c.getVehiculos().sort(Comparator.naturalOrder());
@@ -103,28 +121,44 @@ public class Archivos {
 		Log.cliente(c.getDNI());
 		guardar(c, f);
 	}
-
+	/**
+	 * metodo que guarda un cuenta pasado como parametro
+	 * @param c cuenta a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarCuenta(Cuenta c)
 	{
 		File f = new File(cuentas + c.getDNI() + ".dat");
 		Log.cuenta(c.getDNI());
 		guardar(c, f);
 	}
-
+	/**
+	 * metodo que guarda una orden primaria pasado como parametro
+	 * @param p orden primaria a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarPrimaria(Primaria p)
 	{
 		File f = new File(primarias + p.getCodigo() + ".dat");
 		Log.primaria(p.getCodigo());
 		guardar(p, f);
 	}
-
+	/**
+	 * metodo que guarda una orden pendiente pasado como parametro
+	 * @param p orden pendiente a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarPendiente(Pendiente p)
 	{
 		File f = new File(pendientes + p.getCodigo() + ".dat");
 		Log.pendiente(p.getCodigo());
 		guardar(p, f);
 	}
-
+	/**
+	 * metodo que guarda factura pasado como parametro
+	 * @param fa factura a guardar 
+	 * @see guardar(o,f)
+	 */
 	public static void guardarFactura(Factura fa)
 	{
 		File f = new File(facturas + fa.getCodigo() + ".dat");
@@ -132,7 +166,14 @@ public class Archivos {
 		guardar(fa, f);
 	}
 
-	// ===== cargar =====
+	
+	/**
+	 * carga  datos pasando como parametro un archivo
+	 * @param f archivo a leer 
+	 * @return  devuelve un objeto 
+	 * @exception Log.error() error si no han cargado los datos
+	 * @exception Log.error error si no se encuentra la clase espcificada
+	 */
 	private static Object cargar(File f)
 	{
 		Object o = null;
@@ -161,43 +202,78 @@ public class Archivos {
 		return o;
 	}
 
-	// --- individuales ---
+	/**
+	 * carga los datos que se encuentan en archivo pasadole el nombre de un material 
+	 * @param nombre del material a cargar 
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar
+	 */
 	public static Material cargarMaterial(String nombre)
 	{
 		File f = new File(materiales + nombre + ".dat");
 		return (Material) cargar(f);
 	}
-
+	/**
+	 * carga los datos que se encuentan en archivo pasandole la matricula como parametro
+	 * @param matricula a cargar
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar(f)
+	 */
 	public static Vehiculo cargarVehiculo(String matricula)
 	{
 		File f = new File(vehiculos + matricula + ".dat");
 		return (Vehiculo) cargar(f);
 	}
-
+	/**
+	 * carga los datos que se encuentan en archivo pasandole el dni como parametro
+	 * @param DNI a cargar 
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar(f)
+	 */
 	public static Cliente cargarCliente(String DNI)
 	{
 		File f = new File(clientes + DNI + ".dat");
 		return (Cliente) cargar(f);
 	}
-
+	/**
+	 * carga los datos que se encuentan en archivo pasandole la matricula como parametro
+	 * @param DNI a cargar
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar(f)
+	 */
 	public static Cuenta cargarCuenta(String DNI)
 	{
 		File f = new File(cuentas + DNI + ".dat");
 		return (Cuenta) cargar(f);
 	}
-
+	/**
+	 * carga los datos que se encuentan en archivo pasandole numero de orden primaria como parametro
+	 * @param cod numero de orden a cargar 
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar(f)
+	 */
 	public static Primaria cargarPrimaria(String cod)
 	{
 		File f = new File(primarias + cod + ".dat");
 		return (Primaria) cargar(f);
 	}
-	
+	/**
+	 * carga los datos que se encuentan en archivo pasandole numero de orden pendiente como parametro
+	 * @param cod de orden a cargar
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar(f)
+	 */
 	public static Pendiente cargarPendiente(String cod)
 	{
 		File f = new File(pendientes + cod + ".dat");
 		return (Pendiente) cargar(f);
 	}
-	
+	/**
+	 * carga los datos que se encuentan en archivo pasandole numero de factura como parametro
+	 * @param cod de la factura a cargar 
+	 * @return devuelve los datos que se encuentran en el archivo 
+	 * @see cargar(f)
+	 */
 	public static Factura cargarFactura(String cod)
 	{
 		File f = new File(facturas + cod + ".dat");
@@ -205,6 +281,11 @@ public class Archivos {
 	}
 	
 	// ===== borrar archivos =====
+	/**
+	 * borra una orden pasandole cod de la orden como parametro
+	 * @param cod de la orden primaaria
+	 * @exception Log.error si no se encuera la orden primaria
+	 */
 	public static void borrarPrimaria(String cod)
 	{
 		File f = new File(primarias + cod + ".dat");
@@ -217,7 +298,11 @@ public class Archivos {
 			Log.error("error al borrar la orden primaria " + cod);
 		}
 	}
-	
+	/**
+	 * borra una orden pasandole cod de la orden pendiente como parametro
+	 * @param cod de la orden pendiente
+	 * @exception Log.error si no se encuera la orden pendiente
+	 */
 	public static void borrarPendiente(String cod)
 	{
 		File f = new File(pendientes + cod + ".dat");
@@ -232,6 +317,11 @@ public class Archivos {
 	}
 
 	// ===== listar archivos =====
+	/**
+	 * recorre aray si se encuentra archivo .dat se remplaza por ""
+	 * @param listaOriginal contine archivos con extension .dat
+	 * @return devuelve la lista con solo nombres sin extension
+	 */
 	private static ArrayList<String> listar(File[] listaOriginal)
 	{
 		ArrayList<String> lista = new ArrayList<String>();
@@ -247,49 +337,82 @@ public class Archivos {
 		return lista;
 	}
 
-	// --- individuales ---
+	// --- individuales --
+	/**
+	 * recorre aray materiales si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de materiales sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarMateriales()
 	{
 		File[] listaOriginal = new File(materiales).listFiles();
 		return listar(listaOriginal);
 	}
-
+	/**
+	 * recorre aray vehiculos si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de vehiculos sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarVehiculos()
 	{
 		File[] listaOriginal = new File(vehiculos).listFiles();
 		return listar(listaOriginal);
 	}
-
+	/**
+	 * recorre aray clientes si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de clientes sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarClientes()
 	{
 		File[] listaOriginal = new File(clientes).listFiles();
 		return listar(listaOriginal);
 	}
-
+	/**
+	 * recorre aray cuentas si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de cuentas sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarCuentas()
 	{
 		File[] listaOriginal = new File(cuentas).listFiles();
 		return listar(listaOriginal);
 	}
-
+	/**
+	 * recorre aray ordenes primarias si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de ordenes primarias sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarPrimarias()
 	{
 		File[] listaOriginal = new File(primarias).listFiles();
 		return listar(listaOriginal);
 	}
-	
+	/**
+	 * recorre aray ordenes pendientes si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de ordenes pendientes sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarPendientes()
 	{
 		File[] listaOriginal = new File(pendientes).listFiles();
 		return listar(listaOriginal);
 	}
-	
+	/**
+	 * recorre aray facturas si se encuentra archivo .dat se remplaza por ""
+	 * @return devuelve lista de facturas sin extension .dat
+	 * @see Listar(listaOrginal)
+	 */
 	public static ArrayList<String> listarFacturas()
 	{
 		File[] listaOriginal = new File(facturas).listFiles();
 		return listar(listaOriginal);
 	}
-
+	/**
+	 * carga los materiales que se encuentran en el array de material
+	 * @return devuelve lista de materiales sin extersion .dat
+	 * @see cargarMaterial
+	 */
 	// ===== cargar todos =====
 	public static ArrayList<Material> cargarTodosMateriales()
 	{
@@ -303,7 +426,11 @@ public class Archivos {
 
 		return materiales;
 	}
-
+	/**
+	 * carga los vehiculos que se encuentran el array de vehiculos 
+	 * @return devuelve lista de vehiculos sin extersion .dat
+	 * @see cargarVehiculos
+	 */
 	public static ArrayList<Vehiculo> cargarTodosVehiculos()
 	{
 		ArrayList<String> nombres = listarVehiculos();
@@ -316,7 +443,11 @@ public class Archivos {
 
 		return vehiculos;
 	}
-
+	/**
+	 * carga las cuentas que se encuentran el array de cuentas 
+	 * @return devuelve lista de cuentas sin extersion .dat
+	 * @see cargarCuentas
+	 */
 	public static ArrayList<Cuenta> cargarTodosCuentas()
 	{
 		ArrayList<String> nombres = listarCuentas();
@@ -329,7 +460,11 @@ public class Archivos {
 
 		return cuentas;
 	}
-
+	/**
+	 * carga los clientes que se encuentran el array de Cliente 
+	 * @return devuelve lista de clientes sin extersion .dat
+	 * @see cargarCliente
+	 */
 	public static ArrayList<Cliente> cargarTodosClientes()
 	{
 		ArrayList<String> nombres = listarClientes();
@@ -342,7 +477,11 @@ public class Archivos {
 
 		return materiales;
 	}
-
+	/**
+	 * carga las ordenes primarias que se encuentran el array de primarias 
+	 * @return devuelve lista de ordenes primarias sin extersion .dat
+	 * @see cargarPrimaria
+	 */
 	public static ArrayList<Primaria> cargarTodosPrimarias()
 	{
 		ArrayList<String> nombres = listarPrimarias();
@@ -355,7 +494,11 @@ public class Archivos {
 
 		return primarias;
 	}
-
+	/**
+	 * carga las oedenes pendienes que se encuentran el array de pendienes 
+	 * @return devuelve lista de pendientes sin extersion .dat
+	 * @see cargarPendientes
+	 */
 	public static ArrayList<Pendiente> cargarTodosPendientes()
 	{
 		ArrayList<String> nombres = listarPendientes();
@@ -368,6 +511,11 @@ public class Archivos {
 
 		return pendientes;
 	}
+	/**
+	 * carga las facturas que se encuentran el array de facturas
+	 * @return devuelve lista de facturas sin extersion .dat
+	 * @see cargarFacturas
+	 */
 	public static ArrayList<Factura> cargarTodosFacturas()
 	{
 		ArrayList<String> nombres = listarFacturas();
@@ -382,13 +530,21 @@ public class Archivos {
 	}
 
 	// ===== ajustes =====
+	/**
+	 * guarda ajustes pasandole un objeto 
+	 * @param a objeto ajustes
+	 * @see Ajustes
+	 */
 	public static void guardarAjustes(Ajustes a)
 	{
 		Inicio.cuentaActual.setAjustes(a);
 		guardarCuenta(Inicio.cuentaActual);
 		Log.ajustes(Inicio.cuentaActual.getDNI());
 	}
-
+	/**
+	 * carga los ajustes establicidos llamando a la cuenta configurada
+	 * @see Ajustes
+	 */
 	public static void cargarAjustes()
 	{
 		Inicio.cuentaActual = new Cuenta(cargarCuenta(Inicio.cuentaActual.getDNI()));
@@ -402,7 +558,10 @@ public class Archivos {
 		Inicio.colorFuente = Inicio.cuentaActual.getAjustes().getColorFuente();
 		Inicio.colorFuenteObjetos = Inicio.cuentaActual.getAjustes().getColorFuenteObjetos();
 	}
-	
+	/**
+	 * reinicia los ajustes establiciendo tema, fuente y color por defecto
+	 * @see Ajustes
+	 */
 	public static void reiniciarAjustes()
 	{
 		Inicio.fuente = new Font("Segoe UI", Font.PLAIN, 13);

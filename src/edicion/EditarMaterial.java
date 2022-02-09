@@ -25,7 +25,7 @@ import funciones.Salir;
 import navegacion.Inicio;
 
 /**
- * 
+ * esta clase edita datos de material nombre,precio  fecha
  * @author Grupo 2
  * 
  */
@@ -42,7 +42,10 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	private JButton btnGuardar;
 	
 	private boolean edicion;
-
+	/**
+	 * constructor añade los elementos de la ventana
+	 *  
+	 */
 	public EditarMaterial() {
 		setResizable(false);
 		setTitle("Agregar material | " + Inicio.cuentaActual.getNombre());
@@ -132,7 +135,11 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 	}
-
+	/**
+	 * accede a datos almacenados de material pasado como parametro,
+	 * habilita siertos campos para poder modificarlos
+	 * @param material objeto cliente
+	 */
 	public void modoEdicion(Material material)
 	{
 		edicion = true;

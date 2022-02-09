@@ -20,9 +20,9 @@ import funciones.Salir;
 import ordenes.CrearPrimaria;
 
 /**
- * 
+ * esta clase difiene la ventana de atencion al cliente
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class MenuAtc extends JFrame implements ActionListener, WindowListener
 {
@@ -36,7 +36,9 @@ public class MenuAtc extends JFrame implements ActionListener, WindowListener
 	private JButton btnCuentas;
 	private JButton btnMateriales;
 	private JButton btnAjustes;
-	
+	/**
+	 * contiene la ventana de acceso atencion al cliente
+	 */
 	public MenuAtc()
 	{
 		setResizable(false);

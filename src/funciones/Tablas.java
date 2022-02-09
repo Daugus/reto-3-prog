@@ -15,7 +15,12 @@ import navegacion.Inicio;
  */
 public class Tablas
 {
-	// ===== cambiar tamaño de columnas según su contenido =====
+
+	/**
+	 * cambiar tamaño de columnas según su contenido
+	 * @param tabla objeto tabla a modificar
+	 * @see TableColumnModel
+	 */
 	public static void ajustarColumnas(JTable tabla)
 	{
 	    TableColumnModel tcm = tabla.getColumnModel();
@@ -42,7 +47,12 @@ public class Tablas
 	    }
 	}
 	
-	// ===== estilizar tabla vertical =====
+	
+	/**
+	 * estilizar tabla vertical
+	 * @param tbl objeto tabla a modificar
+	 * @see Component
+	 */
 	public static void vertical(JTable tbl)
 	{
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer()
@@ -50,6 +60,11 @@ public class Tablas
 			private static final long serialVersionUID = 1L;
 			
 			@Override
+			/**
+			 * @return la tabla 
+			 * @see Component
+			 * @return the default table cell renderer
+			 */
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
 			{
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

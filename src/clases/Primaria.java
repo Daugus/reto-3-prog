@@ -5,6 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+/**
+ * esta clase difiene orden primaria 
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Primaria implements Comparable<Primaria>, Serializable
 {
 	private static final long serialVersionUID = 6717239572208402072L;
@@ -18,7 +23,9 @@ public class Primaria implements Comparable<Primaria>, Serializable
 	private Cuenta empleado;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * orden primaria por defecto
+	 */
 	public Primaria()
 	{
 		generarCodigo();
@@ -31,7 +38,10 @@ public class Primaria implements Comparable<Primaria>, Serializable
 		empleado = new Cuenta(false);
 	}
 	
-	// --- copia ---
+	/**
+	 * orden primaria copia
+	 * @param other copia
+	 */
 	public Primaria(Primaria other)
 	{
 		this.codigo = other.codigo;
@@ -44,7 +54,13 @@ public class Primaria implements Comparable<Primaria>, Serializable
 		this.empleado = new Cuenta(other.empleado);
 	}
 	
-	// --- personalizado ---
+	/**
+	 * orden primaria personalizado
+	 * @param com String comentario
+	 * @param c objeto cliente
+	 * @param v objeto vehiculo
+	 * @param atc objeto cuenta atencion cliente
+	 */
 	public Primaria(String com, Cliente c, Vehiculo v, Cuenta atc)
 	{
 		generarCodigo();

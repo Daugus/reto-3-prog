@@ -24,9 +24,10 @@ import funciones.Archivos;
 import funciones.Log;
 
 /**
- * 
+ * esta clase difiene la ventana de inicio de sesion 
+ * implementa ActionListener,WindowsListener y FocusListener
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class Login extends JFrame implements ActionListener, WindowListener, FocusListener
 {
@@ -37,7 +38,9 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 
 	private JPasswordField pwdPassword;
 	private JTextField txtDNI;
-	
+	/**
+	 * deseño de la ventana de inicio de sesion
+	 */
 	public Login()
 	{
 		Archivos.reiniciarAjustes();

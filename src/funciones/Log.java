@@ -18,7 +18,6 @@ public class Log
 	private static String raiz = "C:\\RKA\\Logs\\";
 
 	private static String error = raiz + "error.log";
-	
 	private static String materiales = raiz + "materiales.log";
 	private static String vehiculos = raiz + "vehiculos.log";
 	private static String clientes = raiz + "clientes.log";
@@ -158,7 +157,7 @@ public class Log
 	
 	// - inicio y salida -
 	/**
-	 * guarda el menaje y usuario de la cuenta actual  en la carpeta de logs/sesion como info
+	 * guarda el menaje y usuario de la cuenta actual  que inicia sesion en la carpeta de logs/sesion como info
 	 * @see Logger
 	 */
 	public static void login()
@@ -166,7 +165,10 @@ public class Log
 		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha iniciado sesión";
 		grabar(sesion, mensaje, false);
 	}
-		
+	/**
+	 * guarda el menaje y usuario de la cuenta actual que cierra sesion en la carpeta de logs/sesion como info
+	 * @see Logger
+	 */	
 	public static void logout() 
 	{
 		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha cerrado sesión";
@@ -174,17 +176,30 @@ public class Log
 	}
 		
 	// - errores -
+	/**
+	 * guarda el mensaje del error en la ruta de errores con tipo error
+	 * @param err String mensaje a grabar
+	 */
 	public static void error(String err)
 	{
 		grabar(error, err, true);
 	}
 	
 	// - borrado -
+	/**
+	 * si se borra una orden guarda mensaje y numero de orden primaria pasado como parametro en la ruta de ordenes
+	 * @param cod numero de orden primaria a guardar
+	 * @see orden 
+	 */
 	public static void borrarPrimaria(String cod)
 	{
 		orden("se ha borrado la orden primaria " + cod);
 	}
-	
+	/**
+	 * si se borra una orden guarda mensaje y numero de orden pendiente pasado como parametro en la ruta de ordenes
+	 * @param cod numero de orden pendiente a guardar
+	 * @see orden
+	 */
 	public static void borrarPendiente(String cod)
 	{
 		orden("se ha borrado la orden pendiente " + cod);

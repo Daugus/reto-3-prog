@@ -1,5 +1,5 @@
 package pruebas;
-
+/*
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -265,3 +265,5 @@ public class PruebasTablas extends JFrame implements ActionListener
 		}
 	}
 }
+
+*/

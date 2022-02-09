@@ -27,9 +27,9 @@ import navegacion.Inicio;
 import navegacion.ListaOrdenes;
 
 /**
- * 
+ * esta clase difiene la ventana ListaFacturas
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class ListaFacturas extends JFrame implements ActionListener, WindowListener
 {
@@ -41,10 +41,12 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 	private JButton btnVolver;
 	private JButton btnCargar;
 
-	ArrayList<Factura> alFacturas;
+	private ArrayList<Factura> alFacturas;
 
 	private static Factura factura;
-
+	/**
+	 * constructor que carga la ventana ListaFacturas
+	 */
 	public ListaFacturas()
 	{
 		setResizable(false);
@@ -93,7 +95,13 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		tblFacturas = new JTable(dtmFacturas)
 		{
 			private static final long serialVersionUID = 1L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;

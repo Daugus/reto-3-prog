@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Cliente;
 import clases.Factura;
 import clases.MaterialUsado;
+import clases.Pendiente;
 import clases.Reparacion;
 import clases.Vehiculo;
 import funciones.General;
@@ -30,9 +31,9 @@ import funciones.Tablas;
 import navegacion.Inicio;
 
 /**
- * 
+ * esta clase difiene la ventana MostrarFactura
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class MostrarFactura extends JFrame implements ActionListener, WindowListener
 {
@@ -51,7 +52,9 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 	private Factura factura;
 	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
-
+	/**
+	 * constructor que carga la ventana MostrarFactura
+	 */
 	public MostrarFactura()
 	{
 		setResizable(false);
@@ -113,7 +116,13 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblCliente = new JTable(dtmCliente)
 		{
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -128,7 +137,13 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblVehiculo = new JTable(dtmVehiculo)
 		{
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -142,7 +157,13 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		tblReparaciones = new JTable(dtmReparaciones) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -157,7 +178,13 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -172,7 +199,13 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		tblTotal = new JTable(dtmTotal) {
 			private static final long serialVersionUID = 1L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -230,7 +263,11 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 		tblTotal.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+	/**
+	 * carga datos de una Factura pasado como parametro
+	 * @param f objeto Factura
+	 * @see Factura
+	 */
 	public void cargarDatos(Factura f)
 	{
 		factura = new Factura(f);

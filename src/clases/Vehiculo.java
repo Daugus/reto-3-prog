@@ -3,6 +3,11 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * esta clase difiene propiedades y metodos del vehiculo
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Vehiculo implements Comparable<Vehiculo>, Serializable
 {
 	private static final long serialVersionUID = 2469183365830659245L;
@@ -24,7 +29,9 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable
 	private String tipo;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * vehiculo por defecto
+	 */
 	public Vehiculo()
 	{
 		matricula = "";
@@ -43,7 +50,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable
 		tipo = "";
 	}
 	
-	// --- copia ---
+	/**
+	 * vehiculo copia
+	 * @param other copia
+	 */
 	public Vehiculo(Vehiculo other)
 	{
 		this.matricula = other.matricula;
@@ -63,7 +73,11 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable
 	}
 	
 	// --- personalizados ---
-	// vehículo en blanco, usado para agregar los vehículos de un cliente nuevo
+	/**
+	 * vehículo en blanco, usado para agregar los vehículos de un cliente nuevo
+	 * @param m String matricula
+	 * @param p String propietario
+	 */
 	public Vehiculo(String m, String p)
 	{
 		matricula = m;
@@ -81,7 +95,19 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable
 
 		tipo = "";
 	}
-	
+	/**
+	 * vehículo en blanco
+	 * @param m String maticula
+	 * @param b string bastidor
+	 * @param dni string dni
+	 * @param mar String marca
+	 * @param mod Strnig modelo
+	 * @param c  String color
+	 * @param cc int cilindrada
+	 * @param km int kmrecorridos
+	 * @param i objeto fecha(fechaItv)
+	 * @param t String tipo
+	 */
 	public Vehiculo(String m, String b, String dni, String mar, String mod, String c, int cc, int km, Fecha i, String t)
 	{
 		matricula = m;

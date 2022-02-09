@@ -2,7 +2,11 @@ package clases;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+/**
+ * esta clase difiene Personas que se usaran en el programa
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public abstract class Persona implements Comparable<Persona>, Serializable
 {
 	private static final long serialVersionUID = 6717239572208402072L;
@@ -22,7 +26,9 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * persona por defecto
+	 */
 	public Persona()
 	{
 		dni = "";
@@ -38,7 +44,10 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 		direccion = new Direccion();
 	}
 	
-	// --- copia ---
+	/**
+	 * persona copia
+	 * @param other copia de persona
+	 */
 	public Persona(Persona other)
 	{
 		this.dni = other.dni;
@@ -54,7 +63,16 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 		this.direccion = new Direccion(other.direccion);
 	}
 	
-	// --- personalizado ---
+	/**
+	 * persona personalizado
+	 * @param d String dni
+	 * @param n String nombre
+	 * @param a String apellidos
+	 * @param t int telefono
+	 * @param e String email
+	 * @param fn objeto fecha
+	 * @param dir objeto direccion
+	 */
 	public Persona(String d, String n, String a, int t, String e, Fecha fn, Direccion dir)
 	{
 		dni = d;

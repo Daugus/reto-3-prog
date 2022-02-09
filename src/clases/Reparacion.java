@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
+/**
+ * esta clase difiene la reparacion
+ * @author Grupo 2
+ * @version 2.0.1
+ */
 public class Reparacion implements Comparable<Reparacion>, Serializable
 {
 	private static final long serialVersionUID = -4533693024823055118L;
@@ -20,7 +25,9 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 	private ArrayList<MaterialUsado> materialesUsados;
 	
 	// ===== constructores =====
-	// --- por defecto ---
+	/**
+	 * reparacion por defecto
+	 */
 	public Reparacion()
 	{
 		codigo = "";
@@ -32,7 +39,10 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 		materialesUsados = new ArrayList<MaterialUsado>();
 	}
 	
-	// --- copia ---
+	/**
+	 * reparacion copia
+	 * @param other copia
+	 */
 	public Reparacion(Reparacion other)
 	{
 		this.codigo = other.codigo;
@@ -44,7 +54,15 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 		this.materialesUsados = new ArrayList<MaterialUsado>(other.materialesUsados);
 	}
 	
-	// --- personalizado ---
+	/**
+	 * reparacion personalizado requiere los seguientes parametros
+	 * @param desc String descripcion
+	 * @param h int horas
+	 * @param mo double mano de obra
+	 * @param fe objeto fecha
+	 * @param mec objeto mecanico
+	 * @param al arraylist para agrupar datos
+	 */
 	public Reparacion(String desc, int h, double mo, Fecha fe, Cuenta mec, ArrayList<MaterialUsado> al)
 	{
 		Calendar calendar = Calendar.getInstance();

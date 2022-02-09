@@ -35,9 +35,9 @@ import funciones.Tablas;
 import navegacion.Inicio;
 
 /**
- * 
+ * esta clase difiene la ventana generar factura
  * @author Grupo 2
- *
+ * @version 2.0.1
  */
 public class GenerarFactura extends JFrame implements ActionListener, WindowListener
 {
@@ -61,7 +61,9 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
 
 	private JCheckBox chkAprobar;
-
+	/**
+	 * constructor que carga la ventana GenerarFactura
+	 */
 	public GenerarFactura()
 	{
 		setResizable(false);
@@ -133,7 +135,13 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		tblCliente = new JTable(dtmCliente)
 		{
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -148,7 +156,13 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		tblVehiculo = new JTable(dtmVehiculo)
 		{
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -162,7 +176,13 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 		tblReparaciones = new JTable(dtmReparaciones) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -175,7 +195,13 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -3909141556237115067L;
-
+			/**
+			 * 
+			 * @param row  cuyo valor se va a consultar
+			 * @param column  cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
+			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -244,7 +270,11 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		chkAprobar.setBackground(Inicio.colorFondoObjetos);
 		chkAprobar.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+	/**
+	 * carga datos de una orden pendiente pasado como parametro
+	 * @param op objeto ordenPendiente 
+	 * @see Pendiente
+	 */
 	public void cargarDatos(Pendiente op)
 	{
 		pendiente = new Pendiente(op);
