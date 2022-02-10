@@ -59,6 +59,12 @@ public class Archivos {
 				f.mkdirs();
 			}
 		}
+		
+		if (new File(cuentas).listFiles().length == 0)
+		{
+			guardarCuenta(new Cuenta(false));
+			guardarCuenta(new Cuenta(true));
+		}
 	}
 
 	

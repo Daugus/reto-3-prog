@@ -36,6 +36,17 @@ public class Cuenta extends Persona
 	{
 		super();
 		
+		if (cod)
+		{
+			setDNI("mec");
+			password = "mec";
+		}
+		else
+		{
+			setDNI("atc");
+			password = "atc";
+		}
+
 		mecanico = cod;
 	}
 	
