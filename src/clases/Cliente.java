@@ -50,16 +50,17 @@ public class Cliente extends Persona
 	}
 	
 	/**
+	 * cliente personalizado
 	 * constructor personalizado
-	 * @param d
-	 * @param n
-	 * @param a
-	 * @param t
-	 * @param e
-	 * @param fn 
+	 * @param d String Dni
+	 * @param n Strnig nombre
+	 * @param a String apellido
+	 * @param t int telefono
+	 * @param e Strnig email
+	 * @param fn Objeto fecha
 	 * @param dir direccion
-	 * @param fa
-	 * @param v
+	 * @param fa Objeto fechaAlta
+	 * @param v Objeto vehiculo
 	 */
 	public Cliente(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, Fecha fa, ArrayList<String> v)
 	{
@@ -71,6 +72,10 @@ public class Cliente extends Persona
 
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return FechaAlta y vehiculos del cliente
+	 */
 	@Override
 	public String toString()
 	{
@@ -80,6 +85,12 @@ public class Cliente extends Persona
 	}
 
 	// --- comparacion ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return result
+	 */
 	@Override
 	public int hashCode()
 	{
@@ -88,7 +99,13 @@ public class Cliente extends Persona
 		result = prime * result + Objects.hash(fechaAlta);
 		return result;
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -103,16 +120,26 @@ public class Cliente extends Persona
 	}
 	
 	// --- getters y setters ---
+	/**
+	 * acceso a fechaAlta
+	 * @return fechaAlta 
+	 */
 	public Fecha getFechaAlta()
 	{
 		return fechaAlta;
 	}
-
+	/**
+	 * modifica el valor de fechaAlta pasando tema como parametro
+	 * @param fechaAlta
+	 */
 	public void setFechaAlta(Fecha fechaAlta)
 	{
 		this.fechaAlta = fechaAlta;
 	}
-	
+	/**
+	 * acceso a vehiculos
+	 * @return vehiculos 
+	 */
 	public ArrayList<String> getVehiculos()
 	{
 		return vehiculos;

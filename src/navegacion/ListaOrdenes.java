@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+
 import funciones.Salir;
 import ordenes.ListaFacturas;
 import ordenes.ListaPendientes;
@@ -96,7 +97,11 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnFacturas.setForeground(Inicio.colorFuenteObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 	}
-
+	/**
+	 * invocado cuando una accion ocurre sobre los elementos
+	 * @param e el evento a procesar
+	 * @see ActionListener
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -138,38 +143,62 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 			this.dispose();
 		}
 	}
-
+	/**
+	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * @param e el evento a procesar
+	 */
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
 		Salir.general(this);
 	}
-
+	/**
+	 * Invocado la primera vez una ventana se ha hecho visible
+	 * @param e el evento a procesar
+	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
-
+	/**
+	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
+	 * @param e evento a procesar
+	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
-
+	/**
+	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
+	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
+	 * @param e el evento a procesar
+	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
-
+	/**
+	 * cuando una ventana cambia de minimizado a ventana normal
+	 * @param e el evento a procesar
+	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
-
+	/**
+	 * Invocado cuando la ventana es capacitado a ser ventana activa 
+	 * solo un frame o un dialog puede ser ventana activa 
+	 * @param e el evento a procesar
+	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
-
+	/**
+	 *  Invocado cuando una ventana no es langer la ventana activa
+	 *  solo un Frame o un Dialog puede ser ventana activa
+	 *  @param e el evento a procesar
+	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// comportamiento por defecto

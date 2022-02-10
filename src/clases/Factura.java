@@ -79,6 +79,10 @@ public class Factura extends Pendiente {
 	}
 
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return costeReparaciones costeMateriales subtotal iva y total
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + ", total reparaciones: " + costeReparaciones + ", total materiales: "
@@ -86,6 +90,12 @@ public class Factura extends Pendiente {
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,7 +103,12 @@ public class Factura extends Pendiente {
 		result = prime * result + Objects.hash(costeMateriales, costeReparaciones, iva, subtotal, total);
 		return result;
 	}
-
+	/**
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

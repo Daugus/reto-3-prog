@@ -23,7 +23,7 @@ import clases.Vehiculo;
 import navegacion.Inicio;
 /**
  * esta clase difiene la manera de crear 
- * carpetas y archivos de manera rubusta
+ * carpetas y archivos de manera ordenada
  * @author Grupo 2
  * @version 2.0.1
  */
@@ -62,11 +62,7 @@ public class Archivos {
 	}
 
 	
-	/**
-	 * metodo que graba y guarda serializable requiere dos parametros para su correcta funcionalidad
-	 * @param o objeto a grabar 
-	 * @param f archivo donde se guarda 
-	 */
+	
 	private static void guardar(Object o, File f)
 	{
 		FileOutputStream fos;

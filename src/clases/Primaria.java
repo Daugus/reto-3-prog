@@ -83,6 +83,10 @@ public class Primaria implements Comparable<Primaria>, Serializable
 	}
 
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return codigo, comentario, fecha, vehiculo, propietario y dni del empleado
+	 */
 	@Override
 	public String toString()
 	{
@@ -95,12 +99,24 @@ public class Primaria implements Comparable<Primaria>, Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(codigo, comentarios, fecha, propietario, vehiculo, empleado);
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -115,7 +131,13 @@ public class Primaria implements Comparable<Primaria>, Serializable
 				&& Objects.equals(fecha, other.fecha) && Objects.equals(propietario, other.propietario)
 				&& Objects.equals(vehiculo, other.vehiculo) && Objects.equals(empleado, other.empleado);
 	}
-
+	/**
+	 * Compara este objeto con el objeto especificado para el orden.
+	 * Devuelve un entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * @return entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 */
 	@Override
 	public int compareTo(Primaria other)
 	{
@@ -123,61 +145,98 @@ public class Primaria implements Comparable<Primaria>, Serializable
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a codigo
+	 * @return codigo 
+	 */
 	public String getCodigo()
 	{
 		return codigo;
 	}
-
+	/**
+	 * modifica el valor de codigo pasando String como parametro
+	 * @param codOrdenPrim tipo boolean
+	 */
 	public void setCodigo(String codOrdenPrim)
 	{
 		this.codigo = codOrdenPrim;
 	}
-
+	/**
+	 * acceso a comentarios
+	 * @return comentarios  tipo String
+	 */
 	public String getComentarios()
 	{
 		return comentarios;
 	}
-
+	/**
+	 * modifica el valor de comentarios pasando String como parametro
+	 * @param comentarios tipo String
+	 */
 	public void setComentarios(String comentarios)
 	{
 		this.comentarios = comentarios;
 	}
-
+	/**
+	 * acceso a fecha
+	 * @return fecha 
+	 */
 	public Fecha getFecha()
 	{
 		return fecha;
 	}
-
+	/**
+	 * modifica el valor de fecha pasando Fecha como parametro
+	 * @param fechaEntrada tipo Fecha
+	 */
 	public void setFecha(Fecha fechaEntrada)
 	{
 		this.fecha = fechaEntrada;
 	}
-
+	/**
+	 * acceso a vehiculo
+	 * @return vehiculo tipo Vehiculo 
+	 */
 	public Vehiculo getVehiculo()
 	{
 		return vehiculo;
 	}
-
+	/**
+	 * modifica el valor de vehiculo pasando Vehiculo como parametro
+	 * @param vehiculo tipo Vehiculo
+	 */
 	public void setVehiculo(Vehiculo vehiculo)
 	{
 		this.vehiculo = vehiculo;
 	}
-
+	/**
+	 * acceso a propietario
+	 * @return propietario tipo Cliente
+	 */
 	public Cliente getPropietario()
 	{
 		return propietario;
 	}
-
+	/**
+	 * modifica el valor de propietario pasando Cliente como parametro
+	 * @param propietario tipo Cliente
+	 */
 	public void setPropietario(Cliente propietario)
 	{
 		this.propietario = propietario;
 	}
-	
+	/**
+	 * acceso a empleado
+	 * @return empleado tipo Cuenta 
+	 */
 	public Cuenta getEmpleado()
 	{
 		return empleado;
 	}
-	
+	/**
+	 * modifica el valor de empleado pasando Cuenta como parametro
+	 * @param empleado tipo Cuenta
+	 */
 	public void setEmpleado(Cuenta empleado)
 	{
 		this.empleado = new Cuenta(empleado);

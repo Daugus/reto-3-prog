@@ -106,6 +106,10 @@ public class Direccion implements Comparable<Direccion>, Serializable
 
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return calle, portal, piso, puerta, codPostal
+	 */
 	@Override
 	public String toString()
 	{
@@ -113,12 +117,24 @@ public class Direccion implements Comparable<Direccion>, Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(calle, codPostal, piso, portal, puerta);
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -132,7 +148,13 @@ public class Direccion implements Comparable<Direccion>, Serializable
 		return Objects.equals(calle, other.calle) && codPostal == other.codPostal && piso == other.piso
 				&& portal == other.portal && Objects.equals(puerta, other.puerta);
 	}
-	
+	/**
+	 * Compara este objeto con el objeto especificado para el orden.
+	 * Devuelve un entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * @return entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 */
 	@Override
 	public int compareTo(Direccion other)
 	{
@@ -178,6 +200,10 @@ public class Direccion implements Comparable<Direccion>, Serializable
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a tema
+	 * @return tema 
+	 */
 	public int getCodPostal()
 	{
 		return codPostal;
@@ -198,22 +224,34 @@ public class Direccion implements Comparable<Direccion>, Serializable
 			codPostal = cp;
 		}
 	}
-
+	/**
+	 * acceso a calle
+	 * @return calle 
+	 */
 	public String getCalle()
 	{
 		return calle;
 	}
-
+	/**
+	 * modifica el valor de calle pasando calle como parametro
+	 * @param tema tipo String
+	 */
 	public void setCalle(String calle)
 	{
 		this.calle = calle;
 	}
-
+	/**
+	 * acceso a portal
+	 * @return portal 
+	 */
 	public int getPortal()
 	{
 		return portal;
 	}
-
+	/**
+	 * modifica el valor de po pasando po como parametro
+	 * @param po tipo int
+	 */
 	public void setPortal(int po)
 	{
 		if (po <= 0)
@@ -225,12 +263,18 @@ public class Direccion implements Comparable<Direccion>, Serializable
 			portal = po;
 		}
 	}
-
+	/**
+	 * acceso a piso
+	 * @return piso 
+	 */
 	public int getPiso()
 	{
 		return piso;
 	}
-
+	/**
+	 * modifica el valor de portal pasando portal como parametro
+	 * @param pi tipo int
+	 */
 	public void setPiso(int pi)
 	{
 		if (pi <= 0)
@@ -242,12 +286,18 @@ public class Direccion implements Comparable<Direccion>, Serializable
 			portal = pi;
 		}
 	}
-
+	/**
+	 * acceso a puerta
+	 * @return puerta 
+	 */
 	public String getPuerta()
 	{
 		return puerta;
 	}
-
+	/**
+	 * modifica el valor de puerta pasando puerta como parametro
+	 * @param pu tipo String
+	 */
 	public void setPuerta(String pu)
 	{
 		if (pu.equals(""))

@@ -86,6 +86,10 @@ public class Ajustes implements Serializable
 
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return Tema y fuente
+	 */
 	public String toString()
 	{
 		String nombreTema;
@@ -103,13 +107,25 @@ public class Ajustes implements Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(colorFondo, colorFondoObjetos, colorFuente, colorFuenteObjetos, fuente, fuenteObjetos,
 				tema);
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -128,71 +144,114 @@ public class Ajustes implements Serializable
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a tema
+	 * @return tema 
+	 */
 	public boolean temaOscuro()
 	{
 		return tema;
 	}
-
+	/**
+	 * modifica el valor de tema pasando tema como parametro
+	 * @param tema tipo boolean
+	 */
 	public void setTemaOscuro(boolean tema)
 	{
 		this.tema = tema;
 	}
-
+	/**
+	 * acceso a fuente
+	 * @return devuelve fuente
+	 */
 	public Font getFuente()
 	{
 		return fuente;
 	}
-
+	/**
+	 * modifica el valor de fuente pasando tema como parametro
+	 * @param fuente 
+	 */
 	public void setFuente(Font fuente)
 	{
 		this.fuente = fuente;
 	}
-
+	/**
+	 * acceso a fuenteObjetos
+	 * @return fuenteObjetos 
+	 */
 	public Font getFuenteObjetos()
 	{
 		return fuenteObjetos;
 	}
-
+	/**
+	 * modifica el valor de fuenteObjetos pasando tema como parametro
+	 * @param fuenteObjetos 
+	 */
 	public void setFuenteObjetos(Font fuenteObjetos)
 	{
 		this.fuenteObjetos = fuenteObjetos;
 	}
-
+	/**
+	 * acceso a colorFondo
+	 * @return colorFondo 
+	 */
 	public Color getColorFondo()
 	{
 		return colorFondo;
 	}
-
+	/**
+	 * modifica el valor de colorFondo pasando tema como parametro
+	 * @param colorFondo 
+	 */
 	public void setColorFondo(Color colorFondo)
 	{
 		this.colorFondo = colorFondo;
 	}
-
+	/**
+	 * acceso a colorFondoObjetos
+	 * @return colorFondoObjetos 
+	 */
 	public Color getColorFondoObjetos()
 	{
 		return colorFondoObjetos;
 	}
-
+	/**
+	 * modifica el valor de colorFondoObjetos pasando tema como parametro
+	 * @param colorFondoObjetos 
+	 */
 	public void setColorFondoObjetos(Color colorFondoObjetos)
 	{
 		this.colorFondoObjetos = colorFondoObjetos;
 	}
-
+	/**
+	 * acceso a colorFuente
+	 * @return colorFuente 
+	 */
 	public Color getColorFuente()
 	{
 		return colorFuente;
 	}
-
+	/**
+	 * modifica el valor de colorFuente pasando tema como parametro
+	 * @param colorFuente 
+	 */
 	public void setColorFuente(Color colorFuente)
 	{
 		this.colorFuente = colorFuente;
 	}
-
+	/**
+	 * acceso a colorFuenteObjetos
+	 * @return colorFuenteObjetos 
+	 */
 	public Color getColorFuenteObjetos()
 	{
 		return colorFuenteObjetos;
 	}
-
+	/**
+	 * modifica el valor de tema pasando colorFuenteObjetos como parametro
+	 * @param colorFuenteObjetos 
+	 */
 	public void setColorFuenteObjetos(Color colorFuenteObjetos)
 	{
 		this.colorFuenteObjetos = colorFuenteObjetos;

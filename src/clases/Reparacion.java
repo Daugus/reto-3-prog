@@ -80,6 +80,10 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return codigo, descripcion, horas, manoObra, dni del mecanico y materialUsados
+	 */
 	@Override
 	public String toString()
 	{
@@ -92,12 +96,24 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(codigo, descripcion, horas, manoObra, fecha, materialesUsados, mecanico);
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -113,7 +129,13 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 				&& Objects.equals(mecanico, other.mecanico) && Objects.equals(horas, other.horas)
 				&& Objects.equals(manoObra, other.manoObra);
 	}
-	
+	/**
+	 * Compara este objeto con el objeto especificado para el orden.
+	 * Devuelve un entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * @return entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 */
 	@Override
 	public int compareTo(Reparacion other)
 	{
@@ -121,71 +143,114 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a codigo
+	 * @return codigo 
+	 */
 	public String getCodigo()
 	{
 		return codigo;
 	}
-
+	/**
+	 * modifica el valor de codigo pasando String como parametro
+	 * @param codReparacion tipo String
+	 */
 	public void setCodigo(String codReparacion)
 	{
 		this.codigo = codReparacion;
 	}
-
+	/**
+	 * acceso a descripcion
+	 * @return descripcion 
+	 */
 	public String getDescripcion()
 	{
 		return descripcion;
 	}
-
+	/**
+	 * modifica el valor de descripcion pasando String como parametro
+	 * @param descripcion tipo String
+	 */
 	public void setDescripcion(String descripcion)
 	{
 		this.descripcion = descripcion;
 	}
-	
+	/**
+	 * acceso a horas
+	 * @return horas 
+	 */
 	public int getHoras()
 	{
 		return horas;
 	}
-
+	/**
+	 * modifica el valor de horas pasando int como parametro
+	 * @param horas tipo int
+	 */
 	public void setHoras(int horas)
 	{
 		this.horas = horas;
 	}
-
+	/**
+	 * acceso a manoObra
+	 * @return manoObra 
+	 */
 	public double getManoObra()
 	{
 		return manoObra;
 	}
-
+	/**
+	 * modifica el valor de manoObra pasando int como parametro
+	 * @param manoObra tipo int
+	 */
 	public void setManoObra(int manoObra)
 	{
 		this.manoObra = manoObra;
 	}
-
+	/**
+	 * acceso a fecha
+	 * @return fecha 
+	 */
 	public Fecha getFecha()
 	{
 		return fecha;
 	}
-
+	/**
+	 * modifica el valor de fecha pasando Fecha como parametro
+	 * @param fecha tipo Fecha
+	 */
 	public void setFecha(Fecha fecha)
 	{
 		this.fecha = fecha;
 	}
-
+	/**
+	 * acceso a mecanico
+	 * @return mecanico 
+	 */
 	public Cuenta getMecanico()
 	{
 		return mecanico;
 	}
-
+	/**
+	 * modifica el valor de mecanico pasando cuenta mecanico como parametro
+	 * @param mecanico tipo Cuenta
+	 */
 	public void setMecanico(Cuenta mecanico)
 	{
 		this.mecanico = mecanico;
 	}
-
+	/**
+	 * acceso a materialesUsados
+	 * @return materialesUsados 
+	 */
 	public ArrayList<MaterialUsado> getMaterialesUsados()
 	{
 		return materialesUsados;
 	}
-
+	/**
+	 * modifica el valor de materialesUsados pasando ArrayList de MaterialUsado  como parametro
+	 * @param materialesUsados tipo ArrayList de MaterialUsado
+	 */
 	public void setMaterialesUsados(ArrayList<MaterialUsado> materialesUsados)
 	{
 		this.materialesUsados = materialesUsados;

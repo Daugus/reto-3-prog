@@ -90,6 +90,10 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return dni, nombre, apellidos, tel, email,fechaNacimiento y direccion
+	 */
 	@Override
 	public String toString()
 	{
@@ -103,12 +107,24 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(apellidos, dni, email, fechaNacimiento, nombre, tel);
 	}
-	
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -124,7 +140,13 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 				&& Objects.equals(fechaNacimiento, other.fechaNacimiento) && Objects.equals(nombre, other.nombre)
 				&& tel == other.tel && Objects.equals(direccion, other.direccion);
 	}
-
+	/**
+	 * Compara este objeto con el objeto especificado para el orden.
+	 * Devuelve un entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * @return entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 */
 	@Override
 	public int compareTo(Persona other)
 	{
@@ -132,71 +154,114 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a dni
+	 * @return dni 
+	 */
 	public String getDNI()
 	{
 		return dni;
 	}
-
+	/**
+	 * modifica el valor de dni pasando String como parametro
+	 * @param d tipo String
+	 */
 	public void setDNI(String d)
 	{
 		dni = d;
 	}
-
+	/**
+	 * acceso a nombre
+	 * @return nombre 
+	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
-
+	/**
+	 * modifica el valor de nombre pasando String como parametro
+	 * @param n tipo String
+	 */
 	public void setNombre(String n)
 	{
 		nombre = n;
 	}
-
+	/**
+	 * acceso a apellidos
+	 * @return apellidos 
+	 */
 	public String getApellidos()
 	{
 		return apellidos;
 	}
-
+	/**
+	 * modifica el valor de apellidos pasando String como parametro
+	 * @param a tipo String
+	 */
 	public void setApellidos(String a)
 	{
 		apellidos = a;
 	}
-
+	/**
+	 * acceso a telelfono
+	 * @return tel tipo int
+	 */
 	public int getTelefono()
 	{
 		return tel;
 	}
-
+	/**
+	 * modifica el valor de tel pasando int como parametro
+	 * @param t tipo int
+	 */
 	public void setTelefono(int t)
 	{
 		tel = t;
 	}
-
+	/**
+	 * acceso a fechaNacimiento
+	 * @return fechaNacimiento 
+	 */
 	public Fecha getFechaNacimiento()
 	{
 		return fechaNacimiento;
 	}
-
+	/**
+	 * modifica el valor de fechaNacimiento pasando fecha como parametro
+	 * @param fn tipo fecha
+	 */
 	public void setFechaNacimiento(Fecha fn)
 	{
 		fechaNacimiento = new Fecha(fn);
 	}
-
+	/**
+	 * acceso a email
+	 * @return email 
+	 */
 	public String getEmail()
 	{
 		return email;
 	}
-
+	/**
+	 * modifica el valor de email pasando String como parametro
+	 * @param e tipo String
+	 */
 	public void setEmail(String e)
 	{
 		email = e;
 	}
-
+	/**
+	 * acceso a direccion
+	 * @return direccion tipo Direccion
+	 */
 	public Direccion getDireccion()
 	{
 		return direccion;
 	}
-
+	/**
+	 * modifica el valor de direccion pasando Direccion como parametro
+	 * @param dir tipo Direccion
+	 */
 	public void setDireccion(Direccion dir)
 	{
 		direccion = new Direccion(dir);

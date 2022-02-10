@@ -14,15 +14,34 @@ import funciones.Archivos;
 public class Inicio
 {
 	/**
-	 * estabelece valores a fuente, color y cuenta 
+	 * Objeto cuenta
 	 */
 	public static Cuenta cuentaActual;
+	/**
+	 * estabelece valor a la fuente
+	 */
 	public static Font fuente = new Font("Segoe UI", Font.PLAIN, 13);
+	/**
+	 * estabelece valor a fuente de objeto
+	 */
 	public static Font fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
+	/**
+	 * estabelece valor a color de fondo
+	 */
 	public static Color colorFondo = Color.DARK_GRAY;
+	/**
+	 * estabelece valor a color de fondo al objeto
+	 */
 	public static Color colorFondoObjetos = Color.LIGHT_GRAY;
+	/**
+	 * estabelece valore a color de fuente
+	 */
 	public static Color colorFuente = Color.WHITE;
+	/**
+	 * estabelece valore a color
+	 */
 	public static Color colorFuenteObjetos = Color.BLACK;
+	
 	/**
 	 * 
 	 * @param args main que se encarga de arrancar la aplicacion

@@ -65,6 +65,10 @@ public class MaterialUsado extends Material
 	
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return cantidad
+	 */
 	@Override
 	public String toString()
 	{
@@ -73,6 +77,12 @@ public class MaterialUsado extends Material
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return <b>resultado</b>  un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
@@ -81,7 +91,13 @@ public class MaterialUsado extends Material
 		result = prime * result + Objects.hash(cantidad);
 		return result;
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 * es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -96,11 +112,18 @@ public class MaterialUsado extends Material
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a cantidad
+	 * @return cantidad tipo String
+	 */
 	public int getCantidad()
 	{
 		return cantidad;
 	}
-	
+	/**
+	 * modifica el valor de cantidad pasando int como parametro
+	 * @param c tipo int
+	 */
 	public void setCantidad(int c)
 	{
 		cantidad = c;

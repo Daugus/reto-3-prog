@@ -48,7 +48,10 @@ public class Material implements Comparable<Material>, Serializable
 	}
 
 	// ===== métodos =====
-	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return nombre y precio
+	 */
 	public String toString()
 	{
 		return "Nombre: " + nombre +
@@ -56,12 +59,24 @@ public class Material implements Comparable<Material>, Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(nombre, precio);
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -75,7 +90,13 @@ public class Material implements Comparable<Material>, Serializable
 		return Objects.equals(nombre, other.nombre)
 				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio);
 	}
-	
+	/**
+	 * Compara este objeto con el objeto especificado para el orden.
+	 * Devuelve un entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * @return entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 */
 	@Override
 	public int compareTo(Material other)
 	{
@@ -83,21 +104,34 @@ public class Material implements Comparable<Material>, Serializable
 	}
 	
 	// --- getters y setters ---
+	/**
+	 * acceso a nombre
+	 * @return nombre  tipo String
+	 */
 	public String getNombre()
 	{
 		return nombre;
 	}
-
+	/**
+	 * modifica el valor de nombre pasando string  como parametro
+	 * @param n tipo String
+	 */
 	public void setNombre(String n)
 	{
 		nombre = n;
 	}
-
+	/**
+	 * acceso a precio
+	 * @return precio 
+	 */
 	public double getPrecio()
 	{
 		return precio;
 	}
-
+	/**
+	 * modifica el valor de precio pasando double precio como parametro
+	 * @param p tipo double
+	 */
 	public void setPrecio(double p)
 	{
 		precio = p;

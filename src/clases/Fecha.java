@@ -136,6 +136,10 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	}
 	
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return dia, mes y año
+	 */
 	@Override
 	public String toString()
 	{
@@ -147,12 +151,24 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(day, month, year);
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -165,7 +181,13 @@ public class Fecha implements Comparable<Fecha>, Serializable
 		Fecha other = (Fecha) obj;
 		return year == other.year && day == other.day && month == other.month;
 	}
-
+	/**
+	 * Compara este objeto con el objeto especificado para el orden.
+	 * Devuelve un entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * @return entero negativo, cero o un entero positivo,
+	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 */
 	@Override
 	public int compareTo(Fecha other)
 	{
@@ -206,11 +228,18 @@ public class Fecha implements Comparable<Fecha>, Serializable
 	}
 	
 	// --- getters y setters ---
+	/**
+	 * acceso a dia
+	 * @return day 
+	 */
 	public int getDay()
 	{
 		return day;
 	}
-
+	/**
+	 * modifica el valor de dia pasando int dia como parametro
+	 * @param d tipo int
+	 */
 	public void setDay(int d)
 	{
 		if (d < 1)
@@ -222,12 +251,18 @@ public class Fecha implements Comparable<Fecha>, Serializable
 			bisiesto(d, month, year);
 		}
 	}
-
+	/**
+	 * acceso a mes
+	 * @return month 
+	 */
 	public int getMonth()
 	{
 		return month;
 	}
-
+	/**
+	 * modifica el valor de mes pasando int mes como parametro
+	 * @param m tipo int
+	 */
 	public void setMonth(int m)
 	{
 		if (m < 1)
@@ -245,12 +280,18 @@ public class Fecha implements Comparable<Fecha>, Serializable
 		
 		bisiesto(day, m, year);
 	}
-
+	/**
+	 * acceso al año
+	 * @return year 
+	 */
 	public int getYear()
 	{
 		return year;
 	}
-
+	/**
+	 * modifica el valor de año pasando año como parametro
+	 * @param a tipo int
+	 */
 	public void setYear(int a)
 	{
 		year = a;

@@ -71,6 +71,10 @@ public class Pendiente extends Primaria
 
 	// ===== métodos =====
 	// --- salida ---
+	/**
+	 * Devuelve una representación de cadena del objeto.
+	 * @return reparaciones
+	 */
 	@Override
 	public String toString()
 	{
@@ -79,6 +83,12 @@ public class Pendiente extends Primaria
 	}
 
 	// --- comparación ---
+	/**
+	 * para el objeto Este método es compatible
+	 * en beneficio de las tablas hash 
+	 * como las proporcionadas por java.util.HashMap.
+	 * @return devuelve un valor hash
+	 */
 	@Override
 	public int hashCode()
 	{
@@ -87,7 +97,13 @@ public class Pendiente extends Primaria
 		result = prime * result + Objects.hash(reparaciones);
 		return result;
 	}
-
+	/**
+	 * 
+	 * Indica si algún otro objeto es "igual a" este.
+	 * @return true si este objeto
+	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @param obj objeto referente con el que desea comparar
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -102,11 +118,18 @@ public class Pendiente extends Primaria
 	}
 
 	// --- getters y setters ---
+	/**
+	 * acceso a reparaciones
+	 * @return reparaciones 
+	 */
 	public ArrayList<Reparacion> getReparaciones()
 	{
 		return reparaciones;
 	}
-
+	/**
+	 * modifica el valor de reparaciones pasando ArrayList de Reparacion  tema como parametro
+	 * @param reparaciones tipo ArrayList
+	 */
 	public void setReparaciones(ArrayList<Reparacion> reparaciones)
 	{
 		this.reparaciones = reparaciones;
