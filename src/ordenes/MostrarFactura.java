@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 import clases.Cliente;
 import clases.Factura;
 import clases.MaterialUsado;
-import clases.Pendiente;
 import clases.Reparacion;
 import clases.Vehiculo;
 import funciones.General;
