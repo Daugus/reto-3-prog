@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * esta clase difiene fuentes y colores mas temas que se usaran en el programa
+ * 
+ * define la fuente y el tema del usuario
  * @author Grupo 2
  * @version 2.0.1
+ * 
  */
 public class Ajustes implements Serializable
 {
@@ -41,7 +43,7 @@ public class Ajustes implements Serializable
 	
 	/**
 	 * constructor copia
-	 * @param other copia del constructor por defecto
+	 * @param objeto a copiar
 	 */
 	public Ajustes(Ajustes other)
 	{
@@ -58,8 +60,9 @@ public class Ajustes implements Serializable
 	// --- personalizado ---
 	/**
 	 * constructor personalizado 
-	 * @param fo cambia tema si le pasa por parametro true
-	 * @param fu 
+	 * @param fo {@code true} si el tema es oscuro;
+	 *            {@code false} si es claro
+	 * @param fu: nombre de la fuente
 	 */
 	public Ajustes(boolean fo, String fu)
 	{
@@ -87,8 +90,8 @@ public class Ajustes implements Serializable
 	// ===== métodos =====
 	// --- salida ---
 	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * @return Tema y fuente
+	 * devuelve una representación del objeto como String
+	 * @return los atributos del objeto
 	 */
 	public String toString()
 	{
@@ -108,10 +111,8 @@ public class Ajustes implements Serializable
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible
-	 * en beneficio de las tablas hash 
-	 * como las proporcionadas por java.util.HashMap.
-	 * @return devuelve un valor hash
+	 * devuelve el hash code del objeto basado en sus atributos
+	 * @return el hash
 	 */
 	@Override
 	public int hashCode()
@@ -119,12 +120,11 @@ public class Ajustes implements Serializable
 		return Objects.hash(colorFondo, colorFondoObjetos, colorFuente, colorFuenteObjetos, fuente, fuenteObjetos,
 				tema);
 	}
+
 	/**
-	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * @return true si este objeto
-	 *  es el mismo que el objargument; falso en caso contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * indica si algún otro objeto es igual a este
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj)
@@ -145,31 +145,34 @@ public class Ajustes implements Serializable
 
 	// --- getters y setters ---
 	/**
-	 * acceso a tema
-	 * @return tema 
+	 * devuelve el valor de tema
+	 * @return el valor de tema
 	 */
 	public boolean temaOscuro()
 	{
 		return tema;
 	}
+	
 	/**
-	 * modifica el valor de tema pasando tema como parametro
-	 * @param tema tipo boolean
+	 * establece el valor de tema
+	 * @param valor booleano
 	 */
 	public void setTemaOscuro(boolean tema)
 	{
 		this.tema = tema;
 	}
+
 	/**
-	 * acceso a fuente
-	 * @return devuelve fuente
+	 * devuelve el valor de fuente
+	 * @return el valor de fuente
 	 */
 	public Font getFuente()
 	{
 		return fuente;
 	}
+
 	/**
-	 * modifica el valor de fuente pasando tema como parametro
+	 * establece el valor de fuente pasando tema como parametro
 	 * @param fuente 
 	 */
 	public void setFuente(Font fuente)

@@ -26,7 +26,6 @@ import javax.swing.text.JTextComponent;
 import administracion.AdministrarVehiculos;
 import clases.Cliente;
 import clases.Fecha;
-import clases.Reparacion;
 import clases.Vehiculo;
 import funciones.Archivos;
 import funciones.Salir;

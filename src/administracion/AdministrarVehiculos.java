@@ -22,13 +22,16 @@ import clases.Vehiculo;
 import edicion.EditarVehiculo;
 import funciones.Archivos;
 import funciones.Salir;
+import funciones.Tablas;
 import navegacion.Inicio;
 import ordenes.CrearPrimaria;
 
 /**
- * esta clase administra vehiculos del programa lo cual carga datos de la misma 
+ * 
+ * administra los vehiculos del programa
  * @author Grupo 2
  * @version 2.0.1
+ * 
  */
 public class AdministrarVehiculos extends JFrame implements ActionListener, WindowListener
 {
@@ -45,9 +48,9 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	private Vehiculo vehiculo;
 	
 	private static boolean bloqueado;
+
 	/**
-	 * constructor carga los elementos de la ventana
-	 *  
+	 * carga los elementos de la ventana
 	 */
 	public AdministrarVehiculos()
 	{
@@ -96,10 +99,10 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		{
 			private static final long serialVersionUID = 1L;
 			/**
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * devuelve {@code true} si la celda en la fila y la columna es editable
+			 * @param row fila de la celda a editar
+			 * @param column columna de la celda a editar
+			 * @return siempre devuelve {@code false}
 			 */
 			public boolean isCellEditable(int row, int column)
 			{
@@ -153,8 +156,9 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
+
 	/**
-	 * este metodo actualiza la tabla y carga los datos de la tabla vehiculos
+	 * carga los datos de los vehículos y actualiza la tabla
 	 * @see Archivos.cargarTodosVehiculos
 	 */
 	public static void actualizarTabla()
@@ -168,10 +172,13 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		{
 			dtm.addRow(new Object[] {v.getMatricula(), v.getPropietario(), v.getMarca() + " " + v.getModelo()});
 		}
+		
+		Tablas.ajustarColumnas(tblVehiculos);
 	}
+
 	/**
-	 * modifica la vicivilidad de buttones segun el estado pasado como paramento
-	 * @param estado si el estado es verdadero enabilita los seguientes buttones
+	 * invocado cuando una acción ocurre sobre los elementos
+	 * @param ae el evento a procesar
 	 */
 	public static void botones(boolean estado)
 	{
@@ -182,15 +189,14 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		bloqueado = !estado;
 	}
 
-	@Override
 	/**
-	 * invocado cuando una accion ocurre sobre los elementos
-	 * @param e el evento a procesar
-	 * @throws si no encuenta ninguna cuenta
+	 * invocado cuando una acción ocurre sobre los elementos
+	 * @param ae el evento a procesar
 	 */
-	public void actionPerformed(ActionEvent e)
+	@Override
+	public void actionPerformed(ActionEvent ae)
 	{
-		Object o = e.getSource();
+		Object o = ae.getSource();
 		
 		if (o == btnAgregar)
 		{
@@ -227,12 +233,12 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 			this.dispose();
 		} 
 	}
-
-	@Override
+	
 	/**
 	 * invocado cuando el usuario intenta cerrar la ventana 
-	 * @param e el evento a procesar
+	 * @param we el evento a procesar
 	 */
+	@Override
 	public void windowClosing(WindowEvent e)
 	{
 		if (bloqueado)
@@ -246,59 +252,56 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	}
 
 	/**
-	 * Invocado la primera vez una ventana se ha checho visible
-	 * @param e el evento a procesar
+	 * invocado la primera vez la ventana se ha hecho visible
+	 * @param we el evento a procesar
 	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
+		// comportamiento por defecto
+	}
+	
+	/**
+	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la ventana
+	 * @param we evento a procesar
+	 */
+	@Override
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
 	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
-	 * @param e evento a procesar
+	 * invocado cuando la ventana se minimiza
+	 * @param we el evento a procesar
 	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
 	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
-	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
-	 * @param e el evento a procesar
+	 * invocado cuando la ventana se maximiza
+	 * @param we el evento a procesar
 	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
 	/**
-	 * cuando una ventana cambia de minimizado a ventana normal
-	 * @param e el evento a procesar
+	 * invocado cuando la ventana se convierte en la ventana activa 
+	 * @param we el evento a procesar
 	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
 	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa 
-	 * solo un frame o un dialog puede ser ventana activa 
-	 * @param e el evento a procesar
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 *  @param we el evento a procesar
 	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
-		// comportamiento por defecto
-	}
-
-	/**
-	 *  Invocado cuando una ventana no es langer la ventana activa
-	 *  solo un Frame o un Dialog puede ser ventana activa
-	 *  @param e el evento a procesar
-	 */
-	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }
