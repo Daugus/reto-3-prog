@@ -165,6 +165,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable
 	/**
 	 * modifica el valor de dni pasando String como parametro
 	 * @param d tipo String
+	 * @return 
 	 */
 	public void setDNI(String d)
 	{
