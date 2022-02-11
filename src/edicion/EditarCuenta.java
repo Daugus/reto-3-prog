@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -426,96 +427,106 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	
 	private boolean guardar()
 	{
-		try
+		String dni = txtDNI.getText();
+		
+		String nombre = txtNombre.getText();
+		String apellidos = txtApellidos.getText();
+		
+		int tel = Integer.parseInt(txtTel.getText());
+		String email = txtEmail.getText();
+		
+		int dN = Integer.parseInt(txtFechaNacimientoD.getText());
+		int mN = Integer.parseInt(txtFechaNacimientoM.getText());
+		int aN = Integer.parseInt(txtFechaNacimientoA.getText());
+		
+		int codPostal = Integer.parseInt(txtCodPostal.getText());
+		String calle = txtCalle.getText();
+		int portal = Integer.parseInt(txtPortal.getText());
+		int piso = Integer.parseInt(txtPiso.getText());
+		String puerta = txtPuerta.getText();
+		
+		String password = new String(pwdPassword.getPassword());
+		boolean codigo = false;
+		
+		ArrayList<String> camposTxt = new ArrayList<String>();
+		camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, password));
+		
+		if (camposTxt.contains(""))
 		{
-			String dni = txtDNI.getText();
-			
-			String nombre = txtNombre.getText();
-			String apellidos = txtApellidos.getText();
-			
-			int tel = Integer.parseInt(txtTel.getText());
-			String email = txtEmail.getText();
-			
-			int dN = Integer.parseInt(txtFechaNacimientoD.getText());
-			int mN = Integer.parseInt(txtFechaNacimientoM.getText());
-			int aN = Integer.parseInt(txtFechaNacimientoA.getText());
-			
-			int codPostal = Integer.parseInt(txtCodPostal.getText());
-			String calle = txtCalle.getText();
-			int portal = Integer.parseInt(txtPortal.getText());
-			int piso = Integer.parseInt(txtPiso.getText());
-			String puerta = txtPuerta.getText();
-			
-			String password = new String(pwdPassword.getPassword());
-			boolean codigo = false;
-			
-			ArrayList<String> camposTxt = new ArrayList<String>();
-			camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, password));
-			
-			if (camposTxt.contains(""))
-			{
-				throw new Exception("Campo vacio");
-			}
-			else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)
-			{
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			else if (dN < 1 || mN < 1 || aN < 1 || dN > 31 || mN > 12)
-			{
-				JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			else 
-			{
-				if (!edicion && Archivos.listarCuentas().contains(dni))
-				{
-					JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				else
-				{
-					Fecha fechaNacimiento = new Fecha(dN, mN, aN);
-					Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
-					
-					int opcion = cmbCuenta.getSelectedIndex();
-					switch (opcion)
-					{
-					case 0:
-						// mecánico
-						codigo = true;
-						break;
-					case 1:
-						// atención al cliente
-						codigo = false;
-						break;
-					}
-					
-					String tema = (String) cmbTema.getSelectedItem();
-					String fuente = (String) cmbFuente.getSelectedItem();
-					
-					boolean temaOscuro = true;
-					if (tema.equals("Oscuro"))
-					{
-						temaOscuro = true;
-					}
-					else if (tema.equals("Claro"))
-					{
-						temaOscuro = false;
-					}
-					
-					Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
-							email, fechaNacimiento,
-							direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
-					
-					return true;
-				}
-			}
-		}
-		catch (Exception cv)
-		{
-			JOptionPane.showMessageDialog(this, (String) "Campo vacío o incorrecto", "ERROR",
+			JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
+		}
+		else if (dni.length() != 9)
+		{
+			JOptionPane.showMessageDialog(this, (String) "DNI inválido", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		else if (tel < 600000000 || tel > 999999999 || codPostal < 01001 || codPostal > 52080 ||
+				portal < 1 || portal > 9999 || piso < 1 || piso > 999)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Campo numérico inválido", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		else if (dN < 1 || dN > 31 || mN < 1 || mN > 12 ||
+				aN < 1900 || aN > Calendar.getInstance().get(Calendar.YEAR))
+		{
+			JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		else if (cmbCuenta.getSelectedIndex() < 0)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo de cuenta", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		else if (cmbFuente.getSelectedIndex() < 0 || cmbTema.getSelectedIndex() < 0)
+		{
+			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		else 
+		{
+			if (!edicion && Archivos.listarCuentas().contains(dni))
+			{
+				JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				Fecha fechaNacimiento = new Fecha(dN, mN, aN);
+				Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
+				
+				int opcion = cmbCuenta.getSelectedIndex();
+				switch (opcion)
+				{
+				case 0:
+					// mecánico
+					codigo = true;
+					break;
+				case 1:
+					// atención al cliente
+					codigo = false;
+					break;
+				}
+				
+				String tema = (String) cmbTema.getSelectedItem();
+				String fuente = (String) cmbFuente.getSelectedItem();
+				
+				boolean temaOscuro = true;
+				if (tema.equals("Oscuro"))
+				{
+					temaOscuro = true;
+				}
+				else if (tema.equals("Claro"))
+				{
+					temaOscuro = false;
+				}
+				
+				Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
+						email, fechaNacimiento,
+						direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
+				
+				return true;
+			}
 		}
 
 		return false;

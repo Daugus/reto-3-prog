@@ -453,7 +453,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 			
 			if (camposTxt.contains(""))
 			{
-				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "Campo de texto inválido", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 			else if (tel < 1 || codPostal < 1 || portal < 1 || piso < 1)

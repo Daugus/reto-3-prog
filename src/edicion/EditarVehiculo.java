@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -308,7 +309,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 			String modelo = txtModelo.getText();
 			String color = txtColor.getText();
 			
-			int cilindrada = Integer.parseInt(txtCilindrada.getText());
+			int cc = Integer.parseInt(txtCilindrada.getText());
 			
 			int kmRecorridos = Integer.parseInt(txtKmRecorridos.getText());
 			int aITV = Integer.parseInt(txtFechaITV.getText());
@@ -316,16 +317,32 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 			String tipo = txtTipo.getText();
 			
 			ArrayList<String> camposTxt = new ArrayList<String>();
-			camposTxt.addAll(Arrays.asList(matricula, bastidor, marca, modelo, color, tipo));
+			camposTxt.addAll(Arrays.asList(marca, modelo, color, tipo));
 			
-			if (camposTxt.contains("") || cmbClientes.getSelectedIndex() < 0)
+			if (camposTxt.contains(""))
 			{
-				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "Campo de texto vacío", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			else if (cilindrada < 1 || kmRecorridos < 0 || aITV < 1)
+			else if (matricula.length() != 7)
 			{
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico incorrecto", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "Matrícula inválida", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (bastidor.length() != 17)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Bastidor inválido", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (cc < 1000 || cc > 9999 || kmRecorridos < 0 ||
+					aITV < 1900 || aITV > Calendar.getInstance().get(Calendar.YEAR))
+			{
+				JOptionPane.showMessageDialog(this, (String) "Campo numérico inválido", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			else if (cmbClientes.getSelectedIndex() < 0)
+			{
+				JOptionPane.showMessageDialog(this, (String) "Seleccione un propietario", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 			else 
@@ -342,7 +359,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 				else
 				{
 					Archivos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario,
-							marca, modelo, color, cilindrada, kmRecorridos, fechaITV, tipo));
+							marca, modelo, color, cc, kmRecorridos, fechaITV, tipo));
 					
 					for (Cliente c : Archivos.cargarTodosClientes())
 					{
