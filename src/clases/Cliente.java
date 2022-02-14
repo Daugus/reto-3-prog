@@ -56,11 +56,11 @@ public class Cliente extends Persona
 	 * @param n Strnig nombre
 	 * @param a String apellido
 	 * @param t int telefono
-	 * @param e Strnig email
+	 * @param e String email
 	 * @param fn Objeto fecha
 	 * @param dir direccion
 	 * @param fa Objeto fechaAlta
-	 * @param v Objeto vehiculo
+	 * @param v ArrayList<String> array de las matrículas de los vehículos
 	 */
 	public Cliente(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, Fecha fa, ArrayList<String> v)
 	{
