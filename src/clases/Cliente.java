@@ -138,7 +138,7 @@ public class Cliente extends Persona
 	}
 	/**
 	 * acceso a vehiculos
-	 * @return vehiculos 
+	 * @return vehiculos piu
 	 */
 	public ArrayList<String> getVehiculos()
 	{
