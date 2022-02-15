@@ -8,13 +8,13 @@ import java.util.Objects;
 
 /**
  * esta clase difiene la reparacion
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class Reparacion implements Comparable<Reparacion>, Serializable
-{
+public class Reparacion implements Comparable<Reparacion>, Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
-	
+
 	// ===== propiedades =====
 	private String codigo;
 	private String descripcion;
@@ -23,13 +23,12 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 	private Fecha fecha;
 	private Cuenta mecanico;
 	private ArrayList<MaterialUsado> materialesUsados;
-	
+
 	// ===== constructores =====
 	/**
 	 * reparacion por defecto
 	 */
-	public Reparacion()
-	{
+	public Reparacion() {
 		codigo = "";
 		descripcion = "";
 		horas = 1;
@@ -38,13 +37,13 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 		mecanico = new Cuenta(true);
 		materialesUsados = new ArrayList<MaterialUsado>();
 	}
-	
+
 	/**
 	 * reparacion copia
+	 * 
 	 * @param other copia
 	 */
-	public Reparacion(Reparacion other)
-	{
+	public Reparacion(Reparacion other) {
 		this.codigo = other.codigo;
 		this.descripcion = other.descripcion;
 		this.horas = other.horas;
@@ -53,22 +52,22 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 		this.mecanico = new Cuenta(other.mecanico);
 		this.materialesUsados = new ArrayList<MaterialUsado>(other.materialesUsados);
 	}
-	
+
 	/**
 	 * reparacion personalizado requiere los seguientes parametros
+	 * 
 	 * @param desc String descripcion
-	 * @param h int horas
-	 * @param mo double mano de obra
-	 * @param fe objeto fecha
-	 * @param mec objeto mecanico
-	 * @param al arraylist para agrupar datos
+	 * @param h    int horas
+	 * @param mo   double mano de obra
+	 * @param fe   objeto fecha
+	 * @param mec  objeto mecanico
+	 * @param al   arraylist para agrupar datos
 	 */
-	public Reparacion(String desc, int h, double mo, Fecha fe, Cuenta mec, ArrayList<MaterialUsado> al)
-	{
+	public Reparacion(String desc, int h, double mo, Fecha fe, Cuenta mec, ArrayList<MaterialUsado> al) {
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		String cod = formatter.format(calendar.getTime());
-				
+
 		codigo = cod;
 		descripcion = desc;
 		horas = h;
@@ -82,41 +81,38 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 	// --- salida ---
 	/**
 	 * Devuelve una representación de cadena del objeto.
-	 * @return codigo, descripcion, horas, manoObra, dni del mecanico y materialUsados
+	 * 
+	 * @return codigo, descripcion, horas, manoObra, dni del mecanico y
+	 *         materialUsados
 	 */
 	@Override
-	public String toString()
-	{
-		return "Código: " + codigo +
-				", descripción: " + descripcion +
-				", horas: " + horas +
-				", precio mano de obra: " + manoObra +
-				", mecánico: " + mecanico.getDNI() +
-				", materiales: " + materialesUsados;
+	public String toString() {
+		return "Código: " + codigo + ", descripción: " + descripcion + ", horas: " + horas + ", precio mano de obra: "
+				+ manoObra + ", mecánico: " + mecanico.getDNI() + ", materiales: " + materialesUsados;
 	}
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible
-	 * en beneficio de las tablas hash 
+	 * para el objeto Este método es compatible en beneficio de las tablas hash
 	 * como las proporcionadas por java.util.HashMap.
+	 * 
 	 * @return devuelve un valor hash
 	 */
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return Objects.hash(codigo, descripcion, horas, manoObra, fecha, materialesUsados, mecanico);
 	}
+
 	/**
 	 * 
 	 * Indica si algún otro objeto es "igual a" este.
-	 * @return true si este objeto
-	 *  es el mismo que el objargument; falso en caso contrario.
+	 * 
+	 * @return true si este objeto es el mismo que el objargument; falso en caso
+	 *         contrario.
 	 * @param obj objeto referente con el que desea comparar
 	 */
 	@Override
-	public boolean equals(Object obj)
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -129,130 +125,145 @@ public class Reparacion implements Comparable<Reparacion>, Serializable
 				&& Objects.equals(mecanico, other.mecanico) && Objects.equals(horas, other.horas)
 				&& Objects.equals(manoObra, other.manoObra);
 	}
+
 	/**
-	 * Compara este objeto con el objeto especificado para el orden.
-	 * Devuelve un entero negativo, cero o un entero positivo,
-	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
-	 * @return entero negativo, cero o un entero positivo,
-	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
+	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
+	 * igual o mayor que el objeto especificado.
+	 * 
+	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
+	 *         menor, igual o mayor que el objeto especificado.
 	 */
 	@Override
-	public int compareTo(Reparacion other)
-	{
+	public int compareTo(Reparacion other) {
 		return codigo.compareTo(other.codigo);
 	}
 
 	// --- getters y setters ---
 	/**
 	 * acceso a codigo
-	 * @return codigo 
+	 * 
+	 * @return codigo
 	 */
-	public String getCodigo()
-	{
+	public String getCodigo() {
 		return codigo;
 	}
+
 	/**
 	 * modifica el valor de codigo pasando String como parametro
+	 * 
 	 * @param codReparacion tipo String
 	 */
-	public void setCodigo(String codReparacion)
-	{
+	public void setCodigo(String codReparacion) {
 		this.codigo = codReparacion;
 	}
+
 	/**
 	 * acceso a descripcion
-	 * @return descripcion 
+	 * 
+	 * @return descripcion
 	 */
-	public String getDescripcion()
-	{
+	public String getDescripcion() {
 		return descripcion;
 	}
+
 	/**
 	 * modifica el valor de descripcion pasando String como parametro
+	 * 
 	 * @param descripcion tipo String
 	 */
-	public void setDescripcion(String descripcion)
-	{
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	/**
 	 * acceso a horas
-	 * @return horas 
+	 * 
+	 * @return horas
 	 */
-	public int getHoras()
-	{
+	public int getHoras() {
 		return horas;
 	}
+
 	/**
 	 * modifica el valor de horas pasando int como parametro
+	 * 
 	 * @param horas tipo int
 	 */
-	public void setHoras(int horas)
-	{
+	public void setHoras(int horas) {
 		this.horas = horas;
 	}
+
 	/**
 	 * acceso a manoObra
-	 * @return manoObra 
+	 * 
+	 * @return manoObra
 	 */
-	public double getManoObra()
-	{
+	public double getManoObra() {
 		return manoObra;
 	}
+
 	/**
 	 * modifica el valor de manoObra pasando int como parametro
+	 * 
 	 * @param manoObra tipo int
 	 */
-	public void setManoObra(int manoObra)
-	{
+	public void setManoObra(int manoObra) {
 		this.manoObra = manoObra;
 	}
+
 	/**
 	 * acceso a fecha
-	 * @return fecha 
+	 * 
+	 * @return fecha
 	 */
-	public Fecha getFecha()
-	{
+	public Fecha getFecha() {
 		return fecha;
 	}
+
 	/**
 	 * modifica el valor de fecha pasando Fecha como parametro
+	 * 
 	 * @param fecha tipo Fecha
 	 */
-	public void setFecha(Fecha fecha)
-	{
+	public void setFecha(Fecha fecha) {
 		this.fecha = fecha;
 	}
+
 	/**
 	 * acceso a mecanico
-	 * @return mecanico 
+	 * 
+	 * @return mecanico
 	 */
-	public Cuenta getMecanico()
-	{
+	public Cuenta getMecanico() {
 		return mecanico;
 	}
+
 	/**
 	 * modifica el valor de mecanico pasando cuenta mecanico como parametro
+	 * 
 	 * @param mecanico tipo Cuenta
 	 */
-	public void setMecanico(Cuenta mecanico)
-	{
+	public void setMecanico(Cuenta mecanico) {
 		this.mecanico = mecanico;
 	}
+
 	/**
 	 * acceso a materialesUsados
-	 * @return materialesUsados 
+	 * 
+	 * @return materialesUsados
 	 */
-	public ArrayList<MaterialUsado> getMaterialesUsados()
-	{
+	public ArrayList<MaterialUsado> getMaterialesUsados() {
 		return materialesUsados;
 	}
+
 	/**
-	 * modifica el valor de materialesUsados pasando ArrayList de MaterialUsado  como parametro
+	 * modifica el valor de materialesUsados pasando ArrayList de MaterialUsado como
+	 * parametro
+	 * 
 	 * @param materialesUsados tipo ArrayList de MaterialUsado
 	 */
-	public void setMaterialesUsados(ArrayList<MaterialUsado> materialesUsados)
-	{
+	public void setMaterialesUsados(ArrayList<MaterialUsado> materialesUsados) {
 		this.materialesUsados = materialesUsados;
 	}
 }

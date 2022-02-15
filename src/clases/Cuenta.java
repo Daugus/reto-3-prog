@@ -4,74 +4,71 @@ import java.util.Objects;
 
 /**
  * esta clase difiene cuenta que se usaran en el programa
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class Cuenta extends Persona
-{
+public class Cuenta extends Persona {
 	private static final long serialVersionUID = -1206167340211110010L;
-	
+
 	// ===== propiedades =====
 	private boolean mecanico;
 	private String password;
 	private Ajustes ajustes;
-	
+
 	// ===== constructores =====
 	/**
-	 * constructor por defecto 
+	 * constructor por defecto
 	 */
-	public Cuenta()
-	{
+	public Cuenta() {
 		super();
 
 		mecanico = true;
 		password = "";
 		ajustes = new Ajustes();
 	}
+
 	/**
 	 * constructor personalizado
+	 * 
 	 * @param cod codigo del mecanico
 	 */
-	public Cuenta(boolean cod)
-	{
+	public Cuenta(boolean cod) {
 		super();
-		
-		if (cod)
-		{
+
+		if (cod) {
 			setDNI("mec");
 			password = "mec";
-		}
-		else
-		{
+		} else {
 			setDNI("atc");
 			password = "atc";
 		}
 
 		mecanico = cod;
 	}
-	
+
 	/**
 	 * constructor copia
+	 * 
 	 * @param other copia del constructor por defecto
 	 */
-	public Cuenta(Cuenta other)
-	{
+	public Cuenta(Cuenta other) {
 		super(other);
 
 		mecanico = other.mecanico;
 		password = other.password;
 		ajustes = new Ajustes(other.ajustes);
 	}
-	
+
 	// --- personalizados ---
 	/**
 	 * persona por defecto
+	 * 
 	 * @param cod de persona
-	 * @param p contaseña 
-	 * @param a ajustes personalizados
+	 * @param p   contaseña
+	 * @param a   ajustes personalizados
 	 */
-	public Cuenta(boolean cod, String p, Ajustes a)
-	{
+	public Cuenta(boolean cod, String p, Ajustes a) {
 		super();
 
 		mecanico = cod;
@@ -82,53 +79,50 @@ public class Cuenta extends Persona
 	// Persona nueva con código, contraseña y ajustes personalizados
 	/**
 	 * persona nueva
-	 * @param d Strnig dni 
-	 * @param n String nombre
-	 * @param a Strnig apellido
-	 * @param t int telefono
-	 * @param e String email
-	 * @param fn Object fecha
+	 * 
+	 * @param d   Strnig dni
+	 * @param n   String nombre
+	 * @param a   Strnig apellido
+	 * @param t   int telefono
+	 * @param e   String email
+	 * @param fn  Object fecha
 	 * @param dir Object direccion
 	 * @param cod Boolean mecanico
-	 * @param pa String password
-	 * @param aj Objeto Ajustes
+	 * @param pa  String password
+	 * @param aj  Objeto Ajustes
 	 */
-	public Cuenta(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, boolean cod, String pa, Ajustes aj)
-	{
+	public Cuenta(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, boolean cod, String pa,
+			Ajustes aj) {
 		super(d, n, a, t, e, fn, dir);
 
 		mecanico = cod;
 		password = pa;
 		ajustes = new Ajustes(aj);
 	}
-	
+
 	// ===== métodos =====
 	/**
 	 * Devuelve una representación de cadena del objeto.
+	 * 
 	 * @return tipo de usuario
 	 */
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String tipo;
-		if (mecanico)
-		{
+		if (mecanico) {
 			tipo = "Mecánico";
-		}
-		else
-		{
+		} else {
 			tipo = "Atención al cliente";
 		}
 
-		return super.toString() +
-				", tipo: " + tipo;
+		return super.toString() + ", tipo: " + tipo;
 	}
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible
-	 * en beneficio de las tablas hash 
+	 * para el objeto Este método es compatible en beneficio de las tablas hash
 	 * como las proporcionadas por java.util.HashMap.
+	 * 
 	 * @return devuelve un valor hash
 	 */
 	@Override
@@ -138,12 +132,14 @@ public class Cuenta extends Persona
 		result = prime * result + Objects.hash(ajustes, mecanico, password);
 		return result;
 	}
+
 	/**
 	 * 
 	 * Indica si algún otro objeto es "igual a" este.
+	 * 
 	 * @param obj objeto referente con el que desea comparar
-	 * @return true si este objeto
-	 *  es el mismo que el objargument; falso en caso contrario.
+	 * @return true si este objeto es el mismo que el objargument; falso en caso
+	 *         contrario.
 	 *
 	 */
 	@Override
@@ -161,69 +157,72 @@ public class Cuenta extends Persona
 
 	// --- getters y setters ---
 	/**
-	 * acceso a tipo 
+	 * acceso a tipo
+	 * 
 	 * @return tema devuelve si es mecanico o atencion al cliente
 	 */
-	public String tipo()
-	{
+	public String tipo() {
 		String tipo;
-		if (mecanico)
-		{
+		if (mecanico) {
 			tipo = "Mecánico";
-		}
-		else
-		{
+		} else {
 			tipo = "Atención al cliente";
 		}
 
 		return tipo;
 	}
+
 	/**
 	 * acceso a password
-	 * @return password 
+	 * 
+	 * @return password
 	 */
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
+
 	/**
 	 * modifica el valor de password pasando password como parametro
+	 * 
 	 * @param password
 	 */
-	public void setPassword(String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	/**
 	 * acceso a mecanico
-	 * @return mecanico 
+	 * 
+	 * @return mecanico
 	 */
-	public boolean esMecanico()
-	{
+	public boolean esMecanico() {
 		return mecanico;
 	}
+
 	/**
 	 * modifica el valor de mecanico pasando mecanico como parametro
+	 * 
 	 * @param mecanico tipo boolean
 	 */
-	public void setMecanico(boolean mecanico)
-	{
+	public void setMecanico(boolean mecanico) {
 		this.mecanico = mecanico;
 	}
+
 	/**
 	 * acceso a ajustes
-	 * @return ajustes 
+	 * 
+	 * @return ajustes
 	 */
-	public Ajustes getAjustes()
-	{
+	public Ajustes getAjustes() {
 		return ajustes;
 	}
+
 	/**
 	 * modifica el valor de ajustes pasando ajustes como parametro
+	 * 
 	 * @param ajustes
 	 */
-	public void setAjustes(Ajustes ajustes)
-	{
+	public void setAjustes(Ajustes ajustes) {
 		this.ajustes = new Ajustes(ajustes);
 	}
 }

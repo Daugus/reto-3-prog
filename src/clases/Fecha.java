@@ -5,60 +5,59 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- * esta clase difiene fecha  que se usaran en el programa
+ * esta clase difiene fecha que se usaran en el programa
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class Fecha implements Comparable<Fecha>, Serializable
-{
+public class Fecha implements Comparable<Fecha>, Serializable {
 	private static final long serialVersionUID = 5402725963046351341L;
 
 	// ===== propiedades =====
 	private int day;
 	private int month;
 	private int year;
-	
+
 	// ===== constructores =====
 	/**
-	 * constructor por defecto 
+	 * constructor por defecto
 	 */
-	public Fecha()
-	{
+	public Fecha() {
 		day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		month = Calendar.getInstance().get(Calendar.MONTH);
 		year = Calendar.getInstance().get(Calendar.YEAR);
 	}
-	
+
 	/**
 	 * 
 	 * @param other copia constructor por defecto
 	 */
-	public Fecha(Fecha other)
-	{
+	public Fecha(Fecha other) {
 		this.day = other.day;
 		this.month = other.month;
 		this.year = other.year;
 	}
-	
+
 	/**
 	 * fecha con dia y mes establicidos por defecto
-	 * @param a se le pasa un año 
+	 * 
+	 * @param a se le pasa un año
 	 */
-	public Fecha(int a)
-	{
+	public Fecha(int a) {
 		day = 1;
 		month = 1;
 		year = a;
 	}
+
 	/**
-	 * fecha que se le pasan parametros, si le pasan datos imcorrecctos difiene 
-	 * unos por defecto
+	 * fecha que se le pasan parametros, si le pasan datos imcorrecctos difiene unos
+	 * por defecto
+	 * 
 	 * @param d dia
 	 * @param m mes
 	 * @param a año
 	 */
-	public Fecha(int d, int m, int a)
-	{
+	public Fecha(int d, int m, int a) {
 		if (m < 1) {
 			this.month = 1;
 		} else if (m > 12) {
@@ -78,71 +77,54 @@ public class Fecha implements Comparable<Fecha>, Serializable
 
 	// ===== métodos =====
 	// --- personalizado ---
-	private void bisiesto(int d, int m, int a)
-	{
-		if (d > 28)
-		{
-			switch (m)
-			{
+	private void bisiesto(int d, int m, int a) {
+		if (d > 28) {
+			switch (m) {
 			// febrero
 			case 2:
-				if (a % 4 == 0)
-				{
-					if (a % 100 == 0)
-					{
-						if (a % 400 == 0)
-						{
+				if (a % 4 == 0) {
+					if (a % 100 == 0) {
+						if (a % 400 == 0) {
 							day = 29;
-						}
-						else
-						{
+						} else {
 							day = 28;
 						}
-					}
-					else
-					{
+					} else {
 						day = 29;
 					}
-				}
-				else
-				{
+				} else {
 					day = 28;
 				}
 				break;
-				// abril, junio, septiembre o noviembre
+			// abril, junio, septiembre o noviembre
 			case 4:
 			case 6:
 			case 9:
 			case 11:
-				if (d > 30)
-				{
+				if (d > 30) {
 					day = 30;
-				}
-				else
-				{
+				} else {
 					day = d;
 				}
 				break;
-				// enero, marzo, mayo, julio, agosto, octubre, diciembre
+			// enero, marzo, mayo, julio, agosto, octubre, diciembre
 			default:
 				day = d;
 				break;
 			}
-		}
-		else
-		{
+		} else {
 			day = d;
 		}
 	}
-	
+
 	// --- salida ---
 	/**
 	 * Devuelve una representación de cadena del objeto.
+	 * 
 	 * @return dia, mes y año
 	 */
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String d = String.format("%02d", day);
 		String m = String.format("%02d", month);
 		String y = String.format("%04d", year);
@@ -152,26 +134,26 @@ public class Fecha implements Comparable<Fecha>, Serializable
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible
-	 * en beneficio de las tablas hash 
+	 * para el objeto Este método es compatible en beneficio de las tablas hash
 	 * como las proporcionadas por java.util.HashMap.
+	 * 
 	 * @return devuelve un valor hash
 	 */
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return Objects.hash(day, month, year);
 	}
+
 	/**
 	 * 
 	 * Indica si algún otro objeto es "igual a" este.
-	 * @return true si este objeto
-	 *  es el mismo que el objargument; falso en caso contrario.
+	 * 
+	 * @return true si este objeto es el mismo que el objargument; falso en caso
+	 *         contrario.
 	 * @param obj objeto referente con el que desea comparar
 	 */
 	@Override
-	public boolean equals(Object obj)
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -181,119 +163,104 @@ public class Fecha implements Comparable<Fecha>, Serializable
 		Fecha other = (Fecha) obj;
 		return year == other.year && day == other.day && month == other.month;
 	}
+
 	/**
-	 * Compara este objeto con el objeto especificado para el orden.
-	 * Devuelve un entero negativo, cero o un entero positivo,
-	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
-	 * @return entero negativo, cero o un entero positivo,
-	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
+	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
+	 * igual o mayor que el objeto especificado.
+	 * 
+	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
+	 *         menor, igual o mayor que el objeto especificado.
 	 */
 	@Override
-	public int compareTo(Fecha other)
-	{
-		if (this.year > other.year)
-		{
+	public int compareTo(Fecha other) {
+		if (this.year > other.year) {
 			return 1;
-		}
-		else if (this.year < other.year)
-		{
+		} else if (this.year < other.year) {
 			return -1;
-		}
-		else
-		{
+		} else {
 			// si los años son iguales
-			if (this.month > other.month)
-			{
+			if (this.month > other.month) {
 				return 1;
-			}
-			else if (this.month < other.month)
-			{
+			} else if (this.month < other.month) {
 				return -1;
-			}
-			else
-			{
+			} else {
 				// si los meses son iguales
-				if (this.day > other.day)
-				{
+				if (this.day > other.day) {
 					return 1;
-				}
-				else if (this.day < other.day)
-				{
+				} else if (this.day < other.day) {
 					return -1;
 				}
 			}
-			
+
 			return 0;
 		}
 	}
-	
+
 	// --- getters y setters ---
 	/**
 	 * acceso a dia
-	 * @return day 
+	 * 
+	 * @return day
 	 */
-	public int getDay()
-	{
+	public int getDay() {
 		return day;
 	}
+
 	/**
 	 * modifica el valor de dia pasando int dia como parametro
+	 * 
 	 * @param d tipo int
 	 */
-	public void setDay(int d)
-	{
-		if (d < 1)
-		{
+	public void setDay(int d) {
+		if (d < 1) {
 			day = 1;
-		}
-		else
-		{
+		} else {
 			bisiesto(d, month, year);
 		}
 	}
+
 	/**
 	 * acceso a mes
-	 * @return month 
+	 * 
+	 * @return month
 	 */
-	public int getMonth()
-	{
+	public int getMonth() {
 		return month;
 	}
+
 	/**
 	 * modifica el valor de mes pasando int mes como parametro
+	 * 
 	 * @param m tipo int
 	 */
-	public void setMonth(int m)
-	{
-		if (m < 1)
-		{
+	public void setMonth(int m) {
+		if (m < 1) {
 			month = 1;
-		}
-		else if (m > 12)
-		{
+		} else if (m > 12) {
 			month = 12;
-		}
-		else
-		{
+		} else {
 			month = m;
 		}
-		
+
 		bisiesto(day, m, year);
 	}
+
 	/**
 	 * acceso al año
-	 * @return year 
+	 * 
+	 * @return year
 	 */
-	public int getYear()
-	{
+	public int getYear() {
 		return year;
 	}
+
 	/**
 	 * modifica el valor de año pasando año como parametro
+	 * 
 	 * @param a tipo int
 	 */
-	public void setYear(int a)
-	{
+	public void setYear(int a) {
 		year = a;
 	}
 }

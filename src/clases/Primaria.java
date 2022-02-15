@@ -6,14 +6,14 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- * esta clase difiene orden primaria 
+ * esta clase difiene orden primaria
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class Primaria implements Comparable<Primaria>, Serializable
-{
+public class Primaria implements Comparable<Primaria>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
-	
+
 	// ===== propiedades =====
 	private String codigo;
 	private String comentarios;
@@ -21,62 +21,60 @@ public class Primaria implements Comparable<Primaria>, Serializable
 	private Cliente propietario;
 	private Vehiculo vehiculo;
 	private Cuenta empleado;
-	
+
 	// ===== constructores =====
 	/**
 	 * orden primaria por defecto
 	 */
-	public Primaria()
-	{
+	public Primaria() {
 		generarCodigo();
 		comentarios = "";
 		fecha = new Fecha();
-		
+
 		propietario = new Cliente();
 		vehiculo = new Vehiculo();
-		
+
 		empleado = new Cuenta(false);
 	}
-	
+
 	/**
 	 * orden primaria copia
+	 * 
 	 * @param other copia
 	 */
-	public Primaria(Primaria other)
-	{
+	public Primaria(Primaria other) {
 		this.codigo = other.codigo;
 		this.comentarios = other.comentarios;
 		this.fecha = new Fecha(other.fecha);
-		
+
 		this.propietario = new Cliente(other.propietario);
 		this.vehiculo = new Vehiculo(other.vehiculo);
-		
+
 		this.empleado = new Cuenta(other.empleado);
 	}
-	
+
 	/**
 	 * orden primaria personalizado
+	 * 
 	 * @param com String comentario
-	 * @param c objeto cliente
-	 * @param v objeto vehiculo
+	 * @param c   objeto cliente
+	 * @param v   objeto vehiculo
 	 * @param atc objeto cuenta atencion cliente
 	 */
-	public Primaria(String com, Cliente c, Vehiculo v, Cuenta atc)
-	{
+	public Primaria(String com, Cliente c, Vehiculo v, Cuenta atc) {
 		generarCodigo();
 		comentarios = com;
 		fecha = new Fecha();
 
 		propietario = new Cliente(c);
 		vehiculo = new Vehiculo(v);
-		
+
 		empleado = new Cuenta(atc);
 	}
 
 	// ===== métodos =====
 	// --- personalizado ---
-	protected void generarCodigo()
-	{
+	protected void generarCodigo() {
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		codigo = formatter.format(calendar.getTime());
@@ -85,41 +83,37 @@ public class Primaria implements Comparable<Primaria>, Serializable
 	// --- salida ---
 	/**
 	 * Devuelve una representación de cadena del objeto.
+	 * 
 	 * @return codigo, comentario, fecha, vehiculo, propietario y dni del empleado
 	 */
 	@Override
-	public String toString()
-	{
-		return "Código: " + codigo +
-				", comentarios: " + comentarios +
-				", fechaEntrada: " + fecha +
-				", vehículo: " + vehiculo +
-				", propietario: " + propietario +
-				", empleado: " + empleado.getDNI();
+	public String toString() {
+		return "Código: " + codigo + ", comentarios: " + comentarios + ", fechaEntrada: " + fecha + ", vehículo: "
+				+ vehiculo + ", propietario: " + propietario + ", empleado: " + empleado.getDNI();
 	}
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible
-	 * en beneficio de las tablas hash 
+	 * para el objeto Este método es compatible en beneficio de las tablas hash
 	 * como las proporcionadas por java.util.HashMap.
+	 * 
 	 * @return devuelve un valor hash
 	 */
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return Objects.hash(codigo, comentarios, fecha, propietario, vehiculo, empleado);
 	}
+
 	/**
 	 * 
 	 * Indica si algún otro objeto es "igual a" este.
-	 * @return true si este objeto
-	 *  es el mismo que el objargument; falso en caso contrario.
+	 * 
+	 * @return true si este objeto es el mismo que el objargument; falso en caso
+	 *         contrario.
 	 * @param obj objeto referente con el que desea comparar
 	 */
 	@Override
-	public boolean equals(Object obj)
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -131,114 +125,126 @@ public class Primaria implements Comparable<Primaria>, Serializable
 				&& Objects.equals(fecha, other.fecha) && Objects.equals(propietario, other.propietario)
 				&& Objects.equals(vehiculo, other.vehiculo) && Objects.equals(empleado, other.empleado);
 	}
+
 	/**
-	 * Compara este objeto con el objeto especificado para el orden.
-	 * Devuelve un entero negativo, cero o un entero positivo,
-	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
-	 * @return entero negativo, cero o un entero positivo,
-	 * ya que este objeto es menor, igual o mayor que el objeto especificado.
+	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
+	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
+	 * igual o mayor que el objeto especificado.
+	 * 
+	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
+	 *         menor, igual o mayor que el objeto especificado.
 	 */
 	@Override
-	public int compareTo(Primaria other)
-	{
+	public int compareTo(Primaria other) {
 		return codigo.compareTo(other.codigo);
 	}
 
 	// --- getters y setters ---
 	/**
 	 * acceso a codigo
-	 * @return codigo 
+	 * 
+	 * @return codigo
 	 */
-	public String getCodigo()
-	{
+	public String getCodigo() {
 		return codigo;
 	}
+
 	/**
 	 * modifica el valor de codigo pasando String como parametro
+	 * 
 	 * @param codOrdenPrim tipo boolean
 	 */
-	public void setCodigo(String codOrdenPrim)
-	{
+	public void setCodigo(String codOrdenPrim) {
 		this.codigo = codOrdenPrim;
 	}
+
 	/**
 	 * acceso a comentarios
-	 * @return comentarios  tipo String
+	 * 
+	 * @return comentarios tipo String
 	 */
-	public String getComentarios()
-	{
+	public String getComentarios() {
 		return comentarios;
 	}
+
 	/**
 	 * modifica el valor de comentarios pasando String como parametro
+	 * 
 	 * @param comentarios tipo String
 	 */
-	public void setComentarios(String comentarios)
-	{
+	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
+
 	/**
 	 * acceso a fecha
-	 * @return fecha 
+	 * 
+	 * @return fecha
 	 */
-	public Fecha getFecha()
-	{
+	public Fecha getFecha() {
 		return fecha;
 	}
+
 	/**
 	 * modifica el valor de fecha pasando Fecha como parametro
+	 * 
 	 * @param fechaEntrada tipo Fecha
 	 */
-	public void setFecha(Fecha fechaEntrada)
-	{
+	public void setFecha(Fecha fechaEntrada) {
 		this.fecha = fechaEntrada;
 	}
+
 	/**
 	 * acceso a vehiculo
-	 * @return vehiculo tipo Vehiculo 
+	 * 
+	 * @return vehiculo tipo Vehiculo
 	 */
-	public Vehiculo getVehiculo()
-	{
+	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
+
 	/**
 	 * modifica el valor de vehiculo pasando Vehiculo como parametro
+	 * 
 	 * @param vehiculo tipo Vehiculo
 	 */
-	public void setVehiculo(Vehiculo vehiculo)
-	{
+	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
+
 	/**
 	 * acceso a propietario
+	 * 
 	 * @return propietario tipo Cliente
 	 */
-	public Cliente getPropietario()
-	{
+	public Cliente getPropietario() {
 		return propietario;
 	}
+
 	/**
 	 * modifica el valor de propietario pasando Cliente como parametro
+	 * 
 	 * @param propietario tipo Cliente
 	 */
-	public void setPropietario(Cliente propietario)
-	{
+	public void setPropietario(Cliente propietario) {
 		this.propietario = propietario;
 	}
+
 	/**
 	 * acceso a empleado
-	 * @return empleado tipo Cuenta 
+	 * 
+	 * @return empleado tipo Cuenta
 	 */
-	public Cuenta getEmpleado()
-	{
+	public Cuenta getEmpleado() {
 		return empleado;
 	}
+
 	/**
 	 * modifica el valor de empleado pasando Cuenta como parametro
+	 * 
 	 * @param empleado tipo Cuenta
 	 */
-	public void setEmpleado(Cuenta empleado)
-	{
+	public void setEmpleado(Cuenta empleado) {
 		this.empleado = new Cuenta(empleado);
 	}
 }
