@@ -38,11 +38,11 @@ import navegacion.Inicio;
 
 /**
  * esta clase edita datos de cuenta
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class EditarCuenta extends JFrame implements ActionListener, WindowListener, FocusListener
-{
+public class EditarCuenta extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -66,210 +66,210 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JTextField txtPortal;
 	private JTextField txtPiso;
 	private JTextField txtPuerta;
-	
+
 	private JPasswordField pwdPassword;
 
 	private JComboBox<String> cmbCuenta;
 	private JComboBox<String> cmbTema;
 	private JComboBox<String> cmbFuente;
-	
+
 	private JButton btnCancelar;
 	private JButton btnGuardar;
-	
+
 	private Vector<Component> vectorOrden;
 
 	private boolean edicion;
+
 	/**
 	 * constructor añade los elementos de la ventana
-	 *  
+	 * 
 	 */
-	public EditarCuenta()
-	{
+	public EditarCuenta() {
 		setResizable(false);
 		setTitle("Agregar cuenta | " + Inicio.cuentaActual.getNombre());
-		
+
 		setBounds(100, 100, 730, 480);
 		getContentPane().setPreferredSize(new Dimension(730, 480));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+
 		JLabel lblFechaNacimiento = new JLabel("Fecha de nacimiento:");
 		lblFechaNacimiento.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFechaNacimiento.setBounds(380, 25, 150, 35);
 		panelPrincipal.add(lblFechaNacimiento);
-		
+
 		txtFechaNacimientoD = new JTextField();
 		txtFechaNacimientoD.setColumns(10);
 		txtFechaNacimientoD.setBounds(530, 25, 35, 35);
 		panelPrincipal.add(txtFechaNacimientoD);
-		
+
 		txtFechaNacimientoM = new JTextField();
 		txtFechaNacimientoM.setColumns(10);
 		txtFechaNacimientoM.setBounds(570, 25, 35, 35);
 		panelPrincipal.add(txtFechaNacimientoM);
-		
+
 		txtFechaNacimientoA = new JTextField();
 		txtFechaNacimientoA.setColumns(10);
 		txtFechaNacimientoA.setBounds(610, 25, 70, 35);
 		panelPrincipal.add(txtFechaNacimientoA);
-		
+
 		JLabel lblTel = new JLabel("Teléfono:");
 		lblTel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTel.setBounds(50, 160, 150, 35);
 		panelPrincipal.add(lblTel);
-		
+
 		txtTel = new JTextField();
 		txtTel.setColumns(10);
 		txtTel.setBounds(200, 160, 150, 35);
 		panelPrincipal.add(txtTel);
-		
+
 		JLabel lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblApellidos.setBounds(50, 115, 150, 35);
 		panelPrincipal.add(lblApellidos);
-		
+
 		txtApellidos = new JTextField();
 		txtApellidos.setColumns(10);
 		txtApellidos.setBounds(200, 115, 150, 35);
 		panelPrincipal.add(txtApellidos);
-		
+
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombre.setBounds(50, 70, 150, 35);
 		panelPrincipal.add(lblNombre);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(200, 70, 150, 35);
 		panelPrincipal.add(txtNombre);
-		
+
 		JLabel lblDNI = new JLabel("DNI:");
 		lblDNI.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDNI.setBounds(50, 25, 150, 35);
 		panelPrincipal.add(lblDNI);
-		
+
 		txtDNI = new JTextField();
 		txtDNI.setColumns(10);
 		txtDNI.setBounds(200, 25, 150, 35);
 		panelPrincipal.add(txtDNI);
-		
+
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		lblEmail.setBounds(50, 205, 80, 35);
 		panelPrincipal.add(lblEmail);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(130, 205, 220, 35);
 		panelPrincipal.add(txtEmail);
-		
+
 		JLabel lblCodPostal = new JLabel("Codigo Postal:");
 		lblCodPostal.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodPostal.setBounds(380, 70, 150, 35);
 		panelPrincipal.add(lblCodPostal);
-		
+
 		txtCodPostal = new JTextField();
 		txtCodPostal.setColumns(10);
 		txtCodPostal.setBounds(530, 70, 150, 35);
 		panelPrincipal.add(txtCodPostal);
-		
+
 		JLabel lblCalle = new JLabel("Calle:");
 		lblCalle.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCalle.setBounds(380, 115, 150, 35);
 		panelPrincipal.add(lblCalle);
-		
+
 		txtCalle = new JTextField();
 		txtCalle.setColumns(10);
 		txtCalle.setBounds(530, 115, 150, 35);
 		panelPrincipal.add(txtCalle);
-		
+
 		JLabel lblPortal = new JLabel("Nº Portal:");
 		lblPortal.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPortal.setBounds(380, 160, 150, 35);
 		panelPrincipal.add(lblPortal);
-		
+
 		txtPortal = new JTextField();
 		txtPortal.setColumns(10);
 		txtPortal.setBounds(530, 160, 150, 35);
 		panelPrincipal.add(txtPortal);
-		
+
 		JLabel lblPiso = new JLabel("Piso:");
 		lblPiso.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPiso.setBounds(380, 205, 150, 35);
 		panelPrincipal.add(lblPiso);
-		
+
 		txtPiso = new JTextField();
 		txtPiso.setColumns(10);
 		txtPiso.setBounds(530, 205, 150, 35);
 		panelPrincipal.add(txtPiso);
-		
+
 		JLabel lblPuerta = new JLabel("Puerta:");
 		lblPuerta.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPuerta.setBounds(380, 250, 150, 35);
 		panelPrincipal.add(lblPuerta);
-		
+
 		txtPuerta = new JTextField();
 		txtPuerta.setColumns(10);
 		txtPuerta.setBounds(530, 250, 150, 35);
 		panelPrincipal.add(txtPuerta);
-		
+
 		cmbTema = new JComboBox<String>();
 		cmbTema.addItem("Oscuro");
 		cmbTema.addItem("Claro");
 		cmbTema.setBounds(530, 310, 150, 35);
 		panelPrincipal.add(cmbTema);
-		
+
 		cmbFuente = new JComboBox<String>();
 		cmbFuente.addItem("Segoe UI");
 		cmbFuente.addItem("Tahoma");
 		cmbFuente.setBounds(530, 355, 150, 35);
 		panelPrincipal.add(cmbFuente);
-		
+
 		lblFuente = new JLabel("Fuente:");
 		lblFuente.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFuente.setBounds(380, 355, 150, 35);
 		panelPrincipal.add(lblFuente);
-		
+
 		lblTema = new JLabel("Tema:");
 		lblTema.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTema.setBounds(380, 310, 150, 35);
 		panelPrincipal.add(lblTema);
-		
+
 		pwdPassword = new JPasswordField();
 		pwdPassword.setColumns(10);
 		pwdPassword.setBounds(200, 332, 150, 36);
 		panelPrincipal.add(pwdPassword);
-		
+
 		cmbCuenta = new JComboBox<String>();
 		cmbCuenta.addItem("Mecánico");
 		cmbCuenta.addItem("Atención al cliente");
 		cmbCuenta.setBounds(200, 250, 150, 35);
 		panelPrincipal.add(cmbCuenta);
-		
+
 		JLabel lblCuenta = new JLabel("Tipo de Cuenta:");
 		lblCuenta.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCuenta.setBounds(50, 250, 150, 35);
 		panelPrincipal.add(lblCuenta);
-		
+
 		JLabel lblPassword = new JLabel("Contraseña:");
 		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPassword.setBounds(50, 332, 150, 36);
 		panelPrincipal.add(lblPassword);
-		
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(177, 415, 180, 40);
 		panelPrincipal.add(btnCancelar);
-		
+
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(373, 415, 180, 40);
 		panelPrincipal.add(btnGuardar);
-		
+
 		// ===== Listeners =====
 		// --- Window ---
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -278,11 +278,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// --- Action && Focus ---
 		// - JTextField -
 		ArrayList<JTextField> camposTexto = new ArrayList<JTextField>();
-		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos,
-				txtTel, txtEmail, txtFechaNacimientoD, txtFechaNacimientoM, txtFechaNacimientoA,
-				txtCodPostal, txtCalle, txtPortal, txtPiso, txtPuerta));
-		for (JTextField txt : camposTexto)
-		{
+		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos, txtTel, txtEmail, txtFechaNacimientoD,
+				txtFechaNacimientoM, txtFechaNacimientoA, txtCodPostal, txtCalle, txtPortal, txtPiso, txtPuerta));
+		for (JTextField txt : camposTexto) {
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
 
@@ -293,33 +291,29 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// - JPasswordField -
 		pwdPassword.addActionListener(this);
 		pwdPassword.addFocusListener(this);
-		
+
 		// - JButton -
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
-		
+
 		// ===== ajustes de usuario =====
 		// --- fuente y color ---
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
 		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
-		etiquetas.addAll(Arrays.asList(lblDNI, lblNombre, lblApellidos,
-				lblTel, lblEmail, lblFechaNacimiento,
-				lblCodPostal, lblCalle, lblPortal, lblPiso, lblPuerta,
-				lblPassword, lblCuenta, lblTema, lblFuente));
-		for (JLabel lbl : etiquetas)
-		{
+		etiquetas.addAll(Arrays.asList(lblDNI, lblNombre, lblApellidos, lblTel, lblEmail, lblFechaNacimiento,
+				lblCodPostal, lblCalle, lblPortal, lblPiso, lblPuerta, lblPassword, lblCuenta, lblTema, lblFuente));
+		for (JLabel lbl : etiquetas) {
 			lbl.setFont(Inicio.fuente);
 			lbl.setForeground(Inicio.colorFuente);
 		}
 
-		for (JTextField txt : camposTexto)
-		{
+		for (JTextField txt : camposTexto) {
 			txt.setFont(Inicio.fuenteObjetos);
 			txt.setBackground(Inicio.colorFondoObjetos);
 			txt.setForeground(Inicio.colorFuenteObjetos);
 		}
-		
+
 		pwdPassword.setFont(Inicio.fuenteObjetos);
 		pwdPassword.setBackground(Inicio.colorFondoObjetos);
 		pwdPassword.setForeground(Inicio.colorFuenteObjetos);
@@ -327,7 +321,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		btnCancelar.setFont(Inicio.fuenteObjetos);
 		btnCancelar.setBackground(Inicio.colorFondoObjetos);
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
-		
+
 		btnGuardar.setFont(Inicio.fuenteObjetos);
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
@@ -343,7 +337,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		cmbFuente.setFont(Inicio.fuenteObjetos);
 		cmbFuente.setBackground(Inicio.colorFondoObjetos);
 		cmbFuente.setForeground(Inicio.colorFuenteObjetos);
-		
+
 		// ===== orden de tabulación =====
 		vectorOrden = new Vector<Component>();
 		vectorOrden.addAll(camposTexto);
@@ -355,27 +349,28 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
 	}
+
 	/**
-	 * accede a datos almacenados de cuenta pasado como parametro,
-	 * habilita siertos campos para poder modificarlos
+	 * accede a datos almacenados de cuenta pasado como parametro, habilita siertos
+	 * campos para poder modificarlos
+	 * 
 	 * @param cuenta objeto cuenta
 	 */
-	public void modoEdicion(Cuenta cuenta)
-	{
+	public void modoEdicion(Cuenta cuenta) {
 		edicion = true;
-		
+
 		setTitle("Editar " + cuenta.getDNI() + " | " + Inicio.cuentaActual.getNombre());
-				
+
 		txtDNI.setText(cuenta.getDNI());
 		txtDNI.setEnabled(false);
 		vectorOrden.remove(txtDNI);
-				
+
 		txtNombre.setText(cuenta.getNombre());
 		txtApellidos.setText(cuenta.getApellidos());
-				
+
 		txtTel.setText(String.valueOf(cuenta.getTelefono()));
 		txtEmail.setText(cuenta.getEmail());
-				
+
 		txtFechaNacimientoD.setText(String.valueOf(cuenta.getFechaNacimiento().getDay()));
 		txtFechaNacimientoD.setEnabled(false);
 		vectorOrden.remove(txtFechaNacimientoD);
@@ -385,35 +380,31 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		txtFechaNacimientoA.setText(String.valueOf(cuenta.getFechaNacimiento().getYear()));
 		txtFechaNacimientoA.setEnabled(false);
 		vectorOrden.remove(txtFechaNacimientoA);
-				
+
 		txtCodPostal.setText(String.valueOf(cuenta.getDireccion().getCodPostal()));
 		txtCalle.setText(cuenta.getDireccion().getCalle());
 		txtPortal.setText(String.valueOf(cuenta.getDireccion().getPortal()));
 		txtPiso.setText(String.valueOf(cuenta.getDireccion().getPiso()));
 		txtPuerta.setText(cuenta.getDireccion().getPuerta());
-		
+
 		pwdPassword.setText(cuenta.getPassword());
-				
-		if (!cuenta.esMecanico())
-		{
+
+		if (!cuenta.esMecanico()) {
 			cmbCuenta.setSelectedItem("Atención al cliente");
 		}
 
 		String tema = null;
-		if (cuenta.getAjustes().temaOscuro())
-		{
+		if (cuenta.getAjustes().temaOscuro()) {
 			tema = "Oscuro";
-		}
-		else
-		{
+		} else {
 			tema = "Claro";
 		}
-	
+
 		String fuente = cuenta.getAjustes().getFuente().getFamily();
 
 		cmbTema.setSelectedItem(tema);
 		cmbFuente.setSelectedItem(fuente);
-				
+
 		lblTema.setVisible(false);
 		lblFuente.setVisible(false);
 		cmbTema.setVisible(false);
@@ -424,80 +415,58 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
 	}
-	
-	private boolean guardar()
-	{
+
+	private boolean guardar() {
 		String dni = txtDNI.getText();
-		
+
 		String nombre = txtNombre.getText();
 		String apellidos = txtApellidos.getText();
-		
+
 		int tel = Integer.parseInt(txtTel.getText());
 		String email = txtEmail.getText();
-		
+
 		int dN = Integer.parseInt(txtFechaNacimientoD.getText());
 		int mN = Integer.parseInt(txtFechaNacimientoM.getText());
 		int aN = Integer.parseInt(txtFechaNacimientoA.getText());
-		
+
 		int codPostal = Integer.parseInt(txtCodPostal.getText());
 		String calle = txtCalle.getText();
 		int portal = Integer.parseInt(txtPortal.getText());
 		int piso = Integer.parseInt(txtPiso.getText());
 		String puerta = txtPuerta.getText();
-		
+
 		String password = new String(pwdPassword.getPassword());
 		boolean codigo = false;
-		
+
 		ArrayList<String> camposTxt = new ArrayList<String>();
 		camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, password));
-		
-		if (camposTxt.contains(""))
-		{
-			JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		else if (dni.length() != 9)
-		{
-			JOptionPane.showMessageDialog(this, (String) "DNI inválido", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		else if (tel < 600000000 || tel > 999999999 || codPostal < 01001 || codPostal > 52080 ||
-				portal < 1 || portal > 9999 || piso < 1 || piso > 999)
-		{
+
+		if (camposTxt.contains("")) {
+			JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} else if (dni.length() != 9) {
+			JOptionPane.showMessageDialog(this, (String) "DNI inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} else if (tel < 600000000 || tel > 999999999 || codPostal < 01001 || codPostal > 52080 || portal < 1
+				|| portal > 9999 || piso < 1 || piso > 999) {
 			JOptionPane.showMessageDialog(this, (String) "Campo numérico inválido", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
-		}
-		else if (dN < 1 || dN > 31 || mN < 1 || mN > 12 ||
-				aN < 1900 || aN > Calendar.getInstance().get(Calendar.YEAR))
-		{
-			JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		else if (cmbCuenta.getSelectedIndex() < 0)
-		{
+		} else if (dN < 1 || dN > 31 || mN < 1 || mN > 12 || aN < 1900
+				|| aN > Calendar.getInstance().get(Calendar.YEAR)) {
+			JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} else if (cmbCuenta.getSelectedIndex() < 0) {
 			JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo de cuenta", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
-		}
-		else if (cmbFuente.getSelectedIndex() < 0 || cmbTema.getSelectedIndex() < 0)
-		{
+		} else if (cmbFuente.getSelectedIndex() < 0 || cmbTema.getSelectedIndex() < 0) {
 			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
-		}
-		else 
-		{
-			if (!edicion && Archivos.listarCuentas().contains(dni))
-			{
-				JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			else
-			{
+		} else {
+			if (!edicion && Archivos.listarCuentas().contains(dni)) {
+				JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else {
 				Fecha fechaNacimiento = new Fecha(dN, mN, aN);
 				Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
-				
+
 				int opcion = cmbCuenta.getSelectedIndex();
-				switch (opcion)
-				{
+				switch (opcion) {
 				case 0:
 					// mecánico
 					codigo = true;
@@ -507,24 +476,20 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 					codigo = false;
 					break;
 				}
-				
+
 				String tema = (String) cmbTema.getSelectedItem();
 				String fuente = (String) cmbFuente.getSelectedItem();
-				
+
 				boolean temaOscuro = true;
-				if (tema.equals("Oscuro"))
-				{
+				if (tema.equals("Oscuro")) {
 					temaOscuro = true;
-				}
-				else if (tema.equals("Claro"))
-				{
+				} else if (tema.equals("Claro")) {
 					temaOscuro = false;
 				}
-				
-				Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel,
-						email, fechaNacimiento,
-						direccion, codigo, password, new Ajustes(temaOscuro, fuente)));
-				
+
+				Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel, email, fechaNacimiento, direccion,
+						codigo, password, new Ajustes(temaOscuro, fuente)));
+
 				return true;
 			}
 		}
@@ -534,6 +499,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 	/**
 	 * invocado cuando una accion ocurre sobre los elementos
+	 * 
 	 * @param ae el evento a procesar
 	 * @see actionPerformed
 	 */
@@ -543,20 +509,17 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 		int guardar = JOptionPane.YES_OPTION;
 
-		if (o == btnCancelar)
-		{
+		if (o == btnCancelar) {
 			guardar = Salir.edicion();
 		}
-		
+
 		boolean valido = false;
-		
-		if (guardar == JOptionPane.YES_OPTION)
-		{
+
+		if (guardar == JOptionPane.YES_OPTION) {
 			valido = guardar();
 		}
-		
-		if (guardar == JOptionPane.NO_OPTION || valido)
-		{
+
+		if (guardar == JOptionPane.NO_OPTION || valido) {
 			AdministrarCuentas.actualizarTabla();
 			AdministrarCuentas.botones(true);
 			this.dispose();
@@ -565,39 +528,40 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 	/**
 	 * invocado cuando un componente de texto esta infocado
+	 * 
 	 * @param fg evnto a prosesar
 	 * 
 	 */
 	@Override
-	public void focusGained(FocusEvent fg)
-	{
+	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
 	/**
 	 * Invocado cuando un componente pierde el keyboard focus
+	 * 
 	 * @param fl el evento a procesar
 	 */
 	@Override
-	public void focusLost(FocusEvent fl)
-	{
+	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
+	public void windowClosing(WindowEvent e) {
 		btnCancelar.doClick();
 	}
 
 	/**
 	 * Invocado la primera vez una ventana se ha checho visible
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
@@ -606,7 +570,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	}
 
 	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
+	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param e evento a procesar
 	 */
 	@Override
@@ -615,8 +581,10 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	}
 
 	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
-	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
+	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
+	 * plataformas una minimizada ventana se procesa como el icono especificado en
+	 * la propiedad de siconImage
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
@@ -626,6 +594,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 	/**
 	 * cuando una ventana cambia de minimizado a ventana normal
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
@@ -634,8 +603,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	}
 
 	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa 
-	 * solo un frame o un dialog puede ser ventana activa 
+	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
+	 * un dialog puede ser ventana activa
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
@@ -644,9 +614,10 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	}
 
 	/**
-	 *  Invocado cuando una ventana no es langer la ventana activa
-	 *  solo un Frame o un Dialog puede ser ventana activa
-	 *  @param e el evento a procesar
+	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
+	 * Dialog puede ser ventana activa
+	 * 
+	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {

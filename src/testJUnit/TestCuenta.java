@@ -1,18 +1,12 @@
 package testJUnit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-
 import clases.Ajustes;
 import clases.Cuenta;
 import clases.Direccion;
 import clases.Fecha;
 import funciones.General;
-import navegacion.Inicio;
-
 class TestCuenta {
 
 	private static final Ajustes a = new Ajustes();
@@ -53,13 +47,11 @@ class TestCuenta {
 	// comprueba si devuelve el resultado de iva
 	@Test
 	void testFormatear() {
-		General g = new General();
 		String resultado = "20,20€";
-		String comprobar = g.formatear(20.2);
+		String comprobar = General.formatear(20.2);
 		assertEquals("los valores son iguales", resultado, comprobar);
 	}
 	//comprueba una cuenta pasada al constructor con una cuenta nueva
-	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	void testCuentas() {
 		Cuenta ca = new Cuenta("6rjd93ffvr4", "youssef", "ait", 648394,

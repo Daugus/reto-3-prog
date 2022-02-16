@@ -27,14 +27,14 @@ import navegacion.ListaOrdenes;
 
 /**
  * esta clase difiene la ventana listaado ordenes pendientes
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class ListaPendientes extends JFrame implements ActionListener, WindowListener
-{
+public class ListaPendientes extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
-	
+
 	private JTable tblPendientes;
 
 	private JButton btnVolver;
@@ -43,33 +43,33 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 	ArrayList<Pendiente> alPendientes;
 
 	private static Pendiente ordenPend;
+
 	/**
-	 * construe la ventana de listado ordenes pendientes 
+	 * construe la ventana de listado ordenes pendientes
 	 */
-	public ListaPendientes()
-	{
+	public ListaPendientes() {
 		setResizable(false);
 		setTitle("Lista de Órdenes Pendientes | " + Inicio.cuentaActual.getNombre());
 
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(162, 235, 180, 40);
 		panelPrincipal.add(btnVolver);
-		
+
 		btnCargar = new JButton("Cargar");
 		btnCargar.setBounds(358, 235, 180, 40);
 		panelPrincipal.add(btnCargar);
-		
+
 		// ===== barras de desplazamiento =====
 		JScrollPane scrollPendientes = new JScrollPane();
 		scrollPendientes.setBackground(Color.LIGHT_GRAY);
@@ -82,27 +82,27 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		dtmPendientes.addColumn("Fecha");
 		dtmPendientes.addColumn("Cliente");
 		dtmPendientes.addColumn("Vehículo");
-		
+
 		alPendientes = Archivos.cargarTodosPendientes();
 		alPendientes.sort(Comparator.reverseOrder());
-		for (Pendiente op : alPendientes)
-		{
-			dtmPendientes.addRow(new Object[] {op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula()});
+		for (Pendiente op : alPendientes) {
+			dtmPendientes.addRow(
+					new Object[] { op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula() });
 		}
 
 		// --- asignar ---
-		tblPendientes = new JTable(dtmPendientes)
-		{
+		tblPendientes = new JTable(dtmPendientes) {
 			private static final long serialVersionUID = 1L;
+
 			/**
 			 * 
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * @param row    cuyo valor se va a consultar
+			 * @param column cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
+			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
+			 *         efecto.
 			 */
-			public boolean isCellEditable(int row, int column)
-			{
+			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
@@ -122,7 +122,7 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 		// - JButton -
 		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
-		
+
 		tblPendientes.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblPendientes.setFont(Inicio.fuente);
 
@@ -138,52 +138,44 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
-		
+
 		tblPendientes.setForeground(Inicio.colorFuenteObjetos);
 
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
 	}
+
 	/**
 	 * 
 	 * invocado cuando una accion ocurre sobre los elementos
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 
-		if (o == btnCargar)
-		{
+		if (o == btnCargar) {
 			int row = tblPendientes.getSelectedRow();
-			if (row >= 0)
-			{
-				try
-				{
+			if (row >= 0) {
+				try {
 					ordenPend = alPendientes.get(row);
-					
+
 					GenerarFactura gf = new GenerarFactura();
 					gf.cargarDatos(ordenPend);
-					
+
 					gf.setVisible(true);
-					
+
 					this.dispose();
-				}
-				catch (NullPointerException npe)
-				{
-					JOptionPane.showMessageDialog (null, "La Orden Pendiente seleccionada no existe", "ERROR",
+				} catch (NullPointerException npe) {
+					JOptionPane.showMessageDialog(null, "La Orden Pendiente seleccionada no existe", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(this, (String) "No hay ninguna orden seleccionada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		else
-		{
+		} else {
 			// btnVolver
 			ListaOrdenes lo = new ListaOrdenes();
 			lo.setVisible(true);
@@ -191,61 +183,76 @@ public class ListaPendientes extends JFrame implements ActionListener, WindowLis
 			this.dispose();
 		}
 	}
+
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
+	public void windowClosing(WindowEvent e) {
 		Salir.general(this);
 	}
+
 	/**
 	 * Invocado la primera vez una ventana se ha checho visible
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
+	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param e evento a procesar
 	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
-	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
+	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
+	 * plataformas una minimizada ventana se procesa como el icono especificado en
+	 * la propiedad de siconImage
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
 	 * cuando una ventana cambia de minimizado a ventana normal
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa 
-	 * solo un frame o un dialog puede ser ventana activa 
+	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
+	 * un dialog puede ser ventana activa
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 *  Invocado cuando una ventana no es langer la ventana activa
-	 *  solo un Frame o un Dialog puede ser ventana activa
-	 *  @param e el evento a procesar
+	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
+	 * Dialog puede ser ventana activa
+	 * 
+	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {

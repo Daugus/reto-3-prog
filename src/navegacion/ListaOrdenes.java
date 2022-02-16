@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import funciones.Salir;
 import ordenes.ListaFacturas;
 import ordenes.ListaPendientes;
@@ -22,8 +21,7 @@ import ordenes.ListaPrimarias;
  * @author Grupo 2
  *
  */
-public class ListaOrdenes extends JFrame implements ActionListener, WindowListener
-{
+public class ListaOrdenes extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
 	private JButton btnPrimarias;
@@ -32,32 +30,32 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	private JButton btnVolver;
 
 	/**
-	 * constructor por defecto 
+	 * constructor por defecto
 	 */
 	public ListaOrdenes() {
-	
+
 		setResizable(false);
 		setTitle("Órdenes | " + Inicio.cuentaActual.getNombre());
-		
+
 		setBounds(100, 100, 330, 295);
 		getContentPane().setPreferredSize(new Dimension(330, 295));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+
 		btnPrimarias = new JButton("Órdenes primarias");
 		btnPrimarias.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnPrimarias);
-		
+
 		btnPendientes = new JButton("Órdenes pendientes");
 		btnPendientes.setBounds(50, 85, 230, 60);
 		panelPrincipal.add(btnPendientes);
-		
+
 		btnFacturas = new JButton("Facturas aprobadas");
 		btnFacturas.setBounds(50, 160, 230, 60);
 		panelPrincipal.add(btnFacturas);
@@ -65,7 +63,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(10, 245, 180, 40);
 		panelPrincipal.add(btnVolver);
-		
+
 		// ===== Listeners =====
 		// --- Window ---
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -97,107 +95,112 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnFacturas.setForeground(Inicio.colorFuenteObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 	}
+
 	/**
 	 * invocado cuando una accion ocurre sobre los elementos
+	 * 
 	 * @param e el evento a procesar
 	 * @see ActionListener
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		
-		if (o == btnVolver)
-		{
-			if (Inicio.cuentaActual.esMecanico())
-			{
+
+		if (o == btnVolver) {
+			if (Inicio.cuentaActual.esMecanico()) {
 				MenuMec mm = new MenuMec();
 				mm.setVisible(true);
-			}
-			else
-			{
+			} else {
 				MenuAtc ma = new MenuAtc();
 				ma.setVisible(true);
 			}
-			
+
 			this.dispose();
-		}
-		else
-		{
+		} else {
 			JFrame lista = null;
-			if (o == btnPrimarias)
-			{
+			if (o == btnPrimarias) {
 				lista = new ListaPrimarias();
-			}
-			else if (o == btnPendientes)
-			{
+			} else if (o == btnPendientes) {
 				lista = new ListaPendientes();
-			}
-			else if (o == btnFacturas)
-			{
+			} else if (o == btnFacturas) {
 				lista = new ListaFacturas();
 			}
 
 			lista.setVisible(true);
-			
+
 			this.dispose();
 		}
 	}
+
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
+	public void windowClosing(WindowEvent e) {
 		Salir.general(this);
 	}
+
 	/**
 	 * Invocado la primera vez una ventana se ha hecho visible
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
+	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param e evento a procesar
 	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
-	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
+	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
+	 * plataformas una minimizada ventana se procesa como el icono especificado en
+	 * la propiedad de siconImage
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
 	 * cuando una ventana cambia de minimizado a ventana normal
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa 
-	 * solo un frame o un dialog puede ser ventana activa 
+	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
+	 * un dialog puede ser ventana activa
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 *  Invocado cuando una ventana no es langer la ventana activa
-	 *  solo un Frame o un Dialog puede ser ventana activa
-	 *  @param e el evento a procesar
+	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
+	 * Dialog puede ser ventana activa
+	 * 
+	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {

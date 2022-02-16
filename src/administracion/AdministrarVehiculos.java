@@ -29,16 +29,16 @@ import ordenes.CrearPrimaria;
 /**
  * 
  * administra los vehiculos del programa
+ * 
  * @author Grupo 2
  * @version 2.0.1
  * 
  */
-public class AdministrarVehiculos extends JFrame implements ActionListener, WindowListener
-{
+public class AdministrarVehiculos extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
-	
+
 	public static JTable tblVehiculos;
 
 	private static JButton btnVolver;
@@ -46,22 +46,21 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	private static JButton btnAgregar;
 
 	private Vehiculo vehiculo;
-	
+
 	private static boolean bloqueado;
 
 	/**
 	 * carga los elementos de la ventana
 	 */
-	public AdministrarVehiculos()
-	{
+	public AdministrarVehiculos() {
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
 		setTitle("Administrar vehículos | " + Inicio.cuentaActual.getNombre());
-		
+
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
@@ -69,15 +68,15 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(260, 310, 180, 40);
 		panelPrincipal.add(btnVolver);
-		
+
 		btnAgregar = new JButton("Agregar vehículo");
 		btnAgregar.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnAgregar);
-		
+
 		btnEditar = new JButton("Editar vehículo");
 		btnEditar.setBounds(420, 10, 230, 60);
 		panelPrincipal.add(btnEditar);
@@ -86,26 +85,26 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		JScrollPane scrollVehiculos = new JScrollPane();
 		scrollVehiculos.setBounds(50, 85, 600, 200);
 		panelPrincipal.add(scrollVehiculos);
-		
+
 		// ===== modelos =====
 		// --- crear ---
 		DefaultTableModel dtmVehiculos = new DefaultTableModel();
 		dtmVehiculos.addColumn("Matrícula");
 		dtmVehiculos.addColumn("Propietario");
 		dtmVehiculos.addColumn("Modelo");
-		
+
 		// --- asignar ---
-		tblVehiculos = new JTable(dtmVehiculos)
-		{
+		tblVehiculos = new JTable(dtmVehiculos) {
 			private static final long serialVersionUID = 1L;
+
 			/**
 			 * devuelve {@code true} si la celda en la fila y la columna es editable
-			 * @param row fila de la celda a editar
+			 * 
+			 * @param row    fila de la celda a editar
 			 * @param column columna de la celda a editar
 			 * @return siempre devuelve {@code false}
 			 */
-			public boolean isCellEditable(int row, int column)
-			{
+			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
@@ -114,7 +113,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		tblVehiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblVehiculos.getTableHeader().setBackground(Inicio.colorFondoObjetos);
 		tblVehiculos.getTableHeader().setFont(Inicio.fuenteObjetos);
-		
+
 		actualizarTabla();
 
 		scrollVehiculos.setViewportView(tblVehiculos);
@@ -128,7 +127,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		btnVolver.addActionListener(this);
 		btnAgregar.addActionListener(this);
 		btnEditar.addActionListener(this);
-		
+
 		// ===== ajustes de usuario =====
 		// --- fuente ---
 		tblVehiculos.setFont(Inicio.fuente);
@@ -136,7 +135,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnAgregar.setFont(Inicio.fuenteObjetos);
 		btnEditar.setFont(Inicio.fuenteObjetos);
-		
+
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
@@ -146,7 +145,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnAgregar.setBackground(Inicio.colorFondoObjetos);
 		btnEditar.setBackground(Inicio.colorFondoObjetos);
-		
+
 		scrollVehiculos.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
@@ -159,109 +158,100 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 	/**
 	 * carga los datos de los vehículos y actualiza la tabla
+	 * 
 	 * @see Archivos.cargarTodosVehiculos
 	 */
-	public static void actualizarTabla()
-	{
+	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblVehiculos.getModel();
-		
+
 		dtm.setRowCount(0);
-		
+
 		ArrayList<Vehiculo> vehiculos = Archivos.cargarTodosVehiculos();
-		for (Vehiculo v : vehiculos)
-		{
-			dtm.addRow(new Object[] {v.getMatricula(), v.getPropietario(), v.getMarca() + " " + v.getModelo()});
+		for (Vehiculo v : vehiculos) {
+			dtm.addRow(new Object[] { v.getMatricula(), v.getPropietario(), v.getMarca() + " " + v.getModelo() });
 		}
-		
+
 		Tablas.ajustarColumnas(tblVehiculos);
 	}
 
 	/**
 	 * invocado cuando una acción ocurre sobre los elementos
+	 * 
 	 * @param ae el evento a procesar
 	 */
-	public static void botones(boolean estado)
-	{
+	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
 		btnVolver.setEnabled(estado);
-		
+
 		bloqueado = !estado;
 	}
 
 	/**
 	 * invocado cuando una acción ocurre sobre los elementos
+	 * 
 	 * @param ae el evento a procesar
 	 */
 	@Override
-	public void actionPerformed(ActionEvent ae)
-	{
+	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
-		
-		if (o == btnAgregar)
-		{
+
+		if (o == btnAgregar) {
 			botones(false);
 
 			EditarVehiculo ev = new EditarVehiculo();
 			ev.setVisible(true);
-		}
-		else if (o == btnEditar)
-		{
+		} else if (o == btnEditar) {
 			int row = tblVehiculos.getSelectedRow();
-			if (row >= 0)
-			{
+			if (row >= 0) {
 				vehiculo = Archivos.cargarVehiculo((String) tblVehiculos.getValueAt(row, 0));
 
 				botones(false);
 
 				EditarVehiculo ev = new EditarVehiculo();
 				ev.modoEdicion(vehiculo);
-			
+
 				ev.setVisible(true);
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(this, (String) "No hay ningún vehículo seleccionado", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		else if (o == btnVolver)
-		{
+		} else if (o == btnVolver) {
 			CrearPrimaria cop = new CrearPrimaria();
 			cop.setVisible(true);
-			
+
 			this.dispose();
-		} 
+		}
 	}
-	
+
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
-		if (bloqueado)
-		{
+	public void windowClosing(WindowEvent e) {
+		if (bloqueado) {
 			Salir.error();
-		}
-		else
-		{
+		} else {
 			Salir.general(this);
 		}
 	}
 
 	/**
 	 * invocado la primera vez la ventana se ha hecho visible
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
 	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
-	
+
 	/**
-	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la ventana
+	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param we evento a procesar
 	 */
 	@Override
@@ -271,6 +261,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 	/**
 	 * invocado cuando la ventana se minimiza
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
@@ -280,6 +271,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 	/**
 	 * invocado cuando la ventana se maximiza
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
@@ -288,7 +280,8 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	}
 
 	/**
-	 * invocado cuando la ventana se convierte en la ventana activa 
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
@@ -298,7 +291,8 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 	/**
 	 * invocado cuando la ventana deja de ser la ventana activa
-	 *  @param we el evento a procesar
+	 * 
+	 * @param we el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent we) {

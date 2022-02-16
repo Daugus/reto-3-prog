@@ -1,18 +1,17 @@
 package testJUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import clases.Fecha;
 import clases.Vehiculo;
 
 class TestVehiculo {
 
-	@BeforeEach
-	void setUp() throws Exception {
-		
-	}
+	private static final Fecha f=new Fecha();
+//	@BeforeEach
+//	void setUp() throws Exception {
+//		
+//	}
 	//comprueba vehiculo con un nuevo vehiculo
 	@Test
 	void testVehiculoVehiculo() {
@@ -37,15 +36,12 @@ class TestVehiculo {
 	private void assertEquals(String string, Vehiculo vhCl, Vehiculo vehiculo, boolean b) {
 			
 	}
-//	implementar futuro
-//	@Test
-//	void testVehiculoStringString() {
-//		
-//	}
-//
-//	@Test
-//	void testVehiculoEnBlanco() {
-//	
-//	}
-
+	//compara vehiculo pasado al constructor con un vehiculo nuevo
+	@Test
+	void testVehiculoStringString() {
+		Vehiculo v=new Vehiculo("3452KJH","1230481021","93840328G","TESLA"
+				,"s3","rojo",203,10293,f,"ELECTRICO");
+		Vehiculo veA=new Vehiculo();
+		assertEquals("compara dos vehiculos",v.compareTo(veA)>1,true);
+	}
 }

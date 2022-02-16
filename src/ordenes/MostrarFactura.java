@@ -31,11 +31,11 @@ import navegacion.Inicio;
 
 /**
  * esta clase difiene la ventana MostrarFactura
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class MostrarFactura extends JFrame implements ActionListener, WindowListener
-{
+public class MostrarFactura extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -47,29 +47,29 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 	private JTable tblReparaciones;
 	private JTable tblMateriales;
 	private JTable tblTotal;
-	
+
 	private Factura factura;
 	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
+
 	/**
 	 * constructor que carga la ventana MostrarFactura
 	 */
-	public MostrarFactura()
-	{
+	public MostrarFactura() {
 		setResizable(false);
 		setTitle("Generar factura | " + Inicio.cuentaActual.getNombre());
-		
+
 		setBounds(100, 100, 850, 520);
 		getContentPane().setPreferredSize(new Dimension(850, 520));
 		pack();
-		
+
 		setLocationRelativeTo(null);
-		
+
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-	
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(10, 470, 180, 40);
 		panelPrincipal.add(btnVolver);
@@ -94,33 +94,34 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		DefaultTableModel dtmVehiculo = new DefaultTableModel();
 		dtmVehiculo.addColumn("");
 		dtmVehiculo.addColumn("");
-		
+
 		DefaultTableModel dtmReparaciones = new DefaultTableModel();
 		dtmReparaciones.addColumn("Descripción");
 		dtmReparaciones.addColumn("Horas");
 		dtmReparaciones.addColumn("Mano de obra");
 		dtmReparaciones.addColumn("Coste");
-		
+
 		DefaultTableModel dtmMateriales = new DefaultTableModel();
 		dtmMateriales.addColumn("Nombre");
 		dtmMateriales.addColumn("Precio");
 		dtmMateriales.addColumn("Cantidad");
 		dtmMateriales.addColumn("Coste");
-		
+
 		DefaultTableModel dtmTotal = new DefaultTableModel();
 		dtmTotal.addColumn("");
 		dtmTotal.addColumn("");
-		
+
 		// --- asignar ---
-		tblCliente = new JTable(dtmCliente)
-		{
+		tblCliente = new JTable(dtmCliente) {
 			private static final long serialVersionUID = -3909141556237115067L;
+
 			/**
 			 * 
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * @param row    cuyo valor se va a consultar
+			 * @param column cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
+			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
+			 *         efecto.
 			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -133,15 +134,16 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelPrincipal.add(tblCliente);
 
-		tblVehiculo = new JTable(dtmVehiculo)
-		{
+		tblVehiculo = new JTable(dtmVehiculo) {
 			private static final long serialVersionUID = -3909141556237115067L;
+
 			/**
 			 * 
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * @param row    cuyo valor se va a consultar
+			 * @param column cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
+			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
+			 *         efecto.
 			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -156,12 +158,14 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		tblReparaciones = new JTable(dtmReparaciones) {
 			private static final long serialVersionUID = -3909141556237115067L;
+
 			/**
 			 * 
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * @param row    cuyo valor se va a consultar
+			 * @param column cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
+			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
+			 *         efecto.
 			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -177,12 +181,14 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -3909141556237115067L;
+
 			/**
 			 * 
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * @param row    cuyo valor se va a consultar
+			 * @param column cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
+			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
+			 *         efecto.
 			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -198,12 +204,14 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		tblTotal = new JTable(dtmTotal) {
 			private static final long serialVersionUID = 1L;
+
 			/**
 			 * 
-			 * @param row  cuyo valor se va a consultar
-			 * @param column  cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable. De lo contrario,
-			 *  invocar setValueAt en la celda no tendrá ningún efecto.
+			 * @param row    cuyo valor se va a consultar
+			 * @param column cuyo valor se va a consultar
+			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
+			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
+			 *         efecto.
 			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -227,17 +235,17 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		// ===== ajustes de usuario =====
 		// --- fuente y color ---
 		panelPrincipal.setBackground(Inicio.colorFondo);
-		
+
 		tblReparaciones.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblReparaciones.getTableHeader().setBackground(Inicio.colorFondoObjetos);
-		
+
 		tblMateriales.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblMateriales.getTableHeader().setBackground(Inicio.colorFondoObjetos);
 
 		tblReparaciones.setFont(Inicio.fuente);
 		tblReparaciones.setBackground(Inicio.colorFondoObjetos);
 		tblReparaciones.setForeground(Inicio.colorFuenteObjetos);
-		
+
 		tblMateriales.setFont(Inicio.fuente);
 		tblMateriales.setBackground(Inicio.colorFondoObjetos);
 		tblMateriales.setForeground(Inicio.colorFuenteObjetos);
@@ -245,10 +253,10 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
-		
+
 		scrollReparaciones.setBackground(Inicio.colorFondoObjetos);
 		scrollMateriales.setBackground(Inicio.colorFondoObjetos);
-		
+
 		// --- tablas verticales ---
 		tblCliente.setFont(Inicio.fuente);
 		tblVehiculo.setFont(Inicio.fuente);
@@ -262,26 +270,27 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 		tblTotal.setForeground(Inicio.colorFuenteObjetos);
 	}
+
 	/**
 	 * carga datos de una Factura pasado como parametro
+	 * 
 	 * @param f objeto Factura
 	 * @see Factura
 	 */
-	public void cargarDatos(Factura f)
-	{
+	public void cargarDatos(Factura f) {
 		factura = new Factura(f);
 
 		// ===== datos cliente =====
 		// --- cargar cliente ---
 		Cliente c = factura.getPropietario();
-				
+
 		// --- escribir cliente ---
 		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
 		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
 
 		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
 		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
-		
+
 		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
 		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
 
@@ -289,7 +298,7 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
 
 		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
-		
+
 		// ===== datos vehículo =====
 		// --- cargar vehículo ---
 		Vehiculo v = factura.getVehiculo();
@@ -310,114 +319,129 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
 
 		// ===== datos reparaciones =====
-		// --- cargar reparaciones  ---
+		// --- cargar reparaciones ---
 		alReparaciones = factura.getReparaciones();
-		
+
 		// --- escribir reparaciones y materiales usados ---
 		alReparaciones.sort(Comparator.naturalOrder());
 
 		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 
-		for (Reparacion r : alReparaciones)
-		{
-			dtmReparaciones.addRow(new Object[] {r.getDescripcion(), r.getHoras(), General.formatear(r.getManoObra()), General.formatear(r.getHoras() * r.getManoObra())});
+		for (Reparacion r : alReparaciones) {
+			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatear(r.getManoObra()),
+					General.formatear(r.getHoras() * r.getManoObra()) });
 			alMateriales.addAll(r.getMaterialesUsados());
 		}
-		
+
 		Tablas.ajustarColumnas(tblReparaciones);
-		
+
 		alMateriales.sort(Comparator.naturalOrder());
 
 		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
-		
-		for (MaterialUsado mu : alMateriales)
-		{
-			dtmMateriales.addRow(new Object[] {mu.getNombre(), General.formatear(mu.getPrecio()), mu.getCantidad(), General.formatear(mu.getPrecio() * mu.getCantidad())});
+
+		for (MaterialUsado mu : alMateriales) {
+			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatear(mu.getPrecio()), mu.getCantidad(),
+					General.formatear(mu.getPrecio() * mu.getCantidad()) });
 		}
-		
+
 		// ===== total =====
 		DefaultTableModel dtmTotal = (DefaultTableModel) tblTotal.getModel();
-		dtmTotal.addRow(new Object[] {"Total reparaciones", General.formatear(factura.getCosteReparaciones())});
-		dtmTotal.addRow(new Object[] {"Total materiales",   General.formatear(factura.getCosteMateriales())});
-		dtmTotal.addRow(new Object[] {"Subtotal",           General.formatear(factura.getSubtotal())});
-		dtmTotal.addRow(new Object[] {"IVA (21%)",          General.formatear(factura.getIva())});
-		dtmTotal.addRow(new Object[] {"Total",              General.formatear(factura.getTotal())});
-				
+		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatear(factura.getCosteReparaciones()) });
+		dtmTotal.addRow(new Object[] { "Total materiales", General.formatear(factura.getCosteMateriales()) });
+		dtmTotal.addRow(new Object[] { "Subtotal", General.formatear(factura.getSubtotal()) });
+		dtmTotal.addRow(new Object[] { "IVA (21%)", General.formatear(factura.getIva()) });
+		dtmTotal.addRow(new Object[] { "Total", General.formatear(factura.getTotal()) });
+
 		// ===== estilizar tablas =====
 		Tablas.vertical(tblCliente);
 		Tablas.vertical(tblVehiculo);
 		Tablas.vertical(tblTotal);
 	}
+
 	/**
 	 * 
 	 * invocado cuando una accion ocurre sobre los elementos
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		ListaFacturas lf = new ListaFacturas();
 		lf.setVisible(true);
-		
+
 		this.dispose();
 	}
-	
+
 	// ===== Overrides =======
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
+	public void windowClosing(WindowEvent e) {
 		Salir.general(this);
 	}
+
 	/**
 	 * Invocado la primera vez una ventana se ha hecho visible
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
+	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param e evento a procesar
 	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
-	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
+	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
+	 * plataformas una minimizada ventana se procesa como el icono especificado en
+	 * la propiedad de siconImage
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
 	 * cuando una ventana cambia de minimizado a ventana normal
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa 
-	 * solo un frame o un dialog puede ser ventana activa 
+	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
+	 * un dialog puede ser ventana activa
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 *  Invocado cuando una ventana no es langer la ventana activa
-	 *  solo un Frame o un Dialog puede ser ventana activa
-	 *  @param e el evento a procesar
+	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
+	 * Dialog puede ser ventana activa
+	 * 
+	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {

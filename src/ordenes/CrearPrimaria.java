@@ -30,11 +30,11 @@ import navegacion.MenuAtc;
 
 /**
  * esta clase difiene la ventana CrearPrimaria
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class CrearPrimaria extends JFrame implements ActionListener, WindowListener
-{
+public class CrearPrimaria extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -51,86 +51,86 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 
 	private JButton btnVehiculos;
 	private JButton btnClientes;
-	
+
 	private JButton btnVolver;
 	private JButton btnCrearOrden;
-	
+
 	private JTextArea txtComentario;
-	
+
 	private Cliente cliente;
 	private Vehiculo vehiculo;
+
 	/**
 	 * constructor que carga la ventana CrearPrimaria
 	 */
-	public CrearPrimaria()
-	{
+	public CrearPrimaria() {
 		setResizable(false);
 		setTitle("Crear orden de trabajo | " + Inicio.cuentaActual.getNombre());
-		
+
 		setBounds(100, 100, 600, 355);
 		getContentPane().setPreferredSize(new Dimension(600, 355));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+
 		lblComentario = new JLabel("Agregar comentario para la orden:");
 		lblComentario.setBounds(50, 145, 300, 35);
 		panelPrincipal.add(lblComentario);
-		
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(112, 305, 180, 40);
 		panelPrincipal.add(btnVolver);
-		
+
 		btnCrearOrden = new JButton("Crear orden primaria");
 		btnCrearOrden.setBounds(308, 305, 180, 40);
 		panelPrincipal.add(btnCrearOrden);
-		
+
 		txtComentario = new JTextArea();
 		txtComentario.setLineWrap(true);
-		
+
 		lblVehiculo = new JLabel("Vehículo:");
 		lblVehiculo.setBounds(50, 97, 100, 36);
 		panelPrincipal.add(lblVehiculo);
-		
+
 		cmbVehiculos = new JComboBox<String>();
 		cmbVehiculos.setBounds(150, 97, 150, 36);
 		panelPrincipal.add(cmbVehiculos);
-		
+
 		btnVehiculos = new JButton("Administrar vehiculos");
 		btnVehiculos.setBounds(320, 85, 230, 60);
 		panelPrincipal.add(btnVehiculos);
-		
+
 		lblCliente = new JLabel("Cliente:");
 		lblCliente.setBounds(50, 22, 100, 36);
 		panelPrincipal.add(lblCliente);
-		
+
 		cmbClientes = new JComboBox<String>();
 		cmbClientes.setBounds(150, 22, 150, 36);
 		panelPrincipal.add(cmbClientes);
-		
+
 		btnClientes = new JButton("Administrar clientes");
 		btnClientes.setBounds(320, 10, 230, 60);
 		panelPrincipal.add(btnClientes);
-		
+
 		// ===== barras de desplazamiento =====
 		JScrollPane barraScroll = new JScrollPane();
 		barraScroll.setBounds(50, 180, 500, 100);
 		panelPrincipal.add(barraScroll);
 
 		barraScroll.setViewportView(txtComentario);
-		
+
 		// ===== modelos =====
 		// --- crear ---
 		dcbmClientes = new DefaultComboBoxModel<String>();
 		dcbmClientes.addAll(Archivos.listarClientes());
-		
+
 		dcbmVehiculos = new DefaultComboBoxModel<String>();
-		
+
 		// --- asignar ---
 		cmbClientes.setModel(dcbmClientes);
 		cmbVehiculos.setModel(dcbmVehiculos);
@@ -139,10 +139,10 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		// --- Window ---
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		
+
 		// --- Action ---
 		cmbClientes.addActionListener(this);
-		
+
 		btnVolver.addActionListener(this);
 
 		btnVehiculos.addActionListener(this);
@@ -195,148 +195,146 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCrearOrden.setForeground(Inicio.colorFuenteObjetos);
 	}
+
 	/**
 	 * invocado cuando una accion ocurre sobre los elementos
+	 * 
 	 * @param ae el evento a procesar
 	 * @see actionPerformed
 	 */
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 
-		if (o == cmbClientes && cmbClientes.getSelectedIndex() >= 0)
-		{
+		if (o == cmbClientes && cmbClientes.getSelectedIndex() >= 0) {
 			dcbmVehiculos.removeAllElements();
 			cliente = Archivos.cargarCliente((String) cmbClientes.getSelectedItem());
 			dcbmVehiculos.addAll(cliente.getVehiculos());
-		}
-		else if (o == btnClientes)
-		{
+		} else if (o == btnClientes) {
 			AdministrarClientes ac = new AdministrarClientes();
 			ac.setVisible(true);
-			
+
 			this.dispose();
-		}
-		else if (o == btnVehiculos)
-		{
+		} else if (o == btnVehiculos) {
 			AdministrarVehiculos av = new AdministrarVehiculos();
 			av.setVisible(true);
 
 			this.dispose();
-		}
-		else if (o == btnVolver)
-		{
+		} else if (o == btnVolver) {
 			MenuAtc ma = new MenuAtc();
 			ma.setVisible(true);
 
 			this.dispose();
-		}
-		else if (o == btnCrearOrden)
-		{
-		    // --- cliente ---
-			if (cmbClientes.getSelectedIndex() >= 0)
-			{
-		    	String dni = (String) cmbClientes.getSelectedItem();
-		    	cliente = Archivos.cargarCliente(dni);
+		} else if (o == btnCrearOrden) {
+			// --- cliente ---
+			if (cmbClientes.getSelectedIndex() >= 0) {
+				String dni = (String) cmbClientes.getSelectedItem();
+				cliente = Archivos.cargarCliente(dni);
 
-		    	// --- vehículo ---
-		    	if (cmbVehiculos.getSelectedIndex() >= 0)
-		    	{
-		    		String matricula = (String) cmbVehiculos.getSelectedItem();
-		    		vehiculo = Archivos.cargarVehiculo(matricula);
+				// --- vehículo ---
+				if (cmbVehiculos.getSelectedIndex() >= 0) {
+					String matricula = (String) cmbVehiculos.getSelectedItem();
+					vehiculo = Archivos.cargarVehiculo(matricula);
 
-		    		if (!vehiculo.getBastidor().equals(""))
-		    		{
-		    			// --- orden primaria ---
-		    			String comentarios = txtComentario.getText();
-		    			
-		    			cmbClientes.setSelectedIndex(-1);
-		    			cmbVehiculos.setSelectedIndex(-1);
-		    			txtComentario.setText("");
-		    			
-		    			Archivos.guardarPrimaria(new Primaria(comentarios, cliente, vehiculo, Inicio.cuentaActual));
-		    			
-		    			JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
-		    					JOptionPane.INFORMATION_MESSAGE);
-		    		}
-		    		else
-		    		{
-						JOptionPane.showMessageDialog (null, "El vehículo seleccionado no tiene la información necesaria", "ERROR",
+					if (!vehiculo.getBastidor().equals("")) {
+						// --- orden primaria ---
+						String comentarios = txtComentario.getText();
+
+						cmbClientes.setSelectedIndex(-1);
+						cmbVehiculos.setSelectedIndex(-1);
+						txtComentario.setText("");
+
+						Archivos.guardarPrimaria(new Primaria(comentarios, cliente, vehiculo, Inicio.cuentaActual));
+
+						JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"El vehículo seleccionado no tiene la información necesaria", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
-		    		}
-		    	}
-		    	else
-		    	{
-		    		JOptionPane.showMessageDialog (null, "Por favor seleccione un vehículo", "ERROR",
-		    				JOptionPane.ERROR_MESSAGE);
-		    		Log.error("No se ha seleccionado ningun vehiculo");
-		    	}
-			}
-			else
-			{
-				JOptionPane.showMessageDialog (null, "Por favor seleccione un cliente", "ERROR",
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Por favor seleccione un vehículo", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+					Log.error("No se ha seleccionado ningun vehiculo");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Por favor seleccione un cliente", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 				Log.error("No se ha seleccionado ningun cliente");
 			}
 
 		}
 	}
+
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
 	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
+	public void windowClosing(WindowEvent e) {
 		Salir.general(this);
 	}
+
 	/**
 	 * Invocado la primera vez una ventana se ha hecho visible
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la ventana
+	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param e evento a procesar
 	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias plataformas
-	 * una minimizada ventana se procesa como el icono especificado en la propiedad de siconImage
+	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
+	 * plataformas una minimizada ventana se procesa como el icono especificado en
+	 * la propiedad de siconImage
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
 	 * cuando una ventana cambia de minimizado a ventana normal
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa 
-	 * solo un frame o un dialog puede ser ventana activa 
+	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
+	 * un dialog puede ser ventana activa
+	 * 
 	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
+
 	/**
-	 *  Invocado cuando una ventana no es langer la ventana activa
-	 *  solo un Frame o un Dialog puede ser ventana activa
-	 *  @param e el evento a procesar
+	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
+	 * Dialog puede ser ventana activa
+	 * 
+	 * @param e el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {

@@ -8,72 +8,68 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import navegacion.Inicio;
+
 /**
- * esta clase difiene la forma de crear las tablas 
+ * esta clase difiene la forma de crear las tablas
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class Tablas
-{
+public class Tablas {
 
 	/**
 	 * cambiar tamaño de columnas según su contenido
+	 * 
 	 * @param tabla objeto tabla a modificar
 	 * @see TableColumnModel
 	 */
-	public static void ajustarColumnas(JTable tabla)
-	{
-	    TableColumnModel tcm = tabla.getColumnModel();
-	    	
-	    for (int columna = 0; columna < tabla.getColumnCount(); columna++)
-	    {
-	        int ancho = 15;
+	public static void ajustarColumnas(JTable tabla) {
+		TableColumnModel tcm = tabla.getColumnModel();
 
-	        for (int row = 0; row < tabla.getRowCount(); row++)
-	        {
-	            TableCellRenderer renderer = tabla.getCellRenderer(row, columna);
+		for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+			int ancho = 15;
 
-	            Component comp = tabla.prepareRenderer(renderer, row, columna);
+			for (int row = 0; row < tabla.getRowCount(); row++) {
+				TableCellRenderer renderer = tabla.getCellRenderer(row, columna);
 
-	            ancho = Math.max(comp.getPreferredSize().width + 1, ancho);
-	        }
+				Component comp = tabla.prepareRenderer(renderer, row, columna);
 
-	        if (ancho > 300)
-	        {
-	            ancho = 300;
-	        }
+				ancho = Math.max(comp.getPreferredSize().width + 1, ancho);
+			}
 
-	        tcm.getColumn(columna).setPreferredWidth(ancho);
-	    }
+			if (ancho > 300) {
+				ancho = 300;
+			}
+
+			tcm.getColumn(columna).setPreferredWidth(ancho);
+		}
 	}
-	
-	
+
 	/**
 	 * estilizar tabla vertical
+	 * 
 	 * @param tbl objeto tabla a modificar
 	 * @see Component
 	 */
-	public static void vertical(JTable tbl)
-	{
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer()
-		{
+	public static void vertical(JTable tbl) {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			/**
-			 * @return la tabla 
+			 * @return la tabla
 			 * @see Component
 			 * @return the default table cell renderer
 			 */
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-			{
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 				setFont(Inicio.fuenteObjetos);
-				
+
 				return this;
 			}
 		};
-		
+
 		tbl.getColumnModel().getColumn(0).setCellRenderer(renderer);
 
 		tbl.getColumnModel().getColumn(0).setPreferredWidth(150);

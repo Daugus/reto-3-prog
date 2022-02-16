@@ -7,12 +7,12 @@ import clases.Cuenta;
 import funciones.Archivos;
 
 /**
- * esta clase contine el <b>main</b> para 
+ * esta clase contine el <b>main</b> para
+ * 
  * @author Grupo 2
  * @version 2.0.1
  */
-public class Inicio
-{
+public class Inicio {
 	/**
 	 * Objeto cuenta
 	 */
@@ -41,15 +41,14 @@ public class Inicio
 	 * estabelece valore a color
 	 */
 	public static Color colorFuenteObjetos = Color.BLACK;
-	
+
 	/**
 	 * 
 	 * @param args main que se encarga de arrancar la aplicacion
 	 * @see Login
 	 * 
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		Archivos.crearCarpetas();
 
 		new Login().setVisible(true);

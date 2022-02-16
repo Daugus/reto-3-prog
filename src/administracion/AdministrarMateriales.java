@@ -30,38 +30,37 @@ import navegacion.MenuAtc;
 /**
  * 
  * administra los materiales del programa
+ * 
  * @author Grupo 2
  * @version 2.0.1
  * 
  */
-public class AdministrarMateriales extends JFrame implements ActionListener, WindowListener
-{
+public class AdministrarMateriales extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
-	
+
 	private static JTable tblMateriales;
 	private static JButton btnVolver;
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
 
 	private Material material;
-	
+
 	private static boolean bloqueado;
 
 	/**
 	 * carga los elementos de la ventana
 	 */
-	public AdministrarMateriales()
-	{
+	public AdministrarMateriales() {
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
 		setTitle("Administrar materiales | " + Inicio.cuentaActual.getNombre());
-		
+
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
@@ -73,20 +72,20 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(260, 310, 180, 40);
 		panelPrincipal.add(btnVolver);
-		
+
 		btnAgregar = new JButton("Agregar material");
 		btnAgregar.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnAgregar);
-		
+
 		btnEditar = new JButton("Editar material");
 		btnEditar.setBounds(420, 10, 230, 60);
 		panelPrincipal.add(btnEditar);
-		
+
 		// ===== barras de desplazamiento =====
 		JScrollPane scrollMateriales = new JScrollPane();
 		scrollMateriales.setBounds(50, 85, 600, 200);
 		panelPrincipal.add(scrollMateriales);
-		
+
 		// ===== modelos =====
 		// --- crear ---
 		DefaultTableModel dtmMateriales = new DefaultTableModel();
@@ -94,17 +93,17 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		dtmMateriales.addColumn("Precio");
 
 		// --- asignar ---
-		tblMateriales = new JTable(dtmMateriales)
-		{
+		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -6533314169471135820L;
+
 			/**
 			 * devuelve {@code true} si la celda en la fila y la columna es editable
-			 * @param row fila de la celda a editar
+			 * 
+			 * @param row    fila de la celda a editar
 			 * @param column columna de la celda a editar
 			 * @return siempre devuelve {@code false}
 			 */
-			public boolean isCellEditable(int row, int column)
-			{
+			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
@@ -114,7 +113,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblMateriales.getTableHeader().setBackground(Inicio.colorFondoObjetos);
 		tblMateriales.getTableHeader().setFont(Inicio.fuenteObjetos);
-		
+
 		actualizarTabla();
 
 		scrollMateriales.setViewportView(tblMateriales);
@@ -128,7 +127,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		btnVolver.addActionListener(this);
 		btnAgregar.addActionListener(this);
 		btnEditar.addActionListener(this);
-		
+
 		// ===== ajustes de usuario =====
 		// --- fuente ---
 		tblMateriales.setFont(Inicio.fuente);
@@ -136,7 +135,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnAgregar.setFont(Inicio.fuenteObjetos);
 		btnEditar.setFont(Inicio.fuenteObjetos);
-		
+
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
@@ -159,18 +158,17 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 	/**
 	 * carga los datos de los materiales y actualiza la tabla
+	 * 
 	 * @see Archivos.cargarTodosMateriales
 	 */
-	public static void actualizarTabla()
-	{
+	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblMateriales.getModel();
-		
+
 		dtm.setRowCount(0);
-		
+
 		ArrayList<Material> materiales = Archivos.cargarTodosMateriales();
-		for (Material m : materiales)
-		{
-			dtm.addRow(new Object[] {m.getNombre(), General.formatear(m.getPrecio())});
+		for (Material m : materiales) {
+			dtm.addRow(new Object[] { m.getNombre(), General.formatear(m.getPrecio()) });
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);
@@ -178,90 +176,82 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 	/**
 	 * modifica la visibilidad de botones
+	 * 
 	 * @param estado el estado de los botones
 	 */
-	public static void botones(boolean estado)
-	{
+	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
 		btnVolver.setEnabled(estado);
-		
+
 		bloqueado = !estado;
 	}
 
 	/**
 	 * invocado cuando una acción ocurre sobre los elementos
+	 * 
 	 * @param ae el evento a procesar
 	 */
 	@Override
-	public void actionPerformed(ActionEvent ae)
-	{
+	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
-		
-		if (o == btnAgregar)
-		{
+
+		if (o == btnAgregar) {
 			botones(false);
 
 			EditarMaterial em = new EditarMaterial();
 			em.setVisible(true);
-		}
-		else if (o == btnEditar)
-		{
+		} else if (o == btnEditar) {
 			int row = tblMateriales.getSelectedRow();
-			if (row >= 0)
-			{
+			if (row >= 0) {
 				material = Archivos.cargarMaterial((String) tblMateriales.getValueAt(row, 0));
 
 				botones(false);
 
 				EditarMaterial em = new EditarMaterial();
 				em.modoEdicion(material);
-			
+
 				em.setVisible(true);
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(this, (String) "No hay ningún material seleccionado", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		else if (o == btnVolver)
-		{
+		} else if (o == btnVolver) {
 			MenuAtc ma = new MenuAtc();
 			ma.setVisible(true);
-			
+
 			this.dispose();
-		} 
+		}
 	}
-	
+
 	/**
-	 * invocado cuando el usuario intenta cerrar la ventana 
+	 * invocado cuando el usuario intenta cerrar la ventana
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
-	public void windowClosing(WindowEvent e)
-	{
-		if (bloqueado)
-		{
+	public void windowClosing(WindowEvent e) {
+		if (bloqueado) {
 			Salir.error();
-		}
-		else
-		{
+		} else {
 			Salir.general(this);
 		}
 	}
 
 	/**
 	 * invocado la primera vez la ventana se ha hecho visible
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
 	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
-	
+
 	/**
-	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la ventana
+	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la
+	 * ventana
+	 * 
 	 * @param we evento a procesar
 	 */
 	@Override
@@ -271,6 +261,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 	/**
 	 * invocado cuando la ventana se minimiza
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
@@ -280,6 +271,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 	/**
 	 * invocado cuando la ventana se maximiza
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
@@ -288,7 +280,8 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	}
 
 	/**
-	 * invocado cuando la ventana se convierte en la ventana activa 
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
 	 * @param we el evento a procesar
 	 */
 	@Override
@@ -298,7 +291,8 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 	/**
 	 * invocado cuando la ventana deja de ser la ventana activa
-	 *  @param we el evento a procesar
+	 * 
+	 * @param we el evento a procesar
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent we) {
