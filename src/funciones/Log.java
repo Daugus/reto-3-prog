@@ -16,7 +16,8 @@ import navegacion.Inicio;
  */
 public class Log {
 	// ===== rutas =====
-	private static String raiz = "C:\\RKA\\Logs\\";
+	private static String raiz = "RKA\\Logs\\";
+	//private static String raiz = "C:\\RKA\\Logs\\";
 	private static String error = raiz + "error.log";
 	private static String materiales = raiz + "materiales.log";
 	private static String vehiculos = raiz + "vehiculos.log";
