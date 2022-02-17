@@ -80,7 +80,7 @@ public class Archivos {
 
 			guardarCuenta(new Cuenta("atc", "atc", "atc", 123456789,
 					"atc@rka.com", new Fecha(), new Direccion(),
-					true, "atc", new Ajustes()));
+					false, "atc", new Ajustes()));
 
 			guardarMaterial(new Material("Tornillo", 1.2));
 			guardarMaterial(new Material("Tuerca", 1.5));
