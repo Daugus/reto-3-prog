@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.swing.JOptionPane;
+
 import clases.Ajustes;
 import clases.Cliente;
 import clases.Cuenta;
@@ -32,7 +34,11 @@ import navegacion.Inicio;
  */
 public class Archivos {
 	// ===== rutas =====
-	private static String raiz = "C:\\RKA\\";
+//	private static String raiz = "C:\\RKA\\";
+	private static String raiz = "RKA\\";
+//	private static String raiz = "\\\\SERVERG2\\Compartidas\\RKA\\";
+//	private static String raiz = "Z:\\";
+
 
 	private static String logs = raiz + "Logs\\";
 
@@ -63,10 +69,18 @@ public class Archivos {
 		crearArchivosPrueba();
 	}
 
-	private static void crearArchivosPrueba() {
-		if (new File(cuentas).listFiles().length == 0) {
-			guardarCuenta(new Cuenta(false));
-			guardarCuenta(new Cuenta(true));
+
+	private static void crearArchivosPrueba()
+	{
+		if (new File(cuentas).listFiles().length == 0)
+		{
+			guardarCuenta(new Cuenta("mec", "mec", "mec", 123456789,
+					"mec@rka.com", new Fecha(), new Direccion(),
+					true, "mec", new Ajustes()));
+
+			guardarCuenta(new Cuenta("atc", "atc", "atc", 123456789,
+					"atc@rka.com", new Fecha(), new Direccion(),
+					true, "atc", new Ajustes()));
 
 			guardarMaterial(new Material("Tornillo", 1.2));
 			guardarMaterial(new Material("Tuerca", 1.5));
@@ -82,10 +96,16 @@ public class Archivos {
 			guardarCliente(new Cliente("93477368D", "Aroa", "Cantero Barreiro", 721494366, "aroa_57@gmail.com",
 					new Fecha(30, 6, 1957), new Direccion(44772, "Passeig Horno", 11, 3, "d"), new Fecha(), v));
 
-			guardarVehiculo(new Vehiculo("7878MDH", "3D7MU436138104574", "X6578073G", "Toyota", "Corolla", "Naranja",
-					2000, 3612, new Fecha(2022), "Gasolina"));
-			guardarVehiculo(new Vehiculo("2988BJB", "1FTMX1R69B6928185", "93477368D", "Tesla", "Model S", "Amarillo", 0,
-					66117, new Fecha(2020), "Eléctrico"));
+
+			guardarVehiculo(new Vehiculo("7878MDH", "3D7MU436138104574", "X6578073G",
+					"Toyota", "Corolla", "Naranja", 2000, 3612, new Fecha(2022), "Gasolina"));
+			guardarVehiculo(new Vehiculo("2988BJB", "1FTMX1R69B6928185", "93477368D",
+					"Tesla", "Model S", "Amarillo", 0, 66117, new Fecha(2020), "Eléctrico"));
+
+			JOptionPane.showOptionDialog(null, (String) "Se han creado objetos por defecto para pruebas", "INFO",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+					new Object[] {"OK"}, "OK");
+
 		}
 	}
 
