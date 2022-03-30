@@ -9,6 +9,5 @@
 	<classpathentry kind="lib" path="jar/itextpdf-5.5.13.2.jar"/>
 	<classpathentry kind="lib" path="jar/itextpdf-5.5.13.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="jar/itextpdf-5.5.13.2-sources.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
