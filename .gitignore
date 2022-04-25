@@ -1,7 +1,7 @@
 #archivos internos
 bin/
 doc/
-/.metadata/
+.metadata/
 *.zip
 *.class
-RKA
+RKA/
