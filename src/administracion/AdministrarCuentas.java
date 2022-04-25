@@ -26,14 +26,6 @@ import funciones.Tablas;
 import navegacion.Inicio;
 import navegacion.MenuAtc;
 
-/**
- * 
- * administra las cuentas del programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- * 
- */
 public class AdministrarCuentas extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -98,13 +90,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		tblCuentas = new JTable(dtmCuentas) {
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * devuelve {@code true} si la celda en la fila y la columna es editable
-			 * 
-			 * @param row    fila de la celda a editar
-			 * @param column columna de la celda a editar
-			 * @return siempre devuelve {@code false}
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -158,11 +143,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	/**
-	 * carga los datos de las cuentas y actualiza la tabla
-	 * 
-	 * @see Archivos.cargarTodosCuentas
-	 */
 	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblCuentas.getModel();
 
@@ -176,11 +156,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		Tablas.ajustarColumnas(tblCuentas);
 	}
 
-	/**
-	 * modifica la visibilidad de botones
-	 * 
-	 * @param estado el estado de los botones
-	 */
 	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -189,11 +164,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		bloqueado = !estado;
 	}
 
-	/**
-	 * invocado cuando una acción ocurre sobre los elementos
-	 * 
-	 * @param ae el evento a procesar
-	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
@@ -226,11 +196,6 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		}
 	}
 
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
@@ -240,62 +205,31 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		}
 	}
 
-	/**
-	 * invocado la primera vez la ventana se ha hecho visible
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param we evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se minimiza
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se maximiza
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se convierte en la ventana activa
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana deja de ser la ventana activa
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto

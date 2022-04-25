@@ -3,12 +3,6 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * esta clase difiene direcccion que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Direccion implements Comparable<Direccion>, Serializable {
 	private static final long serialVersionUID = 5402725963046351341L;
 
@@ -33,8 +27,6 @@ public class Direccion implements Comparable<Direccion>, Serializable {
 
 	/**
 	 * constructor copia
-	 * 
-	 * @param other copia del constructor por defecto
 	 */
 	public Direccion(Direccion other) {
 		this.codPostal = other.codPostal;
@@ -46,7 +38,7 @@ public class Direccion implements Comparable<Direccion>, Serializable {
 
 	// --- personalizado ---
 	/**
-	 * si la direccion no comple sierto datos establicidos asigna unos por defecto
+	 * si la direccion no cumple ciertos datos establecidos asigna unos por defecto
 	 * 
 	 * @param cp codigo postal
 	 * @param c  calle
@@ -94,7 +86,7 @@ public class Direccion implements Comparable<Direccion>, Serializable {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return calle, portal, piso, puerta, codPostal
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -103,8 +95,7 @@ public class Direccion implements Comparable<Direccion>, Serializable {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
 	 * @return devuelve un valor hash
 	 */
@@ -114,12 +105,10 @@ public class Direccion implements Comparable<Direccion>, Serializable {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

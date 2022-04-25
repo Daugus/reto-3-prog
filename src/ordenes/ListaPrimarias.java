@@ -26,12 +26,6 @@ import navegacion.Inicio;
 import navegacion.ListaOrdenes;
 import navegacion.MenuMec;
 
-/**
- * esta clase difiene la ventana ListaPrimarias
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class ListaPrimarias extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
@@ -45,9 +39,6 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 
 	private static Primaria ordenPrim;
 
-	/**
-	 * constructor que carga la ventana ListaPrimarias
-	 */
 	public ListaPrimarias() {
 		setResizable(false);
 		setTitle("Lista de Órdenes Primarias | " + Inicio.cuentaActual.getNombre());
@@ -95,14 +86,6 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		tblPrimarias = new JTable(dtmPrimarias) {
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * 
-			 * @param row    cuyo valor se va a consultar
-			 * @param column cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
-			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
-			 *         efecto.
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -146,12 +129,6 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	/**
-	 * 
-	 * invocado cuando una accion ocurre sobre los elementos
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -189,76 +166,36 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		}
 	}
 
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		Salir.general(this);
 	}
 
-	/**
-	 * Invocado la primera vez una ventana se ha hecho visible
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param e evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
-	 * plataformas una minimizada ventana se procesa como el icono especificado en
-	 * la propiedad de siconImage
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * cuando una ventana cambia de minimizado a ventana normal
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
-	 * un dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
-	 * Dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// comportamiento por defecto

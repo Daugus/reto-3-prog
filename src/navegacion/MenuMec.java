@@ -17,12 +17,6 @@ import funciones.Log;
 import funciones.Salir;
 import ordenes.ListaPrimarias;
 
-/**
- * esta clase difiene la ventana de mecanico
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class MenuMec extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -32,9 +26,6 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener {
 	private JButton btnOrdenPrim;
 	private JButton btnCerrarSesion;
 
-	/**
-	 * contiene la ventana de acceso mecanico
-	 */
 	public MenuMec() {
 		setResizable(false);
 		setTitle("Menú mecánico | " + Inicio.cuentaActual.getNombre());
@@ -96,12 +87,6 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener {
 		btnAjustes.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	/**
-	 * invocado cuando una accion ocurre sobre los elementos
-	 * 
-	 * @param ae el evento a procesar
-	 * @see Actionlistener
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -127,76 +112,36 @@ public class MenuMec extends JFrame implements ActionListener, WindowListener {
 		}
 	}
 
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		Salir.general(this);
 	}
 
-	/**
-	 * Invocado la primera vez una ventana se ha hecho visible
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param e evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
-	 * plataformas una minimizada ventana se procesa como el icono especificado en
-	 * la propiedad de siconImage
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * cuando una ventana cambia de minimizado a ventana normal
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
-	 * un dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
-	 * Dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// comportamiento por defecto

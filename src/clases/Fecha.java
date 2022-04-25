@@ -4,12 +4,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
 
-/**
- * esta clase difiene fecha que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Fecha implements Comparable<Fecha>, Serializable {
 	private static final long serialVersionUID = 5402725963046351341L;
 
@@ -29,8 +23,7 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	}
 
 	/**
-	 * 
-	 * @param other copia constructor por defecto
+	 * constructor copia
 	 */
 	public Fecha(Fecha other) {
 		this.day = other.day;
@@ -38,11 +31,6 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 		this.year = other.year;
 	}
 
-	/**
-	 * fecha con dia y mes establicidos por defecto
-	 * 
-	 * @param a se le pasa un año
-	 */
 	public Fecha(int a) {
 		day = 1;
 		month = 1;
@@ -121,7 +109,7 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return dia, mes y año
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -134,10 +122,9 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
-	 * @return devuelve un valor hash
+	 * @return el hash
 	 */
 	@Override
 	public int hashCode() {
@@ -145,12 +132,10 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

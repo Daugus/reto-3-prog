@@ -25,12 +25,6 @@ import navegacion.Inicio;
 import navegacion.MenuAtc;
 import navegacion.MenuMec;
 
-/**
- * esta clase edita color, fuente, tema y aspecto del programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class EditarAjustes extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -38,22 +32,12 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private JLabel lblFuente;
 	private JLabel lblFondo;
-	/**
-	 * propiedad cmbFondo contiene listado de fondos
-	 */
-	public JComboBox<String> cmbFondo;
-	/**
-	 * propiedad cmbFuente contiene listado de fuentes
-	 */
-	public JComboBox<String> cmbFuente;
+	private JComboBox<String> cmbFondo;
+	private JComboBox<String> cmbFuente;
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 
-	/**
-	 * constructor añade los elementos de la ventana
-	 * 
-	 */
 	public EditarAjustes() {
 		setResizable(false);
 		setTitle("Editar ajustes | " + Inicio.cuentaActual.getNombre());
@@ -172,12 +156,6 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		Archivos.cargarAjustes();
 	}
 
-	/**
-	 * invocado cuando una accion ocurre sobre los elementos
-	 * 
-	 * @param ae el evento a procesar
-	 * @see actionPerformed
-	 */
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
 
@@ -204,98 +182,47 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		}
 	}
 
-	/**
-	 * invocado cuando un componente de texto esta infocado
-	 * 
-	 * @param fg evnto a prosesar
-	 * 
-	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
-	/**
-	 * Invocado cuando un componente pierde el keyboard focus
-	 * 
-	 * @param fl el evento a procesar
-	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		btnCancelar.doClick();
 	}
 
-	/**
-	 * Invocado la primera vez una ventana se ha hecho visible
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param e evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
-	 * plataformas una minimizada ventana se procesa como el icono especificado en
-	 * la propiedad de siconImage
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * cuando una ventana cambia de minimizado a ventana normal
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
-	 * un dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
-	 * Dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// comportamiento por defecto

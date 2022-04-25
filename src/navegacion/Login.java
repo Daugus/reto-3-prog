@@ -24,13 +24,6 @@ import clases.Cuenta;
 import funciones.Archivos;
 import funciones.Log;
 
-/**
- * esta clase difiene la ventana de inicio de sesion implementa
- * ActionListener,WindowsListener y FocusListener
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Login extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
@@ -40,9 +33,6 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	private JPasswordField pwdPassword;
 	private JTextField txtDNI;
 
-	/**
-	 * deseño de la ventana de inicio de sesion
-	 */
 	public Login() {
 		Archivos.reiniciarAjustes();
 
@@ -125,12 +115,6 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		btnAcceder.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	/**
-	 * invocado cuando una accion ocurre sobre los elementos
-	 * 
-	 * @param ae el evento a procesar
-	 * @see actionPerformed
-	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		// recoje los datos introducidos
@@ -176,99 +160,48 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		}
 	}
 
-	/**
-	 * invocado cuando un componente de texto esta infocado
-	 * 
-	 * @param fg evnto a prosesar
-	 * 
-	 */
 	@Override
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
-	/**
-	 * Invocado cuando un componente pierde el keyboard focus
-	 * 
-	 * @param fl el evento a procesar
-	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		System.exit(0);
 	}
 
-	/**
-	 * Invocado la primera vez una ventana se ha hecho visible
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param e evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
-	 * plataformas una minimizada ventana se procesa como el icono especificado en
-	 * la propiedad de siconImage
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * cuando una ventana cambia de minimizado a ventana normal
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
-	 * un dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
-	 * Dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// comportamiento por defecto

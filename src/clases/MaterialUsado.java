@@ -2,14 +2,6 @@ package clases;
 
 import java.util.Objects;
 
-/**
- * esta clase administra materialesUsados
- * 
- * @author Grupo 2
- * @version 2.0.1
- *
- */
-
 public class MaterialUsado extends Material {
 	private static final long serialVersionUID = -4881100923692845852L;
 
@@ -27,9 +19,7 @@ public class MaterialUsado extends Material {
 	}
 
 	/**
-	 * material copia
-	 * 
-	 * @param other copia
+	 * constructor copia
 	 */
 	public MaterialUsado(MaterialUsado other) {
 		super(other);
@@ -39,9 +29,9 @@ public class MaterialUsado extends Material {
 
 	// --- personalizados ---
 	/**
-	 * material personalizado con parametros
+	 * material usado personalizado
 	 * 
-	 * @param m material de la clase material
+	 * @param m Material material que va a ser usado
 	 * @param c int cantidad
 	 */
 	public MaterialUsado(Material m, int c) {
@@ -68,7 +58,7 @@ public class MaterialUsado extends Material {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return cantidad
+	 * @return devuelve un valor hash
 	 */
 	@Override
 	public String toString() {
@@ -77,10 +67,9 @@ public class MaterialUsado extends Material {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
-	 * @return <b>resultado</b> un valor hash
+	 * @return devuelve un valor hash
 	 */
 	@Override
 	public int hashCode() {
@@ -91,12 +80,10 @@ public class MaterialUsado extends Material {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

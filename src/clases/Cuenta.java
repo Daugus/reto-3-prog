@@ -2,12 +2,6 @@ package clases;
 
 import java.util.Objects;
 
-/**
- * esta clase difiene cuenta que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Cuenta extends Persona {
 	private static final long serialVersionUID = -1206167340211110010L;
 
@@ -49,8 +43,6 @@ public class Cuenta extends Persona {
 
 	/**
 	 * constructor copia
-	 * 
-	 * @param other copia del constructor por defecto
 	 */
 	public Cuenta(Cuenta other) {
 		super(other);
@@ -120,10 +112,9 @@ public class Cuenta extends Persona {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
-	 * @return devuelve un valor hash
+	 * @return el hash
 	 */
 	@Override
 	public int hashCode() {
@@ -134,13 +125,10 @@ public class Cuenta extends Persona {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @param obj objeto referente con el que desea comparar
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 *
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

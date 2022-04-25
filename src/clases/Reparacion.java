@@ -6,12 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-/**
- * esta clase difiene la reparacion
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Reparacion implements Comparable<Reparacion>, Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
 
@@ -39,9 +33,7 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	}
 
 	/**
-	 * reparacion copia
-	 * 
-	 * @param other copia
+	 * constructor copia
 	 */
 	public Reparacion(Reparacion other) {
 		this.codigo = other.codigo;
@@ -82,8 +74,7 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return codigo, descripcion, horas, manoObra, dni del mecanico y
-	 *         materialUsados
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -93,8 +84,7 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
 	 * @return devuelve un valor hash
 	 */
@@ -104,12 +94,10 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

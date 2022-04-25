@@ -5,12 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-/**
- * esta clase difiene orden primaria
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Primaria implements Comparable<Primaria>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -38,9 +32,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	}
 
 	/**
-	 * orden primaria copia
-	 * 
-	 * @param other copia
+	 * constructor copia
 	 */
 	public Primaria(Primaria other) {
 		this.codigo = other.codigo;
@@ -84,7 +76,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return codigo, comentario, fecha, vehiculo, propietario y dni del empleado
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -94,8 +86,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
 	 * @return devuelve un valor hash
 	 */
@@ -105,12 +96,10 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

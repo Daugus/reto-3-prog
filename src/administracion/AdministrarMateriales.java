@@ -27,14 +27,6 @@ import funciones.Tablas;
 import navegacion.Inicio;
 import navegacion.MenuAtc;
 
-/**
- * 
- * administra los materiales del programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- * 
- */
 public class AdministrarMateriales extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -96,13 +88,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -6533314169471135820L;
 
-			/**
-			 * devuelve {@code true} si la celda en la fila y la columna es editable
-			 * 
-			 * @param row    fila de la celda a editar
-			 * @param column columna de la celda a editar
-			 * @return siempre devuelve {@code false}
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -156,11 +141,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	/**
-	 * carga los datos de los materiales y actualiza la tabla
-	 * 
-	 * @see Archivos.cargarTodosMateriales
-	 */
 	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblMateriales.getModel();
 
@@ -174,11 +154,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		Tablas.ajustarColumnas(tblMateriales);
 	}
 
-	/**
-	 * modifica la visibilidad de botones
-	 * 
-	 * @param estado el estado de los botones
-	 */
 	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -187,11 +162,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		bloqueado = !estado;
 	}
 
-	/**
-	 * invocado cuando una acción ocurre sobre los elementos
-	 * 
-	 * @param ae el evento a procesar
-	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
@@ -224,11 +194,6 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		}
 	}
 
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
@@ -238,62 +203,31 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		}
 	}
 
-	/**
-	 * invocado la primera vez la ventana se ha hecho visible
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se cerró como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param we evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se minimiza
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se maximiza
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana se convierte en la ventana activa
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * invocado cuando la ventana deja de ser la ventana activa
-	 * 
-	 * @param we el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto

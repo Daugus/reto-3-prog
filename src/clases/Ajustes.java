@@ -5,14 +5,6 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * 
- * define la fuente y el tema del usuario
- * 
- * @author Grupo 2
- * @version 2.0.1
- * 
- */
 public class Ajustes implements Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
 
@@ -42,8 +34,6 @@ public class Ajustes implements Serializable {
 
 	/**
 	 * constructor copia
-	 * 
-	 * @param objeto a copiar
 	 */
 	public Ajustes(Ajustes other) {
 		this.fuente = other.fuente;

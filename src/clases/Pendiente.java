@@ -3,13 +3,6 @@ package clases;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * esta clase difiene ordenes pendientes que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
-
 public class Pendiente extends Primaria {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -28,9 +21,7 @@ public class Pendiente extends Primaria {
 	}
 
 	/**
-	 * orden pendiente por defecto
-	 * 
-	 * @param other copia
+	 * constructor copia
 	 */
 	public Pendiente(Pendiente other) {
 		super(other);
@@ -74,7 +65,7 @@ public class Pendiente extends Primaria {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return reparaciones
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -83,8 +74,7 @@ public class Pendiente extends Primaria {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
 	 * @return devuelve un valor hash
 	 */
@@ -97,12 +87,10 @@ public class Pendiente extends Primaria {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

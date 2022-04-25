@@ -37,11 +37,6 @@ import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
 
-/**
- * 
- * @author Grupo 2
- *
- */
 public class CrearPendiente extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -164,14 +159,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblCliente = new JTable(dtmCliente) {
 			private static final long serialVersionUID = -3909141556237115067L;
 
-			/**
-			 * 
-			 * @param row    cuyo valor se va a consultar
-			 * @param column cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
-			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
-			 *         efecto.
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -186,14 +173,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblVehiculo = new JTable(dtmVehiculo) {
 			private static final long serialVersionUID = -3909141556237115067L;
 
-			/**
-			 * 
-			 * @param row    cuyo valor se va a consultar
-			 * @param column cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
-			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
-			 *         efecto.
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -208,14 +187,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblReparaciones = new JTable(dtmReparaciones) {
 			private static final long serialVersionUID = -3909141556237115067L;
 
-			/**
-			 * 
-			 * @param row    cuyo valor se va a consultar
-			 * @param column cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
-			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
-			 *         efecto.
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -229,14 +200,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblMateriales = new JTable(dtmMateriales) {
 			private static final long serialVersionUID = -3909141556237115067L;
 
-			/**
-			 * 
-			 * @param row    cuyo valor se va a consultar
-			 * @param column cuyo valor se va a consultar
-			 * @return Devuelve verdadero si la celda en la fila y la columna es editable.
-			 *         De lo contrario, invocar setValueAt en la celda no tendrá ningún
-			 *         efecto.
-			 */
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -318,12 +281,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	/**
-	 * carga datos de una orden primaria en caso el usuario no sea el mecanico
-	 * deshabilita los seguientes buttones
-	 * 
-	 * @param op objeto orden primaria
-	 */
 	public void cargarDatos(Primaria op) {
 		primaria = new Primaria(op);
 
@@ -386,11 +343,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		Tablas.vertical(tblVehiculo);
 	}
 
-	/**
-	 * este metodo actualiza la tabla y carga los datos de la tabla reparaciones
-	 * 
-	 * @see Reparacion
-	 */
 	public static void actualizarTablas() {
 		alReparaciones.sort(Comparator.naturalOrder());
 		alMaterialesGeneral.clear();
@@ -416,11 +368,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		}
 	}
 
-	/**
-	 * modifica la vicivilidad de buttones segun el estado pasado como paramento
-	 * 
-	 * @param estado si el estado es verdadero enabilita los seguientes buttones
-	 */
 	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -431,21 +378,10 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		bloqueado = !estado;
 	}
 
-	/**
-	 * getter de ArrayList Reparaciones
-	 * 
-	 * @return alreparaciones
-	 */
 	public static ArrayList<Reparacion> getReparaciones() {
 		return alReparaciones;
 	}
 
-	/**
-	 * invocado cuando una accion ocurre sobre los elementos
-	 * 
-	 * @param ae el evento a procesar
-	 * @see actionPerformed
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -502,12 +438,6 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		}
 	}
 
-	// ===== Overrides =======
-	/**
-	 * invocado cuando el usuario intenta cerrar la ventana
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
@@ -517,66 +447,31 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		}
 	}
 
-	/**
-	 * Invocado la primera vez una ventana se ha hecho visible
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana se cerro como resultado llamando a dispose en la
-	 * ventana
-	 * 
-	 * @param e evento a procesar
-	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando a una ventana se cambio de normal a minimizado por varias
-	 * plataformas una minimizada ventana se procesa como el icono especificado en
-	 * la propiedad de siconImage
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * cuando una ventana cambia de minimizado a ventana normal
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando la ventana es capacitado a ser ventana activa solo un frame o
-	 * un dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// comportamiento por defecto
 	}
 
-	/**
-	 * Invocado cuando una ventana no es langer la ventana activa solo un Frame o un
-	 * Dialog puede ser ventana activa
-	 * 
-	 * @param e el evento a procesar
-	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// comportamiento por defecto

@@ -3,12 +3,6 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * esta clase difiene Personas que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public abstract class Persona implements Comparable<Persona>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -44,9 +38,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	}
 
 	/**
-	 * persona copia
-	 * 
-	 * @param other copia de persona
+	 * constructor copia
 	 */
 	public Persona(Persona other) {
 		this.dni = other.dni;
@@ -92,7 +84,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return dni, nombre, apellidos, tel, email,fechaNacimiento y direccion
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -102,8 +94,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
 	 * @return devuelve un valor hash
 	 */
@@ -113,12 +104,10 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

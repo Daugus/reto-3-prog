@@ -3,12 +3,6 @@ package clases;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * esta clase difiene facturas que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Factura extends Pendiente {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -19,6 +13,7 @@ public class Factura extends Pendiente {
 	private double iva;
 	private double total;
 
+	// ===== constructores =====
 	/**
 	 * constructor por defeccto hereda
 	 */
@@ -34,8 +29,6 @@ public class Factura extends Pendiente {
 
 	/**
 	 * constructor copia
-	 * 
-	 * @param other copia del constructor por defecto
 	 */
 	public Factura(Factura other) {
 		super(other);
@@ -54,11 +47,6 @@ public class Factura extends Pendiente {
 		calcularTotal();
 	}
 
-	/**
-	 * genera un codigo y calcula el total de la factura pendiente
-	 * 
-	 * @param pendiente
-	 */
 	public Factura(Pendiente pendiente) {
 		super(pendiente);
 
@@ -84,9 +72,9 @@ public class Factura extends Pendiente {
 
 	// --- salida ---
 	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return costeReparaciones costeMateriales subtotal iva y total
+	 * devuelve una representación del objeto como String
+	 *
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -96,10 +84,9 @@ public class Factura extends Pendiente {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
-	 * 
-	 * @return devuelve un valor hash
+	 * devuelve el hash code del objeto basado en sus atributos
+	 *
+	 * @return el hash
 	 */
 	@Override
 	public int hashCode() {
@@ -110,11 +97,10 @@ public class Factura extends Pendiente {
 	}
 
 	/**
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * indica si algún otro objeto es igual a este
+	 *
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -132,9 +118,10 @@ public class Factura extends Pendiente {
 				&& Double.doubleToLongBits(total) == Double.doubleToLongBits(other.total);
 	}
 
+	// --- getters y setters ---
 	/**
 	 * accede a la propiedad costaReparaciones
-	 * 
+	 *
 	 * @return devuelve costeReparaciones
 	 */
 	public double getCosteReparaciones() {
@@ -143,7 +130,7 @@ public class Factura extends Pendiente {
 
 	/**
 	 * accede a la propiedad costeMateriales
-	 * 
+	 *
 	 * @return devuelve costeMateriales
 	 */
 	public double getCosteMateriales() {
@@ -152,7 +139,7 @@ public class Factura extends Pendiente {
 
 	/**
 	 * accede a la propiedad subtotal
-	 * 
+	 *
 	 * @return devuelve subtotal
 	 */
 	public double getSubtotal() {
@@ -161,7 +148,7 @@ public class Factura extends Pendiente {
 
 	/**
 	 * accede a la propiedad iva
-	 * 
+	 *
 	 * @return devuelve iva
 	 */
 	public double getIva() {
@@ -170,11 +157,10 @@ public class Factura extends Pendiente {
 
 	/**
 	 * accede a la propiedad total
-	 * 
+	 *
 	 * @return devuelve total
 	 */
 	public double getTotal() {
 		return total;
 	}
-
 }

@@ -3,12 +3,6 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * esta clase difiene propiedades y metodos del vehiculo
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	private static final long serialVersionUID = 2469183365830659245L;
 
@@ -50,9 +44,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	}
 
 	/**
-	 * vehiculo copia
-	 * 
-	 * @param other copia
+	 * constructor copia
 	 */
 	public Vehiculo(Vehiculo other) {
 		this.matricula = other.matricula;
@@ -132,7 +124,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return matricula, propietario, marca y modelo
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -141,8 +133,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	// --- comparación ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
 	 * @return devuelve un valor hash
 	 */
@@ -153,12 +144,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {

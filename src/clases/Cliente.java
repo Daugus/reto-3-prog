@@ -3,12 +3,6 @@ package clases;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * esta clase difiene fechaAlta al vehiculo que se usaran en el programa
- * 
- * @author Grupo 2
- * @version 2.0.1
- */
 public class Cliente extends Persona {
 	private static final long serialVersionUID = -4712701685349672058L;
 
@@ -28,8 +22,6 @@ public class Cliente extends Persona {
 
 	/**
 	 * constructor copia
-	 * 
-	 * @param other copia del constructor por defecto
 	 */
 	public Cliente(Cliente other) {
 		super(other);
@@ -38,17 +30,6 @@ public class Cliente extends Persona {
 	}
 
 	// --- personalizados ---
-	/**
-	 * constructor cliente por defecto
-	 * 
-	 * @param fa fecha personalizada
-	 */
-	public Cliente(Fecha fa) {
-		super();
-
-		this.fechaAlta = new Fecha(fa);
-	}
-
 	/**
 	 * cliente personalizado constructor personalizado
 	 * 
@@ -75,7 +56,7 @@ public class Cliente extends Persona {
 	/**
 	 * Devuelve una representación de cadena del objeto.
 	 * 
-	 * @return FechaAlta y vehiculos del cliente
+	 * @return los atributos del objeto
 	 */
 	@Override
 	public String toString() {
@@ -84,10 +65,9 @@ public class Cliente extends Persona {
 
 	// --- comparacion ---
 	/**
-	 * para el objeto Este método es compatible en beneficio de las tablas hash
-	 * como las proporcionadas por java.util.HashMap.
+	 * devuelve el hash code del objeto basado en sus atributos
 	 * 
-	 * @return result
+	 * @return el hash
 	 */
 	@Override
 	public int hashCode() {
@@ -98,12 +78,10 @@ public class Cliente extends Persona {
 	}
 
 	/**
+	 * indica si algún otro objeto es igual a este
 	 * 
-	 * Indica si algún otro objeto es "igual a" este.
-	 * 
-	 * @return true si este objeto es el mismo que el objargument; falso en caso
-	 *         contrario.
-	 * @param obj objeto referente con el que desea comparar
+	 * @param obj el objeto con el que se va a comparar
+	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
 	@Override
 	public boolean equals(Object obj) {
