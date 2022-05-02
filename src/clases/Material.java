@@ -7,36 +7,52 @@ public class Material implements Comparable<Material>, Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
 
 	// ===== propiedades =====
+	private String id;
+	private String marca;
 	private String nombre;
-	private double precio;
+	private double pvp;
+	private double precioCompra;
+	private boolean activo;
 
 	// ===== constructores =====
 	/**
 	 * constructor por defecto
 	 */
 	public Material() {
+		id = "";
+		marca = "";
 		nombre = "";
-		precio = 1.0;
+		pvp = 1.0;
+		precioCompra = 1.0;
+		activo = true;
 	}
 
 	/**
 	 * constructor copia
 	 */
 	public Material(Material m) {
+		this.id = m.id;
+		this.marca = m.marca;
 		this.nombre = m.nombre;
-		this.precio = m.precio;
+		this.pvp = m.pvp;
+		this.precioCompra = m.precioCompra;
+		this.activo = m.activo;
 	}
 
 	// --- personalizados ---
 	/**
 	 * material personalizado
 	 * 
-	 * @param n nombre
-	 * @param p precio
+	 * @param nombre nombre
+	 * @param pvp    precio
 	 */
-	public Material(String n, double p) {
-		nombre = n;
-		precio = p;
+	public Material(String id, String marca, String nombre, double pvp, double precioCompra, boolean activo) {
+		this.id = id;
+		this.marca = marca;
+		this.nombre = nombre;
+		this.pvp = pvp;
+		this.precioCompra = precioCompra;
+		this.activo = activo;
 	}
 
 	// ===== métodos =====
@@ -47,7 +63,8 @@ public class Material implements Comparable<Material>, Serializable {
 	 * @return los atributos del objeto
 	 */
 	public String toString() {
-		return "Nombre: " + nombre + ", precio: " + precio;
+		return "ID:" + id + ", marca: " + marca + ", nombre: " + nombre + ", precio: " + pvp + ", precio compra: "
+				+ precioCompra + ", activo: " + activo;
 	}
 
 	// --- comparación ---
@@ -58,7 +75,7 @@ public class Material implements Comparable<Material>, Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(nombre, precio);
+		return Objects.hash(id);
 	}
 
 	/**
@@ -67,6 +84,7 @@ public class Material implements Comparable<Material>, Serializable {
 	 * @param obj el objeto con el que se va a comparar
 	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,8 +94,7 @@ public class Material implements Comparable<Material>, Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Material other = (Material) obj;
-		return Objects.equals(nombre, other.nombre)
-				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio);
+		return Objects.equals(id, other.id);
 	}
 
 	/**
@@ -90,43 +107,55 @@ public class Material implements Comparable<Material>, Serializable {
 	 */
 	@Override
 	public int compareTo(Material other) {
-		return nombre.compareTo(other.nombre);
+		return id.compareTo(other.id);
 	}
 
 	// --- getters y setters ---
-	/**
-	 * acceso a nombre
-	 * 
-	 * @return nombre tipo String
-	 */
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 
-	/**
-	 * modifica el valor de nombre pasando string como parametro
-	 * 
-	 * @param n tipo String
-	 */
-	public void setNombre(String n) {
-		nombre = n;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	/**
-	 * acceso a precio
-	 * 
-	 * @return precio
-	 */
-	public double getPrecio() {
-		return precio;
+	public double getPvp() {
+		return pvp;
 	}
 
-	/**
-	 * modifica el valor de precio pasando double precio como parametro
-	 * 
-	 * @param p tipo double
-	 */
-	public void setPrecio(double p) {
-		precio = p;
+	public void setPvp(double pvp) {
+		this.pvp = pvp;
+	}
+
+	public double getPrecioCompra() {
+		return precioCompra;
+	}
+
+	public void setPrecioCompra(double precioCompra) {
+		this.precioCompra = precioCompra;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 }

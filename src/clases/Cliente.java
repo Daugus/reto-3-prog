@@ -1,6 +1,5 @@
 package clases;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Cliente extends Persona {
@@ -8,7 +7,7 @@ public class Cliente extends Persona {
 
 	// ===== propiedades =====
 	private Fecha fechaAlta;
-	private ArrayList<String> vehiculos = new ArrayList<String>();
+	private boolean activo;
 
 	// ===== constructores =====
 	/**
@@ -17,6 +16,7 @@ public class Cliente extends Persona {
 	public Cliente() {
 		super();
 
+		activo = true;
 		fechaAlta = new Fecha();
 	}
 
@@ -26,6 +26,7 @@ public class Cliente extends Persona {
 	public Cliente(Cliente other) {
 		super(other);
 
+		activo = other.activo;
 		fechaAlta = new Fecha(other.fechaAlta);
 	}
 
@@ -38,17 +39,15 @@ public class Cliente extends Persona {
 	 * @param a   String apellido
 	 * @param t   int telefono
 	 * @param e   String email
-	 * @param fn  Objeto fecha
 	 * @param dir direccion
 	 * @param fa  Objeto fechaAlta
 	 * @param v   ArrayList<String> array de las matrículas de los vehículos
 	 */
-	public Cliente(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, Fecha fa,
-			ArrayList<String> v) {
-		super(d, n, a, t, e, fn, dir);
+	public Cliente(String d, String n, String a, int t, String e, Direccion dir, Fecha fa, boolean act) {
+		super(d, n, a, t, e, dir);
 
+		activo = act;
 		fechaAlta = new Fecha(fa);
-		vehiculos = v;
 	}
 
 	// ===== métodos =====
@@ -60,29 +59,18 @@ public class Cliente extends Persona {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + ", fecha de alta: " + fechaAlta + ", vehículos: " + vehiculos;
+		return super.toString() + ", activo: " + activo + ", fecha de alta: " + fechaAlta;
 	}
-
+	
 	// --- comparacion ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return el hash
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(fechaAlta);
+		result = prime * result + Objects.hash(activo, fechaAlta);
 		return result;
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,7 +80,7 @@ public class Cliente extends Persona {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(fechaAlta, other.fechaAlta);
+		return activo == other.activo && Objects.equals(fechaAlta, other.fechaAlta);
 	}
 
 	// --- getters y setters ---
@@ -114,12 +102,11 @@ public class Cliente extends Persona {
 		this.fechaAlta = fechaAlta;
 	}
 
-	/**
-	 * acceso a vehiculos
-	 * 
-	 * @return vehiculos piu
-	 */
-	public ArrayList<String> getVehiculos() {
-		return vehiculos;
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public boolean getActivo() {
+		return activo;
 	}
 }

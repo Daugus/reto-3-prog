@@ -6,9 +6,15 @@ public class Cuenta extends Persona {
 	private static final long serialVersionUID = -1206167340211110010L;
 
 	// ===== propiedades =====
-	private boolean mecanico;
-	private String password;
 	private Ajustes ajustes;
+	private String dniJefe;
+	private double salario;
+	private double comision;
+	private Fecha fechaNacimiento;
+	private String tipo;
+	private Fecha fechaAlta;
+	private String password;
+	private boolean activo;
 
 	// ===== constructores =====
 	/**
@@ -17,28 +23,16 @@ public class Cuenta extends Persona {
 	public Cuenta() {
 		super();
 
-		mecanico = true;
-		password = "";
 		ajustes = new Ajustes();
-	}
 
-	/**
-	 * constructor personalizado
-	 * 
-	 * @param cod codigo del mecanico
-	 */
-	public Cuenta(boolean cod) {
-		super();
-
-		if (cod) {
-			setDNI("mec");
-			password = "mec";
-		} else {
-			setDNI("atc");
-			password = "atc";
-		}
-
-		mecanico = cod;
+		dniJefe = "";
+		password = "";
+		salario = 1000.0;
+		comision = 0.0;
+		fechaNacimiento = new Fecha();
+		tipo = "Mecanico";
+		fechaAlta = new Fecha();
+		activo = true;
 	}
 
 	/**
@@ -47,49 +41,48 @@ public class Cuenta extends Persona {
 	public Cuenta(Cuenta other) {
 		super(other);
 
-		mecanico = other.mecanico;
-		password = other.password;
 		ajustes = new Ajustes(other.ajustes);
+		dniJefe = "";
+		password = other.password;
+		salario = other.salario;
+		comision = other.comision;
+		fechaNacimiento = new Fecha(other.fechaNacimiento);
+		tipo = other.tipo;
+		fechaAlta = new Fecha(other.fechaAlta);
+		activo = other.activo;
 	}
 
 	// --- personalizados ---
-	/**
-	 * persona por defecto
-	 * 
-	 * @param cod de persona
-	 * @param p   contaseña
-	 * @param a   ajustes personalizados
-	 */
-	public Cuenta(boolean cod, String p, Ajustes a) {
+	// persona por defecto
+	public Cuenta(Ajustes ajustes, String jefe, String password, double sal, double com, Fecha fn, String tipo,
+			Fecha fa, boolean act) {
 		super();
 
-		mecanico = cod;
-		password = p;
-		ajustes = new Ajustes(a);
+		this.ajustes = new Ajustes(ajustes);
+		this.dniJefe = jefe;
+		this.password = password;
+		this.salario = sal;
+		this.comision = com;
+		this.fechaNacimiento = new Fecha(fn);
+		this.tipo = tipo;
+		this.fechaAlta = new Fecha(fa);
+		this.activo = act;
 	}
 
-	// Persona nueva con código, contraseña y ajustes personalizados
-	/**
-	 * persona nueva
-	 * 
-	 * @param d   Strnig dni
-	 * @param n   String nombre
-	 * @param a   Strnig apellido
-	 * @param t   int telefono
-	 * @param e   String email
-	 * @param fn  Object fecha
-	 * @param dir Object direccion
-	 * @param cod Boolean mecanico
-	 * @param pa  String password
-	 * @param aj  Objeto Ajustes
-	 */
-	public Cuenta(String d, String n, String a, int t, String e, Fecha fn, Direccion dir, boolean cod, String pa,
-			Ajustes aj) {
-		super(d, n, a, t, e, fn, dir);
+	// personalizado
+	public Cuenta(String d, String n, String a, int t, String e, Direccion dir, Ajustes ajustes, String jefe,
+			String password, double sal, double com, Fecha fn, String tipo, Fecha fa, boolean act) {
+		super(d, n, a, t, e, dir);
 
-		mecanico = cod;
-		password = pa;
-		ajustes = new Ajustes(aj);
+		this.ajustes = new Ajustes(ajustes);
+		this.dniJefe = jefe;
+		this.password = password;
+		this.salario = sal;
+		this.comision = com;
+		this.fechaNacimiento = new Fecha(fn);
+		this.tipo = tipo;
+		this.fechaAlta = new Fecha(fa);
+		this.activo = act;
 	}
 
 	// ===== métodos =====
@@ -100,36 +93,21 @@ public class Cuenta extends Persona {
 	 */
 	@Override
 	public String toString() {
-		String tipo;
-		if (mecanico) {
-			tipo = "Mecánico";
-		} else {
-			tipo = "Atención al cliente";
-		}
-
-		return super.toString() + ", tipo: " + tipo;
+		return super.toString() + ", dniJefe: " + dniJefe + ", salario: " + salario + ", comision: " + comision
+				+ ", fecha de nacimiento: " + fechaNacimiento + ", tipo: " + tipo + ", fecha de alta: " + fechaAlta
+				+ ", activo: " + activo;
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return el hash
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(ajustes, mecanico, password);
+		result = prime * result
+				+ Objects.hash(activo, ajustes, comision, dniJefe, fechaAlta, fechaNacimiento, password, salario, tipo);
 		return result;
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -139,78 +117,85 @@ public class Cuenta extends Persona {
 		if (getClass() != obj.getClass())
 			return false;
 		Cuenta other = (Cuenta) obj;
-		return Objects.equals(ajustes, other.ajustes) && mecanico == other.mecanico
-				&& Objects.equals(password, other.password);
+		return activo == other.activo && Objects.equals(ajustes, other.ajustes)
+				&& Double.doubleToLongBits(comision) == Double.doubleToLongBits(other.comision)
+				&& Objects.equals(dniJefe, other.dniJefe) && Objects.equals(fechaAlta, other.fechaAlta)
+				&& Objects.equals(fechaNacimiento, other.fechaNacimiento) && Objects.equals(password, other.password)
+				&& Double.doubleToLongBits(salario) == Double.doubleToLongBits(other.salario)
+				&& Objects.equals(tipo, other.tipo);
 	}
+
 
 	// --- getters y setters ---
-	/**
-	 * acceso a tipo
-	 * 
-	 * @return tema devuelve si es mecanico o atencion al cliente
-	 */
-	public String tipo() {
-		String tipo;
-		if (mecanico) {
-			tipo = "Mecánico";
-		} else {
-			tipo = "Atención al cliente";
-		}
-
-		return tipo;
-	}
-
-	/**
-	 * acceso a password
-	 * 
-	 * @return password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * modifica el valor de password pasando password como parametro
-	 * 
-	 * @param password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * acceso a mecanico
-	 * 
-	 * @return mecanico
-	 */
-	public boolean esMecanico() {
-		return mecanico;
-	}
-
-	/**
-	 * modifica el valor de mecanico pasando mecanico como parametro
-	 * 
-	 * @param mecanico tipo boolean
-	 */
-	public void setMecanico(boolean mecanico) {
-		this.mecanico = mecanico;
-	}
-
-	/**
-	 * acceso a ajustes
-	 * 
-	 * @return ajustes
-	 */
 	public Ajustes getAjustes() {
 		return ajustes;
 	}
 
-	/**
-	 * modifica el valor de ajustes pasando ajustes como parametro
-	 * 
-	 * @param ajustes
-	 */
 	public void setAjustes(Ajustes ajustes) {
-		this.ajustes = new Ajustes(ajustes);
+		this.ajustes = ajustes;
+	}
+
+	public String getDniJefe() {
+		return dniJefe;
+	}
+
+	public void setDniJefe(String dniJefe) {
+		this.dniJefe = dniJefe;
+	}
+
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+
+	public double getComision() {
+		return comision;
+	}
+
+	public void setComision(double comision) {
+		this.comision = comision;
+	}
+
+	public Fecha getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Fecha fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Fecha getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(Fecha fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 }
