@@ -15,8 +15,6 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	private int tel;
 	private String email;
 
-	private Fecha fechaNacimiento;
-
 	private Direccion direccion;
 
 	// ===== constructores =====
@@ -31,8 +29,6 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 		tel = 600000000;
 		email = "";
-
-		fechaNacimiento = new Fecha();
 
 		direccion = new Direccion();
 	}
@@ -49,8 +45,6 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		this.tel = other.tel;
 		this.email = other.email;
 
-		this.fechaNacimiento = new Fecha(other.fechaNacimiento);
-
 		this.direccion = new Direccion(other.direccion);
 	}
 
@@ -65,7 +59,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * @param fn  objeto fecha
 	 * @param dir objeto direccion
 	 */
-	public Persona(String d, String n, String a, int t, String e, Fecha fn, Direccion dir) {
+	public Persona(String d, String n, String a, int t, String e, Direccion dir) {
 		dni = d;
 
 		nombre = n;
@@ -73,8 +67,6 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 		tel = t;
 		email = e;
-
-		fechaNacimiento = new Fecha(fn);
 
 		direccion = new Direccion(dir);
 	}
@@ -89,7 +81,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	@Override
 	public String toString() {
 		return "DNI: " + dni + ", nombre: " + nombre + ", apellidos: " + apellidos + ", teléfono: " + tel + ", email: "
-				+ email + ", fecha de nacimiento: " + fechaNacimiento + ", dirección: " + direccion;
+				+ email + ", dirección: " + direccion;
 	}
 
 	// --- comparación ---
@@ -100,7 +92,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellidos, dni, email, fechaNacimiento, nombre, tel);
+		return Objects.hash(apellidos, dni, email, nombre, tel);
 	}
 
 	/**
@@ -119,8 +111,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 			return false;
 		Persona other = (Persona) obj;
 		return Objects.equals(apellidos, other.apellidos) && Objects.equals(dni, other.dni)
-				&& Objects.equals(email, other.email) && Objects.equals(fechaNacimiento, other.fechaNacimiento)
-				&& Objects.equals(nombre, other.nombre) && tel == other.tel
+				&& Objects.equals(email, other.email) && Objects.equals(nombre, other.nombre) && tel == other.tel
 				&& Objects.equals(direccion, other.direccion);
 	}
 
@@ -209,24 +200,6 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 */
 	public void setTelefono(int t) {
 		tel = t;
-	}
-
-	/**
-	 * acceso a fechaNacimiento
-	 * 
-	 * @return fechaNacimiento
-	 */
-	public Fecha getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	/**
-	 * modifica el valor de fechaNacimiento pasando fecha como parametro
-	 * 
-	 * @param fn tipo fecha
-	 */
-	public void setFechaNacimiento(Fecha fn) {
-		fechaNacimiento = new Fecha(fn);
 	}
 
 	/**
