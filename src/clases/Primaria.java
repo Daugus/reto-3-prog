@@ -11,24 +11,30 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	// ===== propiedades =====
 	private String codigo;
 	private String comentarios;
-	private Fecha fecha;
-	private Cliente propietario;
-	private Vehiculo vehiculo;
-	private Cuenta empleado;
+
+	private Fecha fechaInicio;
+	private Fecha fechaFin;
+
+	private double tiempoHoras;
+
+	private String matricula;
+	private String empleado;
 
 	// ===== constructores =====
 	/**
 	 * orden primaria por defecto
 	 */
 	public Primaria() {
-		generarCodigo();
+		codigo = "";
 		comentarios = "";
-		fecha = new Fecha();
 
-		propietario = new Cliente();
-		vehiculo = new Vehiculo();
+		fechaInicio = new Fecha();
+		fechaFin = new Fecha();
 
-		empleado = new Cuenta(false);
+		tiempoHoras = 1.0;
+
+		matricula = "";
+		empleado = "";
 	}
 
 	/**
@@ -37,39 +43,34 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	public Primaria(Primaria other) {
 		this.codigo = other.codigo;
 		this.comentarios = other.comentarios;
-		this.fecha = new Fecha(other.fecha);
 
-		this.propietario = new Cliente(other.propietario);
-		this.vehiculo = new Vehiculo(other.vehiculo);
+		this.fechaInicio = new Fecha(other.fechaInicio);
+		this.fechaFin = new Fecha(other.fechaFin);
 
-		this.empleado = new Cuenta(other.empleado);
+		this.tiempoHoras = other.tiempoHoras;
+
+		this.matricula = other.matricula;
+		this.empleado = other.empleado;
 	}
 
 	/**
 	 * orden primaria personalizado
 	 * 
 	 * @param com String comentario
-	 * @param c   objeto cliente
 	 * @param v   objeto vehiculo
-	 * @param atc objeto cuenta atencion cliente
+	 * @param e   objeto empleado
 	 */
-	public Primaria(String com, Cliente c, Vehiculo v, Cuenta atc) {
-		generarCodigo();
+	public Primaria(String c, String com, String v, String e, double th) {
+		codigo = c;
 		comentarios = com;
-		fecha = new Fecha();
 
-		propietario = new Cliente(c);
-		vehiculo = new Vehiculo(v);
+		fechaInicio = new Fecha();
+		fechaFin = new Fecha();
 
-		empleado = new Cuenta(atc);
-	}
+		tiempoHoras = th;
 
-	// ===== métodos =====
-	// --- personalizado ---
-	protected void generarCodigo() {
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-		codigo = formatter.format(calendar.getTime());
+		matricula = v;
+		empleado = e;
 	}
 
 	// --- salida ---
@@ -80,8 +81,8 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Código: " + codigo + ", comentarios: " + comentarios + ", fechaEntrada: " + fecha + ", vehículo: "
-				+ vehiculo + ", propietario: " + propietario + ", empleado: " + empleado.getDNI();
+		return "Código: " + codigo + ", comentarios: " + comentarios + ", fechaEntrada: " + fechaInicio + ", fechaSalida: "
+				+ fechaFin + ", matrícula: " + matricula + ", empleado: " + empleado;
 	}
 
 	// --- comparación ---
@@ -92,7 +93,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, comentarios, fecha, propietario, vehiculo, empleado);
+		return Objects.hash(codigo, comentarios, fechaInicio, fechaFin, tiempoHoras, matricula, empleado);
 	}
 
 	/**
@@ -111,8 +112,9 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 			return false;
 		Primaria other = (Primaria) obj;
 		return Objects.equals(codigo, other.codigo) && Objects.equals(comentarios, other.comentarios)
-				&& Objects.equals(fecha, other.fecha) && Objects.equals(propietario, other.propietario)
-				&& Objects.equals(vehiculo, other.vehiculo) && Objects.equals(empleado, other.empleado);
+				&& Objects.equals(fechaInicio, other.fechaInicio) && Objects.equals(fechaFin, other.fechaFin)
+				&& Objects.equals(tiempoHoras, other.tiempoHoras) && Objects.equals(matricula, other.matricula)
+				&& Objects.equals(empleado, other.empleado);
 	}
 
 	/**
@@ -170,8 +172,8 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 * 
 	 * @return fecha
 	 */
-	public Fecha getFecha() {
-		return fecha;
+	public Fecha getFechaInicio() {
+		return fechaInicio;
 	}
 
 	/**
@@ -179,61 +181,84 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 * 
 	 * @param fechaEntrada tipo Fecha
 	 */
-	public void setFecha(Fecha fechaEntrada) {
-		this.fecha = fechaEntrada;
+	public void setFechaInicio(Fecha fechaEntrada) {
+		this.fechaInicio = fechaEntrada;
 	}
 
+	
+	/**
+	 * acceso a fecha
+	 * 
+	 * @return fecha
+	 */
+	public Fecha getFechaFin() {
+		return fechaFin;
+	}
+
+	/**
+	 * modifica el valor de fecha pasando Fecha como parametro
+	 * 
+	 * @param fechaEntrada tipo Fecha
+	 */
+	public void setFechaFin(Fecha fechaSalida) {
+		this.fechaFin = fechaSalida;
+	}
+	
+	
 	/**
 	 * acceso a vehiculo
 	 * 
-	 * @return vehiculo tipo Vehiculo
+	 * @return vehiculo tipo String
 	 */
-	public Vehiculo getVehiculo() {
-		return vehiculo;
+	public String getMatricula() {
+		return matricula;
 	}
 
 	/**
-	 * modifica el valor de vehiculo pasando Vehiculo como parametro
+	 * modifica el valor de vehiculo pasando String como parametro
 	 * 
-	 * @param vehiculo tipo Vehiculo
+	 * @param vehiculo tipo String
 	 */
-	public void setVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
-	/**
-	 * acceso a propietario
-	 * 
-	 * @return propietario tipo Cliente
-	 */
-	public Cliente getPropietario() {
-		return propietario;
-	}
-
-	/**
-	 * modifica el valor de propietario pasando Cliente como parametro
-	 * 
-	 * @param propietario tipo Cliente
-	 */
-	public void setPropietario(Cliente propietario) {
-		this.propietario = propietario;
-	}
 
 	/**
 	 * acceso a empleado
 	 * 
-	 * @return empleado tipo Cuenta
+	 * @return empleado tipo String
 	 */
-	public Cuenta getEmpleado() {
+	public String getEmpleado() {
 		return empleado;
 	}
 
 	/**
-	 * modifica el valor de empleado pasando Cuenta como parametro
+	 * modifica el valor de empleado pasando String como parametro
 	 * 
-	 * @param empleado tipo Cuenta
+	 * @param empleado tipo String
 	 */
-	public void setEmpleado(Cuenta empleado) {
-		this.empleado = new Cuenta(empleado);
+	public void setEmpleado(String empleado) {
+		this.empleado = empleado;
 	}
+
+	
+	/**
+	 * acceso a las horas empleadas
+	 * @return horas tipo double
+	 */
+	public double getTiempoHoras() {
+		return tiempoHoras;
+	}
+
+	/**
+	 * modifica el valor de las horas pasando double como parametro
+	 * @param tiempoHoras tipo double 
+	 */
+	public void setTiempoHoras(double tiempoHoras) {
+		this.tiempoHoras = tiempoHoras;
+	}
+	
+	
+	
 }

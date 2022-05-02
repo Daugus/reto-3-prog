@@ -13,14 +13,12 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	private String marca;
 	private String modelo;
-	private String color;
-
-	private int cilindrada;
-
-	private int kmRecorridos;
-	private Fecha fechaITV;
+	
+	private Fecha fechaFabricacion;
 
 	private String tipo;
+	
+	private String estado;
 
 	// ===== constructores =====
 	/**
@@ -33,12 +31,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		marca = "";
 		modelo = "";
-		color = "";
+		
+		estado = "";
 
-		cilindrada = 0;
-
-		kmRecorridos = 0;
-		fechaITV = new Fecha();
+		fechaFabricacion = new Fecha();
 
 		tipo = "";
 	}
@@ -53,12 +49,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		this.marca = other.marca;
 		this.modelo = other.modelo;
-		this.color = other.color;
+		
+		this.estado = other.estado;
 
-		this.cilindrada = other.cilindrada;
-
-		this.kmRecorridos = other.kmRecorridos;
-		this.fechaITV = other.fechaITV;
+		this.fechaFabricacion = other.fechaFabricacion;
 
 		this.tipo = other.tipo;
 	}
@@ -77,12 +71,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		marca = "";
 		modelo = "";
-		color = "";
-
-		cilindrada = 0;
-
-		kmRecorridos = 0;
-		fechaITV = new Fecha();
+		
+		estado = "";
+		
+		fechaFabricacion = new Fecha();
 
 		tipo = "";
 	}
@@ -95,13 +87,11 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	 * @param dni string dni
 	 * @param mar String marca
 	 * @param mod Strnig modelo
-	 * @param c   String color
-	 * @param cc  int cilindrada
-	 * @param km  int kmrecorridos
-	 * @param i   objeto fecha(fechaItv)
+	 * @param e   String estado
+	 * @param i   objeto fecha(fechaFabricacion)
 	 * @param t   String tipo
 	 */
-	public Vehiculo(String m, String b, String dni, String mar, String mod, String c, int cc, int km, Fecha i,
+	public Vehiculo(String m, String b, String dni, String mar, String mod, String e, Fecha f,
 			String t) {
 		matricula = m;
 		bastidor = b;
@@ -109,12 +99,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		marca = mar;
 		modelo = mod;
-		color = c;
-
-		cilindrada = cc;
-
-		kmRecorridos = km;
-		fechaITV = i;
+		
+		estado = e;
+		
+		fechaFabricacion = f;
 
 		tipo = t;
 	}
@@ -139,7 +127,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(cilindrada, propietario, color, fechaITV, kmRecorridos, marca, matricula, modelo, bastidor,
+		return Objects.hash( propietario, estado, fechaFabricacion, marca, matricula, modelo, bastidor,
 				tipo);
 	}
 
@@ -158,8 +146,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Vehiculo other = (Vehiculo) obj;
-		return Objects.equals(cilindrada, other.cilindrada) && Objects.equals(color, other.color)
-				&& Objects.equals(fechaITV, other.fechaITV) && kmRecorridos == other.kmRecorridos
+		return  Objects.equals(estado, other.estado)
+				&& Objects.equals(fechaFabricacion, other.fechaFabricacion) 
 				&& Objects.equals(marca, other.marca) && Objects.equals(matricula, other.matricula)
 				&& Objects.equals(modelo, other.modelo) && bastidor == other.bastidor
 				&& Objects.equals(tipo, other.tipo) && Objects.equals(propietario, other.propietario);
@@ -252,58 +240,24 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		marca = m;
 	}
 
+	
+
 	/**
-	 * acceso a kmRecorridos
+	 * acceso a fechaFabricacion
 	 * 
-	 * @return kmRecorridos
+	 * @return fechaFabricacion
 	 */
-	public int getKmRecorridos() {
-		return kmRecorridos;
+	public Fecha getFechaFabricacion() {
+		return fechaFabricacion;
 	}
 
 	/**
-	 * modifica el valor de kmRecorridos pasando int como parametro
-	 * 
-	 * @param km tipo int
-	 */
-	public void setKmRecorridos(int km) {
-		kmRecorridos = km;
-	}
-
-	/**
-	 * acceso a cilindrada
-	 * 
-	 * @return cilindrada
-	 */
-	public int getCilindrada() {
-		return cilindrada;
-	}
-
-	/**
-	 * modifica el valor de cilindrada pasando int como parametro
-	 * 
-	 * @param cc tipo int
-	 */
-	public void setCilindrada(int cc) {
-		cilindrada = cc;
-	}
-
-	/**
-	 * acceso a fechaITV
-	 * 
-	 * @return fechaITV
-	 */
-	public Fecha getFechaITV() {
-		return fechaITV;
-	}
-
-	/**
-	 * modifica el valor de fechaITV pasando itv de la calse Fecha como parametro
+	 * modifica el valor de fechaFabricacion pasando de la calse Fecha como parametro
 	 * 
 	 * @param itv tipo Fecha
 	 */
-	public void setFechaITV(Fecha itv) {
-		fechaITV = itv;
+	public void setFechaFabricacion(Fecha fechFab) {
+		fechaFabricacion = fechFab;
 	}
 
 	/**
@@ -311,8 +265,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	 * 
 	 * @return color tipo String
 	 */
-	public String getColor() {
-		return color;
+	public String getEstado() {
+		return estado;
 	}
 
 	/**
@@ -320,8 +274,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	 * 
 	 * @param c tipo String
 	 */
-	public void setColor(String c) {
-		color = c;
+	public void setEstado(String e) {
+		estado = e;
 	}
 
 	/**
