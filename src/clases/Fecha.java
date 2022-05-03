@@ -62,6 +62,13 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 
 		this.year = a;
 	}
+	
+	public Fecha(String fecha) {
+		String[] campos = fecha.split("-");
+		year = Integer.parseInt(campos[0]);
+		month = Integer.parseInt(campos[1]);
+		day = Integer.parseInt(campos[2]);
+	}
 
 	// ===== métodos =====
 	// --- personalizado ---

@@ -93,11 +93,11 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		Object o = e.getSource();
 
 		if (o == btnVolver) {
-			if (Inicio.cuentaActual.esMecanico()) {
-				MenuMec mm = new MenuMec();
+			if (Inicio.cuentaActual.getTipo().equals("Mecanico")) {
+				MenuMecanico mm = new MenuMecanico();
 				mm.setVisible(true);
 			} else {
-				MenuAtc ma = new MenuAtc();
+				MenuAdmin ma = new MenuAdmin();
 				ma.setVisible(true);
 			}
 

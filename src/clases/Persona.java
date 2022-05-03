@@ -12,10 +12,10 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	private String nombre;
 	private String apellidos;
 
-	private int tel;
+	private String tel;
 	private String email;
 
-	private Direccion direccion;
+	private String direccion;
 
 	// ===== constructores =====
 	/**
@@ -27,10 +27,10 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		nombre = "";
 		apellidos = "";
 
-		tel = 600000000;
+		tel = "600000000";
 		email = "";
 
-		direccion = new Direccion();
+		direccion = "";
 	}
 
 	/**
@@ -45,7 +45,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		this.tel = other.tel;
 		this.email = other.email;
 
-		this.direccion = new Direccion(other.direccion);
+		this.direccion = other.direccion;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * @param fn  objeto fecha
 	 * @param dir objeto direccion
 	 */
-	public Persona(String d, String n, String a, int t, String e, Direccion dir) {
+	public Persona(String d, String n, String a, String t, String e, String dir) {
 		dni = d;
 
 		nombre = n;
@@ -68,7 +68,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		tel = t;
 		email = e;
 
-		direccion = new Direccion(dir);
+		direccion = dir;
 	}
 
 	// ===== métodos =====
@@ -189,7 +189,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * 
 	 * @return tel tipo int
 	 */
-	public int getTelefono() {
+	public String getTelefono() {
 		return tel;
 	}
 
@@ -198,7 +198,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * 
 	 * @param t tipo int
 	 */
-	public void setTelefono(int t) {
+	public void setTelefono(String t) {
 		tel = t;
 	}
 
@@ -225,7 +225,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * 
 	 * @return direccion tipo Direccion
 	 */
-	public Direccion getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
 
@@ -234,7 +234,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * 
 	 * @param dir tipo Direccion
 	 */
-	public void setDireccion(Direccion dir) {
-		direccion = new Direccion(dir);
+	public void setDireccion(String dir) {
+		direccion = dir;
 	}
 }

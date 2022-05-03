@@ -32,7 +32,7 @@ import clases.Cuenta;
 import clases.Direccion;
 import clases.Fecha;
 import clases.OrdenTabulacion;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 
@@ -443,7 +443,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
-			if (!edicion && Archivos.listarCuentas().contains(dni)) {
+			if (!edicion && Datos.listarCuentas().contains(dni)) {
 				JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
 			} else {
 				Fecha fechaNacimiento = new Fecha(dN, mN, aN);
@@ -471,7 +471,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 					temaOscuro = false;
 				}
 
-				Archivos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel, email, fechaNacimiento, direccion,
+				Datos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel, email, fechaNacimiento, direccion,
 						codigo, password, new Ajustes(temaOscuro, fuente)));
 
 				return true;

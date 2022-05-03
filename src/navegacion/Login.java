@@ -21,7 +21,7 @@ import javax.swing.text.JTextComponent;
 
 import clases.Cuenta;
 
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Log;
 
 public class Login extends JFrame implements ActionListener, WindowListener, FocusListener {
@@ -34,7 +34,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	private JTextField txtDNI;
 
 	public Login() {
-		Archivos.reiniciarAjustes();
+		Datos.reiniciarAjustes();
 
 		setResizable(false);
 		setTitle("Login");
@@ -122,41 +122,47 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		String password = new String(pwdPassword.getPassword());
 
 		// intenta cargar la cuenta con el dni especificado
-		if (dni.equals("") || password.equals("")) {
-			JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
-		} else {
-			try {
-				Inicio.cuentaActual = new Cuenta(Archivos.cargarCuenta(dni));
+		if (dni.equals("")) {
+			JOptionPane.showMessageDialog(this, (String) "Campo de DNI vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
-				Archivos.cargarAjustes();
+		if (password.equals("")) {
+			JOptionPane.showMessageDialog(this, (String) "Campo de contraseña vacío", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
-				if (!password.equals(Inicio.cuentaActual.getPassword())) {
-					// si la contraseña es incorrecta saca ventana de error
-					JOptionPane.showMessageDialog(this, (String) "Contraseña incorrecta", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
+		try {
+			Inicio.cuentaActual = new Cuenta(Datos.cargarCuenta(dni));
 
-					Log.error("Se introducido una contraseña incorrecta");
-				} else {
-					Log.login();
+			Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(dni));
 
-					JFrame menu = null;
-					if (Inicio.cuentaActual.esMecanico()) {
-						menu = new MenuMec();
-					} else {
-						menu = new MenuAtc();
-					}
-
-					menu.setVisible(true);
-
-					this.dispose();
-				}
-			} catch (NullPointerException npe) {
-				// si la cuenta no existe saca ventana de error
-				JOptionPane.showMessageDialog(this, (String) "La cuenta " + dni + " no está registrada", "ERROR",
+			if (!password.equals(Inicio.cuentaActual.getPassword())) {
+				// si la contraseña es incorrecta saca ventana de error
+				JOptionPane.showMessageDialog(this, (String) "Contraseña incorrecta", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 
-				Log.error("La cuenta " + dni + " no está registrada");
+				Log.error("Se introducido una contraseña incorrecta");
+			} else {
+				Log.login();
+
+				JFrame menu = null;
+				if (Inicio.cuentaActual.getTipo().equals("Mecanico")) {
+					menu = new MenuMecanico();
+				} else {
+					menu = new MenuAdmin();
+				}
+
+				menu.setVisible(true);
+
+				this.dispose();
 			}
+		} catch (NullPointerException npe) {
+			JOptionPane.showMessageDialog(this, (String) "La cuenta " + dni + " no está registrada", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+
+			Log.error("La cuenta " + dni + " no está registrada");
 		}
 	}
 

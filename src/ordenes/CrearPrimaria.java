@@ -20,13 +20,13 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarClientes;
 import administracion.AdministrarVehiculos;
 import clases.Cliente;
-import clases.Primaria;
+import clases.Orden;
 import clases.Vehiculo;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Log;
 import funciones.Salir;
 import navegacion.Inicio;
-import navegacion.MenuAtc;
+import navegacion.MenuAdmin;
 
 public class CrearPrimaria extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -118,7 +118,7 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		// ===== modelos =====
 		// --- crear ---
 		dcbmClientes = new DefaultComboBoxModel<String>();
-		dcbmClientes.addAll(Archivos.listarClientes());
+		dcbmClientes.addAll(Datos.listarClientes());
 
 		dcbmVehiculos = new DefaultComboBoxModel<String>();
 
@@ -192,7 +192,7 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 
 		if (o == cmbClientes && cmbClientes.getSelectedIndex() >= 0) {
 			dcbmVehiculos.removeAllElements();
-			cliente = Archivos.cargarCliente((String) cmbClientes.getSelectedItem());
+			cliente = Datos.cargarCliente((String) cmbClientes.getSelectedItem());
 			dcbmVehiculos.addAll(cliente.getVehiculos());
 		} else if (o == btnClientes) {
 			AdministrarClientes ac = new AdministrarClientes();
@@ -205,7 +205,7 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 
 			this.dispose();
 		} else if (o == btnVolver) {
-			MenuAtc ma = new MenuAtc();
+			MenuAdmin ma = new MenuAdmin();
 			ma.setVisible(true);
 
 			this.dispose();
@@ -213,12 +213,12 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 			// --- cliente ---
 			if (cmbClientes.getSelectedIndex() >= 0) {
 				String dni = (String) cmbClientes.getSelectedItem();
-				cliente = Archivos.cargarCliente(dni);
+				cliente = Datos.cargarCliente(dni);
 
 				// --- vehículo ---
 				if (cmbVehiculos.getSelectedIndex() >= 0) {
 					String matricula = (String) cmbVehiculos.getSelectedItem();
-					vehiculo = Archivos.cargarVehiculo(matricula);
+					vehiculo = Datos.cargarVehiculo(matricula);
 
 					if (!vehiculo.getBastidor().equals("")) {
 						// --- orden primaria ---
@@ -228,7 +228,7 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 						cmbVehiculos.setSelectedIndex(-1);
 						txtComentario.setText("");
 
-						Archivos.guardarPrimaria(new Primaria(comentarios, cliente, vehiculo, Inicio.cuentaActual));
+						Datos.guardarPrimaria(new Orden(comentarios, cliente, vehiculo, Inicio.cuentaActual));
 
 						JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
 								JOptionPane.INFORMATION_MESSAGE);

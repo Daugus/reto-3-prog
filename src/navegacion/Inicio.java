@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import clases.Cuenta;
-import funciones.Archivos;
+import funciones.Datos;
 
 public class Inicio {
 	public static Cuenta cuentaActual;
@@ -16,7 +16,7 @@ public class Inicio {
 	public static Color colorFuenteObjetos = Color.BLACK;
 
 	public static void main(String[] args) {
-		Archivos.crearCarpetas();
+		Datos.crearCarpetas();
 
 		new Login().setVisible(true);
 	}

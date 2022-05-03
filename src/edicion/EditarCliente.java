@@ -31,7 +31,7 @@ import clases.Direccion;
 import clases.Fecha;
 import clases.OrdenTabulacion;
 import clases.Vehiculo;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 import javax.swing.SwingConstants;
@@ -442,17 +442,17 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 				Fecha fechaNacimiento = new Fecha(dN, mN, aN);
 				Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
 
-				if (!edicion && Archivos.listarClientes().contains(dni)) {
+				if (!edicion && Datos.listarClientes().contains(dni)) {
 					JOptionPane.showMessageDialog(this, (String) "Cliente ya existe", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					Archivos.guardarCliente(new Cliente(dni, nombre, apellidos, tel, email, fechaNacimiento, direccion,
+					Datos.guardarCliente(new Cliente(dni, nombre, apellidos, tel, email, fechaNacimiento, direccion,
 							fechaAlta, matriculas));
 
 					for (String ma : alMatriculasBorradas) {
-						Vehiculo v = Archivos.cargarVehiculo(ma);
+						Vehiculo v = Datos.cargarVehiculo(ma);
 						v.setPropietario("");
-						Archivos.guardarVehiculo(v);
+						Datos.guardarVehiculo(v);
 
 						JOptionPane.showMessageDialog(this,
 								(String) "El vehículo con la matrícula " + ma
@@ -461,13 +461,13 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 					}
 
 					for (String ma : matriculas) {
-						if (!Archivos.listarVehiculos().contains(ma)) {
-							Archivos.guardarVehiculo(new Vehiculo(ma, dni));
+						if (!Datos.listarVehiculos().contains(ma)) {
+							Datos.guardarVehiculo(new Vehiculo(ma, dni));
 						} else {
-							Vehiculo v = Archivos.cargarVehiculo(ma);
+							Vehiculo v = Datos.cargarVehiculo(ma);
 							if (!v.getPropietario().equals(dni)) {
 								v.setPropietario(dni);
-								Archivos.guardarVehiculo(v);
+								Datos.guardarVehiculo(v);
 							}
 						}
 					}

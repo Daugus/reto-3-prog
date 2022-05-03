@@ -1,17 +1,18 @@
 package clases;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Factura extends Pendiente {
+public class Factura implements Comparable<Factura>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
 	// ===== propiedades =====
-	private double costeReparaciones = 0;
-	private double costeMateriales = 0;
-	private double subtotal;
-	private double iva;
-	private double total;
+	private String codigo;
+	private String codigoOrden;
+	private String metodoPago;
+	private boolean pagada;
+	private int descuento;
+	private Fecha fecha;
 
 	// ===== constructores =====
 	/**
@@ -20,147 +21,113 @@ public class Factura extends Pendiente {
 	public Factura() {
 		super();
 
-		costeReparaciones = 0;
-		costeMateriales = 0;
-		subtotal = 0;
-		iva = 0;
-		total = 0;
+		codigo = "";
+		codigoOrden = "";
+		metodoPago = "Tarjeta";
+		pagada = true;
+		descuento = 0;
+		fecha = new Fecha();
 	}
 
 	/**
 	 * constructor copia
 	 */
 	public Factura(Factura other) {
-		super(other);
-
-		this.costeReparaciones = other.costeReparaciones;
-		this.costeMateriales = other.costeMateriales;
-		this.subtotal = other.subtotal;
-		this.iva = other.iva;
-		this.total = other.total;
+		this.codigo = other.codigo;
+		this.codigoOrden = other.codigoOrden;
+		this.metodoPago = other.metodoPago;
+		this.pagada = other.pagada;
+		this.descuento = other.descuento;
+		this.fecha = new Fecha(other.fecha);
 	}
 
 	// --- personalizados ---
-	public Factura(String com, Cliente c, Vehiculo v, Cuenta atc, ArrayList<Reparacion> r) {
-		super(com, c, v, atc, r);
-
-		calcularTotal();
-	}
-
-	public Factura(Pendiente pendiente) {
-		super(pendiente);
-
-		generarCodigo();
-		calcularTotal();
+	public Factura(String codigo, String codigoOrden, String metodoPago, boolean pagada, int descuento) {
+		this.codigo = codigo;
+		this.codigoOrden = codigoOrden;
+		this.metodoPago = metodoPago;
+		this.pagada = pagada;
+		this.descuento = descuento;
+		this.fecha = new Fecha();
 	}
 
 	// ===== métodos =====
-	// --- personalizado ---
-	private void calcularTotal() {
-		for (Reparacion r : getReparaciones()) {
-			for (MaterialUsado mu : r.getMaterialesUsados()) {
-				costeMateriales += mu.getCantidad() * mu.getPrecio();
-			}
-
-			costeReparaciones += r.getHoras() * r.getManoObra();
-		}
-
-		subtotal = costeReparaciones + costeMateriales;
-		iva = subtotal * 0.21;
-		total = subtotal + iva;
-	}
-
 	// --- salida ---
-	/**
-	 * devuelve una representación del objeto como String
-	 *
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
-		return super.toString() + ", total reparaciones: " + costeReparaciones + ", total materiales: "
-				+ costeMateriales + ", subtotal: " + subtotal + ", coste iva: " + iva + ", total: " + total;
+		return "Código: " + codigo + ", ódigo orden: " + codigoOrden + ", método de pago: " + metodoPago + ", pagada: "
+				+ pagada + ", descuento: " + descuento + ", fecha: " + fecha;
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 *
-	 * @return el hash
-	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(costeMateriales, costeReparaciones, iva, subtotal, total);
-		return result;
+		return Objects.hash(codigo);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 *
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Factura other = (Factura) obj;
-		return Double.doubleToLongBits(costeMateriales) == Double.doubleToLongBits(other.costeMateriales)
-				&& Double.doubleToLongBits(costeReparaciones) == Double.doubleToLongBits(other.costeReparaciones)
-				&& Double.doubleToLongBits(iva) == Double.doubleToLongBits(other.iva)
-				&& Double.doubleToLongBits(subtotal) == Double.doubleToLongBits(other.subtotal)
-				&& Double.doubleToLongBits(total) == Double.doubleToLongBits(other.total);
+		return Objects.equals(codigo, other.codigo);
+	}
+
+	@Override
+	public int compareTo(Factura other) {
+		return codigo.compareTo(other.codigo);
 	}
 
 	// --- getters y setters ---
-	/**
-	 * accede a la propiedad costaReparaciones
-	 *
-	 * @return devuelve costeReparaciones
-	 */
-	public double getCosteReparaciones() {
-		return costeReparaciones;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	/**
-	 * accede a la propiedad costeMateriales
-	 *
-	 * @return devuelve costeMateriales
-	 */
-	public double getCosteMateriales() {
-		return costeMateriales;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
-	/**
-	 * accede a la propiedad subtotal
-	 *
-	 * @return devuelve subtotal
-	 */
-	public double getSubtotal() {
-		return subtotal;
+	public String getCodigoOrden() {
+		return codigoOrden;
 	}
 
-	/**
-	 * accede a la propiedad iva
-	 *
-	 * @return devuelve iva
-	 */
-	public double getIva() {
-		return iva;
+	public void setCodigoOrden(String codigoOrden) {
+		this.codigoOrden = codigoOrden;
 	}
 
-	/**
-	 * accede a la propiedad total
-	 *
-	 * @return devuelve total
-	 */
-	public double getTotal() {
-		return total;
+	public String getMetodoPago() {
+		return metodoPago;
+	}
+
+	public void setMetodoPago(String metodoPago) {
+		this.metodoPago = metodoPago;
+	}
+
+	public boolean isPagada() {
+		return pagada;
+	}
+
+	public void setPagada(boolean pagada) {
+		this.pagada = pagada;
+	}
+
+	public int getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(int descuento) {
+		this.descuento = descuento;
+	}
+
+	public Fecha getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Fecha fecha) {
+		this.fecha = fecha;
 	}
 }

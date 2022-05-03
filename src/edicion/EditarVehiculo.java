@@ -28,7 +28,7 @@ import administracion.AdministrarVehiculos;
 import clases.Cliente;
 import clases.Fecha;
 import clases.Vehiculo;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 
@@ -184,7 +184,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		// ===== modelos =====
 		// --- crear ---
 		dcbmClientes = new DefaultComboBoxModel<String>();
-		dcbmClientes.addAll(Archivos.listarClientes());
+		dcbmClientes.addAll(Datos.listarClientes());
 
 		// --- asignar ---
 		cmbClientes.setModel(dcbmClientes);
@@ -313,22 +313,22 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 
 				Fecha fechaITV = new Fecha(aITV);
 
-				if (!edicion && Archivos.listarVehiculos().contains(matricula)) {
+				if (!edicion && Datos.listarVehiculos().contains(matricula)) {
 					JOptionPane.showMessageDialog(this, (String) "Vehículo ya existe", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					Archivos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario, marca, modelo, color, cc,
+					Datos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario, marca, modelo, color, cc,
 							kmRecorridos, fechaITV, tipo));
 
-					for (Cliente c : Archivos.cargarTodosClientes()) {
+					for (Cliente c : Datos.cargarTodosClientes()) {
 						if (c.getVehiculos().contains(matricula) && !c.getDNI().equals(propietario)) {
 							c.getVehiculos().remove(matricula);
-							Archivos.guardarCliente(c);
+							Datos.guardarCliente(c);
 						}
 
 						if (c.getDNI().equals(propietario) && !c.getVehiculos().contains(matricula)) {
 							c.getVehiculos().add(matricula);
-							Archivos.guardarCliente(c);
+							Datos.guardarCliente(c);
 						}
 					}
 

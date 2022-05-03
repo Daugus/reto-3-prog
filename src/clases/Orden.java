@@ -1,11 +1,9 @@
 package clases;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Objects;
 
-public class Primaria implements Comparable<Primaria>, Serializable {
+public class Orden implements Comparable<Orden>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
 	// ===== propiedades =====
@@ -15,7 +13,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	private Fecha fechaInicio;
 	private Fecha fechaFin;
 
-	private double tiempoHoras;
+	private double horas;
 
 	private String matricula;
 	private String empleado;
@@ -24,14 +22,14 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	/**
 	 * orden primaria por defecto
 	 */
-	public Primaria() {
+	public Orden() {
 		codigo = "";
 		comentarios = "";
 
 		fechaInicio = new Fecha();
 		fechaFin = new Fecha();
 
-		tiempoHoras = 1.0;
+		horas = 1.0;
 
 		matricula = "";
 		empleado = "";
@@ -40,14 +38,14 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	/**
 	 * constructor copia
 	 */
-	public Primaria(Primaria other) {
+	public Orden(Orden other) {
 		this.codigo = other.codigo;
 		this.comentarios = other.comentarios;
 
 		this.fechaInicio = new Fecha(other.fechaInicio);
 		this.fechaFin = new Fecha(other.fechaFin);
 
-		this.tiempoHoras = other.tiempoHoras;
+		this.horas = other.horas;
 
 		this.matricula = other.matricula;
 		this.empleado = other.empleado;
@@ -55,22 +53,18 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 
 	/**
 	 * orden primaria personalizado
-	 * 
-	 * @param com String comentario
-	 * @param v   objeto vehiculo
-	 * @param e   objeto empleado
 	 */
-	public Primaria(String c, String com, String v, String e, double th) {
-		codigo = c;
-		comentarios = com;
+	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, double horas) {
+		this.codigo = codigo;
+		this.comentarios = comentario;
 
-		fechaInicio = new Fecha();
-		fechaFin = new Fecha();
+		this.fechaInicio = new Fecha();
+		this.fechaFin = new Fecha();
 
-		tiempoHoras = th;
+		this.horas = horas;
 
-		matricula = v;
-		empleado = e;
+		this.matricula = matricula;
+		this.empleado = dniEmpleado;
 	}
 
 	// --- salida ---
@@ -81,8 +75,13 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Código: " + codigo + ", comentarios: " + comentarios + ", fechaEntrada: " + fechaInicio + ", fechaSalida: "
-				+ fechaFin + ", matrícula: " + matricula + ", empleado: " + empleado;
+		return "Código: " + codigo + 
+				", comentarios: " + comentarios + 
+				", Fecha Entrada: " + fechaInicio + 
+				", Fecha Salida: " + fechaFin + 
+				", matrícula: " + matricula + 
+				", empleado: " + empleado +
+				", horas: " + horas;
 	}
 
 	// --- comparación ---
@@ -93,7 +92,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, comentarios, fechaInicio, fechaFin, tiempoHoras, matricula, empleado);
+		return Objects.hash(codigo, comentarios, fechaInicio, fechaFin, horas, matricula, empleado);
 	}
 
 	/**
@@ -110,10 +109,10 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Primaria other = (Primaria) obj;
+		Orden other = (Orden) obj;
 		return Objects.equals(codigo, other.codigo) && Objects.equals(comentarios, other.comentarios)
 				&& Objects.equals(fechaInicio, other.fechaInicio) && Objects.equals(fechaFin, other.fechaFin)
-				&& Objects.equals(tiempoHoras, other.tiempoHoras) && Objects.equals(matricula, other.matricula)
+				&& Objects.equals(horas, other.horas) && Objects.equals(matricula, other.matricula)
 				&& Objects.equals(empleado, other.empleado);
 	}
 
@@ -126,7 +125,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 *         menor, igual o mayor que el objeto especificado.
 	 */
 	@Override
-	public int compareTo(Primaria other) {
+	public int compareTo(Orden other) {
 		return codigo.compareTo(other.codigo);
 	}
 
@@ -248,7 +247,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 * @return horas tipo double
 	 */
 	public double getTiempoHoras() {
-		return tiempoHoras;
+		return horas;
 	}
 
 	/**
@@ -256,7 +255,7 @@ public class Primaria implements Comparable<Primaria>, Serializable {
 	 * @param tiempoHoras tipo double 
 	 */
 	public void setTiempoHoras(double tiempoHoras) {
-		this.tiempoHoras = tiempoHoras;
+		this.horas = tiempoHoras;
 	}
 	
 	

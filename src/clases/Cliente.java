@@ -43,7 +43,7 @@ public class Cliente extends Persona {
 	 * @param fa  Objeto fechaAlta
 	 * @param v   ArrayList<String> array de las matrículas de los vehículos
 	 */
-	public Cliente(String d, String n, String a, int t, String e, Direccion dir, Fecha fa, boolean act) {
+	public Cliente(String d, String n, String a, String t, String e, String dir, Fecha fa, boolean act) {
 		super(d, n, a, t, e, dir);
 
 		activo = act;

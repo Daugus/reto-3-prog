@@ -19,12 +19,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import clases.Primaria;
-import funciones.Archivos;
+import clases.Orden;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.ListaOrdenes;
-import navegacion.MenuMec;
+import navegacion.MenuMecanico;
 
 public class ListaPrimarias extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -35,9 +35,9 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 	private JButton btnVolver;
 	private JButton btnCargar;
 
-	ArrayList<Primaria> alPrimarias;
+	ArrayList<Orden> alPrimarias;
 
-	private static Primaria ordenPrim;
+	private static Orden ordenPrim;
 
 	public ListaPrimarias() {
 		setResizable(false);
@@ -75,9 +75,9 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		dtmPrimarias.addColumn("Cliente");
 		dtmPrimarias.addColumn("Vehículo");
 
-		alPrimarias = Archivos.cargarTodosPrimarias();
+		alPrimarias = Datos.cargarTodosPrimarias();
 		alPrimarias.sort(Comparator.reverseOrder());
-		for (Primaria op : alPrimarias) {
+		for (Orden op : alPrimarias) {
 			dtmPrimarias.addRow(
 					new Object[] { op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula() });
 		}
@@ -156,7 +156,7 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		} else {
 			JFrame ventana = null;
 			if (Inicio.cuentaActual.esMecanico()) {
-				ventana = new MenuMec();
+				ventana = new MenuMecanico();
 			} else {
 				ventana = new ListaOrdenes();
 			}

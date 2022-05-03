@@ -20,11 +20,11 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Cuenta;
 import edicion.EditarCuenta;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
-import navegacion.MenuAtc;
+import navegacion.MenuAdmin;
 
 public class AdministrarCuentas extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -148,7 +148,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 
 		dtm.setRowCount(0);
 
-		ArrayList<Cuenta> cuentas = Archivos.cargarTodosCuentas();
+		ArrayList<Cuenta> cuentas = Datos.cargarTodosCuentas();
 		for (Cuenta c : cuentas) {
 			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.tipo() });
 		}
@@ -176,7 +176,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		} else if (o == btnEditar) {
 			int row = tblCuentas.getSelectedRow();
 			if (row >= 0) {
-				cuenta = Archivos.cargarCuenta((String) tblCuentas.getValueAt(row, 0));
+				cuenta = Datos.cargarCuenta((String) tblCuentas.getValueAt(row, 0));
 
 				botones(false);
 
@@ -189,7 +189,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (o == btnVolver) {
-			MenuAtc ma = new MenuAtc();
+			MenuAdmin ma = new MenuAdmin();
 			ma.setVisible(true);
 
 			this.dispose();

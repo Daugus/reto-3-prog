@@ -20,7 +20,7 @@ import javax.swing.text.JTextComponent;
 
 import administracion.AdministrarMateriales;
 import clases.Material;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 
@@ -149,11 +149,11 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 				p = p.replaceAll(",", ".");
 				double precio = Double.parseDouble(p);
 				if (precio > 0) {
-					if (!edicion && Archivos.listarMateriales().contains(nombre)) {
+					if (!edicion && Datos.listarMateriales().contains(nombre)) {
 						JOptionPane.showMessageDialog(this, (String) "Material ya existe", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 					} else {
-						Archivos.guardarMaterial(new Material(nombre, precio));
+						Datos.guardarMaterial(new Material(nombre, precio));
 
 						return true;
 					}

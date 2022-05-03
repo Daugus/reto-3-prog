@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="jar/itextpdf-5.5.13.2.jar"/>
 	<classpathentry kind="lib" path="jar/itextpdf-5.5.13.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="jar/itextpdf-5.5.13.2-sources.jar"/>
+	<classpathentry kind="lib" path="jar/mysql-connector-java-8.0.28.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

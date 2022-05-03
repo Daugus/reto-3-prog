@@ -26,12 +26,12 @@ import javax.swing.table.DefaultTableModel;
 import clases.Cliente;
 import clases.MaterialUsado;
 import clases.Pendiente;
-import clases.Primaria;
+import clases.Orden;
 import clases.Reparacion;
 import clases.Vehiculo;
 import edicion.EditarReparacion;
 
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
@@ -62,7 +62,7 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	private static ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private static ArrayList<MaterialUsado> alMaterialesGeneral = new ArrayList<MaterialUsado>();
 
-	private Primaria primaria;
+	private Orden primaria;
 
 	private static boolean bloqueado;
 
@@ -281,8 +281,8 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	public void cargarDatos(Primaria op) {
-		primaria = new Primaria(op);
+	public void cargarDatos(Orden op) {
+		primaria = new Orden(op);
 
 		if (!Inicio.cuentaActual.esMecanico()) {
 			btnAgregar.setVisible(false);
@@ -388,9 +388,9 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 		if (o == btnCrear) {
 			if (tblReparaciones.getRowCount() > 0 && tblMateriales.getRowCount() > 0) {
-				Archivos.borrarPrimaria(primaria.getCodigo());
+				Datos.borrarPrimaria(primaria.getCodigo());
 
-				Archivos.guardarPendiente(new Pendiente(primaria, Inicio.cuentaActual, alReparaciones));
+				Datos.guardarPendiente(new Pendiente(primaria, Inicio.cuentaActual, alReparaciones));
 
 				JOptionPane.showMessageDialog(this,
 						(String) "Se ha convertido la order primaria en una orden pendiente", "INFO",

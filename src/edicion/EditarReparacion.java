@@ -32,7 +32,7 @@ import clases.Fecha;
 import clases.Material;
 import clases.MaterialUsado;
 import clases.Reparacion;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import funciones.Tablas;
 import funciones.General;
@@ -145,7 +145,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		// ====== Modelos ======
 		// --- crear ---
 		dcbmMaterial = new DefaultComboBoxModel<String>();
-		dcbmMaterial.addAll(Archivos.listarMateriales());
+		dcbmMaterial.addAll(Datos.listarMateriales());
 
 		DefaultTableModel dtmMaterial = new DefaultTableModel();
 		dtmMaterial.addColumn("Nombre");
@@ -367,7 +367,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 			try {
 				int cantidad = Integer.parseInt(txtCantidad.getText());
 
-				material = Archivos.cargarMaterial((String) cmbMaterial.getSelectedItem());
+				material = Datos.cargarMaterial((String) cmbMaterial.getSelectedItem());
 
 				MaterialUsado mu = new MaterialUsado(material, cantidad);
 

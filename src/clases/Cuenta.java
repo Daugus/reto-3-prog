@@ -54,25 +54,29 @@ public class Cuenta extends Persona {
 
 	// --- personalizados ---
 	// persona por defecto
-	public Cuenta(Ajustes ajustes, String jefe, String password, double sal, double com, Fecha fn, String tipo,
-			Fecha fa, boolean act) {
+	public Cuenta(Ajustes ajustes, String jefe,
+			String password, double salario,
+			double comision, Fecha fn, String tipo,
+			Fecha fa, boolean activo) {
 		super();
 
 		this.ajustes = new Ajustes(ajustes);
 		this.dniJefe = jefe;
 		this.password = password;
-		this.salario = sal;
-		this.comision = com;
+		this.salario = salario;
+		this.comision = comision;
 		this.fechaNacimiento = new Fecha(fn);
 		this.tipo = tipo;
 		this.fechaAlta = new Fecha(fa);
-		this.activo = act;
+		this.activo = activo;
 	}
 
 	// personalizado
-	public Cuenta(String d, String n, String a, int t, String e, Direccion dir, Ajustes ajustes, String jefe,
+	public Cuenta(String dni, String nombre, String apellidos,
+			String telefono, String email, String dir, 
+			Ajustes ajustes, String jefe,
 			String password, double sal, double com, Fecha fn, String tipo, Fecha fa, boolean act) {
-		super(d, n, a, t, e, dir);
+		super(dni, nombre, apellidos, telefono, email, dir);
 
 		this.ajustes = new Ajustes(ajustes);
 		this.dniJefe = jefe;

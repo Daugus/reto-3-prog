@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Vehiculo;
 import edicion.EditarVehiculo;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -146,7 +146,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 		dtm.setRowCount(0);
 
-		ArrayList<Vehiculo> vehiculos = Archivos.cargarTodosVehiculos();
+		ArrayList<Vehiculo> vehiculos = Datos.cargarTodosVehiculos();
 		for (Vehiculo v : vehiculos) {
 			dtm.addRow(new Object[] { v.getMatricula(), v.getPropietario(), v.getMarca() + " " + v.getModelo() });
 		}
@@ -174,7 +174,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		} else if (o == btnEditar) {
 			int row = tblVehiculos.getSelectedRow();
 			if (row >= 0) {
-				vehiculo = Archivos.cargarVehiculo((String) tblVehiculos.getValueAt(row, 0));
+				vehiculo = Datos.cargarVehiculo((String) tblVehiculos.getValueAt(row, 0));
 
 				botones(false);
 

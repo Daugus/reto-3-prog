@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Material;
 import edicion.EditarMaterial;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
-import navegacion.MenuAtc;
+import navegacion.MenuAdmin;
 
 public class AdministrarMateriales extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -146,7 +146,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 		dtm.setRowCount(0);
 
-		ArrayList<Material> materiales = Archivos.cargarTodosMateriales();
+		ArrayList<Material> materiales = Datos.cargarTodosMateriales();
 		for (Material m : materiales) {
 			dtm.addRow(new Object[] { m.getNombre(), General.formatear(m.getPrecio()) });
 		}
@@ -174,7 +174,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		} else if (o == btnEditar) {
 			int row = tblMateriales.getSelectedRow();
 			if (row >= 0) {
-				material = Archivos.cargarMaterial((String) tblMateriales.getValueAt(row, 0));
+				material = Datos.cargarMaterial((String) tblMateriales.getValueAt(row, 0));
 
 				botones(false);
 
@@ -187,7 +187,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (o == btnVolver) {
-			MenuAtc ma = new MenuAtc();
+			MenuAdmin ma = new MenuAdmin();
 			ma.setVisible(true);
 
 			this.dispose();

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Cliente;
 import edicion.EditarCliente;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -143,7 +143,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 
 		dtm.setRowCount(0);
 
-		ArrayList<Cliente> clientes = Archivos.cargarTodosClientes();
+		ArrayList<Cliente> clientes = Datos.cargarTodosClientes();
 		for (Cliente c : clientes) {
 			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getFechaAlta() });
 		}
@@ -171,7 +171,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		} else if (o == btnEditar) {
 			int row = tblClientes.getSelectedRow();
 			if (row >= 0) {
-				cliente = Archivos.cargarCliente((String) tblClientes.getValueAt(row, 0));
+				cliente = Datos.cargarCliente((String) tblClientes.getValueAt(row, 0));
 
 				botones(false);
 

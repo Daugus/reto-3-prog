@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Factura;
 import clases.Pendiente;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.ListaOrdenes;
@@ -75,7 +75,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		dtmFacturas.addColumn("Cliente");
 		dtmFacturas.addColumn("Vehículo");
 
-		alFacturas = Archivos.cargarTodosFacturas();
+		alFacturas = Datos.cargarTodosFacturas();
 		alFacturas.sort(Comparator.reverseOrder());
 		for (Pendiente op : alFacturas) {
 			dtmFacturas.addRow(

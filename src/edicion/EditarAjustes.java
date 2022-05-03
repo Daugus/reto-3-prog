@@ -19,11 +19,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 import clases.Ajustes;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
-import navegacion.MenuAtc;
-import navegacion.MenuMec;
+import navegacion.MenuAdmin;
+import navegacion.MenuMecanico;
 
 public class EditarAjustes extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -151,9 +151,9 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 			temaOscuro = false;
 		}
 
-		Archivos.guardarAjustes(new Ajustes(temaOscuro, fuente));
+		Datos.guardarAjustes(new Ajustes(temaOscuro, fuente));
 
-		Archivos.cargarAjustes();
+		Datos.cargarAjustes(Inicio.cuentaActual.getDNI());
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -170,10 +170,10 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 			}
 
 			JFrame menu;
-			if (Inicio.cuentaActual.esMecanico()) {
-				menu = new MenuMec();
+			if (Inicio.cuentaActual.getTipo().equals("Mecanico")) {
+				menu = new MenuMecanico();
 			} else {
-				menu = new MenuAtc();
+				menu = new MenuAdmin();
 			}
 
 			menu.setVisible(true);

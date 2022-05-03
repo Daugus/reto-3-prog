@@ -28,7 +28,7 @@ import clases.MaterialUsado;
 import clases.Pendiente;
 import clases.Reparacion;
 import clases.Vehiculo;
-import funciones.Archivos;
+import funciones.Datos;
 import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
@@ -321,9 +321,9 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 			btnGenerar.setEnabled(chkAprobar.isSelected());
 		} else {
 			if (o == btnGenerar) {
-				Archivos.borrarPendiente(pendiente.getCodigo());
+				Datos.borrarPendiente(pendiente.getCodigo());
 
-				Archivos.guardarFactura(new Factura(pendiente));
+				Datos.guardarFactura(new Factura(pendiente));
 
 				JOptionPane.showMessageDialog(this, (String) "Se ha generado la factura", "INFO",
 						JOptionPane.INFORMATION_MESSAGE);
