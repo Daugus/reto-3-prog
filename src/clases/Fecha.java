@@ -120,11 +120,11 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		String d = String.format("%02d", day);
-		String m = String.format("%02d", month);
-		String y = String.format("%04d", year);
-
-		return d + "/" + m + "/" + y;
+		return String.format("%02d/%02d/%04d", day, month, year);
+	}
+	
+	public String toSQLDate() {
+		return String.format("%04d-%02d-%02d", year, month, day);
 	}
 
 	// --- comparación ---
