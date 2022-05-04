@@ -10,11 +10,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
@@ -23,9 +25,6 @@ import clases.Material;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
-import java.awt.Font;
-import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
 
 public class EditarMaterial extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -222,7 +221,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	public void setID(String idUltimo) {
 		int id = Integer.valueOf(idUltimo.substring(1));
 		id++;
-		txtID.setText(String.format("P%d", id));
+		txtID.setText("P" + id);
 	}
 
 	public void modoEdicion(Material material) {

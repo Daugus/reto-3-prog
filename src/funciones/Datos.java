@@ -18,14 +18,9 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import clases.Ajustes;
-import clases.Cliente;
 import clases.Cuenta;
-import clases.Factura;
 import clases.Fecha;
 import clases.Material;
-import clases.Orden;
-import clases.Pendiente;
-import clases.Vehiculo;
 import navegacion.Inicio;
 
 public class Datos {
