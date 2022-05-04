@@ -23,6 +23,9 @@ import clases.Material;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
+import java.awt.Font;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 public class EditarMaterial extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -35,6 +38,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	private JTextField txtStock;
 	private JTextField txtPVP;
 	private JTextField txtPrecioCompra;
+	private JCheckBox chkActivo;
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
@@ -88,6 +92,10 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		lblPrecioCompra.setBounds(59, 258, 150, 35);
 		panelPrincipal.add(lblPrecioCompra);
 
+		JLabel lblActivo = new JLabel("Activo:");
+		lblActivo.setBounds(59, 313, 150, 35);
+		panelPrincipal.add(lblActivo);
+
 		txtID = new JTextField();
 		txtID.setColumns(10);
 		txtID.setBounds(209, 28, 150, 35);
@@ -117,6 +125,13 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		txtPrecioCompra.setColumns(10);
 		txtPrecioCompra.setBounds(215, 258, 70, 35);
 		panelPrincipal.add(txtPrecioCompra);
+
+		chkActivo = new JCheckBox("");
+		chkActivo.setHorizontalAlignment(SwingConstants.CENTER);
+		chkActivo.setOpaque(false);
+		chkActivo.setSelected(true);
+		chkActivo.setBounds(215, 320, 70, 35);
+		panelPrincipal.add(chkActivo);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -148,6 +163,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		lblStock.setFont(Inicio.fuente);
 		lblPVP.setFont(Inicio.fuente);
 		lblPrecioCompra.setFont(Inicio.fuente);
+		lblActivo.setFont(Inicio.fuente);
 
 		txtID.setFont(Inicio.fuenteObjetos);
 		txtMarca.setFont(Inicio.fuenteObjetos);
@@ -180,6 +196,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		lblStock.setForeground(Inicio.colorFuente);
 		lblPVP.setForeground(Inicio.colorFuente);
 		lblPrecioCompra.setForeground(Inicio.colorFuente);
+		lblActivo.setForeground(Inicio.colorFuente);
 
 		txtID.setForeground(Inicio.colorFuenteObjetos);
 		txtID.setDisabledTextColor(Color.DARK_GRAY);
@@ -199,6 +216,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		txtStock.setText("1");
 		txtPVP.setText("100.0");
 		txtPrecioCompra.setText("75.0");
+		chkActivo.setSelected(true);
 	}
 
 	public void setID(String idUltimo) {
@@ -218,6 +236,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		txtStock.setText(String.valueOf(material.getStock()));
 		txtPVP.setText(String.valueOf(material.getPVP()));
 		txtPrecioCompra.setText(String.valueOf(material.getPrecioCompra()));
+		chkActivo.setSelected(material.isActivo());
 	}
 
 	private boolean guardar() {
@@ -228,6 +247,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 			String s = txtStock.getText();
 			String p = txtPVP.getText();
 			String pc = txtPrecioCompra.getText();
+			boolean activo = chkActivo.isSelected();
 
 			if (marca.equals("")) {
 				JOptionPane.showMessageDialog(this, (String) "Campo Nombre vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -249,16 +269,17 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 				double precioCompra = Double.parseDouble(pc);
 
 				if (pvp <= 0) {
-					JOptionPane.showMessageDialog(this, (String) "PVP no válido, PVP debe ser mayor que 0",
-							"ERROR", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, (String) "PVP no válido, PVP debe ser mayor que 0", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
 				} else if (precioCompra <= 0) {
-					JOptionPane.showMessageDialog(this, (String) "Precio de Compra no válido, Precio de Compra debe ser mayor que 0",
-							"ERROR", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this,
+							(String) "Precio de Compra no válido, Precio de Compra debe ser mayor que 0", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
 				} else if (stock < 0) {
 					JOptionPane.showMessageDialog(this, (String) "Stock no válido, Stock no puede ser menor que 0",
 							"ERROR", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Datos.guardarMaterial(new Material(id, marca, nombre, stock, pvp, precioCompra, true), edicion);
+					Datos.guardarMaterial(new Material(id, marca, nombre, stock, pvp, precioCompra, activo), edicion);
 					return true;
 				}
 			}
