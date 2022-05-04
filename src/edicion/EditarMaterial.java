@@ -29,8 +29,12 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 	private JPanel panelPrincipal;
 
+	private JTextField txtID;
+	private JTextField txtMarca;
 	private JTextField txtNombre;
-	private JTextField txtPrecio;
+	private JTextField txtStock;
+	private JTextField txtPVP;
+	private JTextField txtPrecioCompra;
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
@@ -41,8 +45,8 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		setResizable(false);
 		setTitle("Agregar material | " + Inicio.cuentaActual.getNombre());
 
-		setBounds(100, 100, 396, 200);
-		getContentPane().setPreferredSize(new Dimension(396, 200));
+		setBounds(100, 100, 396, 500);
+		getContentPane().setPreferredSize(new Dimension(396, 500));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -53,30 +57,66 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		panelPrincipal.setLayout(null);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(10, 135, 180, 40);
+		btnCancelar.setBounds(10, 434, 180, 40);
 		panelPrincipal.add(btnCancelar);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(206, 135, 180, 40);
+		btnGuardar.setBounds(206, 434, 180, 40);
 		panelPrincipal.add(btnGuardar);
 
-		JLabel lblPrecio = new JLabel("Precio por unidad:");
-		lblPrecio.setBounds(48, 75, 150, 35);
-		panelPrincipal.add(lblPrecio);
+		JLabel lblID = new JLabel("ID:");
+		lblID.setBounds(59, 28, 150, 35);
+		panelPrincipal.add(lblID);
+
+		JLabel lblMarca = new JLabel("Marca:");
+		lblMarca.setBounds(59, 74, 150, 35);
+		panelPrincipal.add(lblMarca);
 
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(48, 25, 150, 35);
+		lblNombre.setBounds(59, 120, 150, 35);
 		panelPrincipal.add(lblNombre);
+
+		JLabel lblStock = new JLabel("Stock:");
+		lblStock.setBounds(59, 166, 150, 35);
+		panelPrincipal.add(lblStock);
+
+		JLabel lblPVP = new JLabel("PVP:");
+		lblPVP.setBounds(59, 212, 150, 35);
+		panelPrincipal.add(lblPVP);
+
+		JLabel lblPrecioCompra = new JLabel("Precio de compra:");
+		lblPrecioCompra.setBounds(59, 258, 150, 35);
+		panelPrincipal.add(lblPrecioCompra);
+
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(209, 28, 150, 35);
+		panelPrincipal.add(txtID);
+
+		txtMarca = new JTextField();
+		txtMarca.setColumns(10);
+		txtMarca.setBounds(209, 74, 150, 35);
+		panelPrincipal.add(txtMarca);
 
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(198, 25, 150, 35);
+		txtNombre.setBounds(209, 120, 150, 35);
 		panelPrincipal.add(txtNombre);
 
-		txtPrecio = new JTextField();
-		txtPrecio.setColumns(10);
-		txtPrecio.setBounds(198, 75, 70, 35);
-		panelPrincipal.add(txtPrecio);
+		txtStock = new JTextField();
+		txtStock.setColumns(10);
+		txtStock.setBounds(215, 166, 70, 35);
+		panelPrincipal.add(txtStock);
+
+		txtPVP = new JTextField();
+		txtPVP.setColumns(10);
+		txtPVP.setBounds(215, 212, 70, 35);
+		panelPrincipal.add(txtPVP);
+
+		txtPrecioCompra = new JTextField();
+		txtPrecioCompra.setColumns(10);
+		txtPrecioCompra.setBounds(215, 258, 70, 35);
+		panelPrincipal.add(txtPrecioCompra);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -85,10 +125,16 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 		// --- Action && Focus ---
 		// - JTextField -
+		txtMarca.addActionListener(this);
+		txtMarca.addFocusListener(this);
 		txtNombre.addActionListener(this);
 		txtNombre.addFocusListener(this);
-		txtPrecio.addActionListener(this);
-		txtPrecio.addFocusListener(this);
+		txtStock.addActionListener(this);
+		txtStock.addFocusListener(this);
+		txtPVP.addActionListener(this);
+		txtPVP.addFocusListener(this);
+		txtPrecioCompra.addActionListener(this);
+		txtPrecioCompra.addFocusListener(this);
 
 		// - JButton -
 		btnCancelar.addActionListener(this);
@@ -96,11 +142,19 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 		// ===== ajustes de usuario =====
 		// --- fuente ---
+		lblID.setFont(Inicio.fuente);
+		lblMarca.setFont(Inicio.fuente);
 		lblNombre.setFont(Inicio.fuente);
-		lblPrecio.setFont(Inicio.fuente);
+		lblStock.setFont(Inicio.fuente);
+		lblPVP.setFont(Inicio.fuente);
+		lblPrecioCompra.setFont(Inicio.fuente);
 
+		txtID.setFont(Inicio.fuenteObjetos);
+		txtMarca.setFont(Inicio.fuenteObjetos);
 		txtNombre.setFont(Inicio.fuenteObjetos);
-		txtPrecio.setFont(Inicio.fuenteObjetos);
+		txtStock.setFont(Inicio.fuenteObjetos);
+		txtPVP.setFont(Inicio.fuenteObjetos);
+		txtPrecioCompra.setFont(Inicio.fuenteObjetos);
 
 		btnCancelar.setFont(Inicio.fuenteObjetos);
 		btnGuardar.setFont(Inicio.fuenteObjetos);
@@ -109,57 +163,103 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
+		txtID.setBackground(Inicio.colorFondoObjetos);
+		txtMarca.setBackground(Inicio.colorFondoObjetos);
 		txtNombre.setBackground(Inicio.colorFondoObjetos);
-		txtPrecio.setBackground(Inicio.colorFondoObjetos);
+		txtStock.setBackground(Inicio.colorFondoObjetos);
+		txtPVP.setBackground(Inicio.colorFondoObjetos);
+		txtPrecioCompra.setBackground(Inicio.colorFondoObjetos);
 
 		btnCancelar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
+		lblID.setForeground(Inicio.colorFuente);
+		lblMarca.setForeground(Inicio.colorFuente);
 		lblNombre.setForeground(Inicio.colorFuente);
-		lblPrecio.setForeground(Inicio.colorFuente);
+		lblStock.setForeground(Inicio.colorFuente);
+		lblPVP.setForeground(Inicio.colorFuente);
+		lblPrecioCompra.setForeground(Inicio.colorFuente);
 
+		txtID.setForeground(Inicio.colorFuenteObjetos);
+		txtID.setDisabledTextColor(Color.DARK_GRAY);
+		txtMarca.setForeground(Inicio.colorFuenteObjetos);
 		txtNombre.setForeground(Inicio.colorFuenteObjetos);
-		txtNombre.setDisabledTextColor(Color.DARK_GRAY);
-		txtPrecio.setForeground(Inicio.colorFuenteObjetos);
+		txtStock.setForeground(Inicio.colorFuenteObjetos);
+		txtPVP.setForeground(Inicio.colorFuenteObjetos);
+		txtPrecioCompra.setForeground(Inicio.colorFuenteObjetos);
 
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		// valores por defecto
+		txtID.setEnabled(false);
+		txtMarca.setText("Marca");
+		txtNombre.setText("Nombre");
+		txtStock.setText("1");
+		txtPVP.setText("100.0");
+		txtPrecioCompra.setText("75.0");
+	}
+
+	public void setID(String idUltimo) {
+		int id = Integer.valueOf(idUltimo.substring(1));
+		id++;
+		txtID.setText(String.format("P%d", id));
 	}
 
 	public void modoEdicion(Material material) {
 		edicion = true;
 
-		setTitle("Editar " + material.getNombre() + " | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar " + material.getID() + " | " + Inicio.cuentaActual.getNombre());
 
+		txtID.setText(material.getID());
+		txtMarca.setText(material.getMarca());
 		txtNombre.setText(material.getNombre());
-		txtNombre.setEnabled(false);
-
-		txtPrecio.setText(String.valueOf(material.getPrecio()));
+		txtStock.setText(String.valueOf(material.getStock()));
+		txtPVP.setText(String.valueOf(material.getPVP()));
+		txtPrecioCompra.setText(String.valueOf(material.getPrecioCompra()));
 	}
 
 	private boolean guardar() {
 		try {
+			String id = txtID.getText();
+			String marca = txtMarca.getText();
 			String nombre = txtNombre.getText();
-			String p = txtPrecio.getText();
+			String s = txtStock.getText();
+			String p = txtPVP.getText();
+			String pc = txtPrecioCompra.getText();
 
-			if (nombre.equals("") || p.equals("")) {
-				JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+			if (marca.equals("")) {
+				JOptionPane.showMessageDialog(this, (String) "Campo Nombre vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (nombre.equals("")) {
+				JOptionPane.showMessageDialog(this, (String) "Campo Marca vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (s.equals("")) {
+				JOptionPane.showMessageDialog(this, (String) "Campo Stock vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (p.equals("")) {
+				JOptionPane.showMessageDialog(this, (String) "Campo PVP vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (pc.equals("")) {
+				JOptionPane.showMessageDialog(this, (String) "Campo Precio de Compra vacío", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
 			} else {
 				p = p.replaceAll(",", ".");
-				double precio = Double.parseDouble(p);
-				if (precio > 0) {
-					if (!edicion && Datos.listarMateriales().contains(nombre)) {
-						JOptionPane.showMessageDialog(this, (String) "Material ya existe", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						Datos.guardarMaterial(new Material(nombre, precio));
+				pc = pc.replaceAll(",", ".");
 
-						return true;
-					}
-				} else {
-					JOptionPane.showMessageDialog(this, (String) "Precio no válido, precio no puede ser menor que 0",
+				int stock = Integer.parseInt(s);
+				double pvp = Double.parseDouble(p);
+				double precioCompra = Double.parseDouble(pc);
+
+				if (pvp <= 0) {
+					JOptionPane.showMessageDialog(this, (String) "PVP no válido, PVP debe ser mayor que 0",
 							"ERROR", JOptionPane.ERROR_MESSAGE);
+				} else if (precioCompra <= 0) {
+					JOptionPane.showMessageDialog(this, (String) "Precio de Compra no válido, Precio de Compra debe ser mayor que 0",
+							"ERROR", JOptionPane.ERROR_MESSAGE);
+				} else if (stock < 0) {
+					JOptionPane.showMessageDialog(this, (String) "Stock no válido, Stock no puede ser menor que 0",
+							"ERROR", JOptionPane.ERROR_MESSAGE);
+				} else {
+					Datos.guardarMaterial(new Material(id, marca, nombre, stock, pvp, precioCompra, true), edicion);
+					return true;
 				}
 			}
 		} catch (NumberFormatException nfe) {

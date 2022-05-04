@@ -37,6 +37,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
 
+	private static ArrayList<Material> materiales;
 	private Material material;
 
 	private static boolean bloqueado;
@@ -81,8 +82,11 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		// ===== modelos =====
 		// --- crear ---
 		DefaultTableModel dtmMateriales = new DefaultTableModel();
+		dtmMateriales.addColumn("ID");
+		dtmMateriales.addColumn("Marca");
 		dtmMateriales.addColumn("Nombre");
-		dtmMateriales.addColumn("Precio");
+		dtmMateriales.addColumn("Stock");
+		dtmMateriales.addColumn("PVP");
 
 		// --- asignar ---
 		tblMateriales = new JTable(dtmMateriales) {
@@ -146,9 +150,10 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 		dtm.setRowCount(0);
 
-		ArrayList<Material> materiales = Datos.cargarTodosMateriales();
+		materiales = Datos.cargarTodosMateriales();
 		for (Material m : materiales) {
-			dtm.addRow(new Object[] { m.getNombre(), General.formatear(m.getPrecio()) });
+			dtm.addRow(new Object[] { m.getID(), m.getMarca(), m.getNombre(), m.getStock(),
+					General.formatear(m.getPVP()) });
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);
@@ -170,11 +175,12 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 			botones(false);
 
 			EditarMaterial em = new EditarMaterial();
+			em.setID(materiales.get(materiales.size() - 1).getID());
 			em.setVisible(true);
 		} else if (o == btnEditar) {
 			int row = tblMateriales.getSelectedRow();
 			if (row >= 0) {
-				material = Datos.cargarMaterial((String) tblMateriales.getValueAt(row, 0));
+				material = materiales.get(row);
 
 				botones(false);
 

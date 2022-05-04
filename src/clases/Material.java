@@ -10,6 +10,7 @@ public class Material implements Comparable<Material>, Serializable {
 	private String id;
 	private String marca;
 	private String nombre;
+	private int stock;
 	private double pvp;
 	private double precioCompra;
 	private boolean activo;
@@ -22,6 +23,7 @@ public class Material implements Comparable<Material>, Serializable {
 		id = "";
 		marca = "";
 		nombre = "";
+		stock = 1;
 		pvp = 1.0;
 		precioCompra = 1.0;
 		activo = true;
@@ -34,6 +36,7 @@ public class Material implements Comparable<Material>, Serializable {
 		this.id = m.id;
 		this.marca = m.marca;
 		this.nombre = m.nombre;
+		this.stock = m.stock;
 		this.pvp = m.pvp;
 		this.precioCompra = m.precioCompra;
 		this.activo = m.activo;
@@ -46,10 +49,12 @@ public class Material implements Comparable<Material>, Serializable {
 	 * @param nombre nombre
 	 * @param pvp    precio
 	 */
-	public Material(String id, String marca, String nombre, double pvp, double precioCompra, boolean activo) {
+	public Material(String id, String marca, String nombre, int stock, double pvp, double precioCompra,
+			boolean activo) {
 		this.id = id;
 		this.marca = marca;
 		this.nombre = nombre;
+		this.stock = stock;
 		this.pvp = pvp;
 		this.precioCompra = precioCompra;
 		this.activo = activo;
@@ -63,8 +68,8 @@ public class Material implements Comparable<Material>, Serializable {
 	 * @return los atributos del objeto
 	 */
 	public String toString() {
-		return "ID:" + id + ", marca: " + marca + ", nombre: " + nombre + ", precio: " + pvp + ", precio compra: "
-				+ precioCompra + ", activo: " + activo;
+		return "ID:" + id + ", marca: " + marca + ", nombre: " + nombre + ", stock: " + stock + ", precio: " + pvp
+				+ ", precio compra: " + precioCompra + ", activo: " + activo;
 	}
 
 	// --- comparación ---
@@ -111,11 +116,11 @@ public class Material implements Comparable<Material>, Serializable {
 	}
 
 	// --- getters y setters ---
-	public String getId() {
+	public String getID() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setID(String id) {
 		this.id = id;
 	}
 
@@ -135,11 +140,19 @@ public class Material implements Comparable<Material>, Serializable {
 		this.nombre = nombre;
 	}
 
-	public double getPvp() {
+	public int getStock() {
+		return stock;
+	}
+
+	public void setNombre(int stock) {
+		this.stock = stock;
+	}
+
+	public double getPVP() {
 		return pvp;
 	}
 
-	public void setPvp(double pvp) {
+	public void setPVP(double pvp) {
 		this.pvp = pvp;
 	}
 
