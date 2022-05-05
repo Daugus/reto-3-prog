@@ -59,14 +59,50 @@ public class Datos {
 	}
 
 	// ===== guardar =====
+	public static void guardarCuenta(Cuenta c, boolean edicion) {
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement st = conexion.createStatement();
+
+			String tipo = c.getTipo().replaceAll("Mecánico", "Mecanico");
+			String estado = General.estadoAString(c.isActivo());
+
+			String sentencia;
+
+			if (edicion) {
+				sentencia = String.format(Locale.US,
+						"update reto3.empleado set nombre = '%s', apellidos = '%s', telefono = '%s',"
+								+ " email = '%s', direccion = '%s', dniJefe = NULLIF('%s', ''), password = '%s',"
+								+ " salBase = %.2f, comision = %.2f, fecNac = '%s', tipoEmpleado = '%s',"
+								+ " fecAltaContrato = '%s', estado = '%s' where dniEmple like '%s';",
+						c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(),
+						c.getDniJefe(), c.getPassword(), c.getSalario(), c.getComision(),
+						c.getFechaNacimiento().toSQLDate(), tipo, c.getFechaAlta().toSQLDate(), estado, c.getDNI());
+			} else {
+				sentencia = String.format(Locale.US, "insert into reto3.empleado"
+						+ " (dniEmple, nombre, apellidos, telefono, email, direccion, dniJefe, password,"
+						+ " salBase, comision, fecNac, tipoEmpleado, fecAltaContrato, estado)"
+						+ " values('%s', '%s', '%s', '%s', '%s', '%s', NULLIF('%s', ''), '%s', %.2f, %.2f, '%s', '%s', '%s', '%s');",
+						c.getDNI(), c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(),
+						c.getDniJefe(), c.getPassword(), c.getSalario(), c.getComision(),
+						c.getFechaNacimiento().toSQLDate(), tipo, c.getFechaAlta().toSQLDate(), estado);
+			}
+
+			st.executeUpdate(sentencia);
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
+
 	public static void guardarMaterial(Material m, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 			Statement st = conexion.createStatement();
 
-			String estado = "activo";
-			if (!m.isActivo())
-				estado = "inactivo";
+			String estado = General.estadoAString(m.isActivo());
 
 			String sentencia;
 
@@ -78,7 +114,6 @@ public class Datos {
 				sentencia = String.format(Locale.US,
 						"insert into reto3.pieza values('%s', '%s', '%s', %d, %.2f, %.2f, '%s');", m.getID(),
 						m.getMarca(), m.getNombre(), m.getStock(), m.getPVP(), m.getPrecioCompra(), estado);
-				System.out.println(sentencia);
 			}
 
 			st.executeUpdate(sentencia);
@@ -100,15 +135,14 @@ public class Datos {
 			ResultSet rs = st.executeQuery(String.format("select * from reto3.empleado where dniEmple like '%s'", dni));
 
 			if (rs.next()) {
-				boolean activo = true;
-				if (rs.getString("estado").equals("inactivo"))
-					activo = false;
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
 
 				c = new Cuenta(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
 						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
-						cargarAjustes(rs.getString("dniEmple")), rs.getString("dniJefe"), rs.getString("password"),
-						rs.getDouble("salBase"), rs.getDouble("comision"), new Fecha(rs.getString("fecNac")),
-						rs.getString("tipoEmpleado"), new Fecha(rs.getString("fecAltaContrato")), activo);
+						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
+						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
+						new Fecha(rs.getString("fecNac")), rs.getString("tipoEmpleado"),
+						new Fecha(rs.getString("fecAltaContrato")), activo);
 			}
 
 			rs.close();
@@ -218,6 +252,37 @@ public class Datos {
 		return materiales;
 	}
 
+	public static ArrayList<Cuenta> cargarTodosCuentas() {
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from reto3.empleado");
+
+			while (rs.next()) {
+				Ajustes ajustes = cargarAjustes(rs.getString("dniEmple"), true);
+				String tipo = rs.getString("tipoEmpleado").replaceAll("Mecanico", "Mecánico");
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				cuentas.add(new Cuenta(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
+						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"), ajustes,
+						rs.getString("dniJefe"), rs.getString("password"), rs.getDouble("salBase"),
+						rs.getDouble("comision"), new Fecha(rs.getString("fecNac")), tipo,
+						new Fecha(rs.getString("fecAltaContrato")), activo));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return cuentas;
+	}
+
 	// ===== ajustes =====
 	public static void guardarAjustes(Ajustes a) {
 		FileOutputStream fos;
@@ -239,7 +304,7 @@ public class Datos {
 		Log.ajustes(Inicio.cuentaActual.getDNI());
 	}
 
-	public static Ajustes cargarAjustes(String dni) {
+	public static Ajustes cargarAjustes(String dni, boolean listar) {
 		Ajustes a = null;
 
 		FileInputStream fis;
@@ -261,14 +326,16 @@ public class Datos {
 			Log.error("no se ha encontrado la clase especificada");
 		}
 
-		Inicio.fuente = a.getFuente();
-		Inicio.fuenteObjetos = a.getFuenteObjetos();
+		if (!listar) {
+			Inicio.fuente = a.getFuente();
+			Inicio.fuenteObjetos = a.getFuenteObjetos();
 
-		Inicio.colorFondo = a.getColorFondo();
-		Inicio.colorFondoObjetos = a.getColorFondoObjetos();
+			Inicio.colorFondo = a.getColorFondo();
+			Inicio.colorFondoObjetos = a.getColorFondoObjetos();
 
-		Inicio.colorFuente = a.getColorFuente();
-		Inicio.colorFuenteObjetos = a.getColorFuenteObjetos();
+			Inicio.colorFuente = a.getColorFuente();
+			Inicio.colorFuenteObjetos = a.getColorFuenteObjetos();
+		}
 
 		return a;
 	}

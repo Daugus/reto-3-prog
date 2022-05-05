@@ -289,7 +289,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		dtm.setRowCount(0);
 
 		for (MaterialUsado m : alMaterialesUsados) {
-			dtm.addRow(new Object[] { m.getNombre(), General.formatear(m.getPrecio()), m.getCantidad() });
+			dtm.addRow(new Object[] { m.getNombre(), General.formatearPrecio(m.getPrecio()), m.getCantidad() });
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);

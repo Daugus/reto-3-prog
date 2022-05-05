@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Cuenta;
 import edicion.EditarCuenta;
 import funciones.Datos;
+import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -37,6 +38,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	private static JButton btnAgregar;
 	private static JButton btnEditar;
 
+	private static ArrayList<Cuenta> cuentas;
 	private Cuenta cuenta;
 
 	private static boolean bloqueado;
@@ -85,6 +87,8 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		dtmCuentas.addColumn("Nombre");
 		dtmCuentas.addColumn("Apellidos");
 		dtmCuentas.addColumn("Tipo");
+		dtmCuentas.addColumn("DNI Jefe");
+		dtmCuentas.addColumn("Estado");
 
 		// --- asignar ---
 		tblCuentas = new JTable(dtmCuentas) {
@@ -148,9 +152,14 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 
 		dtm.setRowCount(0);
 
-		ArrayList<Cuenta> cuentas = Datos.cargarTodosCuentas();
+		cuentas = Datos.cargarTodosCuentas();
 		for (Cuenta c : cuentas) {
-			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.tipo() });
+			String dniJefe = c.getDniJefe();
+			if (dniJefe == null) 
+				dniJefe = "-";
+
+			String estado = General.estadoAString(c.isActivo());
+			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getTipo(), dniJefe, estado });
 		}
 
 		Tablas.ajustarColumnas(tblCuentas);
@@ -172,16 +181,18 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 			botones(false);
 
 			EditarCuenta ec = new EditarCuenta();
+			ec.setAlDNIs(cuentas);
 			ec.setVisible(true);
 		} else if (o == btnEditar) {
 			int row = tblCuentas.getSelectedRow();
 			if (row >= 0) {
-				cuenta = Datos.cargarCuenta((String) tblCuentas.getValueAt(row, 0));
+				cuenta = cuentas.get(row);
 
 				botones(false);
 
 				EditarCuenta ec = new EditarCuenta();
 				ec.modoEdicion(cuenta);
+				ec.setAlDNIs(cuentas);
 
 				ec.setVisible(true);
 			} else {
@@ -199,7 +210,7 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
-			Salir.error();
+			Salir.errorBloqueado();
 		} else {
 			Salir.general(this);
 		}

@@ -29,12 +29,12 @@ import javax.swing.text.JTextComponent;
 import administracion.AdministrarCuentas;
 import clases.Ajustes;
 import clases.Cuenta;
-import clases.Direccion;
 import clases.Fecha;
 import clases.OrdenTabulacion;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
+import javax.swing.JCheckBox;
 
 public class EditarCuenta extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -55,11 +55,12 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JTextField txtFechaNacimientoM;
 	private JTextField txtFechaNacimientoA;
 
-	private JTextField txtCodPostal;
-	private JTextField txtCalle;
-	private JTextField txtPortal;
-	private JTextField txtPiso;
-	private JTextField txtPuerta;
+	private JTextField txtDireccion;
+	private JTextField txtDniJefe;
+	private JTextField txtSalario;
+	private JTextField txtComision;
+
+	private JCheckBox chkActivo;
 
 	private JPasswordField pwdPassword;
 
@@ -70,9 +71,13 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 
+	private ArrayList<String> alDNIs = new ArrayList<String>();
+
 	private Vector<Component> vectorOrden;
 
 	private boolean edicion;
+	
+	private Fecha fechaAlta;
 
 	public EditarCuenta() {
 		setResizable(false);
@@ -159,55 +164,50 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		txtEmail.setBounds(130, 205, 220, 35);
 		panelPrincipal.add(txtEmail);
 
-		JLabel lblCodPostal = new JLabel("Codigo Postal:");
-		lblCodPostal.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodPostal.setBounds(380, 70, 150, 35);
-		panelPrincipal.add(lblCodPostal);
+		JLabel lblDireccion = new JLabel("Dirección:");
+		lblDireccion.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDireccion.setBounds(380, 70, 150, 35);
+		panelPrincipal.add(lblDireccion);
 
-		txtCodPostal = new JTextField();
-		txtCodPostal.setColumns(10);
-		txtCodPostal.setBounds(530, 70, 150, 35);
-		panelPrincipal.add(txtCodPostal);
+		txtDireccion = new JTextField();
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(530, 70, 150, 35);
+		panelPrincipal.add(txtDireccion);
 
-		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCalle.setBounds(380, 115, 150, 35);
-		panelPrincipal.add(lblCalle);
+		JLabel lblDniJefe = new JLabel("DNI Jefe:");
+		lblDniJefe.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDniJefe.setBounds(380, 115, 150, 35);
+		panelPrincipal.add(lblDniJefe);
 
-		txtCalle = new JTextField();
-		txtCalle.setColumns(10);
-		txtCalle.setBounds(530, 115, 150, 35);
-		panelPrincipal.add(txtCalle);
+		txtDniJefe = new JTextField();
+		txtDniJefe.setColumns(10);
+		txtDniJefe.setBounds(530, 115, 150, 35);
+		panelPrincipal.add(txtDniJefe);
 
-		JLabel lblPortal = new JLabel("Nº Portal:");
-		lblPortal.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPortal.setBounds(380, 160, 150, 35);
-		panelPrincipal.add(lblPortal);
+		JLabel lblSalario = new JLabel("Salario:");
+		lblSalario.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSalario.setBounds(380, 160, 150, 35);
+		panelPrincipal.add(lblSalario);
 
-		txtPortal = new JTextField();
-		txtPortal.setColumns(10);
-		txtPortal.setBounds(530, 160, 150, 35);
-		panelPrincipal.add(txtPortal);
+		txtSalario = new JTextField();
+		txtSalario.setColumns(10);
+		txtSalario.setBounds(530, 160, 150, 35);
+		panelPrincipal.add(txtSalario);
 
-		JLabel lblPiso = new JLabel("Piso:");
-		lblPiso.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPiso.setBounds(380, 205, 150, 35);
-		panelPrincipal.add(lblPiso);
+		JLabel lblComision = new JLabel("Comision");
+		lblComision.setHorizontalAlignment(SwingConstants.LEFT);
+		lblComision.setBounds(380, 205, 150, 35);
+		panelPrincipal.add(lblComision);
 
-		txtPiso = new JTextField();
-		txtPiso.setColumns(10);
-		txtPiso.setBounds(530, 205, 150, 35);
-		panelPrincipal.add(txtPiso);
+		txtComision = new JTextField();
+		txtComision.setColumns(10);
+		txtComision.setBounds(530, 205, 150, 35);
+		panelPrincipal.add(txtComision);
 
-		JLabel lblPuerta = new JLabel("Puerta:");
-		lblPuerta.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPuerta.setBounds(380, 250, 150, 35);
-		panelPrincipal.add(lblPuerta);
-
-		txtPuerta = new JTextField();
-		txtPuerta.setColumns(10);
-		txtPuerta.setBounds(530, 250, 150, 35);
-		panelPrincipal.add(txtPuerta);
+		JLabel lblActivo = new JLabel("Activo:");
+		lblActivo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblActivo.setBounds(380, 250, 150, 35);
+		panelPrincipal.add(lblActivo);
 
 		cmbTema = new JComboBox<String>();
 		cmbTema.addItem("Oscuro");
@@ -237,8 +237,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.add(pwdPassword);
 
 		cmbCuenta = new JComboBox<String>();
+		cmbCuenta.addItem("Administrador");
+		cmbCuenta.addItem("Recepcionista");
 		cmbCuenta.addItem("Mecánico");
-		cmbCuenta.addItem("Atención al cliente");
 		cmbCuenta.setBounds(200, 250, 150, 35);
 		panelPrincipal.add(cmbCuenta);
 
@@ -251,6 +252,13 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPassword.setBounds(50, 332, 150, 36);
 		panelPrincipal.add(lblPassword);
+
+		chkActivo = new JCheckBox("");
+		chkActivo.setSelected(true);
+		chkActivo.setOpaque(false);
+		chkActivo.setHorizontalAlignment(SwingConstants.CENTER);
+		chkActivo.setBounds(530, 250, 150, 35);
+		panelPrincipal.add(chkActivo);
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(177, 415, 180, 40);
@@ -269,7 +277,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// - JTextField -
 		ArrayList<JTextField> camposTexto = new ArrayList<JTextField>();
 		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos, txtTel, txtEmail, txtFechaNacimientoD,
-				txtFechaNacimientoM, txtFechaNacimientoA, txtCodPostal, txtCalle, txtPortal, txtPiso, txtPuerta));
+				txtFechaNacimientoM, txtFechaNacimientoA, txtDireccion, txtDniJefe, txtSalario, txtComision));
 		for (JTextField txt : camposTexto) {
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
@@ -291,8 +299,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
 		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
-		etiquetas.addAll(Arrays.asList(lblDNI, lblNombre, lblApellidos, lblTel, lblEmail, lblFechaNacimiento,
-				lblCodPostal, lblCalle, lblPortal, lblPiso, lblPuerta, lblPassword, lblCuenta, lblTema, lblFuente));
+		etiquetas.addAll(
+				Arrays.asList(lblDNI, lblNombre, lblApellidos, lblTel, lblEmail, lblFechaNacimiento, lblDireccion,
+						lblDniJefe, lblSalario, lblComision, lblActivo, lblPassword, lblCuenta, lblTema, lblFuente));
 		for (JLabel lbl : etiquetas) {
 			lbl.setFont(Inicio.fuente);
 			lbl.setForeground(Inicio.colorFuente);
@@ -332,12 +341,19 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		vectorOrden = new Vector<Component>();
 		vectorOrden.addAll(camposTexto);
 		vectorOrden.add(cmbCuenta);
+		vectorOrden.add(chkActivo);
 		vectorOrden.add(pwdPassword);
 		vectorOrden.add(cmbTema);
 		vectorOrden.add(cmbFuente);
 
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
+	}
+
+	public void setAlDNIs(ArrayList<Cuenta> cuentas) {
+		for (Cuenta c : cuentas) {
+			alDNIs.add(c.getDNI());
+		}
 	}
 
 	public void modoEdicion(Cuenta cuenta) {
@@ -365,29 +381,35 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		txtFechaNacimientoA.setEnabled(false);
 		vectorOrden.remove(txtFechaNacimientoA);
 
-		txtCodPostal.setText(String.valueOf(cuenta.getDireccion().getCodPostal()));
-		txtCalle.setText(cuenta.getDireccion().getCalle());
-		txtPortal.setText(String.valueOf(cuenta.getDireccion().getPortal()));
-		txtPiso.setText(String.valueOf(cuenta.getDireccion().getPiso()));
-		txtPuerta.setText(cuenta.getDireccion().getPuerta());
+		txtDireccion.setText(cuenta.getDireccion());
+
+		if (cuenta.getDniJefe() != null) {
+			txtDniJefe.setText(cuenta.getDniJefe());
+		}
+
+		txtSalario.setText(String.valueOf(cuenta.getSalario()));
+		txtComision.setText(String.valueOf(cuenta.getComision()));
+
+		chkActivo.setSelected(cuenta.isActivo());
 
 		pwdPassword.setText(cuenta.getPassword());
-
-		if (!cuenta.esMecanico()) {
-			cmbCuenta.setSelectedItem("Atención al cliente");
+		if (!cuenta.getTipo().equals("Mecánico") && !Inicio.cuentaActual.getDNI().equals(cuenta.getDNI())) {
+			pwdPassword.setEnabled(false);
+			vectorOrden.remove(pwdPassword);
 		}
 
-		String tema = null;
-		if (cuenta.getAjustes().temaOscuro()) {
-			tema = "Oscuro";
+		cmbCuenta.setSelectedItem(cuenta.getTipo());
+
+		if (cuenta.getAjustes() != null) {
+			String tema = cuenta.getAjustes().temaOscuro() ? "Oscuro" : "Claro";
+			String fuente = cuenta.getAjustes().getFuente().getFamily();
+
+			cmbTema.setSelectedItem(tema);
+			cmbFuente.setSelectedItem(fuente);
 		} else {
-			tema = "Claro";
+			cmbTema.setSelectedIndex(0);
+			cmbFuente.setSelectedIndex(0);
 		}
-
-		String fuente = cuenta.getAjustes().getFuente().getFamily();
-
-		cmbTema.setSelectedItem(tema);
-		cmbFuente.setSelectedItem(fuente);
 
 		lblTema.setVisible(false);
 		lblFuente.setVisible(false);
@@ -395,6 +417,8 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		vectorOrden.remove(cmbTema);
 		cmbFuente.setVisible(false);
 		vectorOrden.remove(cmbFuente);
+		
+		fechaAlta = cuenta.getFechaAlta();
 
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
@@ -406,76 +430,75 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		String nombre = txtNombre.getText();
 		String apellidos = txtApellidos.getText();
 
-		int tel = Integer.parseInt(txtTel.getText());
+		int telefono = Integer.parseInt(txtTel.getText());
 		String email = txtEmail.getText();
 
 		int dN = Integer.parseInt(txtFechaNacimientoD.getText());
 		int mN = Integer.parseInt(txtFechaNacimientoM.getText());
 		int aN = Integer.parseInt(txtFechaNacimientoA.getText());
 
-		int codPostal = Integer.parseInt(txtCodPostal.getText());
-		String calle = txtCalle.getText();
-		int portal = Integer.parseInt(txtPortal.getText());
-		int piso = Integer.parseInt(txtPiso.getText());
-		String puerta = txtPuerta.getText();
+		String direccion = txtDireccion.getText();
+		String dniJefe = txtDniJefe.getText();
+		double salario = Double.parseDouble(txtSalario.getText());
+		double comision = Double.parseDouble(txtComision.getText());
+		
+		if (!edicion) {
+			fechaAlta = new Fecha();
+		}
+		
+		boolean activo = chkActivo.isSelected();
 
 		String password = new String(pwdPassword.getPassword());
-		boolean codigo = false;
 
 		ArrayList<String> camposTxt = new ArrayList<String>();
-		camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, calle, puerta, password));
+		camposTxt.addAll(Arrays.asList(dni, nombre, apellidos, email, direccion, password));
 
 		if (camposTxt.contains("")) {
 			JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (dni.length() != 9) {
 			JOptionPane.showMessageDialog(this, (String) "DNI inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
-		} else if (tel < 600000000 || tel > 999999999 || codPostal < 01001 || codPostal > 52080 || portal < 1
-				|| portal > 9999 || piso < 1 || piso > 999) {
-			JOptionPane.showMessageDialog(this, (String) "Campo numérico inválido", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+		} else if (telefono < 600000000 || telefono > 999999999) {
+			JOptionPane.showMessageDialog(this, (String) "Teléfono inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (dN < 1 || dN > 31 || mN < 1 || mN > 12 || aN < 1900
 				|| aN > Calendar.getInstance().get(Calendar.YEAR)) {
 			JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} else if (salario <= 0) {
+			JOptionPane.showMessageDialog(this, (String) "El salario debe ser mayor que 0", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (comision < 0) {
+			JOptionPane.showMessageDialog(this, (String) "La comisión no puede ser menor que 0", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		} else if (cmbCuenta.getSelectedIndex() < 0) {
 			JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo de cuenta", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (cmbFuente.getSelectedIndex() < 0 || cmbTema.getSelectedIndex() < 0) {
 			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
+		} else if (!edicion && alDNIs.contains(dni)) {
+			JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} else if (!dniJefe.equals("") && dniJefe.length() != 9) {
+			JOptionPane.showMessageDialog(this,
+					(String) "DNI del Jefe inválido, si el empleado no tiene jefe el campo debe estar vacío.", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (!dniJefe.equals("") && !alDNIs.contains(dniJefe)) {
+			JOptionPane.showMessageDialog(this,
+					(String) "DNI del Jefe inválido, no existe un empleado con el DNI " + dniJefe, "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		} else {
-			if (!edicion && Datos.listarCuentas().contains(dni)) {
-				JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
-			} else {
-				Fecha fechaNacimiento = new Fecha(dN, mN, aN);
-				Direccion direccion = new Direccion(codPostal, calle, portal, piso, puerta);
+			Fecha fechaNacimiento = new Fecha(dN, mN, aN);
 
-				int opcion = cmbCuenta.getSelectedIndex();
-				switch (opcion) {
-				case 0:
-					// mecánico
-					codigo = true;
-					break;
-				case 1:
-					// atención al cliente
-					codigo = false;
-					break;
-				}
+			String tipo = (String) cmbCuenta.getSelectedItem();
 
-				String tema = (String) cmbTema.getSelectedItem();
-				String fuente = (String) cmbFuente.getSelectedItem();
+			String tema = (String) cmbTema.getSelectedItem();
+			String fuente = (String) cmbFuente.getSelectedItem();
 
-				boolean temaOscuro = true;
-				if (tema.equals("Oscuro")) {
-					temaOscuro = true;
-				} else if (tema.equals("Claro")) {
-					temaOscuro = false;
-				}
+			boolean temaOscuro = tema.equals("Oscuro") ? true : false;
 
-				Datos.guardarCuenta(new Cuenta(dni, nombre, apellidos, tel, email, fechaNacimiento, direccion,
-						codigo, password, new Ajustes(temaOscuro, fuente)));
+			Datos.guardarCuenta(new Cuenta(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
+					new Ajustes(temaOscuro, fuente), dniJefe, password, salario, comision, fechaNacimiento, tipo,
+					fechaAlta, activo), edicion);
 
-				return true;
-			}
+			return true;
 		}
 
 		return false;

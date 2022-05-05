@@ -194,7 +194,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
-			Salir.error();
+			Salir.errorBloqueado();
 		} else {
 			Salir.general(this);
 		}

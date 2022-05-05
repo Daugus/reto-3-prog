@@ -136,7 +136,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		try {
 			Inicio.cuentaActual = new Cuenta(Datos.cargarCuenta(dni));
 
-			Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(dni));
+			Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(dni, false));
 
 			if (!password.equals(Inicio.cuentaActual.getPassword())) {
 				// si la contraseña es incorrecta saca ventana de error

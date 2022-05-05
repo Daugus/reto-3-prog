@@ -197,7 +197,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
-			Salir.error();
+			Salir.errorBloqueado();
 		} else {
 			Salir.general(this);
 		}

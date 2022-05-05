@@ -43,7 +43,7 @@ public class Salir {
 				new Object[] { "Sí", "No", "Cancelar" }, "Sí");
 	}
 
-	public static void error() {
+	public static void errorBloqueado() {
 		JOptionPane.showOptionDialog(null, (String) "No puede cerrar esta ventana ahora mismo", "INFO",
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "OK" }, "OK");
 	}

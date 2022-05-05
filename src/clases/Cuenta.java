@@ -72,10 +72,14 @@ public class Cuenta extends Persona {
 	}
 
 	// personalizado
-	public Cuenta(String dni, String nombre, String apellidos,
-			String telefono, String email, String dir, 
+	public Cuenta(String dni, String nombre,
+			String apellidos, String telefono,
+			String email, String dir, 
 			Ajustes ajustes, String jefe,
-			String password, double sal, double com, Fecha fn, String tipo, Fecha fa, boolean act) {
+			String password, double sal,
+			double com, Fecha fn, String tipo,
+			Fecha fa, boolean act) {
+
 		super(dni, nombre, apellidos, telefono, email, dir);
 
 		this.ajustes = new Ajustes(ajustes);

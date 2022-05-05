@@ -153,7 +153,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 		Datos.guardarAjustes(new Ajustes(temaOscuro, fuente));
 
-		Datos.cargarAjustes(Inicio.cuentaActual.getDNI());
+		Datos.cargarAjustes(Inicio.cuentaActual.getDNI(), false);
 	}
 
 	public void actionPerformed(ActionEvent ae) {

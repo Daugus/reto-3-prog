@@ -33,6 +33,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	private JPanel panelPrincipal;
 
 	private static JTable tblMateriales;
+
 	private static JButton btnVolver;
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
@@ -87,6 +88,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 		dtmMateriales.addColumn("Nombre");
 		dtmMateriales.addColumn("Stock");
 		dtmMateriales.addColumn("PVP");
+		dtmMateriales.addColumn("Estado");
 
 		// --- asignar ---
 		tblMateriales = new JTable(dtmMateriales) {
@@ -152,8 +154,10 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 		materiales = Datos.cargarTodosMateriales();
 		for (Material m : materiales) {
+			String estado = General.estadoAString(m.isActivo());
+
 			dtm.addRow(new Object[] { m.getID(), m.getMarca(), m.getNombre(), m.getStock(),
-					General.formatear(m.getPVP()) });
+					General.formatearPrecio(m.getPVP()), estado });
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);
@@ -203,7 +207,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
-			Salir.error();
+			Salir.errorBloqueado();
 		} else {
 			Salir.general(this);
 		}
