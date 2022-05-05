@@ -143,6 +143,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 				try {
 					orden = alOrdenes.get(row);
 					
+					// TODO: implementar
 					JOptionPane.showMessageDialog(null, "Se ha cargado la orden " + orden.getCodigo(), "Sin implementar",
 							JOptionPane.INFORMATION_MESSAGE);
 					

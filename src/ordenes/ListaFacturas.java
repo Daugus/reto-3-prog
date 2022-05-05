@@ -141,6 +141,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 				try {
 					factura = alFacturas.get(row);
 
+					// TODO: implementar
 					JOptionPane.showMessageDialog(null, "Se ha cargado la factura " + factura.getCodigo(),
 							"Sin implementar", JOptionPane.INFORMATION_MESSAGE);
 
