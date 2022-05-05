@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Factura;
-import clases.Pendiente;
 import funciones.Datos;
 import funciones.General;
 import funciones.Salir;
