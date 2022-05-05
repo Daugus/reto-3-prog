@@ -48,7 +48,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JTextField txtNombre;
 	private JTextField txtApellidos;
 
-	private JTextField txtTel;
+	private JTextField txtTelefono;
 	private JTextField txtEmail;
 
 	private JTextField txtFechaNacimientoD;
@@ -119,10 +119,10 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		lblTel.setBounds(50, 160, 150, 35);
 		panelPrincipal.add(lblTel);
 
-		txtTel = new JTextField();
-		txtTel.setColumns(10);
-		txtTel.setBounds(200, 160, 150, 35);
-		panelPrincipal.add(txtTel);
+		txtTelefono = new JTextField();
+		txtTelefono.setColumns(10);
+		txtTelefono.setBounds(200, 160, 150, 35);
+		panelPrincipal.add(txtTelefono);
 
 		JLabel lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
@@ -276,7 +276,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// --- Action && Focus ---
 		// - JTextField -
 		ArrayList<JTextField> camposTexto = new ArrayList<JTextField>();
-		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos, txtTel, txtEmail, txtFechaNacimientoD,
+		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos, txtTelefono, txtEmail, txtFechaNacimientoD,
 				txtFechaNacimientoM, txtFechaNacimientoA, txtDireccion, txtDniJefe, txtSalario, txtComision));
 		for (JTextField txt : camposTexto) {
 			txt.addActionListener(this);
@@ -368,7 +368,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		txtNombre.setText(cuenta.getNombre());
 		txtApellidos.setText(cuenta.getApellidos());
 
-		txtTel.setText(String.valueOf(cuenta.getTelefono()));
+		txtTelefono.setText(cuenta.getTelefono());
 		txtEmail.setText(cuenta.getEmail());
 
 		txtFechaNacimientoD.setText(String.valueOf(cuenta.getFechaNacimiento().getDay()));
@@ -430,7 +430,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		String nombre = txtNombre.getText();
 		String apellidos = txtApellidos.getText();
 
-		int telefono = Integer.parseInt(txtTel.getText());
+		int telefono = Integer.parseInt(txtTelefono.getText());
 		String email = txtEmail.getText();
 
 		int dN = Integer.parseInt(txtFechaNacimientoD.getText());

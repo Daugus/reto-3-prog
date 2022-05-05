@@ -54,9 +54,7 @@ public class Cuenta extends Persona {
 
 	// --- personalizados ---
 	// persona por defecto
-	public Cuenta(Ajustes ajustes, String jefe,
-			String password, double salario,
-			double comision, Fecha fn, String tipo,
+	public Cuenta(Ajustes ajustes, String jefe, String password, double salario, double comision, Fecha fn, String tipo,
 			Fecha fa, boolean activo) {
 		super();
 
@@ -72,13 +70,9 @@ public class Cuenta extends Persona {
 	}
 
 	// personalizado
-	public Cuenta(String dni, String nombre,
-			String apellidos, String telefono,
-			String email, String dir, 
-			Ajustes ajustes, String jefe,
-			String password, double sal,
-			double com, Fecha fn, String tipo,
-			Fecha fa, boolean act) {
+	public Cuenta(String dni, String nombre, String apellidos, String telefono, String email, String dir,
+			Ajustes ajustes, String jefe, String password, double sal, double com, Fecha fn, String tipo, Fecha fa,
+			boolean act) {
 
 		super(dni, nombre, apellidos, telefono, email, dir);
 
@@ -132,7 +126,6 @@ public class Cuenta extends Persona {
 				&& Double.doubleToLongBits(salario) == Double.doubleToLongBits(other.salario)
 				&& Objects.equals(tipo, other.tipo);
 	}
-
 
 	// --- getters y setters ---
 	public Ajustes getAjustes() {
