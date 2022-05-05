@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import clases.Ajustes;
+import clases.Cliente;
 import clases.Cuenta;
 import clases.Factura;
 import clases.Fecha;
@@ -52,6 +53,38 @@ public class Datos {
 	}
 
 	// ===== guardar =====
+	public static void guardarCliente(Cliente c, boolean edicion) {
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement st = conexion.createStatement();
+
+			String estado = General.estadoAString(c.isActivo());
+
+			String sentencia;
+
+			if (edicion) {
+				sentencia = String.format(
+						"update reto3.cliente set nombre = '%s', apellidos = '%s', telefono = '%s',"
+								+ " email = '%s', direccion = '%s', estado = '%s' where dniCliente like '%s';",
+						c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(), estado,
+						c.getDNI());
+			} else {
+				sentencia = String.format(
+						"insert into reto3.cliente (dniCliente, nombre, apellidos, telefono, email, direccion, fecAlta, estado)"
+								+ " values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+						c.getDNI(), c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(),
+						c.getFechaAlta().toSQLDate(), estado);
+			}
+
+			st.executeUpdate(sentencia);
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
+
 	public static void guardarCuenta(Cuenta c, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
@@ -66,11 +99,10 @@ public class Datos {
 				sentencia = String.format(Locale.US,
 						"update reto3.empleado set nombre = '%s', apellidos = '%s', telefono = '%s',"
 								+ " email = '%s', direccion = '%s', dniJefe = NULLIF('%s', ''), password = '%s',"
-								+ " salBase = %.2f, comision = %.2f, fecNac = '%s', tipoEmpleado = '%s',"
-								+ " fecAltaContrato = '%s', estado = '%s' where dniEmple like '%s';",
+								+ " salBase = %.2f, comision = %.2f, tipoEmpleado = '%s',"
+								+ " estado = '%s' where dniEmple like '%s';",
 						c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(),
-						c.getDniJefe(), c.getPassword(), c.getSalario(), c.getComision(),
-						c.getFechaNacimiento().toSQLDate(), tipo, c.getFechaAlta().toSQLDate(), estado, c.getDNI());
+						c.getDniJefe(), c.getPassword(), c.getSalario(), c.getComision(), tipo, estado, c.getDNI());
 			} else {
 				sentencia = String.format(Locale.US, "insert into reto3.empleado"
 						+ " (dniEmple, nombre, apellidos, telefono, email, direccion, dniJefe, password,"
@@ -100,9 +132,10 @@ public class Datos {
 			String sentencia;
 
 			if (edicion) {
-				sentencia = String.format(Locale.US,
-						"update reto3.pieza set marca = '%s', nombre = '%s', stock = %d, pvp = %.2f, precioCompra = %.2f, estado = '%s' where idPieza like '%s';",
-						m.getMarca(), m.getNombre(), m.getStock(), m.getPVP(), m.getPrecioCompra(), estado, m.getID());
+				sentencia = String.format(Locale.US, "update reto3.pieza"
+						+ " set marca = '%s', nombre = '%s', stock = %d, pvp = %.2f, precioCompra = %.2f, estado = '%s'"
+						+ " where idPieza like '%s';", m.getMarca(), m.getNombre(), m.getStock(), m.getPVP(),
+						m.getPrecioCompra(), estado, m.getID());
 			} else {
 				sentencia = String.format(Locale.US,
 						"insert into reto3.pieza values('%s', '%s', '%s', %d, %.2f, %.2f, '%s');", m.getID(),
@@ -178,14 +211,6 @@ public class Datos {
 	}
 
 	// ===== borrar =====
-//	public static void borrarPrimaria(String cod) {
-//		File f = new File(primarias + cod + ".dat");
-//		if (f.delete()) {
-//			Log.borrarPrimaria(cod);
-//		} else {
-//			Log.error("error al borrar la orden primaria " + cod);
-//		}
-//	}
 
 	// ===== listar =====
 	public static ArrayList<String> listarClientes() {
@@ -212,6 +237,33 @@ public class Datos {
 	}
 
 	// ===== cargar todos =====
+	public static ArrayList<Cliente> cargarTodosClientes() {
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from reto3.cliente");
+
+			while (rs.next()) {
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				clientes.add(new Cliente(rs.getString("dniCliente"), rs.getString("nombre"), rs.getString("apellidos"),
+						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
+						new Fecha(rs.getString("fecAlta")), activo));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return clientes;
+	}
+
 	public static ArrayList<Cuenta> cargarTodosCuentas() {
 		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 

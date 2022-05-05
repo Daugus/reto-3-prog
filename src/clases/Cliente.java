@@ -31,23 +31,14 @@ public class Cliente extends Persona {
 	}
 
 	// --- personalizados ---
-	/**
-	 * cliente personalizado constructor personalizado
-	 * 
-	 * @param d   String Dni
-	 * @param n   Strnig nombre
-	 * @param a   String apellido
-	 * @param t   int telefono
-	 * @param e   String email
-	 * @param dir direccion
-	 * @param fa  Objeto fechaAlta
-	 * @param v   ArrayList<String> array de las matrículas de los vehículos
-	 */
-	public Cliente(String d, String n, String a, String t, String e, String dir, Fecha fa, boolean act) {
-		super(d, n, a, t, e, dir);
+	public Cliente(String dni, String nombre,
+			String apellidos, String telefono,
+			String email, String dir, Fecha fa,
+			boolean act) {
+		super(dni, nombre, apellidos, telefono, email, dir);
 
-		activo = act;
 		fechaAlta = new Fecha(fa);
+		activo = act;
 	}
 
 	// ===== métodos =====
@@ -61,7 +52,7 @@ public class Cliente extends Persona {
 	public String toString() {
 		return super.toString() + ", activo: " + activo + ", fecha de alta: " + fechaAlta;
 	}
-	
+
 	// --- comparacion ---
 	@Override
 	public int hashCode() {
@@ -106,7 +97,7 @@ public class Cliente extends Persona {
 		this.activo = activo;
 	}
 
-	public boolean getActivo() {
+	public boolean isActivo() {
 		return activo;
 	}
 }

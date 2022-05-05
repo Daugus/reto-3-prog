@@ -30,11 +30,16 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
+
 	private static JTable tblClientes;
+	
 	private static JButton btnVolver;
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
+	
+	private static ArrayList<Cliente> clientes;
 	private Cliente cliente;
+	
 	private static boolean bloqueado;
 
 	/**
@@ -48,7 +53,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
-
+		
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
@@ -79,7 +84,8 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		dtmClientes.addColumn("DNI");
 		dtmClientes.addColumn("Nombre");
 		dtmClientes.addColumn("Apellidos");
-		dtmClientes.addColumn("Fecha alta");
+		dtmClientes.addColumn("Teléfono");
+		dtmClientes.addColumn("Fecha Alta");
 
 		// --- asignar ---
 		tblClientes = new JTable(dtmClientes) {
@@ -143,9 +149,9 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 
 		dtm.setRowCount(0);
 
-		ArrayList<Cliente> clientes = Datos.cargarTodosClientes();
+		clientes = Datos.cargarTodosClientes();
 		for (Cliente c : clientes) {
-			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getFechaAlta() });
+			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getTelefono(), c.getFechaAlta() });
 		}
 
 		Tablas.ajustarColumnas(tblClientes);
@@ -171,7 +177,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		} else if (o == btnEditar) {
 			int row = tblClientes.getSelectedRow();
 			if (row >= 0) {
-				cliente = Datos.cargarCliente((String) tblClientes.getValueAt(row, 0));
+				cliente = clientes.get(row);
 
 				botones(false);
 
