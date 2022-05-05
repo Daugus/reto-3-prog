@@ -352,7 +352,7 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 		for (Reparacion r : alReparaciones) {
 			dtmReparaciones
-					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatear(r.getManoObra()) });
+					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()) });
 			alMaterialesGeneral.addAll(r.getMaterialesUsados());
 		}
 
@@ -364,7 +364,7 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 		dtmMateriales.setRowCount(0);
 
 		for (MaterialUsado mu : alMaterialesGeneral) {
-			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatear(mu.getPrecio()), mu.getCantidad() });
+			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad() });
 		}
 	}
 
@@ -441,7 +441,7 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	@Override
 	public void windowClosing(WindowEvent e) {
 		if (bloqueado) {
-			Salir.error();
+			Salir.errorBloqueado();
 		} else {
 			Salir.general(this);
 		}

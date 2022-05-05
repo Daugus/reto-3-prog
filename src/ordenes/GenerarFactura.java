@@ -291,7 +291,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 		for (Reparacion r : alReparaciones) {
 			dtmReparaciones
-					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatear(r.getManoObra()) });
+					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()) });
 			alMateriales.addAll(r.getMaterialesUsados());
 		}
 
@@ -302,7 +302,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
 
 		for (MaterialUsado mu : alMateriales) {
-			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatear(mu.getPrecio()), mu.getCantidad() });
+			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad() });
 		}
 
 		// ===== estilizar tablas =====
@@ -329,7 +329,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
-			ListaPendientes lp = new ListaPendientes();
+			ListaOrdenes lp = new ListaOrdenes();
 			lp.setVisible(true);
 
 			this.dispose();

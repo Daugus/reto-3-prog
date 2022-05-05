@@ -87,7 +87,7 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 
 		// ===== ajustes de usuario =====
 		// recargar los ajustes en caso de que se hayan editado
-		Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(Inicio.cuentaActual.getDNI()));
+		Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(Inicio.cuentaActual.getDNI(), false));
 
 		// --- fuente ---
 		btnCerrarSesion.setFont(Inicio.fuenteObjetos);
@@ -121,8 +121,8 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if (o == btnOrden) {
-			ListaOrdenes lo = new ListaOrdenes();
-			lo.setVisible(true);
+			MenuListas ml = new MenuListas();
+			ml.setVisible(true);
 
 			this.dispose();
 		} else if (o == btnNuevaOrdenPrim) {

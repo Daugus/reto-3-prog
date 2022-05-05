@@ -23,7 +23,7 @@ import clases.Orden;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
-import navegacion.ListaOrdenes;
+import navegacion.MenuListas;
 import navegacion.MenuMecanico;
 
 public class ListaPrimarias extends JFrame implements ActionListener, WindowListener {
@@ -158,7 +158,7 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 			if (Inicio.cuentaActual.esMecanico()) {
 				ventana = new MenuMecanico();
 			} else {
-				ventana = new ListaOrdenes();
+				ventana = new MenuListas();
 			}
 
 			ventana.setVisible(true);

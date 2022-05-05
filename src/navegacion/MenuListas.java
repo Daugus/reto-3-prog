@@ -13,24 +13,23 @@ import javax.swing.border.EmptyBorder;
 
 import funciones.Salir;
 import ordenes.ListaFacturas;
-import ordenes.ListaPendientes;
-import ordenes.ListaPrimarias;
+import ordenes.ListaOrdenes;
 
-public class ListaOrdenes extends JFrame implements ActionListener, WindowListener {
+public class MenuListas extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
+
 	private JPanel panelPrincipal;
-	private JButton btnPrimarias;
-	private JButton btnPendientes;
+	private JButton btnOrdenes;
 	private JButton btnFacturas;
 	private JButton btnVolver;
 
-	public ListaOrdenes() {
+	public MenuListas() {
 
 		setResizable(false);
 		setTitle("Órdenes | " + Inicio.cuentaActual.getNombre());
 
-		setBounds(100, 100, 330, 295);
-		getContentPane().setPreferredSize(new Dimension(330, 295));
+		setBounds(100, 100, 330, 220);
+		getContentPane().setPreferredSize(new Dimension(330, 220));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -40,50 +39,36 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
-		btnPrimarias = new JButton("Órdenes primarias");
-		btnPrimarias.setBounds(50, 10, 230, 60);
-		panelPrincipal.add(btnPrimarias);
+		btnOrdenes = new JButton("Órdenes de trabajo");
+		btnOrdenes.setBounds(50, 10, 230, 60);
+		panelPrincipal.add(btnOrdenes);
 
-		btnPendientes = new JButton("Órdenes pendientes");
-		btnPendientes.setBounds(50, 85, 230, 60);
-		panelPrincipal.add(btnPendientes);
-
-		btnFacturas = new JButton("Facturas aprobadas");
-		btnFacturas.setBounds(50, 160, 230, 60);
+		btnFacturas = new JButton("Facturas");
+		btnFacturas.setBounds(50, 85, 230, 60);
 		panelPrincipal.add(btnFacturas);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 245, 180, 40);
+		btnVolver.setBounds(10, 170, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		// ===== Listeners =====
 		// --- Window ---
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-
-		// --- Action && Focus ---
-		// - JButton -
-		btnPrimarias.addActionListener(this);
-		btnPendientes.addActionListener(this);
+		btnOrdenes.addActionListener(this);
 		btnFacturas.addActionListener(this);
 		btnVolver.addActionListener(this);
-
-		btnPrimarias.setFont(Inicio.fuenteObjetos);
-		btnPendientes.setFont(Inicio.fuenteObjetos);
+		btnOrdenes.setFont(Inicio.fuenteObjetos);
 		btnFacturas.setFont(Inicio.fuenteObjetos);
 		btnVolver.setFont(Inicio.fuenteObjetos);
 
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
-
-		btnPrimarias.setBackground(Inicio.colorFondoObjetos);
-		btnPendientes.setBackground(Inicio.colorFondoObjetos);
+		btnOrdenes.setBackground(Inicio.colorFondoObjetos);
 		btnFacturas.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
-
-		btnPrimarias.setForeground(Inicio.colorFuenteObjetos);
-		btnPendientes.setForeground(Inicio.colorFuenteObjetos);
+		btnOrdenes.setForeground(Inicio.colorFuenteObjetos);
 		btnFacturas.setForeground(Inicio.colorFuenteObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 	}
@@ -104,10 +89,8 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 			this.dispose();
 		} else {
 			JFrame lista = null;
-			if (o == btnPrimarias) {
-				lista = new ListaPrimarias();
-			} else if (o == btnPendientes) {
-				lista = new ListaPendientes();
+			if (o == btnOrdenes) {
+				lista = new ListaOrdenes();
 			} else if (o == btnFacturas) {
 				lista = new ListaFacturas();
 			}

@@ -273,8 +273,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 
 		for (Reparacion r : alReparaciones) {
-			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatear(r.getManoObra()),
-					General.formatear(r.getHoras() * r.getManoObra()) });
+			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()),
+					General.formatearPrecio(r.getHoras() * r.getManoObra()) });
 			alMateriales.addAll(r.getMaterialesUsados());
 		}
 
@@ -285,17 +285,17 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
 
 		for (MaterialUsado mu : alMateriales) {
-			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatear(mu.getPrecio()), mu.getCantidad(),
-					General.formatear(mu.getPrecio() * mu.getCantidad()) });
+			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad(),
+					General.formatearPrecio(mu.getPrecio() * mu.getCantidad()) });
 		}
 
 		// ===== total =====
 		DefaultTableModel dtmTotal = (DefaultTableModel) tblTotal.getModel();
-		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatear(factura.getCosteReparaciones()) });
-		dtmTotal.addRow(new Object[] { "Total materiales", General.formatear(factura.getCosteMateriales()) });
-		dtmTotal.addRow(new Object[] { "Subtotal", General.formatear(factura.getSubtotal()) });
-		dtmTotal.addRow(new Object[] { "IVA (21%)", General.formatear(factura.getIva()) });
-		dtmTotal.addRow(new Object[] { "Total", General.formatear(factura.getTotal()) });
+		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatearPrecio(factura.getCosteReparaciones()) });
+		dtmTotal.addRow(new Object[] { "Total materiales", General.formatearPrecio(factura.getCosteMateriales()) });
+		dtmTotal.addRow(new Object[] { "Subtotal", General.formatearPrecio(factura.getSubtotal()) });
+		dtmTotal.addRow(new Object[] { "IVA (21%)", General.formatearPrecio(factura.getIva()) });
+		dtmTotal.addRow(new Object[] { "Total", General.formatearPrecio(factura.getTotal()) });
 
 		// ===== estilizar tablas =====
 		Tablas.vertical(tblCliente);

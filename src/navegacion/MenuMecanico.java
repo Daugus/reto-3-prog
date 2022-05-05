@@ -66,7 +66,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 
 		// ===== ajustes de usuario =====
 		// recargar los ajustes en caso de que se hayan editado
-		Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(Inicio.cuentaActual.getDNI()));
+		Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(Inicio.cuentaActual.getDNI(), false));
 
 		// --- fuente ---
 		btnCerrarSesion.setFont(Inicio.fuenteObjetos);

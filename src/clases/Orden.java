@@ -13,7 +13,7 @@ public class Orden implements Comparable<Orden>, Serializable {
 	private Fecha fechaInicio;
 	private Fecha fechaFin;
 
-	private double horas;
+	private int horas;
 
 	private String matricula;
 	private String empleado;
@@ -29,7 +29,7 @@ public class Orden implements Comparable<Orden>, Serializable {
 		fechaInicio = new Fecha();
 		fechaFin = new Fecha();
 
-		horas = 1.0;
+		horas = 1;
 
 		matricula = "";
 		empleado = "";
@@ -54,12 +54,26 @@ public class Orden implements Comparable<Orden>, Serializable {
 	/**
 	 * orden primaria personalizado
 	 */
-	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, double horas) {
+	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, int horas, Fecha fechaInicio) {
 		this.codigo = codigo;
 		this.comentarios = comentario;
 
-		this.fechaInicio = new Fecha();
-		this.fechaFin = new Fecha();
+		this.fechaInicio = new Fecha(fechaInicio);
+		this.fechaFin = null;
+
+		this.horas = horas;
+
+		this.matricula = matricula;
+		this.empleado = dniEmpleado;
+	}
+
+	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, int horas
+			, Fecha fechaInicio, Fecha fechaFin) {
+		this.codigo = codigo;
+		this.comentarios = comentario;
+
+		this.fechaInicio = new Fecha(fechaInicio);
+		this.fechaFin = new Fecha(fechaFin);
 
 		this.horas = horas;
 
@@ -75,13 +89,9 @@ public class Orden implements Comparable<Orden>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Código: " + codigo + 
-				", comentarios: " + comentarios + 
-				", Fecha Entrada: " + fechaInicio + 
-				", Fecha Salida: " + fechaFin + 
-				", matrícula: " + matricula + 
-				", empleado: " + empleado +
-				", horas: " + horas;
+		return "Código: " + codigo + ", comentarios: " + comentarios + ", Fecha Entrada: " + fechaInicio
+				+ ", Fecha Salida: " + fechaFin + ", matrícula: " + matricula + ", empleado: " + empleado + ", horas: "
+				+ horas;
 	}
 
 	// --- comparación ---
@@ -184,7 +194,6 @@ public class Orden implements Comparable<Orden>, Serializable {
 		this.fechaInicio = fechaEntrada;
 	}
 
-	
 	/**
 	 * acceso a fecha
 	 * 
@@ -202,8 +211,7 @@ public class Orden implements Comparable<Orden>, Serializable {
 	public void setFechaFin(Fecha fechaSalida) {
 		this.fechaFin = fechaSalida;
 	}
-	
-	
+
 	/**
 	 * acceso a vehiculo
 	 * 
@@ -221,7 +229,6 @@ public class Orden implements Comparable<Orden>, Serializable {
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-
 
 	/**
 	 * acceso a empleado
@@ -241,23 +248,21 @@ public class Orden implements Comparable<Orden>, Serializable {
 		this.empleado = empleado;
 	}
 
-	
 	/**
 	 * acceso a las horas empleadas
-	 * @return horas tipo double
+	 * 
+	 * @return horas tipo int
 	 */
-	public double getTiempoHoras() {
+	public int getTiempoHoras() {
 		return horas;
 	}
 
 	/**
-	 * modifica el valor de las horas pasando double como parametro
-	 * @param tiempoHoras tipo double 
+	 * modifica el valor de las horas pasando int como parametro
+	 * 
+	 * @param tiempoHoras tipo int
 	 */
-	public void setTiempoHoras(double tiempoHoras) {
+	public void setTiempoHoras(int tiempoHoras) {
 		this.horas = tiempoHoras;
 	}
-	
-	
-	
 }

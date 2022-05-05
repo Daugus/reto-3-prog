@@ -19,14 +19,15 @@ import java.util.Locale;
 
 import clases.Ajustes;
 import clases.Cuenta;
+import clases.Factura;
 import clases.Fecha;
 import clases.Material;
+import clases.Orden;
 import navegacion.Inicio;
 
 public class Datos {
 	// ===== rutas =====
 	private static String raiz = "C:\\RKA\\";
-//	private static String raiz = "RKA\\";
 
 	private static String logs = raiz + "Logs\\";
 	private static String ajustes = raiz + "Ajustes\\";
@@ -35,16 +36,7 @@ public class Datos {
 	private static String usr = "g1";
 	private static String pass = "Inf662";
 
-	// TODO: ELIMINAR
-	private static String materiales = raiz + "Material\\";
-	private static String vehiculos = raiz + "Vehiculo\\";
-	private static String clientes = raiz + "Cliente\\";
-	private static String cuentas = raiz + "Cuenta\\";
-	private static String facturas = raiz + "Factura\\";
-	private static String primarias = raiz + "Primaria\\";
-	private static String pendientes = raiz + "Pendiente\\";
-
-	// crear carpetas en caso de que no existan
+	// ===== crear carpetas en caso de que no existan =====
 	public static void crearCarpetas() {
 		ArrayList<String> directorios = new ArrayList<String>();
 		directorios.addAll(Arrays.asList(logs, ajustes));
@@ -156,74 +148,61 @@ public class Datos {
 	}
 
 	// ===== borrar =====
-	public static void borrarPrimaria(String cod) {
-		File f = new File(primarias + cod + ".dat");
-		if (f.delete()) {
-			Log.borrarPrimaria(cod);
-		} else {
-			Log.error("error al borrar la orden primaria " + cod);
-		}
-	}
-
-	public static void borrarPendiente(String cod) {
-		File f = new File(pendientes + cod + ".dat");
-		if (f.delete()) {
-			Log.borrarPendiente(cod);
-		} else {
-			Log.error("error al borrar la orden pendiente " + cod);
-		}
-	}
+//	public static void borrarPrimaria(String cod) {
+//		File f = new File(primarias + cod + ".dat");
+//		if (f.delete()) {
+//			Log.borrarPrimaria(cod);
+//		} else {
+//			Log.error("error al borrar la orden primaria " + cod);
+//		}
+//	}
 
 	// ===== listar =====
-	private static ArrayList<String> listar(File[] listaOriginal) {
-		ArrayList<String> lista = new ArrayList<String>();
-		for (int i = 0; i < listaOriginal.length; i++) {
-			if (listaOriginal[i].isFile()) {
-				String nombre = listaOriginal[i].getName().replaceAll(".dat", "");
-				lista.add(nombre);
-			}
-		}
-
-		return lista;
-	}
-
+//	private static ArrayList<String> listar(File[] listaOriginal) {
+//		ArrayList<String> lista = new ArrayList<String>();
+//		for (int i = 0; i < listaOriginal.length; i++) {
+//			if (listaOriginal[i].isFile()) {
+//				String nombre = listaOriginal[i].getName().replaceAll(".dat", "");
+//				lista.add(nombre);
+//			}
+//		}
+//
+//		return lista;
+//	}
+//
 	// --- individuales --
-	public static ArrayList<String> listarMateriales() {
-		File[] listaOriginal = new File(materiales).listFiles();
-		return listar(listaOriginal);
-	}
-
-	public static ArrayList<String> listarVehiculos() {
-		File[] listaOriginal = new File(vehiculos).listFiles();
-		return listar(listaOriginal);
-	}
-
-	public static ArrayList<String> listarClientes() {
-		File[] listaOriginal = new File(clientes).listFiles();
-		return listar(listaOriginal);
-	}
-
-	public static ArrayList<String> listarCuentas() {
-		File[] listaOriginal = new File(cuentas).listFiles();
-		return listar(listaOriginal);
-	}
-
-	public static ArrayList<String> listarPrimarias() {
-		File[] listaOriginal = new File(primarias).listFiles();
-		return listar(listaOriginal);
-	}
-
-	public static ArrayList<String> listarPendientes() {
-		File[] listaOriginal = new File(pendientes).listFiles();
-		return listar(listaOriginal);
-	}
-
-	public static ArrayList<String> listarFacturas() {
-		File[] listaOriginal = new File(facturas).listFiles();
-		return listar(listaOriginal);
-	}
+//	public static ArrayList<String> listarMateriales() {
+//		File[] listaOriginal = new File(materiales).listFiles();
+//		return listar(listaOriginal);
+//	}
 
 	// ===== cargar todos =====
+	public static ArrayList<Factura> cargarTodosFacturas() {
+		ArrayList<Factura> facturas = new ArrayList<Factura>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from reto3.factura");
+
+			while (rs.next()) {
+				boolean pagada = General.pagadaABoolean(rs.getString("pagada"));
+
+				facturas.add(new Factura(rs.getString("idFactura"), rs.getString("idOrden"), rs.getString("metodoPago"),
+						pagada, rs.getInt("descuento"), new Fecha(rs.getString("fecha"))));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return facturas;
+	}
+
 	public static ArrayList<Material> cargarTodosMateriales() {
 		ArrayList<Material> materiales = new ArrayList<Material>();
 
@@ -234,12 +213,41 @@ public class Datos {
 			ResultSet rs = st.executeQuery("select * from reto3.pieza");
 
 			while (rs.next()) {
-				boolean activo = true;
-				if (rs.getString("estado").equals("inactivo"))
-					activo = false;
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
 
 				materiales.add(new Material(rs.getString("idPieza"), rs.getString("marca"), rs.getString("nombre"),
 						rs.getInt("stock"), rs.getDouble("pvp"), rs.getDouble("precioCompra"), activo));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return materiales;
+	}
+
+	public static ArrayList<Orden> cargarTodosOrdenes() {
+		ArrayList<Orden> materiales = new ArrayList<Orden>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from reto3.ordenTrabajo");
+
+			while (rs.next()) {
+				if (rs.getString("fecFin") == null) {
+					materiales.add(new Orden(rs.getString("idOrden"), rs.getString("descTrabajo"),
+							rs.getString("matricula"), rs.getString("dniEmple"), rs.getInt("tiempoHoras"),
+							new Fecha(rs.getString("fecInicio"))));
+				} else {
+					materiales.add(new Orden(rs.getString("idOrden"), rs.getString("descTrabajo"),
+							rs.getString("matricula"), rs.getString("dniEmple"), rs.getInt("tiempoHoras"),
+							new Fecha(rs.getString("fecInicio")), new Fecha(rs.getString("fecFin"))));
+				}
 			}
 
 			rs.close();

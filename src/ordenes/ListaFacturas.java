@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,9 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import clases.Factura;
 import clases.Pendiente;
 import funciones.Datos;
+import funciones.General;
 import funciones.Salir;
 import navegacion.Inicio;
-import navegacion.ListaOrdenes;
+import navegacion.MenuListas;
 
 public class ListaFacturas extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -71,15 +71,18 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		// ===== modelos =====
 		// --- crear ---
 		DefaultTableModel dtmFacturas = new DefaultTableModel();
+		dtmFacturas.addColumn("ID Factura");
+		dtmFacturas.addColumn("ID Orden");
+		dtmFacturas.addColumn("Estado");
+		dtmFacturas.addColumn("Método de pago");
 		dtmFacturas.addColumn("Fecha");
-		dtmFacturas.addColumn("Cliente");
-		dtmFacturas.addColumn("Vehículo");
 
 		alFacturas = Datos.cargarTodosFacturas();
-		alFacturas.sort(Comparator.reverseOrder());
-		for (Pendiente op : alFacturas) {
+		for (Factura f : alFacturas) {
+			String pagada = General.pagadaAString(f.isPagada());
+
 			dtmFacturas.addRow(
-					new Object[] { op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula() });
+					new Object[] { f.getCodigo(), f.getCodigoOrden(), pagada, f.getMetodoPago(), f.getFecha() });
 		}
 
 		// --- asignar ---
@@ -139,12 +142,15 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 				try {
 					factura = alFacturas.get(row);
 
-					MostrarFactura mf = new MostrarFactura();
-					mf.cargarDatos(factura);
+					JOptionPane.showMessageDialog(null, "Se ha cargado la factura " + factura.getCodigo(),
+							"Sin implementar", JOptionPane.INFORMATION_MESSAGE);
 
-					mf.setVisible(true);
-
-					this.dispose();
+//					MostrarFactura mf = new MostrarFactura();
+//					mf.cargarDatos(factura);
+//
+//					mf.setVisible(true);
+//
+//					this.dispose();
 				} catch (NullPointerException npe) {
 					JOptionPane.showMessageDialog(null, "La factura seleccionada no existe", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
@@ -155,7 +161,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 			}
 		} else {
 			// btnVolver
-			ListaOrdenes lo = new ListaOrdenes();
+			MenuListas lo = new MenuListas();
 			lo.setVisible(true);
 
 			this.dispose();
