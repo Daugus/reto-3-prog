@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Vehiculo;
 import edicion.EditarVehiculo;
 import funciones.Datos;
+import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -37,6 +38,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
 
+	private static ArrayList<Vehiculo> vehiculos;
 	private Vehiculo vehiculo;
 
 	private static boolean bloqueado;
@@ -84,6 +86,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		dtmVehiculos.addColumn("Matrícula");
 		dtmVehiculos.addColumn("Propietario");
 		dtmVehiculos.addColumn("Modelo");
+		dtmVehiculos.addColumn("Estado");
 
 		// --- asignar ---
 		tblVehiculos = new JTable(dtmVehiculos) {
@@ -146,9 +149,11 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 		dtm.setRowCount(0);
 
-		ArrayList<Vehiculo> vehiculos = Datos.cargarTodosVehiculos();
+		vehiculos = Datos.cargarTodosVehiculos();
 		for (Vehiculo v : vehiculos) {
-			dtm.addRow(new Object[] { v.getMatricula(), v.getPropietario(), v.getMarca() + " " + v.getModelo() });
+			String estado = General.estadoAString(v.isActivo());
+
+			dtm.addRow(new Object[] { v.getMatricula(), v.getPropietario(), v.getMarca() + " " + v.getModelo(), estado });
 		}
 
 		Tablas.ajustarColumnas(tblVehiculos);
@@ -174,7 +179,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 		} else if (o == btnEditar) {
 			int row = tblVehiculos.getSelectedRow();
 			if (row >= 0) {
-				vehiculo = Datos.cargarVehiculo((String) tblVehiculos.getValueAt(row, 0));
+				vehiculo = vehiculos.get(row);
 
 				botones(false);
 

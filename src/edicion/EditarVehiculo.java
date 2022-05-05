@@ -25,12 +25,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 import administracion.AdministrarVehiculos;
-import clases.Cliente;
 import clases.Fecha;
 import clases.Vehiculo;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
+import javax.swing.JCheckBox;
 
 public class EditarVehiculo extends JFrame implements ActionListener, FocusListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -40,31 +40,33 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	private DefaultComboBoxModel<String> dcbmClientes;
 	private JComboBox<String> cmbClientes;
 
+	private JComboBox<String> cmbTipo;
+
 	private JTextField txtMatricula;
 	private JTextField txtBastidor;
 
 	private JTextField txtMarca;
 	private JTextField txtModelo;
-	private JTextField txtColor;
 
-	private JTextField txtCilindrada;
+	private JTextField txtFechaFabricacionD;
 
-	private JTextField txtKmRecorridos;
-	private JTextField txtFechaITV;
-
-	private JTextField txtTipo;
+	private JCheckBox chkActivo;
 
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 
+	private ArrayList<String> alMatriculas = new ArrayList<String>();
+
 	private boolean edicion;
+	private JTextField txtFechaFabricacionM;
+	private JTextField txtFechaFabricacionA;
 
 	public EditarVehiculo() {
 		setResizable(false);
 		setTitle("Agregar nuevo vehículo | " + Inicio.cuentaActual.getNombre());
 
-		setBounds(100, 100, 630, 330);
-		getContentPane().setPreferredSize(new Dimension(630, 330));
+		setBounds(100, 100, 630, 285);
+		getContentPane().setPreferredSize(new Dimension(630, 285));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -75,17 +77,12 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		panelPrincipal.setLayout(null);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(127, 265, 180, 40);
+		btnCancelar.setBounds(127, 220, 180, 40);
 		panelPrincipal.add(btnCancelar);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(323, 265, 180, 40);
+		btnGuardar.setBounds(323, 220, 180, 40);
 		panelPrincipal.add(btnGuardar);
-
-		JLabel lblKmRecorridos = new JLabel("KM recorridos:");
-		lblKmRecorridos.setHorizontalAlignment(SwingConstants.LEFT);
-		lblKmRecorridos.setBounds(50, 205, 100, 35);
-		panelPrincipal.add(lblKmRecorridos);
 
 		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setHorizontalAlignment(SwingConstants.LEFT);
@@ -127,59 +124,58 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		txtMarca.setBounds(150, 115, 150, 35);
 		panelPrincipal.add(txtMarca);
 
-		txtKmRecorridos = new JTextField();
-		txtKmRecorridos.setColumns(10);
-		txtKmRecorridos.setBounds(150, 205, 150, 35);
-		panelPrincipal.add(txtKmRecorridos);
-
 		cmbClientes = new JComboBox<String>();
-		cmbClientes.setBounds(430, 205, 150, 35);
+		cmbClientes.setBounds(150, 160, 150, 35);
 		panelPrincipal.add(cmbClientes);
 
 		JLabel lblPropietario = new JLabel("Propietario:");
 		lblPropietario.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPropietario.setBounds(330, 205, 100, 35);
+		lblPropietario.setBounds(50, 160, 100, 35);
 		panelPrincipal.add(lblPropietario);
-
-		JLabel lblFechaITV = new JLabel("Año ITV:");
-		lblFechaITV.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFechaITV.setBounds(330, 160, 100, 35);
-		panelPrincipal.add(lblFechaITV);
-
-		txtFechaITV = new JTextField();
-		txtFechaITV.setColumns(10);
-		txtFechaITV.setBounds(430, 160, 150, 35);
-		panelPrincipal.add(txtFechaITV);
-
-		txtTipo = new JTextField();
-		txtTipo.setColumns(10);
-		txtTipo.setBounds(150, 160, 150, 35);
-		panelPrincipal.add(txtTipo);
 
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTipo.setBounds(50, 160, 100, 35);
+		lblTipo.setBounds(330, 70, 100, 35);
 		panelPrincipal.add(lblTipo);
 
-		txtColor = new JTextField();
-		txtColor.setColumns(10);
-		txtColor.setBounds(430, 70, 150, 35);
-		panelPrincipal.add(txtColor);
+		cmbTipo = new JComboBox<String>();
+		cmbTipo.addItem("Diésel");
+		cmbTipo.addItem("Gasolina");
+		cmbTipo.addItem("Eléctrico");
+		cmbTipo.setBounds(430, 70, 150, 35);
+		panelPrincipal.add(cmbTipo);
 
-		JLabel lblColor = new JLabel("Color:");
-		lblColor.setHorizontalAlignment(SwingConstants.LEFT);
-		lblColor.setBounds(330, 70, 100, 35);
-		panelPrincipal.add(lblColor);
+		JLabel lblFechaFabricacion = new JLabel("Fabricación:");
+		lblFechaFabricacion.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFechaFabricacion.setBounds(330, 25, 100, 35);
+		panelPrincipal.add(lblFechaFabricacion);
 
-		JLabel lblCilindrada = new JLabel("Cilindrada:");
-		lblCilindrada.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCilindrada.setBounds(330, 25, 100, 35);
-		panelPrincipal.add(lblCilindrada);
+		txtFechaFabricacionD = new JTextField();
+		txtFechaFabricacionD.setColumns(10);
+		txtFechaFabricacionD.setBounds(430, 25, 35, 35);
+		panelPrincipal.add(txtFechaFabricacionD);
 
-		txtCilindrada = new JTextField();
-		txtCilindrada.setColumns(10);
-		txtCilindrada.setBounds(430, 25, 150, 35);
-		panelPrincipal.add(txtCilindrada);
+		txtFechaFabricacionM = new JTextField();
+		txtFechaFabricacionM.setColumns(10);
+		txtFechaFabricacionM.setBounds(470, 25, 35, 35);
+		panelPrincipal.add(txtFechaFabricacionM);
+
+		txtFechaFabricacionA = new JTextField();
+		txtFechaFabricacionA.setColumns(10);
+		txtFechaFabricacionA.setBounds(510, 25, 70, 35);
+		panelPrincipal.add(txtFechaFabricacionA);
+
+		JLabel lblActivo = new JLabel("Activo:");
+		lblActivo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblActivo.setBounds(330, 160, 100, 35);
+		panelPrincipal.add(lblActivo);
+
+		chkActivo = new JCheckBox("");
+		chkActivo.setSelected(true);
+		chkActivo.setOpaque(false);
+		chkActivo.setHorizontalAlignment(SwingConstants.CENTER);
+		chkActivo.setBounds(430, 160, 150, 35);
+		panelPrincipal.add(chkActivo);
 
 		// ===== modelos =====
 		// --- crear ---
@@ -197,13 +193,12 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		// --- Actions ---
 		// - JTextField -
 		ArrayList<JTextField> camposTexto = new ArrayList<JTextField>();
-		camposTexto.addAll(Arrays.asList(txtMatricula, txtBastidor, txtMarca, txtModelo, txtColor, txtCilindrada,
-				txtKmRecorridos, txtFechaITV, txtTipo));
+		camposTexto.addAll(Arrays.asList(txtMatricula, txtBastidor, txtMarca, txtModelo, txtFechaFabricacionD,
+				txtFechaFabricacionM, txtFechaFabricacionA));
 		for (JTextField txt : camposTexto) {
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
 
-			// color del texto cuando el campo está deshabilitado
 			txt.setDisabledTextColor(Color.DARK_GRAY);
 		}
 
@@ -216,8 +211,8 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
 		ArrayList<JLabel> etiquetas = new ArrayList<JLabel>();
-		etiquetas.addAll(Arrays.asList(lblMatricula, lblBastidor, lblMarca, lblModelo, lblColor, lblCilindrada,
-				lblKmRecorridos, lblFechaITV, lblTipo, lblPropietario));
+		etiquetas.addAll(Arrays.asList(lblMarca, lblModelo, lblBastidor, lblMatricula, lblPropietario, lblTipo,
+				lblFechaFabricacion, lblActivo));
 
 		for (JLabel lbl : etiquetas) {
 			lbl.setFont(Inicio.fuente);
@@ -238,9 +233,22 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 
+		cmbTipo.setFont(Inicio.fuenteObjetos);
+		cmbTipo.setBackground(Inicio.colorFondoObjetos);
+		cmbTipo.setForeground(Inicio.colorFuenteObjetos);
+		JTextField etf = (JTextField) cmbTipo.getEditor().getEditorComponent();
+		etf.setDisabledTextColor(Color.DARK_GRAY);
+		etf.setBackground(Inicio.colorFondoObjetos);
+
 		cmbClientes.setFont(Inicio.fuenteObjetos);
 		cmbClientes.setBackground(Inicio.colorFondoObjetos);
 		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
+	}
+
+	public void setAlMatricuals(ArrayList<Vehiculo> vehiculos) {
+		for (Vehiculo v : vehiculos) {
+			alMatriculas.add(v.getMatricula());
+		}
 	}
 
 	public void modoEdicion(Vehiculo vehiculo) {
@@ -249,29 +257,28 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		setTitle("Editar " + vehiculo.getMatricula() + " | " + Inicio.cuentaActual.getNombre());
 
 		txtMatricula.setText(vehiculo.getMatricula());
+		txtMatricula.setEnabled(false);
 		txtBastidor.setText(vehiculo.getBastidor());
+		txtBastidor.setEnabled(false);
 
 		txtMarca.setText(vehiculo.getMarca());
+		txtMarca.setEnabled(false);
 		txtModelo.setText(vehiculo.getModelo());
-		txtColor.setText(vehiculo.getColor());
+		txtModelo.setEnabled(false);
 
-		txtCilindrada.setText(String.valueOf(vehiculo.getCilindrada()));
+		txtFechaFabricacionD.setText(String.valueOf(vehiculo.getFechaFabricacion().getDay()));
+		txtFechaFabricacionD.setEnabled(false);
+		txtFechaFabricacionM.setText(String.valueOf(vehiculo.getFechaFabricacion().getMonth()));
+		txtFechaFabricacionM.setEnabled(false);
+		txtFechaFabricacionA.setText(String.valueOf(vehiculo.getFechaFabricacion().getYear()));
+		txtFechaFabricacionA.setEnabled(false);
 
-		txtKmRecorridos.setText(String.valueOf(vehiculo.getKmRecorridos()));
-		txtFechaITV.setText(String.valueOf(vehiculo.getFechaITV().getYear()));
+		chkActivo.setSelected(vehiculo.isActivo());
 
-		txtTipo.setText(vehiculo.getTipo());
-
-		if (!vehiculo.getPropietario().equals("")) {
-			dcbmClientes.setSelectedItem(vehiculo.getPropietario());
-		}
-
-		txtMatricula.setEnabled(false);
-		if (!vehiculo.getBastidor().equals("")) {
-			txtBastidor.setEnabled(false);
-			txtMarca.setEnabled(false);
-			txtModelo.setEnabled(false);
-		}
+		cmbTipo.setSelectedItem(vehiculo.getTipo());
+		cmbTipo.setEditable(true);
+		cmbTipo.setEnabled(false);
+		dcbmClientes.setSelectedItem(vehiculo.getPropietario());
 	}
 
 	private boolean guardar() {
@@ -281,60 +288,45 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 
 			String marca = txtMarca.getText();
 			String modelo = txtModelo.getText();
-			String color = txtColor.getText();
 
-			int cc = Integer.parseInt(txtCilindrada.getText());
-
-			int kmRecorridos = Integer.parseInt(txtKmRecorridos.getText());
-			int aITV = Integer.parseInt(txtFechaITV.getText());
-
-			String tipo = txtTipo.getText();
+			int fechaFabricacionD = Integer.parseInt(txtFechaFabricacionD.getText());
+			int fechaFabricacionM = Integer.parseInt(txtFechaFabricacionM.getText());
+			int fechaFabricacionA = Integer.parseInt(txtFechaFabricacionA.getText());
 
 			ArrayList<String> camposTxt = new ArrayList<String>();
-			camposTxt.addAll(Arrays.asList(marca, modelo, color, tipo));
+			camposTxt.addAll(Arrays.asList(marca, modelo));
 
 			if (camposTxt.contains("")) {
 				JOptionPane.showMessageDialog(this, (String) "Campo de texto vacío", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			} else if (matricula.length() != 7) {
-				JOptionPane.showMessageDialog(this, (String) "Matrícula inválida", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, (String) "Matrícula inválida", "ERROR", JOptionPane.ERROR_MESSAGE);
 			} else if (bastidor.length() != 17) {
 				JOptionPane.showMessageDialog(this, (String) "Bastidor inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
-			} else if (cc < 1000 || cc > 9999 || kmRecorridos < 0 || aITV < 1900
-					|| aITV > Calendar.getInstance().get(Calendar.YEAR)) {
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico inválido", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+			} else if (fechaFabricacionD < 1 || fechaFabricacionD > 31 || fechaFabricacionM < 1
+					|| fechaFabricacionM > 12 || fechaFabricacionA < 1900
+					|| fechaFabricacionA > Calendar.getInstance().get(Calendar.YEAR)) {
+				JOptionPane.showMessageDialog(this, (String) "Fecha no válida", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (cmbTipo.getSelectedIndex() < 0) {
+				JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo", "ERROR", JOptionPane.ERROR_MESSAGE);
 			} else if (cmbClientes.getSelectedIndex() < 0) {
 				JOptionPane.showMessageDialog(this, (String) "Seleccione un propietario", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
+			} else if (!edicion && alMatriculas.contains(matricula)) {
+				JOptionPane.showMessageDialog(this, (String) "Vehículo ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
 			} else {
 				String propietario = (String) cmbClientes.getSelectedItem();
+				String tipo = (String) cmbTipo.getSelectedItem();
+				boolean activo = chkActivo.isSelected();
 
-				Fecha fechaITV = new Fecha(aITV);
+				Datos.guardarVehiculo(
+						new Vehiculo(matricula, bastidor, propietario, marca, modelo,
+								new Fecha(fechaFabricacionD, fechaFabricacionM, fechaFabricacionA), tipo, activo),
+						edicion);
 
-				if (!edicion && Datos.listarVehiculos().contains(matricula)) {
-					JOptionPane.showMessageDialog(this, (String) "Vehículo ya existe", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					Datos.guardarVehiculo(new Vehiculo(matricula, bastidor, propietario, marca, modelo, color, cc,
-							kmRecorridos, fechaITV, tipo));
-
-					for (Cliente c : Datos.cargarTodosClientes()) {
-						if (c.getVehiculos().contains(matricula) && !c.getDNI().equals(propietario)) {
-							c.getVehiculos().remove(matricula);
-							Datos.guardarCliente(c);
-						}
-
-						if (c.getDNI().equals(propietario) && !c.getVehiculos().contains(matricula)) {
-							c.getVehiculos().add(matricula);
-							Datos.guardarCliente(c);
-						}
-					}
-
-					return true;
-				}
+				return true;
 			}
+
 		} catch (NumberFormatException npe) {
 			JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
 					JOptionPane.ERROR_MESSAGE);

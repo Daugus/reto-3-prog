@@ -8,7 +8,7 @@ public class General {
 		NumberFormat formatter = new DecimalFormat("#0.00");
 		return formatter.format(decimal) + "€";
 	}
-
+	
 	public static String pagadaAString(boolean pagada) {
 		String resultado = "pendiente";
 		if (pagada)

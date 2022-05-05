@@ -118,7 +118,8 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		// ===== modelos =====
 		// --- crear ---
 		dcbmClientes = new DefaultComboBoxModel<String>();
-		dcbmClientes.addAll(Datos.listarClientes());
+		// TODO: arreglar
+//		dcbmClientes.addAll(Datos.listarClientes());
 
 		dcbmVehiculos = new DefaultComboBoxModel<String>();
 
@@ -192,8 +193,9 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 
 		if (o == cmbClientes && cmbClientes.getSelectedIndex() >= 0) {
 			dcbmVehiculos.removeAllElements();
-			cliente = Datos.cargarCliente((String) cmbClientes.getSelectedItem());
-			dcbmVehiculos.addAll(cliente.getVehiculos());
+			// TODO: arreglar
+//			cliente = Datos.cargarCliente((String) cmbClientes.getSelectedItem());
+//			dcbmVehiculos.addAll(cliente.getVehiculos());
 		} else if (o == btnClientes) {
 			AdministrarClientes ac = new AdministrarClientes();
 			ac.setVisible(true);
@@ -212,13 +214,15 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 		} else if (o == btnCrearOrden) {
 			// --- cliente ---
 			if (cmbClientes.getSelectedIndex() >= 0) {
+				// TODO: arreglar
 				String dni = (String) cmbClientes.getSelectedItem();
-				cliente = Datos.cargarCliente(dni);
+//				cliente = Datos.cargarCliente(dni);
 
 				// --- vehículo ---
 				if (cmbVehiculos.getSelectedIndex() >= 0) {
+					// TODO: arreglar
 					String matricula = (String) cmbVehiculos.getSelectedItem();
-					vehiculo = Datos.cargarVehiculo(matricula);
+//					vehiculo = Datos.cargarVehiculo(matricula);
 
 					if (!vehiculo.getBastidor().equals("")) {
 						// --- orden primaria ---
@@ -228,7 +232,8 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 						cmbVehiculos.setSelectedIndex(-1);
 						txtComentario.setText("");
 
-						Datos.guardarPrimaria(new Orden(comentarios, cliente, vehiculo, Inicio.cuentaActual));
+						// TODO: arreglar
+//						Datos.guardarPrimaria(new Orden(comentarios, cliente, vehiculo, Inicio.cuentaActual));
 
 						JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
 								JOptionPane.INFORMATION_MESSAGE);

@@ -13,12 +13,12 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	private String marca;
 	private String modelo;
-	
+
 	private Fecha fechaFabricacion;
 
 	private String tipo;
-	
-	private String estado;
+
+	private boolean activo;
 
 	// ===== constructores =====
 	/**
@@ -31,8 +31,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		marca = "";
 		modelo = "";
-		
-		estado = "";
+
+		activo = true;
 
 		fechaFabricacion = new Fecha();
 
@@ -49,8 +49,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		this.marca = other.marca;
 		this.modelo = other.modelo;
-		
-		this.estado = other.estado;
+
+		this.activo = other.activo;
 
 		this.fechaFabricacion = other.fechaFabricacion;
 
@@ -71,40 +71,31 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 		marca = "";
 		modelo = "";
-		
-		estado = "";
-		
+
+		activo = true;
+
 		fechaFabricacion = new Fecha();
 
 		tipo = "";
 	}
 
-	/**
-	 * vehículo en blanco
-	 * 
-	 * @param m   String maticula
-	 * @param b   string bastidor
-	 * @param dni string dni
-	 * @param mar String marca
-	 * @param mod Strnig modelo
-	 * @param e   String estado
-	 * @param i   objeto fecha(fechaFabricacion)
-	 * @param t   String tipo
-	 */
-	public Vehiculo(String m, String b, String dni, String mar, String mod, String e, Fecha f,
-			String t) {
-		matricula = m;
-		bastidor = b;
-		propietario = dni;
+	public Vehiculo(String matricula,
+			String bastidor, String propietario,
+			String marca, String modelo,
+			Fecha fechaFabricacion, String tipo,
+			boolean activo) {
+		this.matricula = matricula;
+		this.bastidor = bastidor;
+		this.propietario = propietario;
 
-		marca = mar;
-		modelo = mod;
-		
-		estado = e;
-		
-		fechaFabricacion = f;
+		this.marca = marca;
+		this.modelo = modelo;
 
-		tipo = t;
+		this.fechaFabricacion = fechaFabricacion;
+
+		this.tipo = tipo;
+
+		this.activo = activo;
 	}
 
 	// ===== métodos =====
@@ -127,8 +118,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash( propietario, estado, fechaFabricacion, marca, matricula, modelo, bastidor,
-				tipo);
+		return Objects.hash(propietario, activo, fechaFabricacion, marca, matricula, modelo, bastidor, tipo);
 	}
 
 	/**
@@ -146,8 +136,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Vehiculo other = (Vehiculo) obj;
-		return  Objects.equals(estado, other.estado)
-				&& Objects.equals(fechaFabricacion, other.fechaFabricacion) 
+		return Objects.equals(activo, other.activo) && Objects.equals(fechaFabricacion, other.fechaFabricacion)
 				&& Objects.equals(marca, other.marca) && Objects.equals(matricula, other.matricula)
 				&& Objects.equals(modelo, other.modelo) && bastidor == other.bastidor
 				&& Objects.equals(tipo, other.tipo) && Objects.equals(propietario, other.propietario);
@@ -240,8 +229,6 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		marca = m;
 	}
 
-	
-
 	/**
 	 * acceso a fechaFabricacion
 	 * 
@@ -252,7 +239,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de fechaFabricacion pasando de la calse Fecha como parametro
+	 * modifica el valor de fechaFabricacion pasando de la calse Fecha como
+	 * parametro
 	 * 
 	 * @param itv tipo Fecha
 	 */
@@ -260,22 +248,12 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		fechaFabricacion = fechFab;
 	}
 
-	/**
-	 * acceso a color
-	 * 
-	 * @return color tipo String
-	 */
-	public String getEstado() {
-		return estado;
+	public boolean isActivo() {
+		return activo;
 	}
 
-	/**
-	 * modifica el valor de color pasando String como parametro
-	 * 
-	 * @param c tipo String
-	 */
-	public void setEstado(String e) {
-		estado = e;
+	public void setActivo(boolean a) {
+		activo = a;
 	}
 
 	/**

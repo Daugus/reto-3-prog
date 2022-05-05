@@ -23,6 +23,7 @@ import clases.Factura;
 import clases.Fecha;
 import clases.Material;
 import clases.Orden;
+import clases.Vehiculo;
 import navegacion.Inicio;
 
 public class Datos {
@@ -117,6 +118,35 @@ public class Datos {
 		}
 	}
 
+	public static void guardarVehiculo(Vehiculo v, boolean edicion) {
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement st = conexion.createStatement();
+
+			String estado = General.estadoAString(v.isActivo());
+
+			String sentencia;
+
+			if (edicion) {
+				sentencia = String.format(
+						"update reto3.vehiculo" + " set dniCliente = '%s', estado = '%s' where matricula like '%s';",
+						v.getPropietario(), estado, v.getMatricula());
+			} else {
+				sentencia = String.format(
+						"insert into reto3.vehiculo values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+						v.getMatricula(), v.getPropietario(), estado, v.getBastidor(), v.getMarca(), v.getModelo(),
+						v.getTipo(), v.getFechaFabricacion().toSQLDate());
+			}
+
+			st.executeUpdate(sentencia);
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
+
 	// ===== cargar =====
 	public static Cuenta cargarCuenta(String dni) {
 		Cuenta c = null;
@@ -158,25 +188,61 @@ public class Datos {
 //	}
 
 	// ===== listar =====
-//	private static ArrayList<String> listar(File[] listaOriginal) {
-//		ArrayList<String> lista = new ArrayList<String>();
-//		for (int i = 0; i < listaOriginal.length; i++) {
-//			if (listaOriginal[i].isFile()) {
-//				String nombre = listaOriginal[i].getName().replaceAll(".dat", "");
-//				lista.add(nombre);
-//			}
-//		}
-//
-//		return lista;
-//	}
-//
-	// --- individuales --
-//	public static ArrayList<String> listarMateriales() {
-//		File[] listaOriginal = new File(materiales).listFiles();
-//		return listar(listaOriginal);
-//	}
+	public static ArrayList<String> listarClientes() {
+		ArrayList<String> alDNIs = new ArrayList<String>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select dniCliente from reto3.cliente where estado = 'activo'");
+
+			while (rs.next()) {
+				alDNIs.add(rs.getString("dniCliente"));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return alDNIs;
+	}
 
 	// ===== cargar todos =====
+	public static ArrayList<Cuenta> cargarTodosCuentas() {
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from reto3.empleado");
+
+			while (rs.next()) {
+				Ajustes ajustes = cargarAjustes(rs.getString("dniEmple"), true);
+				String tipo = rs.getString("tipoEmpleado").replaceAll("Mecanico", "Mecánico");
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				cuentas.add(new Cuenta(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
+						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"), ajustes,
+						rs.getString("dniJefe"), rs.getString("password"), rs.getDouble("salBase"),
+						rs.getDouble("comision"), new Fecha(rs.getString("fecNac")), tipo,
+						new Fecha(rs.getString("fecAltaContrato")), activo));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return cuentas;
+	}
+
 	public static ArrayList<Factura> cargarTodosFacturas() {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
 
@@ -260,25 +326,21 @@ public class Datos {
 		return materiales;
 	}
 
-	public static ArrayList<Cuenta> cargarTodosCuentas() {
-		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+	public static ArrayList<Vehiculo> cargarTodosVehiculos() {
+		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 
 			Statement st = conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from reto3.empleado");
+			ResultSet rs = st.executeQuery("select * from reto3.vehiculo");
 
 			while (rs.next()) {
-				Ajustes ajustes = cargarAjustes(rs.getString("dniEmple"), true);
-				String tipo = rs.getString("tipoEmpleado").replaceAll("Mecanico", "Mecánico");
 				boolean activo = General.estadoABoolean(rs.getString("estado"));
 
-				cuentas.add(new Cuenta(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
-						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"), ajustes,
-						rs.getString("dniJefe"), rs.getString("password"), rs.getDouble("salBase"),
-						rs.getDouble("comision"), new Fecha(rs.getString("fecNac")), tipo,
-						new Fecha(rs.getString("fecAltaContrato")), activo));
+				vehiculos.add(new Vehiculo(rs.getString("matricula"), rs.getString("nBastidor"),
+						rs.getString("dniCliente"), rs.getString("marca"), rs.getString("modelo"),
+						new Fecha(rs.getString("fecFabric")), rs.getString("tipoCombustible"), activo));
 			}
 
 			rs.close();
@@ -288,7 +350,7 @@ public class Datos {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
 
-		return cuentas;
+		return vehiculos;
 	}
 
 	// ===== ajustes =====
