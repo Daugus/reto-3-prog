@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -56,13 +57,15 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private JTextField txtFechaNacimientoA;
 
 	private JTextField txtDireccion;
-	private JTextField txtDniJefe;
 	private JTextField txtSalario;
 	private JTextField txtComision;
 
 	private JCheckBox chkActivo;
 
 	private JPasswordField pwdPassword;
+
+	private DefaultComboBoxModel<String> dcbmDniJefe;
+	private JComboBox<String> cmbDniJefe;
 
 	private JComboBox<String> cmbCuenta;
 	private JComboBox<String> cmbTema;
@@ -76,7 +79,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 	private Vector<Component> vectorOrden;
 
 	private boolean edicion;
-	
+
 	private Fecha fechaAlta;
 
 	public EditarCuenta() {
@@ -179,11 +182,6 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		lblDniJefe.setBounds(380, 115, 150, 35);
 		panelPrincipal.add(lblDniJefe);
 
-		txtDniJefe = new JTextField();
-		txtDniJefe.setColumns(10);
-		txtDniJefe.setBounds(530, 115, 150, 35);
-		panelPrincipal.add(txtDniJefe);
-
 		JLabel lblSalario = new JLabel("Salario:");
 		lblSalario.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSalario.setBounds(380, 160, 150, 35);
@@ -208,6 +206,12 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		lblActivo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblActivo.setBounds(380, 250, 150, 35);
 		panelPrincipal.add(lblActivo);
+
+		cmbDniJefe = new JComboBox<String>();
+		cmbDniJefe.addItem("Oscuro");
+		cmbDniJefe.addItem("Claro");
+		cmbDniJefe.setBounds(530, 115, 150, 35);
+		panelPrincipal.add(cmbDniJefe);
 
 		cmbTema = new JComboBox<String>();
 		cmbTema.addItem("Oscuro");
@@ -268,6 +272,15 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		btnGuardar.setBounds(373, 415, 180, 40);
 		panelPrincipal.add(btnGuardar);
 
+		// ===== modelos =====
+		// --- crear ---
+		dcbmDniJefe = new DefaultComboBoxModel<String>();
+		dcbmDniJefe.addAll(Arrays.asList(""));
+		dcbmDniJefe.addAll(Datos.listarJefes(""));
+
+		// --- asignar ---
+		cmbDniJefe.setModel(dcbmDniJefe);
+
 		// ===== Listeners =====
 		// --- Window ---
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -277,7 +290,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		// - JTextField -
 		ArrayList<JTextField> camposTexto = new ArrayList<JTextField>();
 		camposTexto.addAll(Arrays.asList(txtDNI, txtNombre, txtApellidos, txtTelefono, txtEmail, txtFechaNacimientoD,
-				txtFechaNacimientoM, txtFechaNacimientoA, txtDireccion, txtDniJefe, txtSalario, txtComision));
+				txtFechaNacimientoM, txtFechaNacimientoA, txtDireccion, txtSalario, txtComision));
 		for (JTextField txt : camposTexto) {
 			txt.addActionListener(this);
 			txt.addFocusListener(this);
@@ -324,6 +337,10 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		btnGuardar.setFont(Inicio.fuenteObjetos);
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		cmbCuenta.setFont(Inicio.fuenteObjetos);
+		cmbDniJefe.setBackground(Inicio.colorFondoObjetos);
+		cmbDniJefe.setForeground(Inicio.colorFuenteObjetos);
 
 		cmbCuenta.setFont(Inicio.fuenteObjetos);
 		cmbCuenta.setBackground(Inicio.colorFondoObjetos);
@@ -383,9 +400,11 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 		txtDireccion.setText(cuenta.getDireccion());
 
-		if (cuenta.getDniJefe() != null) {
-			txtDniJefe.setText(cuenta.getDniJefe());
-		}
+		dcbmDniJefe.removeAllElements();
+		dcbmDniJefe.addAll(Arrays.asList(""));
+		dcbmDniJefe.addAll(Datos.listarJefes(cuenta.getDNI()));
+		if (cuenta.getDniJefe() != null)
+			dcbmDniJefe.setSelectedItem(cuenta.getDniJefe());
 
 		txtSalario.setText(String.valueOf(cuenta.getSalario()));
 		txtComision.setText(String.valueOf(cuenta.getComision()));
@@ -417,7 +436,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		vectorOrden.remove(cmbTema);
 		cmbFuente.setVisible(false);
 		vectorOrden.remove(cmbFuente);
-		
+
 		fechaAlta = cuenta.getFechaAlta();
 
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
@@ -438,14 +457,18 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		int aN = Integer.parseInt(txtFechaNacimientoA.getText());
 
 		String direccion = txtDireccion.getText();
-		String dniJefe = txtDniJefe.getText();
+
+		String dniJefe = (String) cmbDniJefe.getSelectedItem();
+		if (dniJefe == null)
+			dniJefe = "";
+
 		double salario = Double.parseDouble(txtSalario.getText());
 		double comision = Double.parseDouble(txtComision.getText());
-		
+
 		if (!edicion) {
 			fechaAlta = new Fecha();
 		}
-		
+
 		boolean activo = chkActivo.isSelected();
 
 		String password = new String(pwdPassword.getPassword());

@@ -236,6 +236,30 @@ public class Datos {
 		return alDNIs;
 	}
 
+	public static ArrayList<String> listarJefes(String dni) {
+		ArrayList<String> alDNIs = new ArrayList<String>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery(String
+					.format("select dniEmple from reto3.empleado where dniEmple not like '%s'", dni));
+
+			while (rs.next()) {
+				alDNIs.add(rs.getString("dniEmple"));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return alDNIs;
+	}
+
 	// ===== cargar todos =====
 	public static ArrayList<Cliente> cargarTodosClientes() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
