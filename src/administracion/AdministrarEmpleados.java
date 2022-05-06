@@ -156,7 +156,7 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 
 		dtm.setRowCount(0);
 
-		empleados = Datos.cargarTodosEmpleados();
+		empleados = Datos.cargarEmpleados();
 		for (Empleado e : empleados) {
 			String dniJefe = e.getDniJefe();
 			if (dniJefe == null)

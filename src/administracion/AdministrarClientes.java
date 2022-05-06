@@ -149,7 +149,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 
 		dtm.setRowCount(0);
 
-		clientes = Datos.cargarTodosClientes();
+		clientes = Datos.cargarClientes();
 		for (Cliente c : clientes) {
 			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getTelefono(), c.getFechaAlta() });
 		}

@@ -76,7 +76,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		dtmFacturas.addColumn("Método de pago");
 		dtmFacturas.addColumn("Fecha");
 
-		alFacturas = Datos.cargarTodosFacturas();
+		alFacturas = Datos.cargarFacturas();
 		for (Factura f : alFacturas) {
 			String pagada = General.pagadaAString(f.isPagada());
 

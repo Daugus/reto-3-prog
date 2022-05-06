@@ -149,7 +149,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 		dtm.setRowCount(0);
 
-		vehiculos = Datos.cargarTodosVehiculos();
+		vehiculos = Datos.cargarVehiculos();
 		for (Vehiculo v : vehiculos) {
 			String estado = General.estadoAString(v.isActivo());
 

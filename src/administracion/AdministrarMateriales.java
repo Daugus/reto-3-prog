@@ -152,7 +152,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 
 		dtm.setRowCount(0);
 
-		materiales = Datos.cargarTodosMateriales();
+		materiales = Datos.cargarMateriales();
 		for (Material m : materiales) {
 			String estado = General.estadoAString(m.isActivo());
 

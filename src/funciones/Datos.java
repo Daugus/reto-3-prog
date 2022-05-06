@@ -180,7 +180,7 @@ public class Datos {
 		}
 	}
 
-	// ===== cargar =====
+	// ===== iniciar sesión =====
 	public static Empleado iniciarSesion(String dni) {
 		Empleado e = null;
 		try {
@@ -261,7 +261,7 @@ public class Datos {
 	}
 
 	// ===== cargar todos =====
-	public static ArrayList<Cliente> cargarTodosClientes() {
+	public static ArrayList<Cliente> cargarClientes() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
 		try {
@@ -288,7 +288,7 @@ public class Datos {
 		return clientes;
 	}
 
-	public static ArrayList<Empleado> cargarTodosEmpleados() {
+	public static ArrayList<Empleado> cargarEmpleados() {
 		ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 
 		try {
@@ -319,7 +319,7 @@ public class Datos {
 		return empleados;
 	}
 
-	public static ArrayList<Factura> cargarTodosFacturas() {
+	public static ArrayList<Factura> cargarFacturas() {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
 
 		try {
@@ -345,7 +345,7 @@ public class Datos {
 		return facturas;
 	}
 
-	public static ArrayList<Material> cargarTodosMateriales() {
+	public static ArrayList<Material> cargarMateriales() {
 		ArrayList<Material> materiales = new ArrayList<Material>();
 
 		try {
@@ -371,7 +371,7 @@ public class Datos {
 		return materiales;
 	}
 
-	public static ArrayList<Orden> cargarTodosOrdenes() {
+	public static ArrayList<Orden> cargarOrdenes() {
 		ArrayList<Orden> materiales = new ArrayList<Orden>();
 
 		try {
@@ -402,7 +402,7 @@ public class Datos {
 		return materiales;
 	}
 
-	public static ArrayList<Vehiculo> cargarTodosVehiculos() {
+	public static ArrayList<Vehiculo> cargarVehiculos() {
 		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
 		try {

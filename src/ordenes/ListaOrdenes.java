@@ -76,7 +76,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		dtmOrdenes.addColumn("Fecha Inicio");
 		dtmOrdenes.addColumn("Fecha Fin");
 
-		alOrdenes = Datos.cargarTodosOrdenes();
+		alOrdenes = Datos.cargarOrdenes();
 //		alOrdenes.sort(Comparator.reverseOrder());
 		for (Orden o : alOrdenes) {
 			Fecha fecFin = o.getFechaFin();
