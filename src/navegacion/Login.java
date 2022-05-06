@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
-import clases.Cuenta;
+import clases.Empleado;
 
 import funciones.Datos;
 import funciones.Log;
@@ -134,11 +134,11 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		}
 
 		try {
-			Inicio.cuentaActual = new Cuenta(Datos.cargarCuenta(dni));
+			Inicio.empleadoActual = new Empleado(Datos.iniciarSesion(dni));
 
-			Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(dni, false));
+			Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(dni, false));
 
-			if (!password.equals(Inicio.cuentaActual.getPassword())) {
+			if (!password.equals(Inicio.empleadoActual.getPassword())) {
 				// si la contraseña es incorrecta saca ventana de error
 				JOptionPane.showMessageDialog(this, (String) "Contraseña incorrecta", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
@@ -148,7 +148,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 				Log.login();
 
 				JFrame menu = null;
-				if (Inicio.cuentaActual.getTipo().equals("Mecanico")) {
+				if (Inicio.empleadoActual.getTipo().equals("Mecanico")) {
 					menu = new MenuMecanico();
 				} else {
 					menu = new MenuAdmin();

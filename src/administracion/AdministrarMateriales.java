@@ -49,7 +49,7 @@ public class AdministrarMateriales extends JFrame implements ActionListener, Win
 	public AdministrarMateriales() {
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar materiales | " + Inicio.cuentaActual.getNombre());
+		setTitle("Administrar materiales | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));

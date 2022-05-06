@@ -28,7 +28,7 @@ import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.MenuAdmin;
 
-public class CrearPrimaria extends JFrame implements ActionListener, WindowListener {
+public class CrearOrden extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -54,9 +54,9 @@ public class CrearPrimaria extends JFrame implements ActionListener, WindowListe
 	private Cliente cliente;
 	private Vehiculo vehiculo;
 
-	public CrearPrimaria() {
+	public CrearOrden() {
 		setResizable(false);
-		setTitle("Crear orden de trabajo | " + Inicio.cuentaActual.getNombre());
+		setTitle("Crear orden de trabajo | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 600, 355);
 		getContentPane().setPreferredSize(new Dimension(600, 355));

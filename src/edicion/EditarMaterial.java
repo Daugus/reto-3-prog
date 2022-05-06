@@ -46,7 +46,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 	public EditarMaterial() {
 		setResizable(false);
-		setTitle("Agregar material | " + Inicio.cuentaActual.getNombre());
+		setTitle("Agregar material | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 396, 500);
 		getContentPane().setPreferredSize(new Dimension(396, 500));
@@ -227,7 +227,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	public void modoEdicion(Material material) {
 		edicion = true;
 
-		setTitle("Editar " + material.getID() + " | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar " + material.getID() + " | " + Inicio.empleadoActual.getNombre());
 
 		txtID.setText(material.getID());
 		txtMarca.setText(material.getMarca());

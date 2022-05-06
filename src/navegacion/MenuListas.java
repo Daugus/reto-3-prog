@@ -26,10 +26,10 @@ public class MenuListas extends JFrame implements ActionListener, WindowListener
 	public MenuListas() {
 
 		setResizable(false);
-		setTitle("Órdenes | " + Inicio.cuentaActual.getNombre());
+		setTitle("Órdenes y facturas | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 330, 220);
-		getContentPane().setPreferredSize(new Dimension(330, 220));
+		setBounds(100, 100, 380, 220);
+		getContentPane().setPreferredSize(new Dimension(380, 220));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -40,11 +40,11 @@ public class MenuListas extends JFrame implements ActionListener, WindowListener
 		panelPrincipal.setLayout(null);
 
 		btnOrdenes = new JButton("Órdenes de trabajo");
-		btnOrdenes.setBounds(50, 10, 230, 60);
+		btnOrdenes.setBounds(75, 10, 230, 60);
 		panelPrincipal.add(btnOrdenes);
 
 		btnFacturas = new JButton("Facturas");
-		btnFacturas.setBounds(50, 85, 230, 60);
+		btnFacturas.setBounds(75, 85, 230, 60);
 		panelPrincipal.add(btnFacturas);
 
 		btnVolver = new JButton("Volver");
@@ -78,7 +78,7 @@ public class MenuListas extends JFrame implements ActionListener, WindowListener
 		Object o = e.getSource();
 
 		if (o == btnVolver) {
-			if (Inicio.cuentaActual.getTipo().equals("Mecanico")) {
+			if (Inicio.empleadoActual.getTipo().equals("Mecanico")) {
 				MenuMecanico mm = new MenuMecanico();
 				mm.setVisible(true);
 			} else {

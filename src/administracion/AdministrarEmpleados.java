@@ -18,16 +18,17 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import clases.Cuenta;
-import edicion.EditarCuenta;
+import clases.Empleado;
+import edicion.EditarEmpleado;
 import funciones.Datos;
 import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
 import navegacion.MenuAdmin;
+import ordenes.CrearOrden;
 
-public class AdministrarCuentas extends JFrame implements ActionListener, WindowListener {
+public class AdministrarEmpleados extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -38,18 +39,21 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 	private static JButton btnAgregar;
 	private static JButton btnEditar;
 
-	private static ArrayList<Cuenta> cuentas;
-	private Cuenta cuenta;
+	private static ArrayList<Empleado> empleados;
+	private Empleado empleado;
 
 	private static boolean bloqueado;
+	private boolean origenMenu;
 
 	/**
 	 * carga los elementos de la ventana
 	 */
-	public AdministrarCuentas() {
+	public AdministrarEmpleados(boolean origenMenu) {
+		this.origenMenu = origenMenu;
+
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar cuentas | " + Inicio.cuentaActual.getNombre());
+		setTitle("Administrar empleados | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
@@ -146,20 +150,20 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
-
+	
 	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblCuentas.getModel();
 
 		dtm.setRowCount(0);
 
-		cuentas = Datos.cargarTodosCuentas();
-		for (Cuenta c : cuentas) {
-			String dniJefe = c.getDniJefe();
-			if (dniJefe == null) 
+		empleados = Datos.cargarTodosEmpleados();
+		for (Empleado e : empleados) {
+			String dniJefe = e.getDniJefe();
+			if (dniJefe == null)
 				dniJefe = "-";
 
-			String estado = General.estadoAString(c.isActivo());
-			dtm.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getTipo(), dniJefe, estado });
+			String estado = General.estadoAString(e.isActivo());
+			dtm.addRow(new Object[] { e.getDNI(), e.getNombre(), e.getApellidos(), e.getTipo(), dniJefe, estado });
 		}
 
 		Tablas.ajustarColumnas(tblCuentas);
@@ -180,29 +184,36 @@ public class AdministrarCuentas extends JFrame implements ActionListener, Window
 		if (o == btnAgregar) {
 			botones(false);
 
-			EditarCuenta ec = new EditarCuenta();
-			ec.setAlDNIs(cuentas);
+			EditarEmpleado ec = new EditarEmpleado();
+			ec.setAlDNIs(empleados);
 			ec.setVisible(true);
 		} else if (o == btnEditar) {
 			int row = tblCuentas.getSelectedRow();
 			if (row >= 0) {
-				cuenta = cuentas.get(row);
+				empleado = empleados.get(row);
 
 				botones(false);
 
-				EditarCuenta ec = new EditarCuenta();
-				ec.modoEdicion(cuenta);
-				ec.setAlDNIs(cuentas);
+				EditarEmpleado ec = new EditarEmpleado();
+				ec.modoEdicion(empleado);
+				ec.setAlDNIs(empleados);
 
 				ec.setVisible(true);
 			} else {
-				JOptionPane.showMessageDialog(this, (String) "No hay ninguna cuenta seleccionada", "ERROR",
+				JOptionPane.showMessageDialog(this, (String) "No hay ningún empleado seleccionado", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (o == btnVolver) {
-			MenuAdmin ma = new MenuAdmin();
-			ma.setVisible(true);
+			JFrame ventana = null;
 
+			if (origenMenu) {
+				ventana = new MenuAdmin();
+			} else {
+				ventana = new CrearOrden();
+			}
+
+			ventana.setVisible(true);
+			
 			this.dispose();
 		}
 	}

@@ -28,7 +28,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 
 	public MenuMecanico() {
 		setResizable(false);
-		setTitle("Menú mecánico | " + Inicio.cuentaActual.getNombre());
+		setTitle("Menú mecánico | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 576, 221);
 		getContentPane().setPreferredSize(new Dimension(576, 221));
@@ -45,7 +45,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 		btnAjustes.setBounds(385, 171, 180, 40);
 		panelPrincipal.add(btnAjustes);
 
-		btnOrdenPrim = new JButton("Lista órdenes de trabajo");
+		btnOrdenPrim = new JButton("Administrar órdenes de trabajo");
 		btnOrdenPrim.setBounds(173, 68, 230, 60);
 		panelPrincipal.add(btnOrdenPrim);
 
@@ -66,7 +66,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 
 		// ===== ajustes de usuario =====
 		// recargar los ajustes en caso de que se hayan editado
-		Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(Inicio.cuentaActual.getDNI(), false));
+		Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(Inicio.empleadoActual.getDNI(), false));
 
 		// --- fuente ---
 		btnCerrarSesion.setFont(Inicio.fuenteObjetos);

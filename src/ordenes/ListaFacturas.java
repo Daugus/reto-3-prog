@@ -40,7 +40,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 	public ListaFacturas() {
 		setResizable(false);
-		setTitle("Lista de Facturas | " + Inicio.cuentaActual.getNombre());
+		setTitle("Lista de Facturas | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));

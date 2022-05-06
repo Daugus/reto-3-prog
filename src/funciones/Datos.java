@@ -19,7 +19,7 @@ import java.util.Locale;
 
 import clases.Ajustes;
 import clases.Cliente;
-import clases.Cuenta;
+import clases.Empleado;
 import clases.Factura;
 import clases.Fecha;
 import clases.Material;
@@ -58,7 +58,7 @@ public class Datos {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 			Statement st = conexion.createStatement();
 
-			String estado = General.estadoAString(c.isActivo());
+			String estado = General.estadoAString(c.isActivo()).toLowerCase();
 
 			String sentencia;
 
@@ -85,13 +85,13 @@ public class Datos {
 		}
 	}
 
-	public static void guardarCuenta(Cuenta c, boolean edicion) {
+	public static void guardarCuenta(Empleado c, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String tipo = c.getTipo().replaceAll("Mecánico", "Mecanico");
-			String estado = General.estadoAString(c.isActivo());
+			String estado = General.estadoAString(c.isActivo()).toLowerCase();
 
 			String sentencia;
 
@@ -127,7 +127,7 @@ public class Datos {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 			Statement st = conexion.createStatement();
 
-			String estado = General.estadoAString(m.isActivo());
+			String estado = General.estadoAString(m.isActivo()).toLowerCase();
 
 			String sentencia;
 
@@ -156,7 +156,7 @@ public class Datos {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 			Statement st = conexion.createStatement();
 
-			String estado = General.estadoAString(v.isActivo());
+			String estado = General.estadoAString(v.isActivo()).toLowerCase();
 
 			String sentencia;
 
@@ -181,8 +181,8 @@ public class Datos {
 	}
 
 	// ===== cargar =====
-	public static Cuenta cargarCuenta(String dni) {
-		Cuenta c = null;
+	public static Empleado iniciarSesion(String dni) {
+		Empleado e = null;
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 
@@ -192,7 +192,7 @@ public class Datos {
 			if (rs.next()) {
 				boolean activo = General.estadoABoolean(rs.getString("estado"));
 
-				c = new Cuenta(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
+				e = new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
 						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
 						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
 						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
@@ -207,7 +207,7 @@ public class Datos {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
 
-		return c;
+		return e;
 	}
 
 	// ===== borrar =====
@@ -288,8 +288,8 @@ public class Datos {
 		return clientes;
 	}
 
-	public static ArrayList<Cuenta> cargarTodosCuentas() {
-		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+	public static ArrayList<Empleado> cargarTodosEmpleados() {
+		ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
@@ -302,7 +302,7 @@ public class Datos {
 				String tipo = rs.getString("tipoEmpleado").replaceAll("Mecanico", "Mecánico");
 				boolean activo = General.estadoABoolean(rs.getString("estado"));
 
-				cuentas.add(new Cuenta(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
+				empleados.add(new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
 						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"), ajustes,
 						rs.getString("dniJefe"), rs.getString("password"), rs.getDouble("salBase"),
 						rs.getDouble("comision"), new Fecha(rs.getString("fecNac")), tipo,
@@ -316,7 +316,7 @@ public class Datos {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
 
-		return cuentas;
+		return empleados;
 	}
 
 	public static ArrayList<Factura> cargarTodosFacturas() {
@@ -435,7 +435,7 @@ public class Datos {
 		ObjectOutputStream oos;
 
 		try {
-			File f = new File(ajustes + Inicio.cuentaActual.getDNI());
+			File f = new File(ajustes + Inicio.empleadoActual.getDNI());
 			fos = new FileOutputStream(f);
 			oos = new ObjectOutputStream(fos);
 
@@ -447,7 +447,7 @@ public class Datos {
 			Log.error("error al guardar el objeto");
 		}
 
-		Log.ajustes(Inicio.cuentaActual.getDNI());
+		Log.ajustes(Inicio.empleadoActual.getDNI());
 	}
 
 	public static Ajustes cargarAjustes(String dni, boolean listar) {

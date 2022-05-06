@@ -25,7 +25,7 @@ import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
-import ordenes.CrearPrimaria;
+import ordenes.CrearOrden;
 
 public class AdministrarVehiculos extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -49,7 +49,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 	public AdministrarVehiculos() {
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
-		setTitle("Administrar vehículos | " + Inicio.cuentaActual.getNombre());
+		setTitle("Administrar vehículos | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
@@ -192,7 +192,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (o == btnVolver) {
-			CrearPrimaria cop = new CrearPrimaria();
+			CrearOrden cop = new CrearOrden();
 			cop.setVisible(true);
 
 			this.dispose();

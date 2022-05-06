@@ -27,9 +27,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
-import administracion.AdministrarCuentas;
+import administracion.AdministrarEmpleados;
 import clases.Ajustes;
-import clases.Cuenta;
+import clases.Empleado;
 import clases.Fecha;
 import clases.OrdenTabulacion;
 import funciones.Datos;
@@ -37,7 +37,7 @@ import funciones.Salir;
 import navegacion.Inicio;
 import javax.swing.JCheckBox;
 
-public class EditarCuenta extends JFrame implements ActionListener, WindowListener, FocusListener {
+public class EditarEmpleado extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -82,9 +82,9 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 	private Fecha fechaAlta;
 
-	public EditarCuenta() {
+	public EditarEmpleado() {
 		setResizable(false);
-		setTitle("Agregar cuenta | " + Inicio.cuentaActual.getNombre());
+		setTitle("Agregar empleado | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 730, 480);
 		getContentPane().setPreferredSize(new Dimension(730, 480));
@@ -367,61 +367,61 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		setFocusTraversalPolicy(orden);
 	}
 
-	public void setAlDNIs(ArrayList<Cuenta> cuentas) {
-		for (Cuenta c : cuentas) {
-			alDNIs.add(c.getDNI());
+	public void setAlDNIs(ArrayList<Empleado> cuentas) {
+		for (Empleado e : cuentas) {
+			alDNIs.add(e.getDNI());
 		}
 	}
 
-	public void modoEdicion(Cuenta cuenta) {
+	public void modoEdicion(Empleado empleado) {
 		edicion = true;
 
-		setTitle("Editar " + cuenta.getDNI() + " | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar " + empleado.getDNI() + " | " + Inicio.empleadoActual.getNombre());
 
-		txtDNI.setText(cuenta.getDNI());
+		txtDNI.setText(empleado.getDNI());
 		txtDNI.setEnabled(false);
 		vectorOrden.remove(txtDNI);
 
-		txtNombre.setText(cuenta.getNombre());
-		txtApellidos.setText(cuenta.getApellidos());
+		txtNombre.setText(empleado.getNombre());
+		txtApellidos.setText(empleado.getApellidos());
 
-		txtTelefono.setText(cuenta.getTelefono());
-		txtEmail.setText(cuenta.getEmail());
+		txtTelefono.setText(empleado.getTelefono());
+		txtEmail.setText(empleado.getEmail());
 
-		txtFechaNacimientoD.setText(String.valueOf(cuenta.getFechaNacimiento().getDay()));
+		txtFechaNacimientoD.setText(String.valueOf(empleado.getFechaNacimiento().getDay()));
 		txtFechaNacimientoD.setEnabled(false);
 		vectorOrden.remove(txtFechaNacimientoD);
-		txtFechaNacimientoM.setText(String.valueOf(cuenta.getFechaNacimiento().getMonth()));
+		txtFechaNacimientoM.setText(String.valueOf(empleado.getFechaNacimiento().getMonth()));
 		txtFechaNacimientoM.setEnabled(false);
 		vectorOrden.remove(txtFechaNacimientoM);
-		txtFechaNacimientoA.setText(String.valueOf(cuenta.getFechaNacimiento().getYear()));
+		txtFechaNacimientoA.setText(String.valueOf(empleado.getFechaNacimiento().getYear()));
 		txtFechaNacimientoA.setEnabled(false);
 		vectorOrden.remove(txtFechaNacimientoA);
 
-		txtDireccion.setText(cuenta.getDireccion());
+		txtDireccion.setText(empleado.getDireccion());
 
 		dcbmDniJefe.removeAllElements();
 		dcbmDniJefe.addAll(Arrays.asList(""));
-		dcbmDniJefe.addAll(Datos.listarJefes(cuenta.getDNI()));
-		if (cuenta.getDniJefe() != null)
-			dcbmDniJefe.setSelectedItem(cuenta.getDniJefe());
+		dcbmDniJefe.addAll(Datos.listarJefes(empleado.getDNI()));
+		if (empleado.getDniJefe() != null)
+			dcbmDniJefe.setSelectedItem(empleado.getDniJefe());
 
-		txtSalario.setText(String.valueOf(cuenta.getSalario()));
-		txtComision.setText(String.valueOf(cuenta.getComision()));
+		txtSalario.setText(String.valueOf(empleado.getSalario()));
+		txtComision.setText(String.valueOf(empleado.getComision()));
 
-		chkActivo.setSelected(cuenta.isActivo());
+		chkActivo.setSelected(empleado.isActivo());
 
-		pwdPassword.setText(cuenta.getPassword());
-		if (!cuenta.getTipo().equals("Mecánico") && !Inicio.cuentaActual.getDNI().equals(cuenta.getDNI())) {
+		pwdPassword.setText(empleado.getPassword());
+		if (!empleado.getTipo().equals("Mecánico") && !Inicio.empleadoActual.getDNI().equals(empleado.getDNI())) {
 			pwdPassword.setEnabled(false);
 			vectorOrden.remove(pwdPassword);
 		}
 
-		cmbCuenta.setSelectedItem(cuenta.getTipo());
+		cmbCuenta.setSelectedItem(empleado.getTipo());
 
-		if (cuenta.getAjustes() != null) {
-			String tema = cuenta.getAjustes().temaOscuro() ? "Oscuro" : "Claro";
-			String fuente = cuenta.getAjustes().getFuente().getFamily();
+		if (empleado.getAjustes() != null) {
+			String tema = empleado.getAjustes().temaOscuro() ? "Oscuro" : "Claro";
+			String fuente = empleado.getAjustes().getFuente().getFamily();
 
 			cmbTema.setSelectedItem(tema);
 			cmbFuente.setSelectedItem(fuente);
@@ -437,7 +437,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		cmbFuente.setVisible(false);
 		vectorOrden.remove(cmbFuente);
 
-		fechaAlta = cuenta.getFechaAlta();
+		fechaAlta = empleado.getFechaAlta();
 
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
@@ -492,10 +492,10 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 			JOptionPane.showMessageDialog(this, (String) "La comisión no puede ser menor que 0", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (cmbCuenta.getSelectedIndex() < 0) {
-			JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo de cuenta", "ERROR",
+			JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo de empleado", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (cmbFuente.getSelectedIndex() < 0 || cmbTema.getSelectedIndex() < 0) {
-			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta", "ERROR",
+			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta del empleado", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (!edicion && alDNIs.contains(dni)) {
 			JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -517,7 +517,7 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 
 			boolean temaOscuro = tema.equals("Oscuro") ? true : false;
 
-			Datos.guardarCuenta(new Cuenta(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
+			Datos.guardarCuenta(new Empleado(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
 					new Ajustes(temaOscuro, fuente), dniJefe, password, salario, comision, fechaNacimiento, tipo,
 					fechaAlta, activo), edicion);
 
@@ -544,8 +544,8 @@ public class EditarCuenta extends JFrame implements ActionListener, WindowListen
 		}
 
 		if (guardar == JOptionPane.NO_OPTION || valido) {
-			AdministrarCuentas.actualizarTabla();
-			AdministrarCuentas.botones(true);
+			AdministrarEmpleados.actualizarTabla();
+			AdministrarEmpleados.botones(true);
 			this.dispose();
 		}
 	}

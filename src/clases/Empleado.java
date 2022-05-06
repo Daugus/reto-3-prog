@@ -2,7 +2,7 @@ package clases;
 
 import java.util.Objects;
 
-public class Cuenta extends Persona {
+public class Empleado extends Persona {
 	private static final long serialVersionUID = -1206167340211110010L;
 
 	// ===== propiedades =====
@@ -20,7 +20,7 @@ public class Cuenta extends Persona {
 	/**
 	 * constructor por defecto
 	 */
-	public Cuenta() {
+	public Empleado() {
 		super();
 
 		ajustes = new Ajustes();
@@ -38,7 +38,7 @@ public class Cuenta extends Persona {
 	/**
 	 * constructor copia
 	 */
-	public Cuenta(Cuenta other) {
+	public Empleado(Empleado other) {
 		super(other);
 
 		ajustes = new Ajustes(other.ajustes);
@@ -54,7 +54,7 @@ public class Cuenta extends Persona {
 
 	// --- personalizados ---
 	// persona por defecto
-	public Cuenta(Ajustes ajustes, String jefe, String password, double salario, double comision, Fecha fn, String tipo,
+	public Empleado(Ajustes ajustes, String jefe, String password, double salario, double comision, Fecha fn, String tipo,
 			Fecha fa, boolean activo) {
 		super();
 
@@ -70,7 +70,7 @@ public class Cuenta extends Persona {
 	}
 
 	// personalizado
-	public Cuenta(String dni, String nombre, String apellidos, String telefono, String email, String dir,
+	public Empleado(String dni, String nombre, String apellidos, String telefono, String email, String dir,
 			Ajustes ajustes, String jefe, String password, double sal, double com, Fecha fn, String tipo, Fecha fa,
 			boolean act) {
 
@@ -118,7 +118,7 @@ public class Cuenta extends Persona {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cuenta other = (Cuenta) obj;
+		Empleado other = (Empleado) obj;
 		return activo == other.activo && Objects.equals(ajustes, other.ajustes)
 				&& Double.doubleToLongBits(comision) == Double.doubleToLongBits(other.comision)
 				&& Objects.equals(dniJefe, other.dniJefe) && Objects.equals(fechaAlta, other.fechaAlta)

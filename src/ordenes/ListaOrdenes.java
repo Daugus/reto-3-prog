@@ -40,7 +40,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 
 	public ListaOrdenes() {
 		setResizable(false);
-		setTitle("Lista de Órdenes Pendientes | " + Inicio.cuentaActual.getNombre());
+		setTitle("Lista de Órdenes Pendientes | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));

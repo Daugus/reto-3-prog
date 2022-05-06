@@ -63,7 +63,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 
 	public EditarVehiculo() {
 		setResizable(false);
-		setTitle("Agregar nuevo vehículo | " + Inicio.cuentaActual.getNombre());
+		setTitle("Agregar nuevo vehículo | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 630, 285);
 		getContentPane().setPreferredSize(new Dimension(630, 285));
@@ -254,7 +254,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	public void modoEdicion(Vehiculo vehiculo) {
 		edicion = true;
 
-		setTitle("Editar " + vehiculo.getMatricula() + " | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar " + vehiculo.getMatricula() + " | " + Inicio.empleadoActual.getNombre());
 
 		txtMatricula.setText(vehiculo.getMatricula());
 		txtMatricula.setEnabled(false);

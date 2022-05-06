@@ -11,14 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import administracion.AdministrarCuentas;
+import administracion.AdministrarEmpleados;
 import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
 
 import funciones.Datos;
 import funciones.Log;
 import funciones.Salir;
-import ordenes.CrearPrimaria;
+import ordenes.CrearOrden;
 
 public class MenuAdmin extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -27,14 +27,14 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 
 	private JButton btnCerrarSesion;
 	private JButton btnOrden;
-	private JButton btnNuevaOrdenPrim;
-	private JButton btnCuentas;
+	private JButton btnCrearOrden;
+	private JButton btnEmpleados;
 	private JButton btnMateriales;
 	private JButton btnAjustes;
 
 	public MenuAdmin() {
 		setResizable(false);
-		setTitle("Menú de atención al cliente | " + Inicio.cuentaActual.getNombre());
+		setTitle("Menú de atención al cliente | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 575, 220);
 		getContentPane().setPreferredSize(new Dimension(575, 220));
@@ -55,17 +55,17 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 		btnCerrarSesion.setBounds(10, 170, 180, 40);
 		panelPrincipal.add(btnCerrarSesion);
 
-		btnOrden = new JButton("Lista órdenes de trabajo");
+		btnOrden = new JButton("Administrar órdenes y facturas");
 		btnOrden.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnOrden);
 
-		btnNuevaOrdenPrim = new JButton("Crear orden de trabajo");
-		btnNuevaOrdenPrim.setBounds(50, 85, 230, 60);
-		panelPrincipal.add(btnNuevaOrdenPrim);
+		btnCrearOrden = new JButton("Crear orden de trabajo");
+		btnCrearOrden.setBounds(50, 85, 230, 60);
+		panelPrincipal.add(btnCrearOrden);
 
-		btnCuentas = new JButton("Administrar cuentas");
-		btnCuentas.setBounds(295, 10, 230, 60);
-		panelPrincipal.add(btnCuentas);
+		btnEmpleados = new JButton("Administrar empleados");
+		btnEmpleados.setBounds(295, 10, 230, 60);
+		panelPrincipal.add(btnEmpleados);
 
 		btnMateriales = new JButton("Administrar materiales");
 		btnMateriales.setBounds(295, 85, 230, 60);
@@ -80,20 +80,20 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 		// - JButton -
 		btnCerrarSesion.addActionListener(this);
 		btnOrden.addActionListener(this);
-		btnNuevaOrdenPrim.addActionListener(this);
-		btnCuentas.addActionListener(this);
+		btnCrearOrden.addActionListener(this);
+		btnEmpleados.addActionListener(this);
 		btnMateriales.addActionListener(this);
 		btnAjustes.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// recargar los ajustes en caso de que se hayan editado
-		Inicio.cuentaActual.setAjustes(Datos.cargarAjustes(Inicio.cuentaActual.getDNI(), false));
+		Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(Inicio.empleadoActual.getDNI(), false));
 
 		// --- fuente ---
 		btnCerrarSesion.setFont(Inicio.fuenteObjetos);
 		btnOrden.setFont(Inicio.fuenteObjetos);
-		btnNuevaOrdenPrim.setFont(Inicio.fuenteObjetos);
-		btnCuentas.setFont(Inicio.fuenteObjetos);
+		btnCrearOrden.setFont(Inicio.fuenteObjetos);
+		btnEmpleados.setFont(Inicio.fuenteObjetos);
 		btnMateriales.setFont(Inicio.fuenteObjetos);
 		btnAjustes.setFont(Inicio.fuenteObjetos);
 
@@ -103,16 +103,16 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 
 		btnCerrarSesion.setBackground(Inicio.colorFondoObjetos);
 		btnOrden.setBackground(Inicio.colorFondoObjetos);
-		btnNuevaOrdenPrim.setBackground(Inicio.colorFondoObjetos);
-		btnCuentas.setBackground(Inicio.colorFondoObjetos);
+		btnCrearOrden.setBackground(Inicio.colorFondoObjetos);
+		btnEmpleados.setBackground(Inicio.colorFondoObjetos);
 		btnMateriales.setBackground(Inicio.colorFondoObjetos);
 		btnAjustes.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
 		btnCerrarSesion.setForeground(Inicio.colorFuenteObjetos);
 		btnOrden.setForeground(Inicio.colorFuenteObjetos);
-		btnNuevaOrdenPrim.setForeground(Inicio.colorFuenteObjetos);
-		btnCuentas.setForeground(Inicio.colorFuenteObjetos);
+		btnCrearOrden.setForeground(Inicio.colorFuenteObjetos);
+		btnEmpleados.setForeground(Inicio.colorFuenteObjetos);
 		btnMateriales.setForeground(Inicio.colorFuenteObjetos);
 		btnAjustes.setForeground(Inicio.colorFuenteObjetos);
 	}
@@ -125,9 +125,9 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 			ml.setVisible(true);
 
 			this.dispose();
-		} else if (o == btnNuevaOrdenPrim) {
-			CrearPrimaria cop = new CrearPrimaria();
-			cop.setVisible(true);
+		} else if (o == btnCrearOrden) {
+			CrearOrden co = new CrearOrden();
+			co.setVisible(true);
 
 			this.dispose();
 		} else if (o == btnCerrarSesion) {
@@ -136,8 +136,8 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 			Log.logout();
 
 			this.dispose();
-		} else if (o == btnCuentas) {
-			AdministrarCuentas ac = new AdministrarCuentas();
+		} else if (o == btnEmpleados) {
+			AdministrarEmpleados ac = new AdministrarEmpleados(true);
 			ac.setVisible(true);
 
 			this.dispose();

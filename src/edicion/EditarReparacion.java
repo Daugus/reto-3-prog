@@ -66,7 +66,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 	public EditarReparacion() {
 		setResizable(false);
-		setTitle("Agregar reparación | " + Inicio.cuentaActual.getNombre());
+		setTitle("Agregar reparación | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 470);
 		getContentPane().setPreferredSize(new Dimension(700, 470));
@@ -145,7 +145,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		// ====== Modelos ======
 		// --- crear ---
 		dcbmMaterial = new DefaultComboBoxModel<String>();
-		dcbmMaterial.addAll(Datos.listarMateriales());
+		// TODO: arreglar
+//		dcbmMaterial.addAll(Datos.listarMateriales());
 
 		DefaultTableModel dtmMaterial = new DefaultTableModel();
 		dtmMaterial.addColumn("Nombre");
@@ -270,14 +271,15 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 	public void modoEdicion(Reparacion r) {
 		edicion = true;
-		setTitle("Editar " + r.getDescripcion() + " | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar " + r.getDescripcion() + " | " + Inicio.empleadoActual.getNombre());
 
 		txtDescripcion.setText(r.getDescripcion());
 		txtDescripcion.setEnabled(false);
 
-		txtHoras.setText(String.valueOf(r.getHoras()));
-		txtManoObra.setText(String.valueOf(r.getManoObra()));
-		alMaterialesUsados.addAll(r.getMaterialesUsados());
+		// TODO: arreglar
+//		txtHoras.setText(String.valueOf(r.getHoras()));
+//		txtManoObra.setText(String.valueOf(r.getManoObra()));
+//		alMaterialesUsados.addAll(r.getMaterialesUsados());
 
 		actualizarTabla();
 	}
@@ -289,7 +291,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		dtm.setRowCount(0);
 
 		for (MaterialUsado m : alMaterialesUsados) {
-			dtm.addRow(new Object[] { m.getNombre(), General.formatearPrecio(m.getPrecio()), m.getCantidad() });
+			// TODO: arreglar
+//			dtm.addRow(new Object[] { m.getNombre(), General.formatearPrecio(m.getPrecio()), m.getCantidad() });
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);
@@ -322,8 +325,9 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 					if (existe) {
 						if (edicion) {
 							al.remove(posicion);
-							al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(), Inicio.cuentaActual,
-									alMaterialesUsados));
+							// TODO: arreglar
+//							al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(), Inicio.cuentaActual,
+//									alMaterialesUsados));
 
 							CrearPendiente.actualizarTablas();
 
@@ -333,8 +337,9 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 									JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
-						al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(), Inicio.cuentaActual,
-								alMaterialesUsados));
+						// TODO: arreglar
+//						al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(), Inicio.cuentaActual,
+//								alMaterialesUsados));
 
 						return true;
 					}
@@ -367,7 +372,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 			try {
 				int cantidad = Integer.parseInt(txtCantidad.getText());
 
-				material = Datos.cargarMaterial((String) cmbMaterial.getSelectedItem());
+				// TODO: arreglar
+//				material = Datos.cargarMaterial((String) cmbMaterial.getSelectedItem());
 
 				MaterialUsado mu = new MaterialUsado(material, cantidad);
 

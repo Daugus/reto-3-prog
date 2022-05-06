@@ -10,14 +10,15 @@ public class General {
 	}
 	
 	public static String pagadaAString(boolean pagada) {
-		String resultado = "pendiente";
+		String resultado = "Pendiente";
 		if (pagada)
-			resultado = "pagada";
+			resultado = "Pagada";
 
 		return resultado;
 	}
 
 	public static boolean pagadaABoolean(String pagada) {
+		pagada = pagada.toLowerCase();
 		boolean resultado = false;
 		if (pagada.equals("pagada"))
 			resultado = true;
@@ -26,14 +27,15 @@ public class General {
 	}
 
 	public static String estadoAString(boolean estado) {
-		String resultado = "inactivo";
+		String resultado = "Inactivo";
 		if (estado)
-			resultado = "activo";
+			resultado = "Activo";
 
 		return resultado;
 	}
 
 	public static boolean estadoABoolean(String estado) {
+		estado = estado.toLowerCase();
 		boolean resultado = false;
 		if (estado.equals("activo"))
 			resultado = true;

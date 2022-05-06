@@ -48,7 +48,7 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 	public MostrarFactura() {
 		setResizable(false);
-		setTitle("Generar factura | " + Inicio.cuentaActual.getNombre());
+		setTitle("Generar factura | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 850, 520);
 		getContentPane().setPreferredSize(new Dimension(850, 520));

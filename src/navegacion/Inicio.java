@@ -3,11 +3,11 @@ package navegacion;
 import java.awt.Color;
 import java.awt.Font;
 
-import clases.Cuenta;
+import clases.Empleado;
 import funciones.Datos;
 
 public class Inicio {
-	public static Cuenta cuentaActual;
+	public static Empleado empleadoActual;
 	public static Font fuente = new Font("Segoe UI", Font.PLAIN, 13);
 	public static Font fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
 	public static Color colorFondo = Color.DARK_GRAY;

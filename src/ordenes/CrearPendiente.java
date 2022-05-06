@@ -69,12 +69,12 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	public CrearPendiente() {
 		setResizable(false);
 
-		if (Inicio.cuentaActual.esMecanico()) {
-			setTitle("Crear orden pendiente | " + Inicio.cuentaActual.getNombre());
+		if (Inicio.empleadoActual.esMecanico()) {
+			setTitle("Crear orden pendiente | " + Inicio.empleadoActual.getNombre());
 			setBounds(100, 100, 790, 720);
 			getContentPane().setPreferredSize(new Dimension(790, 720));
 		} else {
-			setTitle("Mostrar orden primaria | " + Inicio.cuentaActual.getNombre());
+			setTitle("Mostrar orden primaria | " + Inicio.empleadoActual.getNombre());
 			setBounds(100, 100, 790, 430);
 			getContentPane().setPreferredSize(new Dimension(790, 430));
 		}
@@ -284,7 +284,7 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 	public void cargarDatos(Orden op) {
 		primaria = new Orden(op);
 
-		if (!Inicio.cuentaActual.esMecanico()) {
+		if (!Inicio.empleadoActual.esMecanico()) {
 			btnAgregar.setVisible(false);
 			btnCrear.setVisible(false);
 			btnEditar.setVisible(false);
@@ -390,7 +390,7 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 			if (tblReparaciones.getRowCount() > 0 && tblMateriales.getRowCount() > 0) {
 				Datos.borrarPrimaria(primaria.getCodigo());
 
-				Datos.guardarPendiente(new Pendiente(primaria, Inicio.cuentaActual, alReparaciones));
+				Datos.guardarPendiente(new Pendiente(primaria, Inicio.empleadoActual, alReparaciones));
 
 				JOptionPane.showMessageDialog(this,
 						(String) "Se ha convertido la order primaria en una orden pendiente", "INFO",

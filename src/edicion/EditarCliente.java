@@ -57,7 +57,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 	public EditarCliente() {
 		setResizable(false);
-		setTitle("Agregar nuevo cliente | " + Inicio.cuentaActual.getNombre());
+		setTitle("Agregar nuevo cliente | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 730, 285);
 		getContentPane().setPreferredSize(new Dimension(730, 285));
@@ -219,7 +219,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 	public void modoEdicion(Cliente cliente) {
 		edicion = true;
 
-		setTitle("Editar " + cliente.getDNI() + " | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar " + cliente.getDNI() + " | " + Inicio.empleadoActual.getNombre());
 
 		txtDNI.setText(cliente.getDNI());
 		txtDNI.setEnabled(false);

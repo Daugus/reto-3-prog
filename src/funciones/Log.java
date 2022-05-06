@@ -87,12 +87,12 @@ public class Log {
 
 	// - inicio y salida -
 	public static void login() {
-		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha iniciado sesión";
+		String mensaje = "el usuario: " + Inicio.empleadoActual.getDNI() + " ha iniciado sesión";
 		grabar(sesion, mensaje, false);
 	}
 
 	public static void logout() {
-		String mensaje = "el usuario: " + Inicio.cuentaActual.getDNI() + " ha cerrado sesión";
+		String mensaje = "el usuario: " + Inicio.empleadoActual.getDNI() + " ha cerrado sesión";
 		grabar(sesion, mensaje, false);
 	}
 

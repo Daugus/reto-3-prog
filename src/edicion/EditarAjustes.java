@@ -40,7 +40,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	public EditarAjustes() {
 		setResizable(false);
-		setTitle("Editar ajustes | " + Inicio.cuentaActual.getNombre());
+		setTitle("Editar ajustes | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 396, 195);
 		getContentPane().setPreferredSize(new Dimension(396, 195));
@@ -128,13 +128,13 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private void cargarAjustes() {
 		String tema = null;
-		if (Inicio.cuentaActual.getAjustes().temaOscuro()) {
+		if (Inicio.empleadoActual.getAjustes().temaOscuro()) {
 			tema = "Oscuro";
 		} else {
 			tema = "Claro";
 		}
 
-		String fuente = Inicio.cuentaActual.getAjustes().getFuente().getFamily();
+		String fuente = Inicio.empleadoActual.getAjustes().getFuente().getFamily();
 
 		cmbFondo.setSelectedItem(tema);
 		cmbFuente.setSelectedItem(fuente);
@@ -153,7 +153,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 		Datos.guardarAjustes(new Ajustes(temaOscuro, fuente));
 
-		Datos.cargarAjustes(Inicio.cuentaActual.getDNI(), false);
+		Datos.cargarAjustes(Inicio.empleadoActual.getDNI(), false);
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -170,7 +170,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 			}
 
 			JFrame menu;
-			if (Inicio.cuentaActual.getTipo().equals("Mecanico")) {
+			if (Inicio.empleadoActual.getTipo().equals("Mecanico")) {
 				menu = new MenuMecanico();
 			} else {
 				menu = new MenuAdmin();
