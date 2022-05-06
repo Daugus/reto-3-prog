@@ -23,16 +23,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import clases.Cliente;
 import clases.MaterialUsado;
-import clases.Pendiente;
 import clases.Orden;
 import clases.Reparacion;
-import clases.Vehiculo;
 import edicion.EditarReparacion;
-
-import funciones.Datos;
-import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -284,55 +278,55 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 	public void cargarDatos(Orden op) {
 		primaria = new Orden(op);
 
-		if (!Inicio.empleadoActual.esMecanico()) {
-			btnAgregar.setVisible(false);
-			btnCrear.setVisible(false);
-			btnEditar.setVisible(false);
-			btnEliminar.setVisible(false);
-
-			btnVolver.setBounds(305, 380, 180, 40);
-
-			scrollReparaciones.setVisible(false);
-			scrollMateriales.setVisible(false);
-		}
+//		if (!Inicio.empleadoActual.esMecanico()) {
+//			btnAgregar.setVisible(false);
+//			btnCrear.setVisible(false);
+//			btnEditar.setVisible(false);
+//			btnEliminar.setVisible(false);
+//
+//			btnVolver.setBounds(305, 380, 180, 40);
+//
+//			scrollReparaciones.setVisible(false);
+//			scrollMateriales.setVisible(false);
+//		}
 
 		// ===== datos cliente =====
 		// --- cargar cliente ---
-		Cliente c = primaria.getPropietario();
+//		Cliente c = primaria.getPropietario();
 
 		// --- escribir cliente ---
-		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
-		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
-
-		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
-		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
-
-		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
-		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
-
-		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
-		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
-
-		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
+//		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
+//		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
+//
+//		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
+//		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
+//
+//		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
+//		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
+//
+//		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
+//		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
+//
+//		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
 
 		// ===== datos vehículo =====
 		// --- cargar vehículo ---
-		Vehiculo v = primaria.getVehiculo();
+//		Vehiculo v = primaria.getVehiculo();
 
 		// --- escribir vehículo ---
-		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
-		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
-		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
-
-		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
-		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
-
-		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
-
-		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
-		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
-
-		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
+//		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
+//		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
+//		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
+//
+//		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
+//		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
+//
+//		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
+//
+//		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
+//		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
+//
+//		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
 
 		// ===== datos orden primaria =====
 		lblCodigoTxt.setText(primaria.getCodigo());
@@ -350,11 +344,11 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 		dtmReparaciones.setRowCount(0);
 
-		for (Reparacion r : alReparaciones) {
-			dtmReparaciones
-					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()) });
-			alMaterialesGeneral.addAll(r.getMaterialesUsados());
-		}
+//		for (Reparacion r : alReparaciones) {
+//			dtmReparaciones
+//					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()) });
+//			alMaterialesGeneral.addAll(r.getMaterialesUsados());
+//		}
 
 		Tablas.ajustarColumnas(tblReparaciones);
 
@@ -363,9 +357,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
 		dtmMateriales.setRowCount(0);
 
-		for (MaterialUsado mu : alMaterialesGeneral) {
-			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad() });
-		}
+//		for (MaterialUsado mu : alMaterialesGeneral) {
+//			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad() });
+//		}
 	}
 
 	public static void botones(boolean estado) {
@@ -388,9 +382,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 
 		if (o == btnCrear) {
 			if (tblReparaciones.getRowCount() > 0 && tblMateriales.getRowCount() > 0) {
-				Datos.borrarPrimaria(primaria.getCodigo());
+//				Datos.borrarPrimaria(primaria.getCodigo());
 
-				Datos.guardarPendiente(new Pendiente(primaria, Inicio.empleadoActual, alReparaciones));
+//				Datos.guardarPendiente(new Pendiente(primaria, Inicio.empleadoActual, alReparaciones));
 
 				JOptionPane.showMessageDialog(this,
 						(String) "Se ha convertido la order primaria en una orden pendiente", "INFO",

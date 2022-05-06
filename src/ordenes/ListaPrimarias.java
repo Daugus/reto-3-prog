@@ -20,11 +20,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Orden;
-import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
-import navegacion.MenuListas;
-import navegacion.MenuMecanico;
 
 public class ListaPrimarias extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -75,12 +72,12 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 		dtmPrimarias.addColumn("Cliente");
 		dtmPrimarias.addColumn("Vehículo");
 
-		alPrimarias = Datos.cargarTodosPrimarias();
+//		alPrimarias = Datos.cargarTodosPrimarias();
 		alPrimarias.sort(Comparator.reverseOrder());
-		for (Orden op : alPrimarias) {
-			dtmPrimarias.addRow(
-					new Object[] { op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula() });
-		}
+//		for (Orden op : alPrimarias) {
+//			dtmPrimarias.addRow(
+//					new Object[] { op.getFecha(), op.getPropietario().getDNI(), op.getVehiculo().getMatricula() });
+//		}
 
 		// --- asignar ---
 		tblPrimarias = new JTable(dtmPrimarias) {
@@ -154,14 +151,14 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JFrame ventana = null;
-			if (Inicio.empleadoActual.esMecanico()) {
-				ventana = new MenuMecanico();
-			} else {
-				ventana = new MenuListas();
-			}
-
-			ventana.setVisible(true);
+//			JFrame ventana = null;
+//			if (Inicio.empleadoActual.esMecanico()) {
+//				ventana = new MenuMecanico();
+//			} else {
+//				ventana = new MenuListas();
+//			}
+//
+//			ventana.setVisible(true);
 			this.dispose();
 		}
 	}

@@ -23,13 +23,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Cliente;
-import clases.Factura;
 import clases.MaterialUsado;
 import clases.Pendiente;
 import clases.Reparacion;
 import clases.Vehiculo;
-import funciones.Datos;
-import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -253,7 +250,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
 		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
 
-		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
+//		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
 		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
 
 		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
@@ -268,12 +265,12 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
 
 		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
-		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
+//		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
 
-		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
+//		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
 
-		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
-		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
+//		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
+//		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
 
 		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
 
@@ -287,23 +284,23 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		// --- escribir reparaciones y materiales usados ---
 		alReparaciones.sort(Comparator.naturalOrder());
 
-		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
+//		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 
-		for (Reparacion r : alReparaciones) {
-			dtmReparaciones
-					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()) });
-			alMateriales.addAll(r.getMaterialesUsados());
-		}
+//		for (Reparacion r : alReparaciones) {
+//			dtmReparaciones
+//					.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()) });
+//			alMateriales.addAll(r.getMaterialesUsados());
+//		}
 
 		Tablas.ajustarColumnas(tblReparaciones);
 
 		alMateriales.sort(Comparator.naturalOrder());
 
-		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
+//		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
 
-		for (MaterialUsado mu : alMateriales) {
-			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad() });
-		}
+//		for (MaterialUsado mu : alMateriales) {
+//			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad() });
+//		}
 
 		// ===== estilizar tablas =====
 		Tablas.vertical(tblCliente);
@@ -321,9 +318,9 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 			btnGenerar.setEnabled(chkAprobar.isSelected());
 		} else {
 			if (o == btnGenerar) {
-				Datos.borrarPendiente(pendiente.getCodigo());
+//				Datos.borrarPendiente(pendiente.getCodigo());
 
-				Datos.guardarFactura(new Factura(pendiente));
+//				Datos.guardarFactura(new Factura(pendiente));
 
 				JOptionPane.showMessageDialog(this, (String) "Se ha generado la factura", "INFO",
 						JOptionPane.INFORMATION_MESSAGE);

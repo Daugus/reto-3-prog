@@ -287,11 +287,11 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		DefaultTableModel dtm = (DefaultTableModel) tblMateriales.getModel();
 		dtm.setRowCount(0);
 
-		for (MaterialUsado m : alMaterialesUsados) {
+//		for (MaterialUsado m : alMaterialesUsados) {
 			// TODO: arreglar
 			// dtm.addRow(new Object[] { m.getNombre(),
 			// General.formatearPrecio(m.getPrecio()), m.getCantidad() });
-		}
+//		}
 
 		Tablas.ajustarColumnas(tblMateriales);
 	}

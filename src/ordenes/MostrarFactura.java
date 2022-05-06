@@ -19,12 +19,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import clases.Cliente;
 import clases.Factura;
 import clases.MaterialUsado;
 import clases.Reparacion;
-import clases.Vehiculo;
-import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -42,7 +39,7 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 	private JTable tblMateriales;
 	private JTable tblTotal;
 
-	private Factura factura;
+//	private Factura factura;
 	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
 	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
 
@@ -223,79 +220,79 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 	}
 
 	public void cargarDatos(Factura f) {
-		factura = new Factura(f);
+//		factura = new Factura(f);
 
 		// ===== datos cliente =====
 		// --- cargar cliente ---
-		Cliente c = factura.getPropietario();
+//		Cliente c = factura.getPropietario();
 
 		// --- escribir cliente ---
-		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
-		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
+//		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
+//		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
 
-		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
-		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
-
-		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
-		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
-
-		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
-		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
-
-		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
+//		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
+//		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
+//
+//		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
+//		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
+//
+//		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
+//		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
+//
+//		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
 
 		// ===== datos vehículo =====
 		// --- cargar vehículo ---
-		Vehiculo v = factura.getVehiculo();
+//		Vehiculo v = factura.getVehiculo();
 
 		// --- escribir vehículo ---
-		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
-		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
-		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
+//		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
+//		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
+//		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
+//
+//		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
+//		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
 
-		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
-		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
-
-		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
-
-		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
-		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
-
-		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
+//		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
+//
+//		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
+//		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
+//
+//		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
 
 		// ===== datos reparaciones =====
 		// --- cargar reparaciones ---
-		alReparaciones = factura.getReparaciones();
+//		alReparaciones = factura.getReparaciones();
 
 		// --- escribir reparaciones y materiales usados ---
 		alReparaciones.sort(Comparator.naturalOrder());
 
-		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
+//		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 
-		for (Reparacion r : alReparaciones) {
-			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()),
-					General.formatearPrecio(r.getHoras() * r.getManoObra()) });
-			alMateriales.addAll(r.getMaterialesUsados());
-		}
+//		for (Reparacion r : alReparaciones) {
+//			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()),
+//					General.formatearPrecio(r.getHoras() * r.getManoObra()) });
+//			alMateriales.addAll(r.getMaterialesUsados());
+//		}
 
 		Tablas.ajustarColumnas(tblReparaciones);
 
 		alMateriales.sort(Comparator.naturalOrder());
 
-		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
+//		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
 
-		for (MaterialUsado mu : alMateriales) {
-			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad(),
-					General.formatearPrecio(mu.getPrecio() * mu.getCantidad()) });
-		}
+//		for (MaterialUsado mu : alMateriales) {
+//			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad(),
+//					General.formatearPrecio(mu.getPrecio() * mu.getCantidad()) });
+//		}
 
 		// ===== total =====
-		DefaultTableModel dtmTotal = (DefaultTableModel) tblTotal.getModel();
-		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatearPrecio(factura.getCosteReparaciones()) });
-		dtmTotal.addRow(new Object[] { "Total materiales", General.formatearPrecio(factura.getCosteMateriales()) });
-		dtmTotal.addRow(new Object[] { "Subtotal", General.formatearPrecio(factura.getSubtotal()) });
-		dtmTotal.addRow(new Object[] { "IVA (21%)", General.formatearPrecio(factura.getIva()) });
-		dtmTotal.addRow(new Object[] { "Total", General.formatearPrecio(factura.getTotal()) });
+//		DefaultTableModel dtmTotal = (DefaultTableModel) tblTotal.getModel();
+//		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatearPrecio(factura.getCosteReparaciones()) });
+//		dtmTotal.addRow(new Object[] { "Total materiales", General.formatearPrecio(factura.getCosteMateriales()) });
+//		dtmTotal.addRow(new Object[] { "Subtotal", General.formatearPrecio(factura.getSubtotal()) });
+//		dtmTotal.addRow(new Object[] { "IVA (21%)", General.formatearPrecio(factura.getIva()) });
+//		dtmTotal.addRow(new Object[] { "Total", General.formatearPrecio(factura.getTotal()) });
 
 		// ===== estilizar tablas =====
 		Tablas.vertical(tblCliente);
