@@ -1,7 +1,1 @@
-#archivos internos
-bin/
-doc/
-.metadata/
-*.zip
-*.class
-RKA/
+/bin/

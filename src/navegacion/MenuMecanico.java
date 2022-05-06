@@ -11,11 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ordenes.ListaOrdenes;
 import edicion.EditarAjustes;
 import funciones.Datos;
 import funciones.Log;
 import funciones.Salir;
-import ordenes.ListaPrimarias;
 
 public class MenuMecanico extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -23,7 +23,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 	private JPanel panelPrincipal;
 
 	private JButton btnAjustes;
-	private JButton btnOrdenPrim;
+	private JButton btnOrdenes;
 	private JButton btnCerrarSesion;
 
 	public MenuMecanico() {
@@ -45,9 +45,9 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 		btnAjustes.setBounds(385, 171, 180, 40);
 		panelPrincipal.add(btnAjustes);
 
-		btnOrdenPrim = new JButton("Administrar órdenes de trabajo");
-		btnOrdenPrim.setBounds(173, 68, 230, 60);
-		panelPrincipal.add(btnOrdenPrim);
+		btnOrdenes = new JButton("Administrar órdenes de trabajo");
+		btnOrdenes.setBounds(173, 68, 230, 60);
+		panelPrincipal.add(btnOrdenes);
 
 		btnCerrarSesion = new JButton("Cerrar sesión");
 		btnCerrarSesion.setBounds(10, 171, 180, 40);
@@ -61,7 +61,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 		// --- Action ---
 		// - JButton -
 		btnCerrarSesion.addActionListener(this);
-		btnOrdenPrim.addActionListener(this);
+		btnOrdenes.addActionListener(this);
 		btnAjustes.addActionListener(this);
 
 		// ===== ajustes de usuario =====
@@ -70,7 +70,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 
 		// --- fuente ---
 		btnCerrarSesion.setFont(Inicio.fuenteObjetos);
-		btnOrdenPrim.setFont(Inicio.fuenteObjetos);
+		btnOrdenes.setFont(Inicio.fuenteObjetos);
 		btnAjustes.setFont(Inicio.fuenteObjetos);
 
 		// --- color ---
@@ -78,12 +78,12 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
 		btnCerrarSesion.setBackground(Inicio.colorFondoObjetos);
-		btnOrdenPrim.setBackground(Inicio.colorFondoObjetos);
+		btnOrdenes.setBackground(Inicio.colorFondoObjetos);
 		btnAjustes.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
 		btnCerrarSesion.setForeground(Inicio.colorFuenteObjetos);
-		btnOrdenPrim.setForeground(Inicio.colorFuenteObjetos);
+		btnOrdenes.setForeground(Inicio.colorFuenteObjetos);
 		btnAjustes.setForeground(Inicio.colorFuenteObjetos);
 	}
 
@@ -91,10 +91,9 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 
-		if (o == btnOrdenPrim) {
-			ListaPrimarias lop = new ListaPrimarias();
-			this.setVisible(false);
-			lop.setVisible(true);
+		if (o == btnOrdenes) {
+			ListaOrdenes lo = new ListaOrdenes();
+			lo.setVisible(true);
 
 			this.dispose();
 		} else if (o == btnCerrarSesion) {

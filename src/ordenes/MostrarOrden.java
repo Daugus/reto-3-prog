@@ -37,7 +37,7 @@ import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
 
-public class CrearPendiente extends JFrame implements ActionListener, WindowListener {
+public class MostrarOrden extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
@@ -66,10 +66,10 @@ public class CrearPendiente extends JFrame implements ActionListener, WindowList
 
 	private static boolean bloqueado;
 
-	public CrearPendiente() {
+	public MostrarOrden() {
 		setResizable(false);
 
-		if (Inicio.empleadoActual.esMecanico()) {
+		if (Inicio.empleadoActual.getTipo().equals("Mecánico")) {
 			setTitle("Crear orden pendiente | " + Inicio.empleadoActual.getNombre());
 			setBounds(100, 100, 790, 720);
 			getContentPane().setPreferredSize(new Dimension(790, 720));

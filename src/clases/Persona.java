@@ -50,7 +50,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * persona personalizado
-	 * 
+	 *
 	 * @param d   String dni
 	 * @param n   String nombre
 	 * @param a   String apellidos
@@ -75,7 +75,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	// --- salida ---
 	/**
 	 * Devuelve una representación de cadena del objeto.
-	 * 
+	 *
 	 * @return los atributos del objeto
 	 */
 	@Override
@@ -87,7 +87,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	// --- comparación ---
 	/**
 	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
+	 *
 	 * @return devuelve un valor hash
 	 */
 	@Override
@@ -97,7 +97,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * indica si algún otro objeto es igual a este
-	 * 
+	 *
 	 * @param obj el objeto con el que se va a comparar
 	 * @return {@code true} si el objeto es igual que el parámetro obj
 	 */
@@ -119,7 +119,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
 	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
 	 * igual o mayor que el objeto especificado.
-	 * 
+	 *
 	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
 	 *         menor, igual o mayor que el objeto especificado.
 	 */
@@ -131,7 +131,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	// --- getters y setters ---
 	/**
 	 * acceso a dni
-	 * 
+	 *
 	 * @return dni
 	 */
 	public String getDNI() {
@@ -140,7 +140,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * modifica el valor de dni pasando String como parametro
-	 * 
+	 *
 	 * @param d tipo String
 	 * @return
 	 */
@@ -150,7 +150,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * acceso a nombre
-	 * 
+	 *
 	 * @return nombre
 	 */
 	public String getNombre() {
@@ -159,7 +159,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * modifica el valor de nombre pasando String como parametro
-	 * 
+	 *
 	 * @param n tipo String
 	 */
 	public void setNombre(String n) {
@@ -168,7 +168,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * acceso a apellidos
-	 * 
+	 *
 	 * @return apellidos
 	 */
 	public String getApellidos() {
@@ -177,7 +177,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * modifica el valor de apellidos pasando String como parametro
-	 * 
+	 *
 	 * @param a tipo String
 	 */
 	public void setApellidos(String a) {
@@ -186,7 +186,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * acceso a telelfono
-	 * 
+	 *
 	 * @return tel tipo int
 	 */
 	public String getTelefono() {
@@ -195,7 +195,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * modifica el valor de tel pasando int como parametro
-	 * 
+	 *
 	 * @param t tipo int
 	 */
 	public void setTelefono(String t) {
@@ -204,7 +204,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * acceso a email
-	 * 
+	 *
 	 * @return email
 	 */
 	public String getEmail() {
@@ -213,27 +213,17 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * modifica el valor de email pasando String como parametro
-	 * 
+	 *
 	 * @param e tipo String
 	 */
 	public void setEmail(String e) {
 		email = e;
 	}
 
-	/**
-	 * acceso a direccion
-	 * 
-	 * @return direccion tipo Direccion
-	 */
 	public String getDireccion() {
 		return direccion;
 	}
 
-	/**
-	 * modifica el valor de direccion pasando Direccion como parametro
-	 * 
-	 * @param dir tipo Direccion
-	 */
 	public void setDireccion(String dir) {
 		direccion = dir;
 	}

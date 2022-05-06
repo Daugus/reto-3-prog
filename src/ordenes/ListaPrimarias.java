@@ -139,7 +139,7 @@ public class ListaPrimarias extends JFrame implements ActionListener, WindowList
 				try {
 					ordenPrim = alPrimarias.get(row);
 
-					CrearPendiente cop = new CrearPendiente();
+					MostrarOrden cop = new MostrarOrden();
 					cop.cargarDatos(ordenPrim);
 
 					cop.setVisible(true);

@@ -28,16 +28,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 
-import clases.Fecha;
 import clases.Material;
 import clases.MaterialUsado;
 import clases.Reparacion;
-import funciones.Datos;
 import funciones.Salir;
 import funciones.Tablas;
-import funciones.General;
 import navegacion.Inicio;
-import ordenes.CrearPendiente;
+import ordenes.MostrarOrden;
 import javax.swing.SwingConstants;
 
 public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener {
@@ -146,7 +143,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		// --- crear ---
 		dcbmMaterial = new DefaultComboBoxModel<String>();
 		// TODO: arreglar
-//		dcbmMaterial.addAll(Datos.listarMateriales());
+		// dcbmMaterial.addAll(Datos.listarMateriales());
 
 		DefaultTableModel dtmMaterial = new DefaultTableModel();
 		dtmMaterial.addColumn("Nombre");
@@ -277,9 +274,9 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		txtDescripcion.setEnabled(false);
 
 		// TODO: arreglar
-//		txtHoras.setText(String.valueOf(r.getHoras()));
-//		txtManoObra.setText(String.valueOf(r.getManoObra()));
-//		alMaterialesUsados.addAll(r.getMaterialesUsados());
+		// txtHoras.setText(String.valueOf(r.getHoras()));
+		// txtManoObra.setText(String.valueOf(r.getManoObra()));
+		// alMaterialesUsados.addAll(r.getMaterialesUsados());
 
 		actualizarTabla();
 	}
@@ -292,7 +289,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 		for (MaterialUsado m : alMaterialesUsados) {
 			// TODO: arreglar
-//			dtm.addRow(new Object[] { m.getNombre(), General.formatearPrecio(m.getPrecio()), m.getCantidad() });
+			// dtm.addRow(new Object[] { m.getNombre(),
+			// General.formatearPrecio(m.getPrecio()), m.getCantidad() });
 		}
 
 		Tablas.ajustarColumnas(tblMateriales);
@@ -312,7 +310,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 					JOptionPane.showMessageDialog(this, (String) "Campo numérico no válido", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					ArrayList<Reparacion> al = CrearPendiente.getReparaciones();
+					ArrayList<Reparacion> al = MostrarOrden.getReparaciones();
 					int posicion = 0;
 					boolean existe = false;
 					for (int i = 0; i < al.size(); i++) {
@@ -326,10 +324,11 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 						if (edicion) {
 							al.remove(posicion);
 							// TODO: arreglar
-//							al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(), Inicio.cuentaActual,
-//									alMaterialesUsados));
+							// al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(),
+							// Inicio.cuentaActual,
+							// alMaterialesUsados));
 
-							CrearPendiente.actualizarTablas();
+							MostrarOrden.actualizarTablas();
 
 							this.dispose();
 						} else {
@@ -338,8 +337,9 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 						}
 					} else {
 						// TODO: arreglar
-//						al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(), Inicio.cuentaActual,
-//								alMaterialesUsados));
+						// al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(),
+						// Inicio.cuentaActual,
+						// alMaterialesUsados));
 
 						return true;
 					}
@@ -373,7 +373,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 				int cantidad = Integer.parseInt(txtCantidad.getText());
 
 				// TODO: arreglar
-//				material = Datos.cargarMaterial((String) cmbMaterial.getSelectedItem());
+				// material = Datos.cargarMaterial((String) cmbMaterial.getSelectedItem());
 
 				MaterialUsado mu = new MaterialUsado(material, cantidad);
 
@@ -407,7 +407,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 			}
 
 			if (guardar == JOptionPane.NO_OPTION || valido) {
-				CrearPendiente.actualizarTablas();
+				MostrarOrden.actualizarTablas();
 				this.dispose();
 			}
 		}

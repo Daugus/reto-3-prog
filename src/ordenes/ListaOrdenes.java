@@ -40,7 +40,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 
 	public ListaOrdenes() {
 		setResizable(false);
-		setTitle("Lista de Órdenes Pendientes | " + Inicio.empleadoActual.getNombre());
+		setTitle("Lista de órdenes de trabajo | " + Inicio.empleadoActual.getNombre());
 
 		setBounds(100, 100, 700, 285);
 		getContentPane().setPreferredSize(new Dimension(700, 285));
@@ -77,7 +77,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		dtmOrdenes.addColumn("Fecha Fin");
 
 		alOrdenes = Datos.cargarOrdenes();
-//		alOrdenes.sort(Comparator.reverseOrder());
+		// alOrdenes.sort(Comparator.reverseOrder());
 		for (Orden o : alOrdenes) {
 			Fecha fecFin = o.getFechaFin();
 			String fechaFin = fecFin == null ? "-" : fecFin.toString();
@@ -140,23 +140,18 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		if (o == btnCargar) {
 			int row = tblOrdenes.getSelectedRow();
 			if (row >= 0) {
-				try {
-					orden = alOrdenes.get(row);
-					
-					// TODO: implementar
-					JOptionPane.showMessageDialog(null, "Se ha cargado la orden " + orden.getCodigo(), "Sin implementar",
-							JOptionPane.INFORMATION_MESSAGE);
-					
-//					GenerarFactura gf = new GenerarFactura();
-//					gf.cargarDatos(orden);
-//
-//					gf.setVisible(true);
-//
-//					this.dispose();
-				} catch (NullPointerException npe) {
-					JOptionPane.showMessageDialog(null, "La Orden Pendiente seleccionada no existe", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				orden = alOrdenes.get(row);
+
+				// TODO: implementar
+				JOptionPane.showMessageDialog(null, "Se ha cargado la orden " + orden.getCodigo(), "Sin implementar",
+						JOptionPane.INFORMATION_MESSAGE);
+
+				MostrarOrden mo = new MostrarOrden();
+				// mo.cargarDatos(orden);
+
+				mo.setVisible(true);
+
+				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, (String) "No hay ninguna orden seleccionada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
