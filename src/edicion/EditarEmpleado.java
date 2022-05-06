@@ -276,7 +276,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		// --- crear ---
 		dcbmDniJefe = new DefaultComboBoxModel<String>();
 		dcbmDniJefe.addAll(Arrays.asList(""));
-		dcbmDniJefe.addAll(Datos.listarJefes(""));
+		dcbmDniJefe.addAll(Datos.listarEmpleados(""));
 
 		// --- asignar ---
 		cmbDniJefe.setModel(dcbmDniJefe);
@@ -402,7 +402,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 
 		dcbmDniJefe.removeAllElements();
 		dcbmDniJefe.addAll(Arrays.asList(""));
-		dcbmDniJefe.addAll(Datos.listarJefes(empleado.getDNI()));
+		dcbmDniJefe.addAll(Datos.listarEmpleados(empleado.getDNI()));
 		if (empleado.getDniJefe() != null)
 			dcbmDniJefe.setSelectedItem(empleado.getDniJefe());
 
@@ -517,7 +517,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 
 			boolean temaOscuro = tema.equals("Oscuro") ? true : false;
 
-			Datos.guardarCuenta(new Empleado(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
+			Datos.guardarEmpleado(new Empleado(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
 					new Ajustes(temaOscuro, fuente), dniJefe, password, salario, comision, fechaNacimiento, tipo,
 					fechaAlta, activo), edicion);
 

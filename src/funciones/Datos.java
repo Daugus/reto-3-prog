@@ -85,7 +85,7 @@ public class Datos {
 		}
 	}
 
-	public static void guardarCuenta(Empleado c, boolean edicion) {
+	public static void guardarEmpleado(Empleado c, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 			Statement st = conexion.createStatement();
@@ -140,6 +140,33 @@ public class Datos {
 				sentencia = String.format(Locale.US,
 						"insert into reto3.pieza values('%s', '%s', '%s', %d, %.2f, %.2f, '%s');", m.getID(),
 						m.getMarca(), m.getNombre(), m.getStock(), m.getPVP(), m.getPrecioCompra(), estado);
+			}
+
+			st.executeUpdate(sentencia);
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
+
+	public static void guardarOrden(Orden o, boolean edicion) {
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement st = conexion.createStatement();
+
+			String sentencia;
+
+			if (edicion) {
+				sentencia = String.format(
+						"update reto3.ordenTrabajo set fecFin = '%s', tiempoHoras = %d where idOrden like = '%s';",
+						o.getFechaFin().toSQLDate(), o.getTiempoHoras(), o.getCodigo());
+			} else {
+				sentencia = String.format(
+						"insert into reto3.ordenTrabajo (idOrden, matricula, dniEmple, fecInicio, descTrabajo) values('%s', '%s', '%s', '%s', '%s');",
+						o.getCodigo(), o.getMatricula(), o.getEmpleado(), o.getFechaInicio().toSQLDate(),
+						o.getComentarios());
 			}
 
 			st.executeUpdate(sentencia);
@@ -236,15 +263,15 @@ public class Datos {
 		return alDNIs;
 	}
 
-	public static ArrayList<String> listarJefes(String dni) {
+	public static ArrayList<String> listarEmpleados(String dni) {
 		ArrayList<String> alDNIs = new ArrayList<String>();
 
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 
 			Statement st = conexion.createStatement();
-			ResultSet rs = st.executeQuery(String
-					.format("select dniEmple from reto3.empleado where dniEmple not like '%s'", dni));
+			ResultSet rs = st.executeQuery(
+					String.format("select dniEmple from reto3.empleado where dniEmple not like '%s'", dni));
 
 			while (rs.next()) {
 				alDNIs.add(rs.getString("dniEmple"));
@@ -258,6 +285,30 @@ public class Datos {
 		}
 
 		return alDNIs;
+	}
+
+	public static ArrayList<Vehiculo> listarVehiculos() {
+		ArrayList<Vehiculo> alMatriculas = new ArrayList<Vehiculo>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st
+					.executeQuery("select matricula, dniCliente from reto3.vehiculo where estado like 'activo';");
+
+			while (rs.next()) {
+				alMatriculas.add(new Vehiculo(rs.getString("matricula"), rs.getString("dniCliente")));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return alMatriculas;
 	}
 
 	// ===== cargar todos =====
@@ -381,10 +432,9 @@ public class Datos {
 			ResultSet rs = st.executeQuery("select * from reto3.ordenTrabajo");
 
 			while (rs.next()) {
-				if (rs.getString("fecFin") == null) {
+				if (rs.getString("fecFin") == null || rs.getString("tiempoHoras") == null) {
 					materiales.add(new Orden(rs.getString("idOrden"), rs.getString("descTrabajo"),
-							rs.getString("matricula"), rs.getString("dniEmple"), rs.getInt("tiempoHoras"),
-							new Fecha(rs.getString("fecInicio"))));
+							rs.getString("matricula"), rs.getString("dniEmple"), new Fecha(rs.getString("fecInicio"))));
 				} else {
 					materiales.add(new Orden(rs.getString("idOrden"), rs.getString("descTrabajo"),
 							rs.getString("matricula"), rs.getString("dniEmple"), rs.getInt("tiempoHoras"),
@@ -427,6 +477,32 @@ public class Datos {
 		}
 
 		return vehiculos;
+	}
+
+	// ===== generar código orden =====
+	public static String generarCodigoOrden() {
+		String codigo = null;
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select idOrden from reto3.ordenTrabajo order by idOrden desc limit 1;");
+			while (rs.next()) {
+				codigo = rs.getString("idOrden");
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		int numCodigo = Integer.valueOf(codigo.substring(2));
+		numCodigo++;
+		codigo = String.format("OT%04d", numCodigo);
+
+		return codigo;
 	}
 
 	// ===== ajustes =====

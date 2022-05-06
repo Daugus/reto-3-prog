@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,8 +19,10 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import administracion.AdministrarClientes;
+import administracion.AdministrarEmpleados;
 import administracion.AdministrarVehiculos;
 import clases.Cliente;
+import clases.Fecha;
 import clases.Orden;
 import clases.Vehiculo;
 import funciones.Datos;
@@ -33,33 +36,31 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 
 	private JPanel panelPrincipal;
 
+	private DefaultComboBoxModel<String> dcbmEmpleados;
 	private DefaultComboBoxModel<String> dcbmClientes;
 	private DefaultComboBoxModel<String> dcbmVehiculos;
 
+	private JComboBox<String> cmbEmpleados;
 	private JComboBox<String> cmbClientes;
 	private JComboBox<String> cmbVehiculos;
 
-	private JLabel lblComentario;
-	private JLabel lblVehiculo;
-	private JLabel lblCliente;
-
-	private JButton btnVehiculos;
+	private JButton btnEmpleados;
 	private JButton btnClientes;
+	private JButton btnVehiculos;
 
 	private JButton btnVolver;
 	private JButton btnCrearOrden;
 
 	private JTextArea txtComentario;
 
-	private Cliente cliente;
-	private Vehiculo vehiculo;
+	private ArrayList<Vehiculo> alVehiculos;
 
 	public CrearOrden() {
 		setResizable(false);
 		setTitle("Crear orden de trabajo | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 600, 355);
-		getContentPane().setPreferredSize(new Dimension(600, 355));
+		setBounds(100, 100, 600, 430);
+		getContentPane().setPreferredSize(new Dimension(600, 430));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -69,63 +70,79 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
-		lblComentario = new JLabel("Agregar comentario para la orden:");
-		lblComentario.setBounds(50, 145, 300, 35);
+		JLabel lblComentario = new JLabel("Agregar comentario para la orden:");
+		lblComentario.setBounds(50, 220, 300, 35);
 		panelPrincipal.add(lblComentario);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(112, 305, 180, 40);
+		btnVolver.setBounds(112, 380, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		btnCrearOrden = new JButton("Crear orden primaria");
-		btnCrearOrden.setBounds(308, 305, 180, 40);
+		btnCrearOrden.setBounds(308, 380, 180, 40);
 		panelPrincipal.add(btnCrearOrden);
 
 		txtComentario = new JTextArea();
 		txtComentario.setLineWrap(true);
 
-		lblVehiculo = new JLabel("Vehículo:");
-		lblVehiculo.setBounds(50, 97, 100, 36);
+		JLabel lblVehiculo = new JLabel("Vehículo:");
+		lblVehiculo.setBounds(50, 172, 100, 36);
 		panelPrincipal.add(lblVehiculo);
 
 		cmbVehiculos = new JComboBox<String>();
-		cmbVehiculos.setBounds(150, 97, 150, 36);
+		cmbVehiculos.setBounds(150, 172, 150, 36);
 		panelPrincipal.add(cmbVehiculos);
 
 		btnVehiculos = new JButton("Administrar vehiculos");
-		btnVehiculos.setBounds(320, 85, 230, 60);
+		btnVehiculos.setBounds(320, 160, 230, 60);
 		panelPrincipal.add(btnVehiculos);
 
-		lblCliente = new JLabel("Cliente:");
-		lblCliente.setBounds(50, 22, 100, 36);
+		JLabel lblCliente = new JLabel("Cliente:");
+		lblCliente.setBounds(50, 97, 100, 36);
 		panelPrincipal.add(lblCliente);
 
 		cmbClientes = new JComboBox<String>();
-		cmbClientes.setBounds(150, 22, 150, 36);
+		cmbClientes.setBounds(150, 97, 150, 36);
 		panelPrincipal.add(cmbClientes);
 
 		btnClientes = new JButton("Administrar clientes");
-		btnClientes.setBounds(320, 10, 230, 60);
+		btnClientes.setBounds(320, 85, 230, 60);
 		panelPrincipal.add(btnClientes);
+
+		JLabel lblEmpleado = new JLabel("Empleado:");
+		lblEmpleado.setBounds(50, 22, 100, 36);
+		panelPrincipal.add(lblEmpleado);
+
+		cmbEmpleados = new JComboBox<String>();
+		cmbEmpleados.setBounds(150, 22, 150, 36);
+		panelPrincipal.add(cmbEmpleados);
+
+		btnEmpleados = new JButton("Administrar empleados");
+		btnEmpleados.setBounds(320, 10, 230, 60);
+		panelPrincipal.add(btnEmpleados);
 
 		// ===== barras de desplazamiento =====
 		JScrollPane barraScroll = new JScrollPane();
-		barraScroll.setBounds(50, 180, 500, 100);
+		barraScroll.setBounds(50, 255, 500, 100);
 		panelPrincipal.add(barraScroll);
 
 		barraScroll.setViewportView(txtComentario);
 
 		// ===== modelos =====
 		// --- crear ---
+		dcbmEmpleados = new DefaultComboBoxModel<String>();
+		dcbmEmpleados.addAll(Datos.listarEmpleados(""));
+
 		dcbmClientes = new DefaultComboBoxModel<String>();
-		// TODO: arreglar
-//		dcbmClientes.addAll(Datos.listarClientes());
+		dcbmClientes.addAll(Datos.listarClientes());
 
 		dcbmVehiculos = new DefaultComboBoxModel<String>();
+		alVehiculos = Datos.listarVehiculos();
 
 		// --- asignar ---
 		cmbClientes.setModel(dcbmClientes);
 		cmbVehiculos.setModel(dcbmVehiculos);
+		cmbEmpleados.setModel(dcbmEmpleados);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -137,22 +154,26 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 
 		btnVolver.addActionListener(this);
 
-		btnVehiculos.addActionListener(this);
+		btnEmpleados.addActionListener(this);
 		btnClientes.addActionListener(this);
+		btnVehiculos.addActionListener(this);
 
 		btnCrearOrden.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente ---
+		lblEmpleado.setFont(Inicio.fuente);
 		lblCliente.setFont(Inicio.fuente);
 		lblVehiculo.setFont(Inicio.fuente);
 		lblComentario.setFont(Inicio.fuente);
 
 		txtComentario.setFont(Inicio.fuenteObjetos);
 
+		cmbEmpleados.setFont(Inicio.fuenteObjetos);
 		cmbClientes.setFont(Inicio.fuenteObjetos);
 		cmbVehiculos.setFont(Inicio.fuenteObjetos);
 
+		btnEmpleados.setFont(Inicio.fuenteObjetos);
 		btnClientes.setFont(Inicio.fuenteObjetos);
 		btnVehiculos.setFont(Inicio.fuenteObjetos);
 		btnVolver.setFont(Inicio.fuenteObjetos);
@@ -164,24 +185,29 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 
 		txtComentario.setBackground(Inicio.colorFondoObjetos);
 
+		cmbEmpleados.setBackground(Inicio.colorFondoObjetos);
 		cmbClientes.setBackground(Inicio.colorFondoObjetos);
 		cmbVehiculos.setBackground(Inicio.colorFondoObjetos);
 
+		btnEmpleados.setBackground(Inicio.colorFondoObjetos);
 		btnClientes.setBackground(Inicio.colorFondoObjetos);
 		btnVehiculos.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCrearOrden.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
+		lblEmpleado.setForeground(Inicio.colorFuente);
 		lblCliente.setForeground(Inicio.colorFuente);
 		lblVehiculo.setForeground(Inicio.colorFuente);
 		lblComentario.setForeground(Inicio.colorFuente);
 
 		txtComentario.setForeground(Inicio.colorFuenteObjetos);
 
+		cmbEmpleados.setForeground(Inicio.colorFuenteObjetos);
 		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
 		cmbVehiculos.setForeground(Inicio.colorFuenteObjetos);
 
+		btnEmpleados.setForeground(Inicio.colorFuenteObjetos);
 		btnClientes.setForeground(Inicio.colorFuenteObjetos);
 		btnVehiculos.setForeground(Inicio.colorFuenteObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
@@ -193,9 +219,20 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 
 		if (o == cmbClientes && cmbClientes.getSelectedIndex() >= 0) {
 			dcbmVehiculos.removeAllElements();
-			// TODO: arreglar
-//			cliente = Datos.cargarCliente((String) cmbClientes.getSelectedItem());
-//			dcbmVehiculos.addAll(cliente.getVehiculos());
+			String dniCliente = (String) cmbClientes.getSelectedItem();
+
+			ArrayList<String> alVehiculosCliente = new ArrayList<String>();
+			for (Vehiculo v : alVehiculos) {
+				if (v.getPropietario().equals(dniCliente))
+					alVehiculosCliente.add(v.getMatricula());
+			}
+
+			dcbmVehiculos.addAll(alVehiculosCliente);
+		} else if (o == btnEmpleados) {
+			AdministrarEmpleados ae = new AdministrarEmpleados(false);
+			ae.setVisible(true);
+
+			this.dispose();
 		} else if (o == btnClientes) {
 			AdministrarClientes ac = new AdministrarClientes();
 			ac.setVisible(true);
@@ -212,47 +249,42 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 
 			this.dispose();
 		} else if (o == btnCrearOrden) {
-			// --- cliente ---
-			if (cmbClientes.getSelectedIndex() >= 0) {
-				// TODO: arreglar
-				String dni = (String) cmbClientes.getSelectedItem();
-//				cliente = Datos.cargarCliente(dni);
+			// --- empleado ---
+			if (cmbEmpleados.getSelectedIndex() >= 0) {
+				String dniEmpleado = (String) cmbEmpleados.getSelectedItem();
 
-				// --- vehículo ---
-				if (cmbVehiculos.getSelectedIndex() >= 0) {
-					// TODO: arreglar
-					String matricula = (String) cmbVehiculos.getSelectedItem();
-//					vehiculo = Datos.cargarVehiculo(matricula);
+				// --- cliente ---
+				if (cmbClientes.getSelectedIndex() >= 0) {
+					// --- vehículo ---
+					if (cmbVehiculos.getSelectedIndex() >= 0) {
+						String matricula = (String) cmbVehiculos.getSelectedItem();
 
-					if (!vehiculo.getBastidor().equals("")) {
-						// --- orden primaria ---
-						String comentarios = txtComentario.getText();
+						String codigo = Datos.generarCodigoOrden();
+						Datos.guardarOrden(
+								new Orden(codigo, txtComentario.getText(), matricula, dniEmpleado, new Fecha()), false);
 
-						cmbClientes.setSelectedIndex(-1);
-						cmbVehiculos.setSelectedIndex(-1);
-						txtComentario.setText("");
-
-						// TODO: arreglar
-//						Datos.guardarPrimaria(new Orden(comentarios, cliente, vehiculo, Inicio.cuentaActual));
-
-						JOptionPane.showMessageDialog(this, (String) "Se ha creado la order primaria", "INFO",
+						JOptionPane.showMessageDialog(this, (String) "Se ha creado la order " + codigo, "INFO",
 								JOptionPane.INFORMATION_MESSAGE);
+
+						cmbEmpleados.setSelectedIndex(-1);
+						cmbClientes.setSelectedIndex(-1);
+						dcbmVehiculos.removeAllElements();
+						txtComentario.setText("");
 					} else {
-						JOptionPane.showMessageDialog(null,
-								"El vehículo seleccionado no tiene la información necesaria", "ERROR",
+						JOptionPane.showMessageDialog(null, "Por favor seleccione un vehículo", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
+						Log.error("No se ha seleccionado ningún vehiculo");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Por favor seleccione un vehículo", "ERROR",
+					JOptionPane.showMessageDialog(null, "Por favor seleccione un cliente", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
-					Log.error("No se ha seleccionado ningun vehiculo");
+					Log.error("No se ha seleccionado ningún cliente");
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Por favor seleccione un cliente", "ERROR",
+				JOptionPane.showMessageDialog(null, "Por favor seleccione un empleado", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
-				Log.error("No se ha seleccionado ningun cliente");
+				Log.error("No se ha seleccionado ningún empleado");
 			}
-
 		}
 	}
 

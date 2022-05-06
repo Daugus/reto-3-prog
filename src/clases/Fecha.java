@@ -18,7 +18,7 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	 */
 	public Fecha() {
 		day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-		month = Calendar.getInstance().get(Calendar.MONTH);
+		month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		year = Calendar.getInstance().get(Calendar.YEAR);
 	}
 

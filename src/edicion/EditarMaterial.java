@@ -221,7 +221,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	public void setID(String idUltimo) {
 		int id = Integer.valueOf(idUltimo.substring(1));
 		id++;
-		txtID.setText("P" + id);
+		txtID.setText(String.format("P%05d", id));
 	}
 
 	public void modoEdicion(Material material) {
