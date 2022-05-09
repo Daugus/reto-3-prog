@@ -24,6 +24,7 @@ import clases.Factura;
 import clases.Fecha;
 import clases.Material;
 import clases.Orden;
+import clases.Reparacion;
 import clases.Vehiculo;
 import navegacion.Inicio;
 
@@ -160,7 +161,7 @@ public class Datos {
 
 			if (edicion) {
 				sentencia = String.format(
-						"update reto3.ordenTrabajo set fecFin = '%s', tiempoHoras = %d where idOrden like = '%s';",
+						"update reto3.ordenTrabajo set fecFin = '%s', tiempoHoras = %d where idOrden like '%s';",
 						o.getFechaFin().toSQLDate(), o.getTiempoHoras(), o.getCodigo());
 			} else {
 				sentencia = String.format(
@@ -170,6 +171,31 @@ public class Datos {
 			}
 
 			st.executeUpdate(sentencia);
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
+
+	public static void guardarReparaciones(ArrayList<Reparacion> alReparaciones, String idOrden) {
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement st = conexion.createStatement();
+
+			for (Reparacion r : alReparaciones) {
+				String sentencia = String.format("insert into reto3.reparacion (idReparacion, descripcion, estado)"
+						+ " values('%s', '%s', '%s');", r.getCodigo(), r.getDescripcion(), "activo");
+
+				st.executeUpdate(sentencia);
+
+				sentencia = String.format(Locale.US,
+						"insert into reto3.requiere (idOrden, idReparacion, idPieza, precioHistorico, cantidad)"
+								+ " values('%s', '%s', '%s', %.2f, %d);",
+						idOrden, r.getCodigo(), r.getIdMaterial(), r.getPrecio(), r.getCantidadMaterial());
+				st.executeUpdate(sentencia);
+			}
 
 			st.close();
 			conexion.close();
@@ -205,36 +231,6 @@ public class Datos {
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
-	}
-
-	// ===== iniciar sesión =====
-	public static Empleado iniciarSesion(String dni) {
-		Empleado e = null;
-		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
-
-			Statement st = conexion.createStatement();
-			ResultSet rs = st.executeQuery(String.format("select * from reto3.empleado where dniEmple like '%s'", dni));
-
-			if (rs.next()) {
-				boolean activo = General.estadoABoolean(rs.getString("estado"));
-
-				e = new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
-						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
-						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
-						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
-						new Fecha(rs.getString("fecNac")), rs.getString("tipoEmpleado"),
-						new Fecha(rs.getString("fecAltaContrato")), activo);
-			}
-
-			rs.close();
-			st.close();
-			conexion.close();
-		} catch (SQLException sqle) {
-			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
-		}
-
-		return e;
 	}
 
 	// ===== borrar =====
@@ -309,6 +305,92 @@ public class Datos {
 		}
 
 		return alMatriculas;
+	}
+
+	// ===== iniciar sesión =====
+	public static Empleado iniciarSesion(String dni) {
+		Empleado e = null;
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery(String.format("select * from reto3.empleado where dniEmple like '%s'", dni));
+
+			if (rs.next()) {
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				e = new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
+						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
+						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
+						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
+						new Fecha(rs.getString("fecNac")), rs.getString("tipoEmpleado"),
+						new Fecha(rs.getString("fecAltaContrato")), activo);
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return e;
+	}
+
+	// ===== cargar individual =====
+	public static Cliente cargarCliente(String dni) {
+		Cliente c = null;
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st
+					.executeQuery(String.format("select * from reto3.cliente where dniCliente like '%s';", dni));
+
+			if (rs.next()) {
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				c = new Cliente(rs.getString("dniCliente"), rs.getString("nombre"), rs.getString("apellidos"),
+						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
+						new Fecha(rs.getString("fecAlta")), activo);
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return c;
+	}
+
+	public static Vehiculo cargarVehiculo(String matricula) {
+		Vehiculo v = null;
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st
+					.executeQuery(String.format("select * from reto3.vehiculo where matricula like '%s';", matricula));
+
+			if (rs.next()) {
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				v = new Vehiculo(rs.getString("matricula"), rs.getString("nBastidor"), rs.getString("dniCliente"),
+						rs.getString("marca"), rs.getString("modelo"), new Fecha(rs.getString("fecFabric")),
+						rs.getString("tipoCombustible"), activo);
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return v;
 	}
 
 	// ===== cargar todos =====
@@ -479,7 +561,7 @@ public class Datos {
 		return vehiculos;
 	}
 
-	// ===== generar código orden =====
+	// ===== generar códigos =====
 	public static String generarCodigoOrden() {
 		String codigo = null;
 		try {
@@ -487,7 +569,8 @@ public class Datos {
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select idOrden from reto3.ordenTrabajo order by idOrden desc limit 1;");
-			while (rs.next()) {
+
+			if (rs.next()) {
 				codigo = rs.getString("idOrden");
 			}
 
@@ -502,6 +585,35 @@ public class Datos {
 		numCodigo++;
 		codigo = String.format("OT%04d", numCodigo);
 
+		return codigo;
+	}
+
+	public static String generarCodigoReparacion(String anterior) {
+		String codigo = null;
+
+		if (anterior.equals("")) {
+			try {
+				Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+				Statement st = conexion.createStatement();
+				ResultSet rs = st
+						.executeQuery("select idReparacion from reto3.reparacion order by idReparacion desc limit 1;");
+
+				if (rs.next()) {
+					anterior = rs.getString("idReparacion");
+				}
+
+				rs.close();
+				st.close();
+				conexion.close();
+			} catch (SQLException sqle) {
+				System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+			}
+		}
+
+		int numCodigo = Integer.valueOf(anterior.substring(1));
+		numCodigo++;
+		codigo = String.format("R%05d", numCodigo);
 		return codigo;
 	}
 

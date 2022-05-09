@@ -3,12 +3,21 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+import funciones.General;
+
 public class Reparacion implements Comparable<Reparacion>, Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
 
 	// ===== propiedades =====
 	private String codigo;
 	private String descripcion;
+
+	private double precio;
+	private int horas;
+
+	private String idMaterial;
+	private int cantidadMaterial;
+
 	private boolean activo;
 
 	// ===== constructores =====
@@ -18,6 +27,13 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	public Reparacion() {
 		codigo = "";
 		descripcion = "";
+
+		precio = 1.0;
+		horas = 1;
+
+		idMaterial = "";
+		cantidadMaterial = 1;
+
 		activo = true;
 	}
 
@@ -27,11 +43,26 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	public Reparacion(Reparacion other) {
 		this.codigo = other.codigo;
 		this.descripcion = other.descripcion;
+
+		this.precio = other.precio;
+		this.horas = other.horas;
+
+		this.idMaterial = other.idMaterial;
+		this.cantidadMaterial = other.cantidadMaterial;
+
+		this.activo = other.activo;
 	}
 
-	public Reparacion(String codigo, String descripcion, boolean activo) {
+	public Reparacion(String codigo, String descripcion, double precio, int horas, String idMaterial, int cantidadMaterial, boolean activo) {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
+		
+		this.precio = precio;
+		this.horas = horas;
+
+		this.idMaterial = idMaterial;
+		this.cantidadMaterial = cantidadMaterial;
+
 		this.activo = activo;
 	}
 
@@ -44,7 +75,7 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Código: " + codigo + ", descripción: " + descripcion + ", activo: " + activo;
+		return "Código: " + codigo + ", descripción: " + descripcion + ", precio: " + General.formatearPrecio(precio) + ", activo: " + activo;
 	}
 
 	// --- comparación ---
@@ -105,12 +136,44 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public boolean getActivo() {
 		return activo;
 	}
-	
+
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	public String getIdMaterial() {
+		return idMaterial;
+	}
+
+	public void setIdMaterial(String idMaterial) {
+		this.idMaterial = idMaterial;
+	}
+
+	public int getCantidadMaterial() {
+		return cantidadMaterial;
+	}
+
+	public void setCantidadMaterial(int cantidadMaterial) {
+		this.cantidadMaterial = cantidadMaterial;
+	}
+
+	public int getHoras() {
+		return cantidadMaterial;
+	}
+
+	public void setHoras(int horas) {
+		this.horas = horas;
 	}
 }

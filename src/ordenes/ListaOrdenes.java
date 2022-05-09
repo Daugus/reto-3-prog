@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,8 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import clases.Fecha;
 import clases.Orden;
@@ -24,6 +28,9 @@ import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.MenuListas;
+import navegacion.MenuMecanico;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 
 public class ListaOrdenes extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -35,15 +42,20 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	private JButton btnCargar;
 
 	ArrayList<Orden> alOrdenes;
+	TableRowSorter<TableModel> sorter;
+
+	JRadioButton rdbActivas;
 
 	private static Orden orden;
+	private JRadioButton rdbFinalizadas;
+	private JRadioButton rdbTodas;
 
 	public ListaOrdenes() {
 		setResizable(false);
 		setTitle("Lista de órdenes de trabajo | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 700, 285);
-		getContentPane().setPreferredSize(new Dimension(700, 285));
+		setBounds(100, 100, 700, 305);
+		getContentPane().setPreferredSize(new Dimension(700, 305));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -53,12 +65,36 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
+		ButtonGroup grupo = new ButtonGroup();
+
+		rdbActivas = new JRadioButton("Activas");
+		rdbActivas.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbActivas.setOpaque(false);
+		rdbActivas.setBounds(380, 220, 90, 20);
+		panelPrincipal.add(rdbActivas);
+
+		rdbFinalizadas = new JRadioButton("Finalizadas");
+		rdbFinalizadas.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbFinalizadas.setOpaque(false);
+		rdbFinalizadas.setBounds(470, 220, 90, 20);
+		panelPrincipal.add(rdbFinalizadas);
+
+		rdbTodas = new JRadioButton("Todas");
+		rdbTodas.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbTodas.setOpaque(false);
+		rdbTodas.setBounds(560, 220, 90, 20);
+		panelPrincipal.add(rdbTodas);
+
+		grupo.add(rdbActivas);
+		grupo.add(rdbFinalizadas);
+		grupo.add(rdbTodas);
+
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(162, 235, 180, 40);
+		btnVolver.setBounds(162, 255, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		btnCargar = new JButton("Cargar");
-		btnCargar.setBounds(358, 235, 180, 40);
+		btnCargar.setBounds(358, 255, 180, 40);
 		panelPrincipal.add(btnCargar);
 
 		// ===== barras de desplazamiento =====
@@ -77,7 +113,6 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		dtmOrdenes.addColumn("Fecha Fin");
 
 		alOrdenes = Datos.cargarOrdenes();
-		// alOrdenes.sort(Comparator.reverseOrder());
 		for (Orden o : alOrdenes) {
 			Fecha fecFin = o.getFechaFin();
 			String fechaFin = fecFin == null ? "-" : fecFin.toString();
@@ -99,6 +134,9 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		tblOrdenes.getTableHeader().setReorderingAllowed(false);
 		tblOrdenes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+		sorter = new TableRowSorter<TableModel>(dtmOrdenes);
+		tblOrdenes.setRowSorter(sorter);
+
 		scrollPendientes.setViewportView(tblOrdenes);
 
 		// ===== Listeners =====
@@ -107,12 +145,21 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		addWindowListener(this);
 
 		// --- Action ---
-		// - JButton -
+		rdbActivas.addActionListener(this);
+		rdbFinalizadas.addActionListener(this);
+		rdbTodas.addActionListener(this);
+
 		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
 
-		tblOrdenes.getTableHeader().setFont(Inicio.fuenteObjetos);
+		// ===== ajustes de usuario =====
+		// --- fuente ---
 		tblOrdenes.setFont(Inicio.fuente);
+		tblOrdenes.getTableHeader().setFont(Inicio.fuenteObjetos);
+
+		rdbActivas.setFont(Inicio.fuente);
+		rdbFinalizadas.setFont(Inicio.fuente);
+		rdbTodas.setFont(Inicio.fuente);
 
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnCargar.setFont(Inicio.fuenteObjetos);
@@ -127,10 +174,34 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
 
-		tblOrdenes.setForeground(Inicio.colorFuenteObjetos);
-
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
+
+		// - fuente -
+		tblOrdenes.setForeground(Inicio.colorFuenteObjetos);
+
+		rdbActivas.setForeground(Inicio.colorFuente);
+		rdbFinalizadas.setForeground(Inicio.colorFuente);
+		rdbTodas.setForeground(Inicio.colorFuente);
+
+		// ===== filtrar tabla =====
+		if (Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+			rdbActivas.setSelected(true);
+		} else {
+			rdbFinalizadas.setSelected(true);
+		}
+
+		filtrarOrdenes();
+	}
+
+	private void filtrarOrdenes() {
+		if (rdbActivas.isSelected()) {
+			sorter.setRowFilter(RowFilter.regexFilter("-", 4));
+		} else if (rdbFinalizadas.isSelected()) {
+			sorter.setRowFilter(RowFilter.regexFilter("[^-]", 4));
+		} else {
+			sorter.setRowFilter(null);
+		}
 	}
 
 	@Override
@@ -138,16 +209,13 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		Object o = e.getSource();
 
 		if (o == btnCargar) {
-			int row = tblOrdenes.getSelectedRow();
+			int row = tblOrdenes.convertRowIndexToModel(tblOrdenes.getSelectedRow());
 			if (row >= 0) {
 				orden = alOrdenes.get(row);
 
-				// TODO: implementar
-				JOptionPane.showMessageDialog(null, "Se ha cargado la orden " + orden.getCodigo(), "Sin implementar",
-						JOptionPane.INFORMATION_MESSAGE);
-
-				MostrarOrden mo = new MostrarOrden();
-				// mo.cargarDatos(orden);
+				boolean ordenFinalizada = orden.getFechaFin() != null;
+				MostrarOrden mo = new MostrarOrden(ordenFinalizada);
+				mo.cargarDatos(orden);
 
 				mo.setVisible(true);
 
@@ -156,12 +224,20 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 				JOptionPane.showMessageDialog(this, (String) "No hay ninguna orden seleccionada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		} else {
-			// btnVolver
-			MenuListas ml = new MenuListas();
-			ml.setVisible(true);
+		} else if (o == btnVolver) {
+			JFrame ventana = null;
+
+			if (Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+				ventana = new MenuMecanico();
+			} else {
+				ventana = new MenuListas();
+			}
+
+			ventana.setVisible(true);
 
 			this.dispose();
+		} else {
+			filtrarOrdenes();
 		}
 	}
 

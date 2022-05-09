@@ -43,6 +43,10 @@ public class Material implements Comparable<Material>, Serializable {
 	}
 
 	// --- personalizados ---
+	public Material(String id) {
+		this.id = id;
+	}
+
 	/**
 	 * material personalizado
 	 * 

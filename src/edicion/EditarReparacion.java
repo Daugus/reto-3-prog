@@ -9,7 +9,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,47 +17,40 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 
 import clases.Material;
-import clases.MaterialUsado;
 import clases.Reparacion;
+import funciones.Datos;
 import funciones.Salir;
-import funciones.Tablas;
 import navegacion.Inicio;
 import ordenes.MostrarOrden;
-import javax.swing.SwingConstants;
 
 public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4959238857767892877L;
+
 	private JPanel panelPrincipal;
 
 	private JComboBox<String> cmbMaterial;
 	private DefaultComboBoxModel<String> dcbmMaterial;
 
-	private JTable tblMateriales;
-	private ArrayList<MaterialUsado> alMaterialesUsados = new ArrayList<MaterialUsado>();
-
-	private JButton btnAgregarMaterial;
-	private JButton btnEliminar;
 	private JButton btnGuardar;
 
 	private JTextField txtCantidad;
+	private JTextField txtPrecio;
 	private JTextField txtHoras;
-	private JTextField txtManoObra;
 
-	private Material material;
 	private JButton btnCancelar;
 	private JTextField txtDescripcion;
 
+	private ArrayList<Material> alMateriales;
+
+	private int posicion;
+
+	private String codigo;
 	private boolean edicion;
 
 	public EditarReparacion() {
@@ -82,14 +74,6 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		cmbMaterial.setBounds(50, 130, 200, 35);
 		panelPrincipal.add(cmbMaterial);
 
-		btnAgregarMaterial = new JButton("Agregar");
-		btnAgregarMaterial.setBounds(400, 130, 120, 35);
-		panelPrincipal.add(btnAgregarMaterial);
-
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(530, 130, 120, 35);
-		panelPrincipal.add(btnEliminar);
-
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(357, 405, 180, 40);
 		panelPrincipal.add(btnGuardar);
@@ -102,9 +86,9 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		txtHoras.setBounds(455, 70, 50, 35);
 		panelPrincipal.add(txtHoras);
 
-		txtManoObra = new JTextField();
-		txtManoObra.setBounds(305, 70, 50, 35);
-		panelPrincipal.add(txtManoObra);
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(305, 70, 50, 35);
+		panelPrincipal.add(txtPrecio);
 
 		txtDescripcion = new JTextField();
 		txtDescripcion.setBounds(305, 25, 200, 35);
@@ -120,10 +104,10 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		lblHoras.setBounds(365, 70, 90, 35);
 		panelPrincipal.add(lblHoras);
 
-		JLabel lblManoObra = new JLabel("Mano de obra:");
-		lblManoObra.setHorizontalAlignment(SwingConstants.LEFT);
-		lblManoObra.setBounds(195, 70, 110, 35);
-		panelPrincipal.add(lblManoObra);
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPrecio.setBounds(195, 70, 110, 35);
+		panelPrincipal.add(lblPrecio);
 
 		JLabel lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setBounds(260, 130, 80, 35);
@@ -134,38 +118,15 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		panelPrincipal.add(txtCantidad);
 		txtCantidad.setColumns(10);
 
-		// ==== Barras de desplazamiento ====
-		JScrollPane scrollMateriales = new JScrollPane();
-		scrollMateriales.setBounds(50, 180, 600, 200);
-		panelPrincipal.add(scrollMateriales);
-
 		// ====== Modelos ======
 		// --- crear ---
 		dcbmMaterial = new DefaultComboBoxModel<String>();
-		// TODO: arreglar
-		// dcbmMaterial.addAll(Datos.listarMateriales());
-
-		DefaultTableModel dtmMaterial = new DefaultTableModel();
-		dtmMaterial.addColumn("Nombre");
-		dtmMaterial.addColumn("Precio");
-		dtmMaterial.addColumn("Cantidad");
+		alMateriales = Datos.cargarMateriales();
+		for (Material m : alMateriales)
+			dcbmMaterial.addElement(m.getNombre());
 
 		// --- asignar ---
 		cmbMaterial.setModel(dcbmMaterial);
-
-		tblMateriales = new JTable(dtmMaterial) {
-			private static final long serialVersionUID = -3909141556237115067L;
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		tblMateriales.setRowHeight(20);
-		tblMateriales.setFillsViewportHeight(true);
-		tblMateriales.getTableHeader().setReorderingAllowed(false);
-		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		scrollMateriales.setViewportView(tblMateriales);
 
 		// ===== Listeners =====
 		// --- Window ---
@@ -174,182 +135,122 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 		// --- Action ---
 		txtDescripcion.addActionListener(this);
-		txtHoras.addActionListener(this);
-		txtManoObra.addActionListener(this);
+		txtPrecio.addActionListener(this);
 		txtCantidad.addActionListener(this);
+		txtHoras.addActionListener(this);
 
-		btnEliminar.addActionListener(this);
-		btnAgregarMaterial.addActionListener(this);
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
 
 		// --- Focus ---
 		txtDescripcion.addFocusListener(this);
-		txtHoras.addFocusListener(this);
-		txtManoObra.addFocusListener(this);
+		txtPrecio.addFocusListener(this);
 		txtCantidad.addFocusListener(this);
-
-		// --- ListSelection ---
-		tblMateriales.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent lse) {
-				if (!lse.getValueIsAdjusting() && tblMateriales.getSelectedRow() >= 0) {
-					int row = tblMateriales.getSelectedRow();
-					cmbMaterial.setSelectedItem(tblMateriales.getValueAt(row, 0));
-					txtCantidad.setText(tblMateriales.getValueAt(row, 2).toString());
-				}
-			}
-		});
+		txtHoras.addFocusListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente ---
 		cmbMaterial.setFont(Inicio.fuenteObjetos);
 
 		lblDescripcion.setFont(Inicio.fuente);
-		lblHoras.setFont(Inicio.fuente);
-		lblManoObra.setFont(Inicio.fuente);
+		lblPrecio.setFont(Inicio.fuente);
 
+		lblHoras.setFont(Inicio.fuente);
 		lblCantidad.setFont(Inicio.fuente);
 
 		txtDescripcion.setFont(Inicio.fuenteObjetos);
+		txtPrecio.setFont(Inicio.fuenteObjetos);
 		txtHoras.setFont(Inicio.fuenteObjetos);
-		txtManoObra.setFont(Inicio.fuenteObjetos);
-
 		txtCantidad.setFont(Inicio.fuenteObjetos);
 
-		btnEliminar.setFont(Inicio.fuenteObjetos);
-		btnAgregarMaterial.setFont(Inicio.fuenteObjetos);
 		btnCancelar.setFont(Inicio.fuenteObjetos);
 		btnGuardar.setFont(Inicio.fuenteObjetos);
-
-		tblMateriales.getTableHeader().setFont(Inicio.fuenteObjetos);
-		tblMateriales.setFont(Inicio.fuente);
 
 		// --- color ---
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
 		txtDescripcion.setBackground(Inicio.colorFondoObjetos);
-		txtHoras.setBackground(Inicio.colorFondoObjetos);
-		txtManoObra.setBackground(Inicio.colorFondoObjetos);
+		txtPrecio.setBackground(Inicio.colorFondoObjetos);
 		txtCantidad.setBackground(Inicio.colorFondoObjetos);
+		txtHoras.setBackground(Inicio.colorFondoObjetos);
 		cmbMaterial.setBackground(Inicio.colorFondoObjetos);
 
-		btnEliminar.setBackground(Inicio.colorFondoObjetos);
-		btnAgregarMaterial.setBackground(Inicio.colorFondoObjetos);
 		btnCancelar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 
-		tblMateriales.getTableHeader().setBackground(Inicio.colorFondoObjetos);
-		tblMateriales.setBackground(Inicio.colorFondoObjetos);
-
-		scrollMateriales.setBackground(Inicio.colorFondoObjetos);
-
 		// - fuente -
 		lblDescripcion.setForeground(Inicio.colorFuente);
-		lblHoras.setForeground(Inicio.colorFuente);
-		lblManoObra.setForeground(Inicio.colorFuente);
+		lblPrecio.setForeground(Inicio.colorFuente);
 
+		lblHoras.setForeground(Inicio.colorFuente);
 		lblCantidad.setForeground(Inicio.colorFuente);
 
 		txtDescripcion.setForeground(Inicio.colorFuenteObjetos);
 		txtDescripcion.setDisabledTextColor(Color.DARK_GRAY);
-		txtHoras.setForeground(Inicio.colorFuenteObjetos);
-		txtManoObra.setForeground(Inicio.colorFuenteObjetos);
+		txtPrecio.setForeground(Inicio.colorFuenteObjetos);
 		txtCantidad.setForeground(Inicio.colorFuenteObjetos);
+		txtHoras.setForeground(Inicio.colorFuenteObjetos);
 		cmbMaterial.setForeground(Inicio.colorFuenteObjetos);
 
-		btnEliminar.setForeground(Inicio.colorFuenteObjetos);
-		btnAgregarMaterial.setForeground(Inicio.colorFuenteObjetos);
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
-
-		tblMateriales.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	public void modoEdicion(Reparacion r) {
+	public void modoEdicion(Reparacion r, int indice) {
 		edicion = true;
 		setTitle("Editar " + r.getDescripcion() + " | " + Inicio.empleadoActual.getNombre());
 
 		txtDescripcion.setText(r.getDescripcion());
 		txtDescripcion.setEnabled(false);
 
-		// TODO: arreglar
-		// txtHoras.setText(String.valueOf(r.getHoras()));
-		// txtManoObra.setText(String.valueOf(r.getManoObra()));
-		// alMaterialesUsados.addAll(r.getMaterialesUsados());
+		txtPrecio.setText(String.valueOf(r.getPrecio()));
+		cmbMaterial.setSelectedIndex(alMateriales.indexOf(new Material(r.getIdMaterial())));
+		txtHoras.setText(String.valueOf(r.getHoras()));
+		txtCantidad.setText(String.valueOf(r.getCantidadMaterial()));
 
-		actualizarTabla();
-	}
-
-	private void actualizarTabla() {
-		alMaterialesUsados.sort(Comparator.naturalOrder());
-
-		DefaultTableModel dtm = (DefaultTableModel) tblMateriales.getModel();
-		dtm.setRowCount(0);
-
-//		for (MaterialUsado m : alMaterialesUsados) {
-			// TODO: arreglar
-			// dtm.addRow(new Object[] { m.getNombre(),
-			// General.formatearPrecio(m.getPrecio()), m.getCantidad() });
-//		}
-
-		Tablas.ajustarColumnas(tblMateriales);
+		codigo = r.getCodigo();
+		posicion = indice;
 	}
 
 	private boolean agregar() {
-		if (tblMateriales.getRowCount() > 0) {
-			try {
-				String descripcion = txtDescripcion.getText();
-				int horas = Integer.parseInt(txtHoras.getText());
-				double manoObra = Double.parseDouble(txtManoObra.getText());
+		try {
+			String descripcion = txtDescripcion.getText();
+			double precio = Double.parseDouble(txtPrecio.getText());
+			String material = alMateriales.get(cmbMaterial.getSelectedIndex()).getID();
+			int cantidad = Integer.parseInt(txtCantidad.getText());
+			int horas = Integer.parseInt(txtHoras.getText());
 
-				if (descripcion.equals("")) {
-					JOptionPane.showMessageDialog(this, (String) "Campo de descripción vacío", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (horas < 1 || manoObra < 1) {
-					JOptionPane.showMessageDialog(this, (String) "Campo numérico no válido", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
+			if (descripcion.equals("")) {
+				JOptionPane.showMessageDialog(this, (String) "Campo de descripción vacío", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (precio < 1) {
+				JOptionPane.showMessageDialog(this, (String) "Precio no válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (cantidad < 1) {
+				JOptionPane.showMessageDialog(this, (String) "Cantidad no válida", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if (horas < 1) {
+				JOptionPane.showMessageDialog(this, (String) "Cantidad de horas no válida", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				ArrayList<Reparacion> alReparaciones = MostrarOrden.getReparaciones();
+
+				if (edicion) {
+					alReparaciones.remove(posicion);
 				} else {
-					ArrayList<Reparacion> al = MostrarOrden.getReparaciones();
-					int posicion = 0;
-					boolean existe = false;
-					for (int i = 0; i < al.size(); i++) {
-						if (al.get(i).getDescripcion().equals(descripcion)) {
-							posicion = i;
-							existe = true;
-						}
-					}
-
-					if (existe) {
-						if (edicion) {
-							al.remove(posicion);
-							// TODO: arreglar
-							// al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(),
-							// Inicio.cuentaActual,
-							// alMaterialesUsados));
-
-							MostrarOrden.actualizarTablas();
-
-							this.dispose();
-						} else {
-							JOptionPane.showMessageDialog(this, (String) "La reparación ya ha sido agregada", "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-						}
+					if (alReparaciones.size() == 0) {
+						codigo = Datos.generarCodigoReparacion("");
 					} else {
-						// TODO: arreglar
-						// al.add(new Reparacion(descripcion, horas, manoObra, new Fecha(),
-						// Inicio.cuentaActual,
-						// alMaterialesUsados));
-
-						return true;
+						codigo = Datos
+								.generarCodigoReparacion(alReparaciones.get(alReparaciones.size() - 1).getCodigo());
 					}
 				}
-			} catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+
+				alReparaciones.add(new Reparacion(codigo, descripcion, precio, horas, material, cantidad, true));
+
+				return true;
 			}
-		} else {
-			JOptionPane.showMessageDialog(this, (String) "No se ha agregado ningún material", "ERROR",
+		} catch (NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(this, (String) "Campo numérico vacío o incorrecto", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -359,57 +260,21 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		if (o == btnEliminar) {
-			int row = tblMateriales.getSelectedRow();
-			if (row >= 0) {
-				alMaterialesUsados.remove(row);
-				actualizarTabla();
-			} else {
-				JOptionPane.showMessageDialog(this, (String) "No hay ningún material seleccionado", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		} else if (o == btnAgregarMaterial || o == txtCantidad) {
-			try {
-				int cantidad = Integer.parseInt(txtCantidad.getText());
+		int guardar = JOptionPane.YES_OPTION;
 
-				// TODO: arreglar
-				// material = Datos.cargarMaterial((String) cmbMaterial.getSelectedItem());
+		if (o == btnCancelar) {
+			guardar = Salir.edicion();
+		}
 
-				MaterialUsado mu = new MaterialUsado(material, cantidad);
+		boolean valido = false;
 
-				ArrayList<MaterialUsado> alMaterialesTmp = new ArrayList<MaterialUsado>();
-				for (MaterialUsado m : alMaterialesUsados) {
-					if (!m.getNombre().equals(mu.getNombre())) {
-						alMaterialesTmp.add(m);
-					}
-				}
+		if (guardar == JOptionPane.YES_OPTION) {
+			valido = agregar();
+		}
 
-				alMaterialesUsados = new ArrayList<MaterialUsado>(alMaterialesTmp);
-
-				alMaterialesUsados.add(mu);
-
-				actualizarTabla();
-			} catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(this, (String) "Campo de cantidad vacío o incorrecto", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		} else {
-			int guardar = JOptionPane.YES_OPTION;
-
-			if (o == btnCancelar) {
-				guardar = Salir.edicion();
-			}
-
-			boolean valido = false;
-
-			if (guardar == JOptionPane.YES_OPTION) {
-				valido = agregar();
-			}
-
-			if (guardar == JOptionPane.NO_OPTION || valido) {
-				MostrarOrden.actualizarTablas();
-				this.dispose();
-			}
+		if (guardar == JOptionPane.NO_OPTION || valido) {
+			MostrarOrden.actualizarTablas();
+			this.dispose();
 		}
 	}
 
