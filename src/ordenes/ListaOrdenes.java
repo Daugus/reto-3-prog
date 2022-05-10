@@ -13,15 +13,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import clases.Factura;
 import clases.Fecha;
 import clases.Orden;
 import funciones.Datos;
@@ -29,8 +32,6 @@ import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.MenuListas;
 import navegacion.MenuMecanico;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
 
 public class ListaOrdenes extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
@@ -213,8 +214,29 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 			if (row >= 0) {
 				orden = alOrdenes.get(row);
 
+//				boolean facturaPagada = Datos.comprobarPagoOrden(orden.getCodigo());
+				Factura factura = Datos.cargarFactura(orden.getCodigo());
 				boolean ordenFinalizada = orden.getFechaFin() != null;
-				MostrarOrden mo = new MostrarOrden(ordenFinalizada);
+				String mostrar = "mostrar";
+
+//				if ((ordenFinalizada && Inicio.empleadoActual.getTipo().equals("Mecanico"))
+//						|| (!ordenFinalizada && !Inicio.empleadoActual.getTipo().equals("Mecanico"))) {
+//					mostrar = "mostrar";
+//				}
+
+				if (factura != null) {
+					if (!factura.isPagada()) {
+						if (ordenFinalizada && !Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+							mostrar = "generar";
+						}
+
+						if (!ordenFinalizada && Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+							mostrar = "finalizar";
+						}
+					}
+				}
+
+				MostrarOrden mo = new MostrarOrden(mostrar);
 				mo.cargarDatos(orden);
 
 				mo.setVisible(true);

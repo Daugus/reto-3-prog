@@ -121,7 +121,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		// ====== Modelos ======
 		// --- crear ---
 		dcbmMaterial = new DefaultComboBoxModel<String>();
-		alMateriales = Datos.cargarMateriales();
+		boolean todos = false;
+		alMateriales = Datos.cargarMateriales(todos);
 		for (Material m : alMateriales)
 			dcbmMaterial.addElement(m.getNombre());
 

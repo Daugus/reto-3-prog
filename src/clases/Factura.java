@@ -42,12 +42,14 @@ public class Factura implements Comparable<Factura>, Serializable {
 	}
 
 	// --- personalizados ---
-	public Factura(String codigo, 
-			String codigoOrden, 
-			String metodoPago, 
-			boolean pagada, 
-			int descuento,
-			Fecha fecha) {
+	public Factura(String codigo, String codigoOrden, boolean pagada, Fecha fecha) {
+		this.codigo = codigo;
+		this.codigoOrden = codigoOrden;
+		this.pagada = pagada;
+		this.fecha = new Fecha(fecha);
+	}
+	
+	public Factura(String codigo, String codigoOrden, String metodoPago, boolean pagada, int descuento, Fecha fecha) {
 		this.codigo = codigo;
 		this.codigoOrden = codigoOrden;
 		this.metodoPago = metodoPago;

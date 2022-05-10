@@ -123,6 +123,41 @@ public class Datos {
 		}
 	}
 
+	public static void guardarFactura(Factura f, boolean edicion) {
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement st = conexion.createStatement();
+
+			String pagada = General.pagadaAString(f.isPagada());
+			String sentencia;
+
+			if (edicion) {
+				sentencia = String.format(
+						"update reto3.factura set pagada = '%s', metodoPago = '%s', descuento = %d where idFactura = '%s';",
+						pagada, f.getMetodoPago(), f.getDescuento(), f.getCodigo());
+			} else {
+				if (f.isPagada()) {
+					sentencia = String.format(
+							"insert into reto3.factura (idFactura, idOrden, pagada, fecha, metodoPago, descuento)"
+									+ " values('%s', '%s', '%s', '%s', '%s', %d);",
+							f.getCodigo(), f.getCodigoOrden(), pagada, f.getFecha().toSQLDate(), f.getMetodoPago(),
+							f.getDescuento());
+				} else {
+					sentencia = String.format(
+							"insert into reto3.factura (idFactura, idOrden, pagada, fecha) values('%s', '%s', '%s', '%s');",
+							f.getCodigo(), f.getCodigoOrden(), pagada, f.getFecha().toSQLDate());
+				}
+			}
+
+			st.executeUpdate(sentencia);
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
+
 	public static void guardarMaterial(Material m, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
@@ -365,6 +400,39 @@ public class Datos {
 		return c;
 	}
 
+	public static Factura cargarFactura(String id) {
+		Factura f = null;
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			String sentencia = null;
+
+			if (id.charAt(0) == 'F') {
+				sentencia = String.format("select * from reto3.factura where idFactura like '%s';", id);
+			} else {
+				sentencia = String.format("select * from reto3.factura where idOrden like '%s';", id);
+			}
+
+			ResultSet rs = st.executeQuery(sentencia);
+
+			if (rs.next()) {
+				boolean pagada = General.pagadaABoolean(rs.getString("pagada"));
+
+				f = new Factura(rs.getString("idFactura"), rs.getString("idOrden"), rs.getString("metodoPago"), pagada,
+						rs.getInt("descuento"), new Fecha(rs.getString("fecha")));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return f;
+	}
+
 	public static Vehiculo cargarVehiculo(String matricula) {
 		Vehiculo v = null;
 
@@ -478,14 +546,22 @@ public class Datos {
 		return facturas;
 	}
 
-	public static ArrayList<Material> cargarMateriales() {
+	public static ArrayList<Material> cargarMateriales(boolean todos) {
 		ArrayList<Material> materiales = new ArrayList<Material>();
 
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 
 			Statement st = conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from reto3.pieza");
+			String sentencia = null;
+
+			if (todos) {
+				sentencia = "select * from reto3.pieza";
+			} else {
+				sentencia = "select * from reto3.pieza where estado = 'activo';";
+			}
+
+			ResultSet rs = st.executeQuery(sentencia);
 
 			while (rs.next()) {
 				boolean activo = General.estadoABoolean(rs.getString("estado"));
@@ -534,6 +610,43 @@ public class Datos {
 		return materiales;
 	}
 
+	public static ArrayList<Reparacion> cargarReparaciones(String idOrden) {
+		ArrayList<Reparacion> reparaciones = new ArrayList<Reparacion>();
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement stRequiere = conexion.createStatement();
+			ResultSet rsRequiere = stRequiere
+					.executeQuery(String.format("select * from reto3.requiere where idOrden = '%s';", idOrden));
+
+			while (rsRequiere.next()) {
+				Statement stReparacion = conexion.createStatement();
+				ResultSet rsReparacion = stReparacion
+						.executeQuery(String.format("select * from reto3.reparacion where idReparacion = '%s';",
+								rsRequiere.getString("idReparacion")));
+
+				rsReparacion.next();
+				String descripcion = rsReparacion.getString("descripcion");
+				boolean estado = General.estadoABoolean(rsReparacion.getString("estado"));
+
+				reparaciones.add(new Reparacion(rsRequiere.getString("idReparacion"), descripcion,
+						rsRequiere.getDouble("precioHistorico"), rsRequiere.getString("idPieza"),
+						rsRequiere.getInt("cantidad"), estado));
+				rsReparacion.close();
+				stReparacion.close();
+			}
+
+			rsRequiere.close();
+			stRequiere.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return reparaciones;
+	}
+
 	public static ArrayList<Vehiculo> cargarVehiculos() {
 		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
@@ -562,6 +675,34 @@ public class Datos {
 	}
 
 	// ===== generar códigos =====
+	public static String generarCodigoFactura() {
+		String codigo = null;
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select idFactura from reto3.factura order by idFactura desc limit 1;");
+
+			if (rs.next()) {
+				codigo = rs.getString("idFactura");
+			} else {
+				codigo = "F00000";
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		int numCodigo = Integer.valueOf(codigo.substring(1));
+		numCodigo++;
+		codigo = String.format("F%05d", numCodigo);
+
+		return codigo;
+	}
+
 	public static String generarCodigoOrden() {
 		String codigo = null;
 		try {
@@ -572,6 +713,8 @@ public class Datos {
 
 			if (rs.next()) {
 				codigo = rs.getString("idOrden");
+			} else {
+				codigo = "OT0000";
 			}
 
 			rs.close();
@@ -601,6 +744,8 @@ public class Datos {
 
 				if (rs.next()) {
 					anterior = rs.getString("idReparacion");
+				} else {
+					anterior = "R00000";
 				}
 
 				rs.close();
@@ -682,5 +827,56 @@ public class Datos {
 		Inicio.colorFondoObjetos = Color.LIGHT_GRAY;
 		Inicio.colorFuente = Color.WHITE;
 		Inicio.colorFuenteObjetos = Color.BLACK;
+	}
+
+	// ===== otros =====
+	public static boolean comprobarPagoOrden(String idOrden) {
+		boolean pagada = false;
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st
+					.executeQuery(String.format("select pagada from reto3.factura where idOrden = '%s';", idOrden));
+
+			if (rs.next()) {
+				if (rs.getString("pagada").equals("pagada")) {
+					pagada = true;
+				}
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return pagada;
+	}
+
+	public static String getNombreMaterial(String idMaterial) {
+		String nombre = null;
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st.executeQuery(
+					String.format("select marca, nombre from reto3.pieza where idPieza = '%s';", idMaterial));
+
+			if (rs.next()) {
+				nombre = String.format("%s %s", rs.getString("nombre"), rs.getString("marca"));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return nombre;
 	}
 }

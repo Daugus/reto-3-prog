@@ -62,32 +62,21 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 	private String mostrar;
 	private static boolean bloqueado;
 
-	public MostrarOrden(boolean ordenFinalizada) {
+	public MostrarOrden(String mostrar) {
 		setResizable(false);
 
-		if ((ordenFinalizada && Inicio.empleadoActual.getTipo().equals("Mecanico"))
-				|| (!ordenFinalizada && !Inicio.empleadoActual.getTipo().equals("Mecanico"))) {
+		this.mostrar = mostrar;
+
+		if (mostrar.equals("mostrar")) {
 			setTitle("Mostrar orden de trabajo | " + Inicio.empleadoActual.getNombre());
-			setBounds(100, 100, 790, 430);
-			getContentPane().setPreferredSize(new Dimension(790, 430));
-
-			mostrar = "mostrar";
-		}
-		if (ordenFinalizada && !Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+		} else if (mostrar.equals("generar")) {
 			setTitle("Generar factura | " + Inicio.empleadoActual.getNombre());
-			setBounds(100, 100, 790, 430);
-			getContentPane().setPreferredSize(new Dimension(790, 430));
-
-			mostrar = "generar";
-		}
-		if (!ordenFinalizada && Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+		} else if (mostrar.equals("finalizar")) {
 			setTitle("Finalizar orden de trabajo | " + Inicio.empleadoActual.getNombre());
-			setBounds(100, 100, 790, 720);
-			getContentPane().setPreferredSize(new Dimension(790, 720));
-
-			mostrar = "finalizar";
 		}
 
+		setBounds(100, 100, 790, 720);
+		getContentPane().setPreferredSize(new Dimension(790, 720));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -117,7 +106,7 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		btnEliminar.setBounds(525, 585, 230, 60);
 		panelPrincipal.add(btnEliminar);
 
-		JLabel lblCodigo = new JLabel("Código orden primaria:");
+		JLabel lblCodigo = new JLabel("Código orden de trabajo:");
 		lblCodigo.setBounds(10, 185, 150, 35);
 		panelPrincipal.add(lblCodigo);
 
@@ -155,7 +144,7 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		dtmReparaciones.addColumn("Descripción");
 		dtmReparaciones.addColumn("Coste");
 		dtmReparaciones.addColumn("Material");
-		dtmReparaciones.addColumn("Cantidad material");
+		dtmReparaciones.addColumn("Cantidad");
 
 		// --- asignar ---
 		tblCliente = new JTable(dtmCliente) {
@@ -262,20 +251,34 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	public void cargarDatos(Orden op) {
-		orden = new Orden(op);
+	public void cargarDatos(Orden o) {
+		orden = new Orden(o);
 
 		if (!mostrar.equals("finalizar")) {
 			if (mostrar.equals("mostrar")) {
 				btnFinalizar.setVisible(false);
-				btnVolver.setBounds(305, 380, 180, 40);
-
-				scrollReparaciones.setVisible(false);
+				btnVolver.setBounds(305, 670, 180, 40);
 			}
 
 			btnAgregar.setVisible(false);
 			btnEditar.setVisible(false);
 			btnEliminar.setVisible(false);
+
+			btnFinalizar.setText("Generar factura");
+
+			// ===== reparaciones =====
+			// --- cargar vehículo ---
+			ArrayList<Reparacion> alReparaciones = Datos.cargarReparaciones(orden.getCodigo());
+
+			// --- escribir vehículo ---
+			DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
+
+			for (Reparacion r : alReparaciones) {
+				dtmReparaciones.addRow(new Object[] { r.getCodigo(), r.getDescripcion(), String.valueOf(r.getPrecio()),
+						Datos.getNombreMaterial(r.getIdMaterial()), r.getCantidadMaterial() });
+			}
+
+			Tablas.ajustarColumnas(tblReparaciones);
 		}
 
 		// ===== datos vehículo =====
@@ -326,8 +329,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		dtmReparaciones.setRowCount(0);
 
 		for (Reparacion r : alReparaciones) {
-			dtmReparaciones.addRow(new Object[] { r.getCodigo(), r.getDescripcion(),
-					General.formatearPrecio(r.getPrecio()), r.getIdMaterial(), r.getCantidadMaterial() });
+			dtmReparaciones
+					.addRow(new Object[] { r.getCodigo(), r.getDescripcion(), General.formatearPrecio(r.getPrecio()),
+							Datos.getNombreMaterial(r.getIdMaterial()), r.getCantidadMaterial() });
 		}
 
 		Tablas.ajustarColumnas(tblReparaciones);
@@ -352,9 +356,8 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		Object o = e.getSource();
 
 		if (o == btnFinalizar) {
-			if (mostrar.equals("finalizar")) {
-
-				if (tblReparaciones.getRowCount() > 0) {
+			if (tblReparaciones.getRowCount() > 0) {
+				if (mostrar.equals("finalizar")) {
 					int horas = 0;
 					for (Reparacion r : alReparaciones) {
 						horas += r.getHoras();
@@ -372,11 +375,16 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 
 					this.dispose();
 				} else {
-					JOptionPane.showMessageDialog(this, (String) "No se ha agregado ninguna reparación", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
+					GenerarFactura gf = new GenerarFactura();
+					boolean nueva = true;
+					gf.cargarDatos(orden, nueva);
+					gf.setVisible(true);
+
+					this.dispose();
 				}
 			} else {
-				
+				JOptionPane.showMessageDialog(this, (String) "No se ha agregado ninguna reparación", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (o == btnAgregar) {
 			EditarReparacion er = new EditarReparacion();

@@ -53,10 +53,24 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 		this.activo = other.activo;
 	}
 
-	public Reparacion(String codigo, String descripcion, double precio, int horas, String idMaterial, int cantidadMaterial, boolean activo) {
+	public Reparacion(String codigo, String descripcion, double precio, String idMaterial, int cantidadMaterial,
+			boolean activo) {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
-		
+
+		this.precio = precio;
+
+		this.idMaterial = idMaterial;
+		this.cantidadMaterial = cantidadMaterial;
+
+		this.activo = activo;
+	}
+
+	public Reparacion(String codigo, String descripcion, double precio, int horas, String idMaterial,
+			int cantidadMaterial, boolean activo) {
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+
 		this.precio = precio;
 		this.horas = horas;
 
@@ -75,7 +89,8 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Código: " + codigo + ", descripción: " + descripcion + ", precio: " + General.formatearPrecio(precio) + ", activo: " + activo;
+		return "Código: " + codigo + ", descripción: " + descripcion + ", precio: " + General.formatearPrecio(precio)
+				+ ", activo: " + activo;
 	}
 
 	// --- comparación ---
