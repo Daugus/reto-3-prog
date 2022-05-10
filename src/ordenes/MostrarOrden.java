@@ -59,6 +59,8 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 
 	private Orden orden;
 
+	private boolean nueva = false;
+
 	private String mostrar;
 	private static boolean bloqueado;
 
@@ -251,6 +253,10 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 
+	public void setNueva(boolean nueva) {
+		this.nueva = nueva;
+	}
+
 	public void cargarDatos(Orden o) {
 		orden = new Orden(o);
 
@@ -267,10 +273,10 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 			btnFinalizar.setText("Generar factura");
 
 			// ===== reparaciones =====
-			// --- cargar vehículo ---
+			// --- cargar ---
 			ArrayList<Reparacion> alReparaciones = Datos.cargarReparaciones(orden.getCodigo());
 
-			// --- escribir vehículo ---
+			// --- escribir ---
 			DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 
 			for (Reparacion r : alReparaciones) {
@@ -282,25 +288,25 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		}
 
 		// ===== datos vehículo =====
-		// --- cargar vehículo ---
+		// --- cargar ---
 		Vehiculo v = Datos.cargarVehiculo(orden.getMatricula());
 
-		// --- escribir vehículo ---
+		// --- escribir ---
 		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
 		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
 		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
 
 		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
 
-		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getFechaFabricacion() });
+		dtmVehiculo.addRow(new Object[] { "Fecha fabricación", v.getFechaFabricacion() });
 
 		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
 
 		// ===== datos cliente =====
-		// --- cargar cliente ---
+		// --- cargar ---
 		Cliente c = Datos.cargarCliente(v.getPropietario());
 
-		// --- escribir cliente ---
+		// --- escribir ---
 		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
 		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
 
@@ -375,10 +381,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 
 					this.dispose();
 				} else {
-					GenerarFactura gf = new GenerarFactura();
-					boolean nueva = true;
-					gf.cargarDatos(orden, nueva);
-					gf.setVisible(true);
+					EditarFactura ef = new EditarFactura();
+					ef.cargarDatos(orden, nueva);
+					ef.setVisible(true);
 
 					this.dispose();
 				}

@@ -25,6 +25,7 @@ import clases.Fecha;
 import clases.Material;
 import clases.Orden;
 import clases.Reparacion;
+import clases.Total;
 import clases.Vehiculo;
 import navegacion.Inicio;
 
@@ -35,9 +36,10 @@ public class Datos {
 	private static String logs = raiz + "Logs\\";
 	private static String ajustes = raiz + "Ajustes\\";
 
-	private static String ruta = "jdbc:mysql://192.168.220.220/reto3";
-	private static String usr = "g1";
-	private static String pass = "Inf662";
+	// TODO: cambiar a 192.168.220.220, g1, Inf662
+	private static String ruta = "jdbc:mysql://localhost/reto3";
+	private static String usr = "root";
+	private static String pass = "";
 
 	// ===== crear carpetas en caso de que no existan =====
 	public static void crearCarpetas() {
@@ -269,6 +271,7 @@ public class Datos {
 	}
 
 	// ===== borrar =====
+	// TODO
 
 	// ===== listar =====
 	public static ArrayList<String> listarClientes() {
@@ -342,36 +345,6 @@ public class Datos {
 		return alMatriculas;
 	}
 
-	// ===== iniciar sesión =====
-	public static Empleado iniciarSesion(String dni) {
-		Empleado e = null;
-		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
-
-			Statement st = conexion.createStatement();
-			ResultSet rs = st.executeQuery(String.format("select * from reto3.empleado where dniEmple like '%s'", dni));
-
-			if (rs.next()) {
-				boolean activo = General.estadoABoolean(rs.getString("estado"));
-
-				e = new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
-						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
-						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
-						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
-						new Fecha(rs.getString("fecNac")), rs.getString("tipoEmpleado"),
-						new Fecha(rs.getString("fecAltaContrato")), activo);
-			}
-
-			rs.close();
-			st.close();
-			conexion.close();
-		} catch (SQLException sqle) {
-			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
-		}
-
-		return e;
-	}
-
 	// ===== cargar individual =====
 	public static Cliente cargarCliente(String dni) {
 		Cliente c = null;
@@ -433,6 +406,29 @@ public class Datos {
 		return f;
 	}
 
+	public static Orden cargarOrden(String codigo) {
+		Orden o = null;
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+
+			Statement st = conexion.createStatement();
+			ResultSet rs = st
+					.executeQuery(String.format("select * from reto3.ordenTrabajo where idOrden like '%s';", codigo));
+
+			if (rs.next()) {
+				o = new Orden(rs.getString("idOrden"), rs.getString("matricula"));
+			}
+
+			rs.close();
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return o;
+	}
+
 	public static Vehiculo cargarVehiculo(String matricula) {
 		Vehiculo v = null;
 
@@ -461,7 +457,7 @@ public class Datos {
 		return v;
 	}
 
-	// ===== cargar todos =====
+	// ===== cargar varios =====
 	public static ArrayList<Cliente> cargarClientes() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
@@ -830,20 +826,23 @@ public class Datos {
 	}
 
 	// ===== otros =====
-	public static boolean comprobarPagoOrden(String idOrden) {
-		boolean pagada = false;
-
+	public static Empleado iniciarSesion(String dni) {
+		Empleado e = null;
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
 
 			Statement st = conexion.createStatement();
-			ResultSet rs = st
-					.executeQuery(String.format("select pagada from reto3.factura where idOrden = '%s';", idOrden));
+			ResultSet rs = st.executeQuery(String.format("select * from reto3.empleado where dniEmple like '%s'", dni));
 
 			if (rs.next()) {
-				if (rs.getString("pagada").equals("pagada")) {
-					pagada = true;
-				}
+				boolean activo = General.estadoABoolean(rs.getString("estado"));
+
+				e = new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
+						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
+						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
+						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
+						new Fecha(rs.getString("fecNac")), rs.getString("tipoEmpleado"),
+						new Fecha(rs.getString("fecAltaContrato")), activo);
 			}
 
 			rs.close();
@@ -853,7 +852,7 @@ public class Datos {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
 
-		return pagada;
+		return e;
 	}
 
 	public static String getNombreMaterial(String idMaterial) {
@@ -861,7 +860,6 @@ public class Datos {
 
 		try {
 			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
-
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery(
 					String.format("select marca, nombre from reto3.pieza where idPieza = '%s';", idMaterial));
@@ -878,5 +876,41 @@ public class Datos {
 		}
 
 		return nombre;
+	}
+
+	public static Total calcularTotal(Factura factura) {
+		Total t = null;
+
+		try {
+			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Statement stRequiere = conexion.createStatement();
+			ResultSet rsRequiere = stRequiere.executeQuery(
+					String.format("select * from reto3.requiere where idOrden = '%s';", factura.getCodigoOrden()));
+
+			double costeReparaciones = 0;
+			double costeMateriales = 0;
+
+			while (rsRequiere.next()) {
+				costeReparaciones += rsRequiere.getDouble("precioHistorico");
+
+				Statement stPieza = conexion.createStatement();
+				ResultSet rsPieza = stPieza.executeQuery(String
+						.format("select pvp from reto3.pieza where idPieza = '%s';", rsRequiere.getString("idPieza")));
+
+				while (rsPieza.next()) {
+					costeMateriales += rsPieza.getDouble("pvp") * rsRequiere.getInt("cantidad");
+				}
+			}
+
+			t = new Total(costeReparaciones, costeMateriales, factura.getDescuento());
+
+			rsRequiere.close();
+			stRequiere.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+
+		return t;
 	}
 }

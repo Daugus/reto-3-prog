@@ -8,15 +8,21 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import clases.Factura;
 import funciones.Datos;
@@ -35,15 +41,20 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 	private JButton btnCargar;
 
 	private ArrayList<Factura> alFacturas;
+	TableRowSorter<TableModel> sorter;
 
 	private static Factura factura;
+
+	private JRadioButton rdbPendientes;
+	private JRadioButton rdbPagadas;
+	private JRadioButton rdbTodas;
 
 	public ListaFacturas() {
 		setResizable(false);
 		setTitle("Lista de Facturas | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 700, 285);
-		getContentPane().setPreferredSize(new Dimension(700, 285));
+		setBounds(100, 100, 700, 305);
+		getContentPane().setPreferredSize(new Dimension(700, 305));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -53,12 +64,36 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
+		ButtonGroup grupo = new ButtonGroup();
+
+		rdbPendientes = new JRadioButton("Pendientes");
+		rdbPendientes.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbPendientes.setOpaque(false);
+		rdbPendientes.setBounds(380, 220, 90, 20);
+		panelPrincipal.add(rdbPendientes);
+
+		rdbPagadas = new JRadioButton("Pagadas");
+		rdbPagadas.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbPagadas.setOpaque(false);
+		rdbPagadas.setBounds(470, 220, 90, 20);
+		panelPrincipal.add(rdbPagadas);
+
+		rdbTodas = new JRadioButton("Todas");
+		rdbTodas.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbTodas.setOpaque(false);
+		rdbTodas.setBounds(560, 220, 90, 20);
+		panelPrincipal.add(rdbTodas);
+
+		grupo.add(rdbPendientes);
+		grupo.add(rdbPagadas);
+		grupo.add(rdbTodas);
+
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(162, 235, 180, 40);
+		btnVolver.setBounds(162, 255, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		btnCargar = new JButton("Cargar");
-		btnCargar.setBounds(358, 235, 180, 40);
+		btnCargar.setBounds(358, 255, 180, 40);
 		panelPrincipal.add(btnCargar);
 
 		// ===== barras de desplazamiento =====
@@ -72,7 +107,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		DefaultTableModel dtmFacturas = new DefaultTableModel();
 		dtmFacturas.addColumn("ID Factura");
 		dtmFacturas.addColumn("ID Orden");
-		dtmFacturas.addColumn("Estado");
+		dtmFacturas.addColumn("Estado pago");
 		dtmFacturas.addColumn("Método de pago");
 		dtmFacturas.addColumn("Fecha");
 
@@ -97,6 +132,9 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		tblFacturas.getTableHeader().setReorderingAllowed(false);
 		tblFacturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+		sorter = new TableRowSorter<TableModel>(dtmFacturas);
+		tblFacturas.setRowSorter(sorter);
+
 		scrollPendientes.setViewportView(tblFacturas);
 
 		// ===== Listeners =====
@@ -106,11 +144,21 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 		// --- Action ---
 		// - JButton -
+		rdbPendientes.addActionListener(this);
+		rdbPagadas.addActionListener(this);
+		rdbTodas.addActionListener(this);
+
 		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
 
+		// ===== ajustes de usuario =====
+		// --- fuente ---
 		tblFacturas.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblFacturas.setFont(Inicio.fuente);
+
+		rdbPendientes.setFont(Inicio.fuente);
+		rdbPagadas.setFont(Inicio.fuente);
+		rdbTodas.setFont(Inicio.fuente);
 
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnCargar.setFont(Inicio.fuenteObjetos);
@@ -125,10 +173,30 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
 
+		// - fuente -
 		tblFacturas.setForeground(Inicio.colorFuenteObjetos);
+
+		rdbPendientes.setForeground(Inicio.colorFuente);
+		rdbPagadas.setForeground(Inicio.colorFuente);
+		rdbTodas.setForeground(Inicio.colorFuente);
 
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
+
+		rdbPendientes.setSelected(true);
+		filtrarFacturas();
+	}
+
+	private void filtrarFacturas() {
+		int columna = 2;
+
+		if (rdbPendientes.isSelected()) {
+			sorter.setRowFilter(RowFilter.regexFilter("Pendiente", columna));
+		} else if (rdbPagadas.isSelected()) {
+			sorter.setRowFilter(RowFilter.regexFilter("Pagada", columna));
+		} else {
+			sorter.setRowFilter(null);
+		}
 	}
 
 	@Override
@@ -138,33 +206,27 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		if (o == btnCargar) {
 			int row = tblFacturas.getSelectedRow();
 			if (row >= 0) {
-				try {
-					factura = alFacturas.get(row);
+				int absRow = tblFacturas.convertRowIndexToModel(row);
+				factura = alFacturas.get(absRow);
 
-					// TODO: implementar
-					JOptionPane.showMessageDialog(null, "Se ha cargado la factura " + factura.getCodigo(),
-							"Sin implementar", JOptionPane.INFORMATION_MESSAGE);
+				MostrarFactura mf = new MostrarFactura();
+				mf.cargarDatos(factura, !factura.isPagada());
 
-//					MostrarFactura mf = new MostrarFactura();
-//					mf.cargarDatos(factura);
-//
-//					mf.setVisible(true);
-//
-//					this.dispose();
-				} catch (NullPointerException npe) {
-					JOptionPane.showMessageDialog(null, "La factura seleccionada no existe", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				mf.setVisible(true);
+
+				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, (String) "No hay ninguna factura seleccionada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		} else {
+		} else if (o == btnVolver) {
 			// btnVolver
 			MenuListas lo = new MenuListas();
 			lo.setVisible(true);
 
 			this.dispose();
+		} else {
+			filtrarFacturas();
 		}
 	}
 

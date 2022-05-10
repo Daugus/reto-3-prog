@@ -19,9 +19,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import clases.Cliente;
 import clases.Factura;
-import clases.MaterialUsado;
+import clases.Orden;
 import clases.Reparacion;
+import clases.Total;
+import clases.Vehiculo;
+import funciones.Datos;
+import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
@@ -31,24 +36,30 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 	private JPanel panelPrincipal;
 
-	private JButton btnVolver;
+	private static JButton btnVolver;
+	private static JButton btnEditar;
 
 	private JTable tblCliente;
 	private JTable tblVehiculo;
-	private JTable tblReparaciones;
-	private JTable tblMateriales;
+
+	private JScrollPane scrollReparaciones;
+	private static JTable tblReparaciones;
+
 	private JTable tblTotal;
 
-//	private Factura factura;
-	private ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
-	private ArrayList<MaterialUsado> alMateriales = new ArrayList<MaterialUsado>();
+	private static ArrayList<Reparacion> alReparaciones = new ArrayList<Reparacion>();
+
+	private Factura factura;
+
+	private static boolean bloqueado;
 
 	public MostrarFactura() {
 		setResizable(false);
-		setTitle("Generar factura | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 850, 520);
-		getContentPane().setPreferredSize(new Dimension(850, 520));
+		setTitle("Mostrar factura | " + Inicio.empleadoActual.getNombre());
+
+		setBounds(100, 100, 790, 605);
+		getContentPane().setPreferredSize(new Dimension(790, 605));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -58,20 +69,19 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
+		btnEditar = new JButton("Editar pago");
+		btnEditar.setBounds(403, 555, 180, 40);
+		panelPrincipal.add(btnEditar);
+
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 470, 180, 40);
+		btnVolver.setBounds(207, 555, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		// ===== barras de desplazamiento =====
 		// --- reparaciones ---
-		JScrollPane scrollReparaciones = new JScrollPane();
-		scrollReparaciones.setBounds(10, 185, 450, 200);
+		scrollReparaciones = new JScrollPane();
+		scrollReparaciones.setBounds(10, 185, 770, 200);
 		panelPrincipal.add(scrollReparaciones);
-
-		// --- piezas ---
-		JScrollPane scrollMateriales = new JScrollPane();
-		scrollMateriales.setBounds(475, 185, 365, 200);
-		panelPrincipal.add(scrollMateriales);
 
 		// ===== modelos =====
 		// --- crear ---
@@ -85,15 +95,9 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		DefaultTableModel dtmReparaciones = new DefaultTableModel();
 		dtmReparaciones.addColumn("Descripción");
-		dtmReparaciones.addColumn("Horas");
-		dtmReparaciones.addColumn("Mano de obra");
 		dtmReparaciones.addColumn("Coste");
-
-		DefaultTableModel dtmMateriales = new DefaultTableModel();
-		dtmMateriales.addColumn("Nombre");
-		dtmMateriales.addColumn("Precio");
-		dtmMateriales.addColumn("Cantidad");
-		dtmMateriales.addColumn("Coste");
+		dtmReparaciones.addColumn("Material");
+		dtmReparaciones.addColumn("Cantidad");
 
 		DefaultTableModel dtmTotal = new DefaultTableModel();
 		dtmTotal.addColumn("");
@@ -107,7 +111,7 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 				return false;
 			}
 		};
-		tblCliente.setBounds(10, 10, 450, 160);
+		tblCliente.setBounds(10, 10, 420, 160);
 		tblCliente.setRowHeight(20);
 		tblCliente.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblCliente.getTableHeader().setReorderingAllowed(false);
@@ -121,7 +125,7 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 				return false;
 			}
 		};
-		tblVehiculo.setBounds(475, 10, 365, 160);
+		tblVehiculo.setBounds(445, 10, 335, 160);
 		tblVehiculo.setRowHeight(20);
 		tblVehiculo.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblVehiculo.getTableHeader().setReorderingAllowed(false);
@@ -138,25 +142,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblReparaciones.setRowHeight(20);
 		tblReparaciones.setFillsViewportHeight(true);
 		tblReparaciones.getTableHeader().setReorderingAllowed(false);
-		tblReparaciones.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tblReparaciones.getTableHeader().setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblReparaciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollReparaciones.setViewportView(tblReparaciones);
-
-		tblMateriales = new JTable(dtmMateriales) {
-			private static final long serialVersionUID = -3909141556237115067L;
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		tblMateriales.setRowHeight(20);
-		tblMateriales.setFillsViewportHeight(true);
-		tblMateriales.getTableHeader().setReorderingAllowed(false);
-		tblMateriales.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tblMateriales.getTableHeader().setBorder(new LineBorder(new Color(0, 0, 0)));
-		tblMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollMateriales.setViewportView(tblMateriales);
 
 		tblTotal = new JTable(dtmTotal) {
 			private static final long serialVersionUID = 1L;
@@ -165,11 +152,12 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 				return false;
 			}
 		};
-		tblTotal.setBounds(640, 410, 200, 100);
+		tblTotal.setBounds(530, 410, 250, 120);
 		tblTotal.setRowHeight(20);
 		tblTotal.getTableHeader().setReorderingAllowed(false);
 		tblTotal.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblTotal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
 		panelPrincipal.add(tblTotal);
 
 		// ===== Listeners =====
@@ -179,6 +167,7 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 		// --- Action ---
 		btnVolver.addActionListener(this);
+		btnEditar.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente y color ---
@@ -187,112 +176,102 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblReparaciones.getTableHeader().setFont(Inicio.fuenteObjetos);
 		tblReparaciones.getTableHeader().setBackground(Inicio.colorFondoObjetos);
 
-		tblMateriales.getTableHeader().setFont(Inicio.fuenteObjetos);
-		tblMateriales.getTableHeader().setBackground(Inicio.colorFondoObjetos);
-
 		tblReparaciones.setFont(Inicio.fuente);
 		tblReparaciones.setBackground(Inicio.colorFondoObjetos);
 		tblReparaciones.setForeground(Inicio.colorFuenteObjetos);
-
-		tblMateriales.setFont(Inicio.fuente);
-		tblMateriales.setBackground(Inicio.colorFondoObjetos);
-		tblMateriales.setForeground(Inicio.colorFuenteObjetos);
 
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 
+		btnEditar.setFont(Inicio.fuenteObjetos);
+		btnEditar.setBackground(Inicio.colorFondoObjetos);
+		btnEditar.setForeground(Inicio.colorFuenteObjetos);
+
 		scrollReparaciones.setBackground(Inicio.colorFondoObjetos);
-		scrollMateriales.setBackground(Inicio.colorFondoObjetos);
 
 		// --- tablas verticales ---
 		tblCliente.setFont(Inicio.fuente);
 		tblVehiculo.setFont(Inicio.fuente);
 		tblTotal.setFont(Inicio.fuente);
+		tblTotal.setBackground(Inicio.colorFondoObjetos);
 
 		tblCliente.setBackground(Inicio.colorFondoObjetos);
 		tblVehiculo.setBackground(Inicio.colorFondoObjetos);
-		tblTotal.setBackground(Inicio.colorFondoObjetos);
 
 		tblCliente.setForeground(Inicio.colorFuenteObjetos);
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 		tblTotal.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	public void cargarDatos(Factura f) {
-//		factura = new Factura(f);
+	public void cargarDatos(Factura f, boolean edicion) {
+		factura = new Factura(f);
+		Orden orden = Datos.cargarOrden(factura.getCodigoOrden());
 
-		// ===== datos cliente =====
-		// --- cargar cliente ---
-//		Cliente c = factura.getPropietario();
-
-		// --- escribir cliente ---
-//		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
-//		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
-
-//		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
-//		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
-//
-//		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
-//		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
-//
-//		dtmCliente.addRow(new Object[] { "Fecha nacimiento", c.getFechaNacimiento() });
-//		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
-//
-//		dtmCliente.addRow(new Object[] { "Fecha alta", c.getFechaAlta() });
-
-		// ===== datos vehículo =====
-		// --- cargar vehículo ---
-//		Vehiculo v = factura.getVehiculo();
-
-		// --- escribir vehículo ---
-//		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
-//		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
-//		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
-//
-//		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
-//		dtmVehiculo.addRow(new Object[] { "Color", v.getColor() });
-
-//		dtmVehiculo.addRow(new Object[] { "Cilindrada", v.getCilindrada() });
-//
-//		dtmVehiculo.addRow(new Object[] { "KMs recorridos", v.getKmRecorridos() });
-//		dtmVehiculo.addRow(new Object[] { "Año ITV", v.getFechaITV() });
-//
-//		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
+		if (!edicion) {
+			btnEditar.setVisible(false);
+			btnVolver.setBounds(305, 555, 180, 40);
+		}
 
 		// ===== datos reparaciones =====
-		// --- cargar reparaciones ---
-//		alReparaciones = factura.getReparaciones();
+		// --- cargar ---
+		ArrayList<Reparacion> alReparaciones = Datos.cargarReparaciones(orden.getCodigo());
 
-		// --- escribir reparaciones y materiales usados ---
-		alReparaciones.sort(Comparator.naturalOrder());
+		// --- escribir ---
+		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
 
-//		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
-
-//		for (Reparacion r : alReparaciones) {
-//			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), r.getHoras(), General.formatearPrecio(r.getManoObra()),
-//					General.formatearPrecio(r.getHoras() * r.getManoObra()) });
-//			alMateriales.addAll(r.getMaterialesUsados());
-//		}
+		for (Reparacion r : alReparaciones) {
+			dtmReparaciones.addRow(new Object[] { r.getDescripcion(), String.valueOf(r.getPrecio()),
+					Datos.getNombreMaterial(r.getIdMaterial()), r.getCantidadMaterial() });
+		}
 
 		Tablas.ajustarColumnas(tblReparaciones);
 
-		alMateriales.sort(Comparator.naturalOrder());
+		// ===== datos vehículo =====
+		// --- cargar ---
+		Vehiculo v = Datos.cargarVehiculo(orden.getMatricula());
 
-//		DefaultTableModel dtmMateriales = (DefaultTableModel) tblMateriales.getModel();
+		// --- escribir ---
+		DefaultTableModel dtmVehiculo = (DefaultTableModel) tblVehiculo.getModel();
+		dtmVehiculo.addRow(new Object[] { "Matrícula", v.getMatricula() });
+		dtmVehiculo.addRow(new Object[] { "Bastidor", v.getBastidor() });
 
-//		for (MaterialUsado mu : alMateriales) {
-//			dtmMateriales.addRow(new Object[] { mu.getNombre(), General.formatearPrecio(mu.getPrecio()), mu.getCantidad(),
-//					General.formatearPrecio(mu.getPrecio() * mu.getCantidad()) });
-//		}
+		dtmVehiculo.addRow(new Object[] { "Modelo", v.getMarca() + " " + v.getModelo() });
+
+		dtmVehiculo.addRow(new Object[] { "Fecha fabricación", v.getFechaFabricacion() });
+
+		dtmVehiculo.addRow(new Object[] { "Tipo", v.getTipo() });
+
+		// ===== datos cliente =====
+		// --- cargar ---
+		Cliente c = Datos.cargarCliente(v.getPropietario());
+
+		// --- escribir ---
+		DefaultTableModel dtmCliente = (DefaultTableModel) tblCliente.getModel();
+		dtmCliente.addRow(new Object[] { "DNI", c.getDNI() });
+
+		dtmCliente.addRow(new Object[] { "Nombre", c.getNombre() });
+		dtmCliente.addRow(new Object[] { "Apellidos", c.getApellidos() });
+
+		dtmCliente.addRow(new Object[] { "Tel.", c.getTelefono() });
+		dtmCliente.addRow(new Object[] { "Email", c.getEmail() });
+
+		dtmCliente.addRow(new Object[] { "Fecha de alta", c.getFechaAlta() });
+		dtmCliente.addRow(new Object[] { "Dirección", c.getDireccion() });
 
 		// ===== total =====
-//		DefaultTableModel dtmTotal = (DefaultTableModel) tblTotal.getModel();
-//		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatearPrecio(factura.getCosteReparaciones()) });
-//		dtmTotal.addRow(new Object[] { "Total materiales", General.formatearPrecio(factura.getCosteMateriales()) });
-//		dtmTotal.addRow(new Object[] { "Subtotal", General.formatearPrecio(factura.getSubtotal()) });
-//		dtmTotal.addRow(new Object[] { "IVA (21%)", General.formatearPrecio(factura.getIva()) });
-//		dtmTotal.addRow(new Object[] { "Total", General.formatearPrecio(factura.getTotal()) });
+		// --- calcular ---
+		Total total = Datos.calcularTotal(factura);
+
+		// --- escribir ---
+		DefaultTableModel dtmTotal = (DefaultTableModel) tblTotal.getModel();
+		dtmTotal.addRow(new Object[] { "Total reparaciones", General.formatearPrecio(total.getCosteReparaciones()) });
+		dtmTotal.addRow(new Object[] { "Total materiales", General.formatearPrecio(total.getCosteMateriales()) });
+		dtmTotal.addRow(new Object[] { "Descuento (" + factura.getDescuento() + "%)",
+				General.formatearPrecio(total.getDescuento()) });
+		dtmTotal.addRow(new Object[] { "Subtotal", General.formatearPrecio(total.getSubtotal()) });
+		dtmTotal.addRow(new Object[] { "IVA (" + total.getIVA() + "%)", General.formatearPrecio(total.getCosteIVA()) });
+		dtmTotal.addRow(new Object[] { "Total", General.formatearPrecio(total.getTotal()) });
 
 		// ===== estilizar tablas =====
 		Tablas.vertical(tblCliente);
@@ -300,17 +279,56 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		Tablas.vertical(tblTotal);
 	}
 
+	public static void actualizarTablas() {
+		alReparaciones.sort(Comparator.naturalOrder());
+
+		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
+		dtmReparaciones.setRowCount(0);
+
+		for (Reparacion r : alReparaciones) {
+			dtmReparaciones
+					.addRow(new Object[] { r.getCodigo(), r.getDescripcion(), General.formatearPrecio(r.getPrecio()),
+							Datos.getNombreMaterial(r.getIdMaterial()), r.getCantidadMaterial() });
+		}
+
+		Tablas.ajustarColumnas(tblReparaciones);
+	}
+
+	public static void botones(boolean estado) {
+		btnVolver.setEnabled(estado);
+		btnEditar.setEnabled(estado);
+
+		bloqueado = !estado;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ListaFacturas lf = new ListaFacturas();
-		lf.setVisible(true);
+		Object o = e.getSource();
 
-		this.dispose();
+		if (o == btnEditar) {
+			EditarFactura ef = new EditarFactura();
+			boolean nueva = false;
+			ef.cargarDatos(factura, nueva);
+			ef.setVisible(true);
+
+			this.dispose();
+		} else if (o == btnVolver) {
+			alReparaciones.clear();
+
+			ListaFacturas lf = new ListaFacturas();
+			lf.setVisible(true);
+
+			this.dispose();
+		}
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		Salir.general(this);
+		if (bloqueado) {
+			Salir.errorBloqueado();
+		} else {
+			Salir.general(this);
+		}
 	}
 
 	@Override

@@ -56,6 +56,20 @@ public class Orden implements Comparable<Orden>, Serializable {
 	/**
 	 * orden primaria personalizado
 	 */
+	public Orden(String codigo, String matricula) {
+		this.codigo = codigo;
+		
+		this.matricula = matricula;
+	}
+	
+	public Orden(String codigo, int horas, Fecha fechaFin) {
+		this.codigo = codigo;
+		
+		this.fechaFin = new Fecha(fechaFin);
+		
+		this.horas = horas;
+	}
+	
 	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, Fecha fechaInicio) {
 		this.codigo = codigo;
 		this.comentarios = comentario;
@@ -65,14 +79,6 @@ public class Orden implements Comparable<Orden>, Serializable {
 
 		this.matricula = matricula;
 		this.empleado = dniEmpleado;
-	}
-
-	public Orden(String codigo, int horas, Fecha fechaFin) {
-		this.codigo = codigo;
-
-		this.fechaFin = new Fecha(fechaFin);
-
-		this.horas = horas;
 	}
 
 	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, int horas, Fecha fechaInicio,

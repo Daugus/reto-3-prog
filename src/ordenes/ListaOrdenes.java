@@ -45,9 +45,9 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	ArrayList<Orden> alOrdenes;
 	TableRowSorter<TableModel> sorter;
 
-	JRadioButton rdbActivas;
-
 	private static Orden orden;
+
+	private JRadioButton rdbActivas;
 	private JRadioButton rdbFinalizadas;
 	private JRadioButton rdbTodas;
 
@@ -175,15 +175,15 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
 
-		btnVolver.setForeground(Inicio.colorFuenteObjetos);
-		btnCargar.setForeground(Inicio.colorFuenteObjetos);
-
 		// - fuente -
 		tblOrdenes.setForeground(Inicio.colorFuenteObjetos);
 
 		rdbActivas.setForeground(Inicio.colorFuente);
 		rdbFinalizadas.setForeground(Inicio.colorFuente);
 		rdbTodas.setForeground(Inicio.colorFuente);
+		
+		btnVolver.setForeground(Inicio.colorFuenteObjetos);
+		btnCargar.setForeground(Inicio.colorFuenteObjetos);
 
 		// ===== filtrar tabla =====
 		if (Inicio.empleadoActual.getTipo().equals("Mecanico")) {
@@ -196,10 +196,12 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	}
 
 	private void filtrarOrdenes() {
+		int columna = 4;
+
 		if (rdbActivas.isSelected()) {
-			sorter.setRowFilter(RowFilter.regexFilter("-", 4));
+			sorter.setRowFilter(RowFilter.regexFilter("-", columna));
 		} else if (rdbFinalizadas.isSelected()) {
-			sorter.setRowFilter(RowFilter.regexFilter("[^-]", 4));
+			sorter.setRowFilter(RowFilter.regexFilter("[^-]", columna));
 		} else {
 			sorter.setRowFilter(null);
 		}
@@ -210,11 +212,11 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		Object o = e.getSource();
 
 		if (o == btnCargar) {
-			int row = tblOrdenes.convertRowIndexToModel(tblOrdenes.getSelectedRow());
+			int row = tblOrdenes.getSelectedRow();
 			if (row >= 0) {
-				orden = alOrdenes.get(row);
+				int absRow = tblOrdenes.convertRowIndexToModel(row);
+				orden = alOrdenes.get(absRow);
 
-//				boolean facturaPagada = Datos.comprobarPagoOrden(orden.getCodigo());
 				Factura factura = Datos.cargarFactura(orden.getCodigo());
 				boolean ordenFinalizada = orden.getFechaFin() != null;
 				String mostrar = "mostrar";
@@ -224,20 +226,24 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 //					mostrar = "mostrar";
 //				}
 
-				if (factura != null) {
-					if (!factura.isPagada()) {
-						if (ordenFinalizada && !Inicio.empleadoActual.getTipo().equals("Mecanico")) {
-							mostrar = "generar";
-						}
+				boolean nueva = true;
 
-						if (!ordenFinalizada && Inicio.empleadoActual.getTipo().equals("Mecanico")) {
-							mostrar = "finalizar";
-						}
+				if (factura == null) {
+					if (ordenFinalizada && !Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+						mostrar = "generar";
 					}
+
+					if (!ordenFinalizada && Inicio.empleadoActual.getTipo().equals("Mecanico")) {
+						mostrar = "finalizar";
+					}
+				} else {
+					nueva = false;
 				}
 
 				MostrarOrden mo = new MostrarOrden(mostrar);
 				mo.cargarDatos(orden);
+
+				mo.setNueva(nueva);
 
 				mo.setVisible(true);
 

@@ -1,6 +1,7 @@
 package ordenes;
 
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -27,7 +28,7 @@ import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 
-public class GenerarFactura extends JFrame implements ActionListener, WindowListener, FocusListener {
+public class EditarFactura extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = -3097458972006921427L;
 
 	private JPanel panelPrincipal;
@@ -45,7 +46,7 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 	private boolean edicion = false;
 
-	public GenerarFactura() {
+	public EditarFactura() {
 		setResizable(false);
 		setTitle("Generar factura | " + Inicio.empleadoActual.getNombre());
 
@@ -110,6 +111,12 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		btnCancelar.addActionListener(this);
 		btnGenerar.addActionListener(this);
 
+		// --- Focus ---
+		txtDescuento.addFocusListener(this);
+
+		// --- Item ---
+		chkPagada.addActionListener(this);
+
 		// ===== ajustes de usuario =====
 		// --- fuente ---
 		lblMetodoPago.setFont(Inicio.fuente);
@@ -142,71 +149,80 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
 		btnGenerar.setForeground(Inicio.colorFuenteObjetos);
-		
+
 		// ===== valores por defecto ======
 		txtDescuento.setText("0");
 	}
 
-	public void cargarDatos(Orden o, boolean nueva) {
-		idOrden = o.getCodigo();
+	public void cargarDatos(Object of, boolean nueva) {
+		if (nueva) {
+			idOrden = ((Orden) of).getCodigo();
+		} else {
+			setTitle("Editar factura");
 
-		if (!nueva) {
 			edicion = true;
 
-			factura = Datos.cargarFactura(idOrden);
+			factura = (Factura) of;
 
 			chkPagada.setSelected(factura.isPagada());
+			cmbMetodoPago.setEnabled(chkPagada.isSelected());
+			txtDescuento.setEnabled(chkPagada.isSelected());
 
 			if (factura.getMetodoPago() != null) {
 				cmbMetodoPago.setSelectedItem(factura.getMetodoPago());
 			}
 
-			if (Double.valueOf(factura.getDescuento()) != null) {
-				txtDescuento.setText(String.valueOf(factura.getDescuento()));
-			}
+			txtDescuento.setText(String.valueOf(factura.getDescuento()));
 		}
 	}
 
 	private boolean guardar() {
 		boolean pagada = chkPagada.isSelected();
+
+		String idFactura = Datos.generarCodigoFactura();
 		Fecha fecha = new Fecha();
 
-		if (edicion) {
+		if (pagada) {
+			try {
+				String metodoPago = (String) cmbMetodoPago.getSelectedItem();
+				int descuento = Integer.parseInt(txtDescuento.getText());
 
-		} else {
-			String idFactura = Datos.generarCodigoFactura();
-
-			if (pagada) {
-				try {
-					String metodoPago = (String) cmbMetodoPago.getSelectedItem();
-					int descuento = Integer.parseInt(txtDescuento.getText());
-
-					if (descuento < 0) {
-						JOptionPane.showMessageDialog(this,
-								(String) "Campo de descuento inválido, el descuento no puede ser menor que 0", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-						return false;
-					}
-
-					if (descuento > 99) {
-						JOptionPane.showMessageDialog(this,
-								(String) "Campo de descuento inválido, el descuento no puede ser mayor que 99", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-						return false;
-					}
-
-					Datos.guardarFactura(new Factura(idFactura, idOrden, metodoPago, pagada, descuento, fecha), false);
-
-					return true;
-				} catch (NumberFormatException nfe) {
-					JOptionPane.showMessageDialog(this, (String) "Formato de descuento inválido", "ERROR",
+				if (descuento < 0) {
+					JOptionPane.showMessageDialog(this,
+							(String) "Campo de descuento inválido, el descuento no puede ser menor que 0", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
+					return false;
 				}
-			} else {
-				Datos.guardarFactura(new Factura(idFactura, idOrden, pagada, fecha), false);
-				
+
+				if (descuento > 99) {
+					JOptionPane.showMessageDialog(this,
+							(String) "Campo de descuento inválido, el descuento no puede ser mayor que 99", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
+
+				if (edicion) {
+					Datos.guardarFactura(new Factura(factura.getCodigo(), factura.getCodigoOrden(), metodoPago, pagada,
+							descuento, fecha), edicion);
+				} else {
+					Datos.guardarFactura(new Factura(idFactura, idOrden, metodoPago, pagada, descuento, fecha),
+							edicion);
+				}
+
 				return true;
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(this, (String) "Formato de descuento inválido", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
 			}
+		} else {
+			if (edicion) {
+				Datos.guardarFactura(new Factura(factura.getCodigo(), factura.getCodigoOrden(), pagada, fecha),
+						edicion);
+			} else {
+				Datos.guardarFactura(new Factura(idFactura, idOrden, pagada, fecha), edicion);
+			}
+
+			return true;
 		}
 
 		return false;
@@ -215,6 +231,13 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
+
+		if (o == chkPagada) {
+			cmbMetodoPago.setEnabled(chkPagada.isSelected());
+			txtDescuento.setEnabled(chkPagada.isSelected());
+
+			return;
+		}
 
 		int guardar = JOptionPane.YES_OPTION;
 		if (o == btnCancelar) {
@@ -228,8 +251,15 @@ public class GenerarFactura extends JFrame implements ActionListener, WindowList
 		}
 
 		if (guardar == JOptionPane.NO_OPTION || valido) {
-			ListaOrdenes lo = new ListaOrdenes();
-			lo.setVisible(true);
+			Frame lista;
+
+			if (edicion) {
+				lista = new ListaFacturas();
+			} else {
+				lista = new ListaOrdenes();
+			}
+
+			lista.setVisible(true);
 
 			this.dispose();
 		}
