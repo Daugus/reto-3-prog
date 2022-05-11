@@ -36,10 +36,9 @@ public class Datos {
 	private static String logs = raiz + "Logs\\";
 	private static String ajustes = raiz + "Ajustes\\";
 
-	// TODO: cambiar a 192.168.220.220, g1, Inf662
-	private static String ruta = "jdbc:mysql://localhost/reto3";
-	private static String usr = "root";
-	private static String pass = "";
+	private static String ruta = "jdbc:mysql://192.168.220.220/reto3";
+	private static String usr = "g1";
+	private static String pass = "Inf662";
 
 	// ===== crear carpetas en caso de que no existan =====
 	public static void crearCarpetas() {
