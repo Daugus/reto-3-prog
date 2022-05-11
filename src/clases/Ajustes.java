@@ -18,11 +18,6 @@ public class Ajustes implements Serializable {
 
 	private boolean temaOscuro;
 	private String fuente;
-//	private String fuenteObjetos;
-//	private Color colorFondo;
-//	private Color colorFondoObjetos;
-//	private Color colorFuente;
-//	private Color colorFuenteObjetos;
 
 	// ===== constructores =====
 	/**
@@ -32,7 +27,6 @@ public class Ajustes implements Serializable {
 		dniEmpleado = "";
 
 		fuente = "Segoe UI";
-//		fuenteObjetos = "Segoe UI";
 
 		temaOscuro = true;
 	}
@@ -43,23 +37,15 @@ public class Ajustes implements Serializable {
 	public Ajustes(Ajustes other) {
 		this.dniEmpleado = other.dniEmpleado;
 		this.fuente = other.fuente;
-//		this.fuenteObjetos = other.fuenteObjetos;
 
 		this.temaOscuro = other.temaOscuro;
 	}
 
 	// --- personalizado ---
-	/**
-	 * constructor personalizado
-	 * 
-	 * @param fo  {@code true} si el tema es oscuro; {@code false} si es claro
-	 * @param fu: nombre de la fuente
-	 */
 	public Ajustes(String dniEmpleado, boolean fo, String fu) {
 		this.dniEmpleado = dniEmpleado;
 
 		fuente = fu;
-//		fuenteObjetos = fu;
 
 		if (fo) {
 			temaOscuro = true;
@@ -124,20 +110,7 @@ public class Ajustes implements Serializable {
 	public String getDniEmpleado() {
 		return dniEmpleado;
 	}
-
-	/**
-	 * devuelve el valor de tema
-	 * 
-	 * @return el valor de tema
-	 */
-	public boolean isTemaOscuro() {
-		return temaOscuro;
-	}
 	
-	public String getFamiliaFuente() {
-		return fuente;
-	}
-
 	/**
 	 * establece el valor de tema
 	 * 
@@ -148,12 +121,12 @@ public class Ajustes implements Serializable {
 	}
 
 	/**
-	 * devuelve el valor de fuente
+	 * devuelve el valor de tema
 	 * 
-	 * @return el valor de fuente
+	 * @return el valor de tema
 	 */
-	public Font getFuente() {
-		return new Font(fuente, Font.PLAIN, 13);
+	public boolean isTemaOscuro() {
+		return temaOscuro;
 	}
 
 	/**
@@ -161,8 +134,21 @@ public class Ajustes implements Serializable {
 	 * 
 	 * @param fuente
 	 */
-	public void setFuente(String fuente) {
+	public void setFamiliaFuente(String fuente) {
 		this.fuente = fuente;
+	}
+	
+	public String getFamiliaFuente() {
+		return fuente;
+	}
+
+	/**
+	 * devuelve el valor de fuente
+	 * 
+	 * @return el valor de fuente
+	 */
+	public Font getFuente() {
+		return new Font(fuente, Font.PLAIN, 13);
 	}
 
 	/**

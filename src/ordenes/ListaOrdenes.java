@@ -42,8 +42,8 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	private JButton btnVolver;
 	private JButton btnCargar;
 
-	ArrayList<Orden> alOrdenes;
-	TableRowSorter<TableModel> sorter;
+	private ArrayList<Orden> alOrdenes;
+	private TableRowSorter<TableModel> sorter;
 
 	private static Orden orden;
 

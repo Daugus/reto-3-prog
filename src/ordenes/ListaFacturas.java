@@ -41,7 +41,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 	private JButton btnCargar;
 
 	private ArrayList<Factura> alFacturas;
-	TableRowSorter<TableModel> sorter;
+	private TableRowSorter<TableModel> sorter;
 
 	private static Factura factura;
 

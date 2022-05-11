@@ -794,7 +794,7 @@ public class Datos {
 		if (aBusqueda == null) {
 			em.persist(a);
 		} else {
-			aBusqueda.setFuente(a.getFamiliaFuente());
+			aBusqueda.setFamiliaFuente(a.getFamiliaFuente());
 			aBusqueda.setTemaOscuro(a.isTemaOscuro());
 		}
 

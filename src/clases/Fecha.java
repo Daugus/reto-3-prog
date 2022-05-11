@@ -31,12 +31,6 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 		this.year = other.year;
 	}
 
-	public Fecha(int a) {
-		day = 1;
-		month = 1;
-		year = a;
-	}
-
 	/**
 	 * fecha que se le pasan parametros, si le pasan datos imcorrecctos difiene unos
 	 * por defecto
@@ -200,19 +194,6 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de dia pasando int dia como parametro
-	 * 
-	 * @param d tipo int
-	 */
-	public void setDay(int d) {
-		if (d < 1) {
-			day = 1;
-		} else {
-			bisiesto(d, month, year);
-		}
-	}
-
-	/**
 	 * acceso a mes
 	 * 
 	 * @return month
@@ -222,37 +203,11 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de mes pasando int mes como parametro
-	 * 
-	 * @param m tipo int
-	 */
-	public void setMonth(int m) {
-		if (m < 1) {
-			month = 1;
-		} else if (m > 12) {
-			month = 12;
-		} else {
-			month = m;
-		}
-
-		bisiesto(day, m, year);
-	}
-
-	/**
 	 * acceso al año
 	 * 
 	 * @return year
 	 */
 	public int getYear() {
 		return year;
-	}
-
-	/**
-	 * modifica el valor de año pasando año como parametro
-	 * 
-	 * @param a tipo int
-	 */
-	public void setYear(int a) {
-		year = a;
 	}
 }

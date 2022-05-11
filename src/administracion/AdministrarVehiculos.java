@@ -32,7 +32,7 @@ public class AdministrarVehiculos extends JFrame implements ActionListener, Wind
 
 	private JPanel panelPrincipal;
 
-	public static JTable tblVehiculos;
+	private static JTable tblVehiculos;
 
 	private static JButton btnVolver;
 	private static JButton btnEditar;

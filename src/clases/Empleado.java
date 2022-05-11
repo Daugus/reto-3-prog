@@ -7,13 +7,18 @@ public class Empleado extends Persona {
 
 	// ===== propiedades =====
 	private Ajustes ajustes;
+
 	private String dniJefe;
+
 	private double salario;
 	private double comision;
+	
 	private Fecha fechaNacimiento;
-	private String tipo;
 	private Fecha fechaAlta;
+	
+	private String tipo;
 	private String password;
+	
 	private boolean activo;
 
 	// ===== constructores =====
@@ -53,23 +58,6 @@ public class Empleado extends Persona {
 	}
 
 	// --- personalizados ---
-	// persona por defecto
-	public Empleado(Ajustes ajustes, String jefe, String password, double salario, double comision, Fecha fn, String tipo,
-			Fecha fa, boolean activo) {
-		super();
-
-		this.ajustes = new Ajustes(ajustes);
-		this.dniJefe = jefe;
-		this.password = password;
-		this.salario = salario;
-		this.comision = comision;
-		this.fechaNacimiento = new Fecha(fn);
-		this.tipo = tipo;
-		this.fechaAlta = new Fecha(fa);
-		this.activo = activo;
-	}
-
-	// personalizado
 	public Empleado(String dni, String nombre, String apellidos, String telefono, String email, String dir,
 			Ajustes ajustes, String jefe, String password, double sal, double com, Fecha fn, String tipo, Fecha fa,
 			boolean act) {
@@ -140,63 +128,31 @@ public class Empleado extends Persona {
 		return dniJefe;
 	}
 
-	public void setDniJefe(String dniJefe) {
-		this.dniJefe = dniJefe;
-	}
-
 	public double getSalario() {
 		return salario;
-	}
-
-	public void setSalario(double salario) {
-		this.salario = salario;
 	}
 
 	public double getComision() {
 		return comision;
 	}
 
-	public void setComision(double comision) {
-		this.comision = comision;
-	}
-
 	public Fecha getFechaNacimiento() {
 		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Fecha fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	public Fecha getFechaAlta() {
 		return fechaAlta;
-	}
-
-	public void setFechaAlta(Fecha fechaAlta) {
-		this.fechaAlta = fechaAlta;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public boolean isActivo() {
 		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
 	}
 }

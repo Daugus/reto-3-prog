@@ -37,21 +37,6 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 		activo = true;
 	}
 
-	/**
-	 * constructor copia
-	 */
-	public Reparacion(Reparacion other) {
-		this.codigo = other.codigo;
-		this.descripcion = other.descripcion;
-
-		this.precio = other.precio;
-		this.horas = other.horas;
-
-		this.idMaterial = other.idMaterial;
-		this.cantidadMaterial = other.cantidadMaterial;
-
-		this.activo = other.activo;
-	}
 
 	public Reparacion(String codigo, String descripcion, double precio, String idMaterial, int cantidadMaterial,
 			boolean activo) {
@@ -140,55 +125,27 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 		return codigo;
 	}
 
-	public void setCodigo(String codReparacion) {
-		this.codigo = codReparacion;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public boolean getActivo() {
 		return activo;
 	}
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
-
 	public double getPrecio() {
 		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
 	}
 
 	public String getIdMaterial() {
 		return idMaterial;
 	}
 
-	public void setIdMaterial(String idMaterial) {
-		this.idMaterial = idMaterial;
-	}
-
 	public int getCantidadMaterial() {
 		return cantidadMaterial;
 	}
 
-	public void setCantidadMaterial(int cantidadMaterial) {
-		this.cantidadMaterial = cantidadMaterial;
-	}
-
 	public int getHoras() {
-		return cantidadMaterial;
-	}
-
-	public void setHoras(int horas) {
-		this.horas = horas;
+		return horas;
 	}
 }

@@ -8,11 +8,14 @@ public class Material implements Comparable<Material>, Serializable {
 
 	// ===== propiedades =====
 	private String id;
+
 	private String marca;
 	private String nombre;
+	
 	private int stock;
 	private double pvp;
 	private double precioCompra;
+	
 	private boolean activo;
 
 	// ===== constructores =====
@@ -27,19 +30,6 @@ public class Material implements Comparable<Material>, Serializable {
 		pvp = 1.0;
 		precioCompra = 1.0;
 		activo = true;
-	}
-
-	/**
-	 * constructor copia
-	 */
-	public Material(Material m) {
-		this.id = m.id;
-		this.marca = m.marca;
-		this.nombre = m.nombre;
-		this.stock = m.stock;
-		this.pvp = m.pvp;
-		this.precioCompra = m.precioCompra;
-		this.activo = m.activo;
 	}
 
 	// --- personalizados ---
@@ -124,55 +114,27 @@ public class Material implements Comparable<Material>, Serializable {
 		return id;
 	}
 
-	public void setID(String id) {
-		this.id = id;
-	}
-
 	public String getMarca() {
 		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public int getStock() {
 		return stock;
-	}
-
-	public void setNombre(int stock) {
-		this.stock = stock;
 	}
 
 	public double getPVP() {
 		return pvp;
 	}
 
-	public void setPVP(double pvp) {
-		this.pvp = pvp;
-	}
-
 	public double getPrecioCompra() {
 		return precioCompra;
 	}
 
-	public void setPrecioCompra(double precioCompra) {
-		this.precioCompra = precioCompra;
-	}
-
 	public boolean isActivo() {
 		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
 	}
 }

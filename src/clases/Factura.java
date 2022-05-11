@@ -9,9 +9,11 @@ public class Factura implements Comparable<Factura>, Serializable {
 	// ===== propiedades =====
 	private String codigo;
 	private String codigoOrden;
+
 	private String metodoPago;
 	private boolean pagada;
 	private int descuento;
+	
 	private Fecha fecha;
 
 	// ===== constructores =====
@@ -94,47 +96,23 @@ public class Factura implements Comparable<Factura>, Serializable {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getCodigoOrden() {
 		return codigoOrden;
-	}
-
-	public void setCodigoOrden(String codigoOrden) {
-		this.codigoOrden = codigoOrden;
 	}
 
 	public String getMetodoPago() {
 		return metodoPago;
 	}
 
-	public void setMetodoPago(String metodoPago) {
-		this.metodoPago = metodoPago;
-	}
-
 	public boolean isPagada() {
 		return pagada;
-	}
-
-	public void setPagada(boolean pagada) {
-		this.pagada = pagada;
 	}
 
 	public int getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(int descuento) {
-		this.descuento = descuento;
-	}
-
 	public Fecha getFecha() {
 		return fecha;
-	}
-
-	public void setFecha(Fecha fecha) {
-		this.fecha = fecha;
 	}
 }

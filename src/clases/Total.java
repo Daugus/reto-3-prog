@@ -6,9 +6,12 @@ public class Total {
 
 	private double costeReparaciones;
 	private double costeMateriales;
+
 	private double descuento;
 	private double subtotal;
+	
 	private double costeIVA;
+	
 	private double total;
 
 	// ===== constructor =====

@@ -27,7 +27,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
 
-	public JButton btnAcceder;
+	private JButton btnAcceder;
 
 	private JPasswordField pwdPassword;
 	private JTextField txtDNI;

@@ -164,30 +164,12 @@ public class Orden implements Comparable<Orden>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de codigo pasando String como parametro
-	 * 
-	 * @param codOrdenPrim tipo boolean
-	 */
-	public void setCodigo(String codOrdenPrim) {
-		this.codigo = codOrdenPrim;
-	}
-
-	/**
 	 * acceso a comentarios
 	 * 
 	 * @return comentarios tipo String
 	 */
 	public String getComentarios() {
 		return comentarios;
-	}
-
-	/**
-	 * modifica el valor de comentarios pasando String como parametro
-	 * 
-	 * @param comentarios tipo String
-	 */
-	public void setComentarios(String comentarios) {
-		this.comentarios = comentarios;
 	}
 
 	/**
@@ -200,30 +182,12 @@ public class Orden implements Comparable<Orden>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de fecha pasando Fecha como parametro
-	 * 
-	 * @param fechaEntrada tipo Fecha
-	 */
-	public void setFechaInicio(Fecha fechaEntrada) {
-		this.fechaInicio = fechaEntrada;
-	}
-
-	/**
 	 * acceso a fecha
 	 * 
 	 * @return fecha
 	 */
 	public Fecha getFechaFin() {
 		return fechaFin;
-	}
-
-	/**
-	 * modifica el valor de fecha pasando Fecha como parametro
-	 * 
-	 * @param fechaEntrada tipo Fecha
-	 */
-	public void setFechaFin(Fecha fechaSalida) {
-		this.fechaFin = fechaSalida;
 	}
 
 	/**
@@ -236,15 +200,6 @@ public class Orden implements Comparable<Orden>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de vehiculo pasando String como parametro
-	 * 
-	 * @param vehiculo tipo String
-	 */
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-	/**
 	 * acceso a empleado
 	 * 
 	 * @return empleado tipo String
@@ -254,29 +209,11 @@ public class Orden implements Comparable<Orden>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de empleado pasando String como parametro
-	 * 
-	 * @param empleado tipo String
-	 */
-	public void setEmpleado(String empleado) {
-		this.empleado = empleado;
-	}
-
-	/**
 	 * acceso a las horas empleadas
 	 * 
 	 * @return horas tipo int
 	 */
 	public int getTiempoHoras() {
 		return horas;
-	}
-
-	/**
-	 * modifica el valor de las horas pasando int como parametro
-	 * 
-	 * @param tiempoHoras tipo int
-	 */
-	public void setTiempoHoras(int tiempoHoras) {
-		this.horas = tiempoHoras;
 	}
 }

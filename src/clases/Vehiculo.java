@@ -39,24 +39,6 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		tipo = "";
 	}
 
-	/**
-	 * constructor copia
-	 */
-	public Vehiculo(Vehiculo other) {
-		this.matricula = other.matricula;
-		this.bastidor = other.bastidor;
-		this.propietario = other.propietario;
-
-		this.marca = other.marca;
-		this.modelo = other.modelo;
-
-		this.activo = other.activo;
-
-		this.fechaFabricacion = other.fechaFabricacion;
-
-		this.tipo = other.tipo;
-	}
-
 	// --- personalizados ---
 	/**
 	 * vehículo en blanco, usado para agregar los vehículos de un cliente nuevo
@@ -79,11 +61,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		tipo = "";
 	}
 
-	public Vehiculo(String matricula,
-			String bastidor, String propietario,
-			String marca, String modelo,
-			Fecha fechaFabricacion, String tipo,
-			boolean activo) {
+	public Vehiculo(String matricula, String bastidor, String propietario, String marca, String modelo,
+			Fecha fechaFabricacion, String tipo, boolean activo) {
 		this.matricula = matricula;
 		this.bastidor = bastidor;
 		this.propietario = propietario;
@@ -167,30 +146,12 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de tema matricula String como parametro
-	 * 
-	 * @param m tipo String
-	 */
-	public void setMatricula(String m) {
-		matricula = m;
-	}
-
-	/**
 	 * acceso a bastidor
 	 * 
 	 * @return bastidor tipo String
 	 */
 	public String getBastidor() {
 		return bastidor;
-	}
-
-	/**
-	 * modifica el valor de bastidor pasando String como parametro
-	 * 
-	 * @param b tipo String
-	 */
-	public void setBastidor(String b) {
-		bastidor = b;
 	}
 
 	/**
@@ -203,30 +164,12 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de modelo pasando String como parametro
-	 * 
-	 * @param m tipo String
-	 */
-	public void setModelo(String m) {
-		modelo = m;
-	}
-
-	/**
 	 * acceso a marca
 	 * 
 	 * @return marca
 	 */
 	public String getMarca() {
 		return marca;
-	}
-
-	/**
-	 * modifica el valor de marca pasando String como parametro
-	 * 
-	 * @param m tipo String
-	 */
-	public void setMarca(String m) {
-		marca = m;
 	}
 
 	/**
@@ -238,22 +181,8 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		return fechaFabricacion;
 	}
 
-	/**
-	 * modifica el valor de fechaFabricacion pasando de la calse Fecha como
-	 * parametro
-	 * 
-	 * @param itv tipo Fecha
-	 */
-	public void setFechaFabricacion(Fecha fechFab) {
-		fechaFabricacion = fechFab;
-	}
-
 	public boolean isActivo() {
 		return activo;
-	}
-
-	public void setActivo(boolean a) {
-		activo = a;
 	}
 
 	/**
@@ -266,29 +195,11 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	}
 
 	/**
-	 * modifica el valor de tipo pasando String como parametro
-	 * 
-	 * @param t tipo String
-	 */
-	public void setTipo(String t) {
-		tipo = t;
-	}
-
-	/**
 	 * acceso a propietario
 	 * 
 	 * @return propietario
 	 */
 	public String getPropietario() {
 		return propietario;
-	}
-
-	/**
-	 * modifica el valor de propietario pasando String como parametro
-	 * 
-	 * @param p tipo String
-	 */
-	public void setPropietario(String p) {
-		propietario = p;
 	}
 }

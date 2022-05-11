@@ -47,10 +47,6 @@ public class Log {
 		}
 	}
 
-	private static void orden(String mensaje) {
-		grabar(ordenes, mensaje, false);
-	}
-
 	// --- individuales ---
 	// - guardado -
 	public static void material(String cod) {
@@ -73,14 +69,6 @@ public class Log {
 		grabar(cuentas, "se han cambiado los ajustes de " + cod, false);
 	}
 
-	public static void primaria(String cod) {
-		grabar(ordenes, "se ha guardado la orden primaria " + cod, false);
-	}
-
-	public static void pendiente(String cod) {
-		grabar(ordenes, "se ha guardado la orden pendiente " + cod, false);
-	}
-
 	public static void factura(String cod) {
 		grabar(ordenes, "se ha guardado la factura " + cod, false);
 	}
@@ -99,14 +87,5 @@ public class Log {
 	// - errores -
 	public static void error(String err) {
 		grabar(error, err, true);
-	}
-
-	// - borrado -
-	public static void borrarPrimaria(String cod) {
-		orden("se ha borrado la orden primaria " + cod);
-	}
-
-	public static void borrarPendiente(String cod) {
-		orden("se ha borrado la orden pendiente " + cod);
 	}
 }

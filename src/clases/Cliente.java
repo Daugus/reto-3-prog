@@ -20,18 +20,9 @@ public class Cliente extends Persona {
 		fechaAlta = new Fecha();
 	}
 
-	/**
-	 * constructor copia
-	 */
-	public Cliente(Cliente other) {
-		super(other);
-
-		activo = other.activo;
-		fechaAlta = new Fecha(other.fechaAlta);
-	}
-
 	// --- personalizados ---
-	public Cliente(String dni, String nombre,
+	public Cliente(String dni,
+			String nombre,
 			String apellidos, String telefono,
 			String email, String dir, Fecha fa,
 			boolean act) {
@@ -82,19 +73,6 @@ public class Cliente extends Persona {
 	 */
 	public Fecha getFechaAlta() {
 		return fechaAlta;
-	}
-
-	/**
-	 * modifica el valor de fechaAlta pasando tema como parametro
-	 * 
-	 * @param fechaAlta
-	 */
-	public void setFechaAlta(Fecha fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
 	}
 
 	public boolean isActivo() {
