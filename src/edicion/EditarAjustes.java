@@ -128,7 +128,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 
 	private void cargarAjustes() {
 		String tema = null;
-		if (Inicio.empleadoActual.getAjustes().temaOscuro()) {
+		if (Inicio.empleadoActual.getAjustes().isTemaOscuro()) {
 			tema = "Oscuro";
 		} else {
 			tema = "Claro";
@@ -151,7 +151,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 			temaOscuro = false;
 		}
 
-		Datos.guardarAjustes(new Ajustes(temaOscuro, fuente));
+		Datos.guardarAjustes(new Ajustes(Inicio.empleadoActual.getDNI(), temaOscuro, fuente));
 
 		Datos.cargarAjustes(Inicio.empleadoActual.getDNI(), false);
 	}

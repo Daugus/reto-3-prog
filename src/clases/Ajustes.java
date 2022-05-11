@@ -5,45 +5,47 @@ import java.awt.Font;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ajustes implements Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
 
 	// ===== propiedades =====
-	private boolean tema;
-	private Font fuente;
-	private Font fuenteObjetos;
-	private Color colorFondo;
-	private Color colorFondoObjetos;
-	private Color colorFuente;
-	private Color colorFuenteObjetos;
+	@Id
+	private String dniEmpleado;
+
+	private boolean temaOscuro;
+	private String fuente;
+//	private String fuenteObjetos;
+//	private Color colorFondo;
+//	private Color colorFondoObjetos;
+//	private Color colorFuente;
+//	private Color colorFuenteObjetos;
 
 	// ===== constructores =====
 	/**
 	 * constructor por defecto
 	 */
 	public Ajustes() {
-		fuente = new Font("Segoe UI", Font.PLAIN, 13);
-		fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
+		dniEmpleado = "";
 
-		tema = true;
-		colorFondo = Color.DARK_GRAY;
-		colorFondoObjetos = Color.LIGHT_GRAY;
-		colorFuente = Color.WHITE;
-		colorFuenteObjetos = Color.BLACK;
+		fuente = "Segoe UI";
+//		fuenteObjetos = "Segoe UI";
+
+		temaOscuro = true;
 	}
 
 	/**
 	 * constructor copia
 	 */
 	public Ajustes(Ajustes other) {
+		this.dniEmpleado = other.dniEmpleado;
 		this.fuente = other.fuente;
-		this.fuenteObjetos = other.fuenteObjetos;
+//		this.fuenteObjetos = other.fuenteObjetos;
 
-		this.tema = other.tema;
-		this.colorFondo = other.colorFondo;
-		this.colorFondoObjetos = other.colorFondoObjetos;
-		this.colorFuente = other.colorFuente;
-		this.colorFuenteObjetos = other.colorFuenteObjetos;
+		this.temaOscuro = other.temaOscuro;
 	}
 
 	// --- personalizado ---
@@ -53,22 +55,16 @@ public class Ajustes implements Serializable {
 	 * @param fo  {@code true} si el tema es oscuro; {@code false} si es claro
 	 * @param fu: nombre de la fuente
 	 */
-	public Ajustes(boolean fo, String fu) {
-		fuente = new Font(fu, Font.PLAIN, 13);
-		fuenteObjetos = new Font(fu, Font.BOLD, 13);
+	public Ajustes(String dniEmpleado, boolean fo, String fu) {
+		this.dniEmpleado = dniEmpleado;
+
+		fuente = fu;
+//		fuenteObjetos = fu;
 
 		if (fo) {
-			tema = true;
-			colorFondo = Color.DARK_GRAY;
-			colorFondoObjetos = Color.LIGHT_GRAY;
-			colorFuente = Color.WHITE;
-			colorFuenteObjetos = Color.BLACK;
+			temaOscuro = true;
 		} else {
-			tema = false;
-			colorFondo = Color.LIGHT_GRAY;
-			colorFondoObjetos = Color.WHITE;
-			colorFuente = Color.BLACK;
-			colorFuenteObjetos = Color.BLACK;
+			temaOscuro = false;
 		}
 	}
 
@@ -81,13 +77,13 @@ public class Ajustes implements Serializable {
 	 */
 	public String toString() {
 		String nombreTema;
-		if (tema) {
+		if (temaOscuro) {
 			nombreTema = "Oscuro";
 		} else {
 			nombreTema = "Claro";
 		}
 
-		return "Tema: " + nombreTema + ", fuente " + fuente.getFamily();
+		return "DNI Empleado: " + dniEmpleado + ", tema: " + nombreTema + ", fuente " + fuente;
 	}
 
 	// --- comparación ---
@@ -98,8 +94,7 @@ public class Ajustes implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(colorFondo, colorFondoObjetos, colorFuente, colorFuenteObjetos, fuente, fuenteObjetos,
-				tema);
+		return Objects.hash(dniEmpleado, fuente, temaOscuro);
 	}
 
 	/**
@@ -117,21 +112,30 @@ public class Ajustes implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ajustes other = (Ajustes) obj;
-		return Objects.equals(colorFondo, other.colorFondo)
-				&& Objects.equals(colorFondoObjetos, other.colorFondoObjetos)
-				&& Objects.equals(colorFuente, other.colorFuente)
-				&& Objects.equals(colorFuenteObjetos, other.colorFuenteObjetos) && Objects.equals(fuente, other.fuente)
-				&& Objects.equals(fuenteObjetos, other.fuenteObjetos) && tema == other.tema;
+		return Objects.equals(dniEmpleado, other.dniEmpleado) && Objects.equals(fuente, other.fuente)
+				&& temaOscuro == other.temaOscuro;
 	}
 
 	// --- getters y setters ---
+	public void setDniEmpleado(String dniEmpleado) {
+		this.dniEmpleado = dniEmpleado;
+	}
+
+	public String getDniEmpleado() {
+		return dniEmpleado;
+	}
+
 	/**
 	 * devuelve el valor de tema
 	 * 
 	 * @return el valor de tema
 	 */
-	public boolean temaOscuro() {
-		return tema;
+	public boolean isTemaOscuro() {
+		return temaOscuro;
+	}
+	
+	public String getFamiliaFuente() {
+		return fuente;
 	}
 
 	/**
@@ -140,7 +144,7 @@ public class Ajustes implements Serializable {
 	 * @param valor booleano
 	 */
 	public void setTemaOscuro(boolean tema) {
-		this.tema = tema;
+		this.temaOscuro = tema;
 	}
 
 	/**
@@ -149,7 +153,7 @@ public class Ajustes implements Serializable {
 	 * @return el valor de fuente
 	 */
 	public Font getFuente() {
-		return fuente;
+		return new Font(fuente, Font.PLAIN, 13);
 	}
 
 	/**
@@ -157,7 +161,7 @@ public class Ajustes implements Serializable {
 	 * 
 	 * @param fuente
 	 */
-	public void setFuente(Font fuente) {
+	public void setFuente(String fuente) {
 		this.fuente = fuente;
 	}
 
@@ -167,16 +171,7 @@ public class Ajustes implements Serializable {
 	 * @return fuenteObjetos
 	 */
 	public Font getFuenteObjetos() {
-		return fuenteObjetos;
-	}
-
-	/**
-	 * modifica el valor de fuenteObjetos pasando tema como parametro
-	 * 
-	 * @param fuenteObjetos
-	 */
-	public void setFuenteObjetos(Font fuenteObjetos) {
-		this.fuenteObjetos = fuenteObjetos;
+		return new Font(fuente, Font.BOLD, 13);
 	}
 
 	/**
@@ -185,16 +180,10 @@ public class Ajustes implements Serializable {
 	 * @return colorFondo
 	 */
 	public Color getColorFondo() {
-		return colorFondo;
-	}
+		if (temaOscuro)
+			return Color.DARK_GRAY;
 
-	/**
-	 * modifica el valor de colorFondo pasando tema como parametro
-	 * 
-	 * @param colorFondo
-	 */
-	public void setColorFondo(Color colorFondo) {
-		this.colorFondo = colorFondo;
+		return Color.LIGHT_GRAY;
 	}
 
 	/**
@@ -203,16 +192,10 @@ public class Ajustes implements Serializable {
 	 * @return colorFondoObjetos
 	 */
 	public Color getColorFondoObjetos() {
-		return colorFondoObjetos;
-	}
+		if (temaOscuro)
+			return Color.LIGHT_GRAY;
 
-	/**
-	 * modifica el valor de colorFondoObjetos pasando tema como parametro
-	 * 
-	 * @param colorFondoObjetos
-	 */
-	public void setColorFondoObjetos(Color colorFondoObjetos) {
-		this.colorFondoObjetos = colorFondoObjetos;
+		return Color.WHITE;
 	}
 
 	/**
@@ -221,16 +204,10 @@ public class Ajustes implements Serializable {
 	 * @return colorFuente
 	 */
 	public Color getColorFuente() {
-		return colorFuente;
-	}
+		if (temaOscuro)
+			return Color.WHITE;
 
-	/**
-	 * modifica el valor de colorFuente pasando tema como parametro
-	 * 
-	 * @param colorFuente
-	 */
-	public void setColorFuente(Color colorFuente) {
-		this.colorFuente = colorFuente;
+		return Color.BLACK;
 	}
 
 	/**
@@ -239,15 +216,6 @@ public class Ajustes implements Serializable {
 	 * @return colorFuenteObjetos
 	 */
 	public Color getColorFuenteObjetos() {
-		return colorFuenteObjetos;
-	}
-
-	/**
-	 * modifica el valor de tema pasando colorFuenteObjetos como parametro
-	 * 
-	 * @param colorFuenteObjetos
-	 */
-	public void setColorFuenteObjetos(Color colorFuenteObjetos) {
-		this.colorFuenteObjetos = colorFuenteObjetos;
+		return Color.BLACK;
 	}
 }

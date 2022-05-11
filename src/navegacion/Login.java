@@ -20,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 import clases.Empleado;
-
 import funciones.Datos;
 import funciones.Log;
 
@@ -136,7 +135,6 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		try {
 			Inicio.empleadoActual = new Empleado(Datos.iniciarSesion(dni));
 
-			Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(dni, false));
 
 			if (!password.equals(Inicio.empleadoActual.getPassword())) {
 				// si la contraseña es incorrecta saca ventana de error
@@ -145,6 +143,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 
 				Log.error("Se introducido una contraseña incorrecta");
 			} else {
+				Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(dni, false));
 				Log.login();
 
 				JFrame menu = null;

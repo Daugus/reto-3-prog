@@ -16,7 +16,7 @@ public class Inicio {
 	public static Color colorFuenteObjetos = Color.BLACK;
 
 	public static void main(String[] args) {
-		Datos.crearCarpetas();
+		Datos.configuracion();
 
 		new Login().setVisible(true);
 	}

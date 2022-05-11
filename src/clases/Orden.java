@@ -10,13 +10,13 @@ public class Orden implements Comparable<Orden>, Serializable {
 	private String codigo;
 	private String comentarios;
 
-	private Fecha fechaInicio;
-	private Fecha fechaFin;
-
-	private int horas;
-
 	private String matricula;
 	private String empleado;
+	
+	private int horas;
+	
+	private Fecha fechaInicio;
+	private Fecha fechaFin;
 
 	// ===== constructores =====
 	/**

@@ -420,7 +420,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		cmbCuenta.setSelectedItem(empleado.getTipo());
 
 		if (empleado.getAjustes() != null) {
-			String tema = empleado.getAjustes().temaOscuro() ? "Oscuro" : "Claro";
+			String tema = empleado.getAjustes().isTemaOscuro() ? "Oscuro" : "Claro";
 			String fuente = empleado.getAjustes().getFuente().getFamily();
 
 			cmbTema.setSelectedItem(tema);
@@ -518,7 +518,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 			boolean temaOscuro = tema.equals("Oscuro") ? true : false;
 
 			Datos.guardarEmpleado(new Empleado(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
-					new Ajustes(temaOscuro, fuente), dniJefe, password, salario, comision, fechaNacimiento, tipo,
+					new Ajustes(dni, temaOscuro, fuente), dniJefe, password, salario, comision, fechaNacimiento, tipo,
 					fechaAlta, activo), edicion);
 
 			return true;

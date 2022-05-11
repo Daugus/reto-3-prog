@@ -3,19 +3,19 @@ package funciones;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import clases.Ajustes;
 import clases.Cliente;
@@ -31,33 +31,34 @@ import navegacion.Inicio;
 
 public class Datos {
 	// ===== rutas =====
-	private static String raiz = "C:\\RKA\\";
+	private static String logs = "C:\\RKA\\Logs\\";
 
-	private static String logs = raiz + "Logs\\";
-	private static String ajustes = raiz + "Ajustes\\";
-
-	private static String ruta = "jdbc:mysql://192.168.220.220/reto3";
+	// ===== configuración BBDD =====
+	// --- MariaDB ---
+	private static String rutaSQL = "jdbc:mysql://192.168.220.220/reto3";
 	private static String usr = "g1";
 	private static String pass = "Inf662";
 
-	// ===== crear carpetas en caso de que no existan =====
-	public static void crearCarpetas() {
-		ArrayList<String> directorios = new ArrayList<String>();
-		directorios.addAll(Arrays.asList(logs, ajustes));
+	// --- ObjectDB ---
+	private static String rutaObjectDB = "objectdb://192.168.220.220:6136/db/ajustes.odb";
+	private static Map<String, String> configObjectDB = new HashMap<String, String>();
 
-		File f;
-		for (int i = 0; i < directorios.size(); i++) {
-			f = new File(directorios.get(i));
-			if (!f.exists()) {
-				f.mkdirs();
-			}
-		}
+	// ===== configuración al iniciar =====
+	public static void configuracion() {
+		// --- configurar ObjectDB ---
+		configObjectDB.put("javax.persistence.jdbc.user", usr);
+		configObjectDB.put("javax.persistence.jdbc.password", pass);
+
+		// --- crear carpeta de logs ---
+		File f = new File(logs);
+		if (!f.exists())
+			f.mkdirs();
 	}
 
 	// ===== guardar =====
 	public static void guardarCliente(Cliente c, boolean edicion) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String estado = General.estadoAString(c.isActivo()).toLowerCase();
@@ -89,7 +90,7 @@ public class Datos {
 
 	public static void guardarEmpleado(Empleado c, boolean edicion) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String tipo = c.getTipo().replaceAll("Mecánico", "Mecanico");
@@ -126,7 +127,7 @@ public class Datos {
 
 	public static void guardarFactura(Factura f, boolean edicion) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String pagada = General.pagadaAString(f.isPagada());
@@ -161,7 +162,7 @@ public class Datos {
 
 	public static void guardarMaterial(Material m, boolean edicion) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String estado = General.estadoAString(m.isActivo()).toLowerCase();
@@ -190,7 +191,7 @@ public class Datos {
 
 	public static void guardarOrden(Orden o, boolean edicion) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String sentencia;
@@ -217,7 +218,7 @@ public class Datos {
 
 	public static void guardarReparaciones(ArrayList<Reparacion> alReparaciones, String idOrden) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			for (Reparacion r : alReparaciones) {
@@ -242,7 +243,7 @@ public class Datos {
 
 	public static void guardarVehiculo(Vehiculo v, boolean edicion) {
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
 			String estado = General.estadoAString(v.isActivo()).toLowerCase();
@@ -270,14 +271,32 @@ public class Datos {
 	}
 
 	// ===== borrar =====
-	// TODO
+//	public static void borrarFactura(Factura f) {
+//		try {
+//			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
+//			Statement st = conexion.createStatement();
+//
+//			Orden o = cargarOrden(f.getCodigoOrden(), false);
+//			String sentencia = String.format(
+//					"insert into reto3.ordenTrabajo (idOrden, matricula, dniEmple, fecInicio, descTrabajo) values('%s', '%s', '%s', '%s', '%s');",
+//					o.getCodigo(), o.getMatricula(), o.getEmpleado(), o.getFechaInicio().toSQLDate(),
+//					o.getComentarios());
+//
+//			st.executeUpdate(sentencia);
+//
+//			st.close();
+//			conexion.close();
+//		} catch (SQLException sqle) {
+//			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+//		}
+//	}
 
 	// ===== listar =====
 	public static ArrayList<String> listarClientes() {
 		ArrayList<String> alDNIs = new ArrayList<String>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select dniCliente from reto3.cliente where estado = 'activo'");
@@ -300,7 +319,7 @@ public class Datos {
 		ArrayList<String> alDNIs = new ArrayList<String>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery(
@@ -324,7 +343,7 @@ public class Datos {
 		ArrayList<Vehiculo> alMatriculas = new ArrayList<Vehiculo>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st
@@ -348,7 +367,7 @@ public class Datos {
 	public static Cliente cargarCliente(String dni) {
 		Cliente c = null;
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st
@@ -375,7 +394,7 @@ public class Datos {
 	public static Factura cargarFactura(String id) {
 		Factura f = null;
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			String sentencia = null;
@@ -405,17 +424,23 @@ public class Datos {
 		return f;
 	}
 
-	public static Orden cargarOrden(String codigo) {
+	public static Orden cargarOrden(String codigo, boolean mostrarFactura) {
 		Orden o = null;
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st
 					.executeQuery(String.format("select * from reto3.ordenTrabajo where idOrden like '%s';", codigo));
 
 			if (rs.next()) {
-				o = new Orden(rs.getString("idOrden"), rs.getString("matricula"));
+				if (mostrarFactura) {
+					o = new Orden(rs.getString("idOrden"), rs.getString("matricula"));
+				} else {
+					o = new Orden(new Orden(rs.getString("idOrden"), rs.getString("descTrabajo"),
+							rs.getString("matricula"), rs.getString("dniEmple"), rs.getInt("tiempoHoras"),
+							new Fecha(rs.getString("fecInicio")), new Fecha(rs.getString("fecFin"))));
+				}
 			}
 
 			rs.close();
@@ -432,7 +457,7 @@ public class Datos {
 		Vehiculo v = null;
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st
@@ -461,7 +486,7 @@ public class Datos {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from reto3.cliente");
@@ -488,7 +513,7 @@ public class Datos {
 		ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from reto3.empleado");
@@ -519,7 +544,7 @@ public class Datos {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from reto3.factura");
@@ -545,7 +570,7 @@ public class Datos {
 		ArrayList<Material> materiales = new ArrayList<Material>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			String sentencia = null;
@@ -579,7 +604,7 @@ public class Datos {
 		ArrayList<Orden> materiales = new ArrayList<Orden>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from reto3.ordenTrabajo");
@@ -609,7 +634,7 @@ public class Datos {
 		ArrayList<Reparacion> reparaciones = new ArrayList<Reparacion>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement stRequiere = conexion.createStatement();
 			ResultSet rsRequiere = stRequiere
@@ -646,7 +671,7 @@ public class Datos {
 		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from reto3.vehiculo");
@@ -673,7 +698,7 @@ public class Datos {
 	public static String generarCodigoFactura() {
 		String codigo = null;
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select idFactura from reto3.factura order by idFactura desc limit 1;");
@@ -701,7 +726,7 @@ public class Datos {
 	public static String generarCodigoOrden() {
 		String codigo = null;
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery("select idOrden from reto3.ordenTrabajo order by idOrden desc limit 1;");
@@ -731,7 +756,7 @@ public class Datos {
 
 		if (anterior.equals("")) {
 			try {
-				Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+				Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 				Statement st = conexion.createStatement();
 				ResultSet rs = st
@@ -759,46 +784,35 @@ public class Datos {
 
 	// ===== ajustes =====
 	public static void guardarAjustes(Ajustes a) {
-		FileOutputStream fos;
-		ObjectOutputStream oos;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(rutaObjectDB, configObjectDB);
+		EntityManager em = emf.createEntityManager();
 
-		try {
-			File f = new File(ajustes + Inicio.empleadoActual.getDNI());
-			fos = new FileOutputStream(f);
-			oos = new ObjectOutputStream(fos);
+		Ajustes aBusqueda = em.find(Ajustes.class, a.getDniEmpleado());
 
-			oos.writeObject(a);
+		em.getTransaction().begin();
 
-			oos.close();
-			fos.close();
-		} catch (IOException e) {
-			Log.error("error al guardar el objeto");
+		if (aBusqueda == null) {
+			em.persist(a);
+		} else {
+			aBusqueda.setFuente(a.getFamiliaFuente());
+			aBusqueda.setTemaOscuro(a.isTemaOscuro());
 		}
+
+		em.getTransaction().commit();
 
 		Log.ajustes(Inicio.empleadoActual.getDNI());
 	}
 
 	public static Ajustes cargarAjustes(String dni, boolean listar) {
-		Ajustes a = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(rutaObjectDB, configObjectDB);
+		EntityManager em = emf.createEntityManager();
 
-		FileInputStream fis;
-		ObjectInputStream ois;
+		// leer por dni
+		Ajustes a = em.find(Ajustes.class, dni);
 
-		try {
-			File f = new File(ajustes + dni);
-			fis = new FileInputStream(f);
-			ois = new ObjectInputStream(fis);
-
-			a = (Ajustes) ois.readObject();
-
-			ois.close();
-			fis.close();
-		} catch (IOException e) {
-//			Log.error("No se han encontrado ajustes para " + Inicio.cuentaActual.getDNI());
+		// si no se encuentra
+		if (a == null)
 			a = new Ajustes();
-		} catch (ClassNotFoundException e) {
-			Log.error("no se ha encontrado la clase especificada");
-		}
 
 		if (!listar) {
 			Inicio.fuente = a.getFuente();
@@ -828,7 +842,7 @@ public class Datos {
 	public static Empleado iniciarSesion(String dni) {
 		Empleado e = null;
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery(String.format("select * from reto3.empleado where dniEmple like '%s'", dni));
@@ -858,7 +872,7 @@ public class Datos {
 		String nombre = null;
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery(
 					String.format("select marca, nombre from reto3.pieza where idPieza = '%s';", idMaterial));
@@ -881,7 +895,7 @@ public class Datos {
 		Total t = null;
 
 		try {
-			Connection conexion = DriverManager.getConnection(ruta, usr, pass);
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement stRequiere = conexion.createStatement();
 			ResultSet rsRequiere = stRequiere.executeQuery(
 					String.format("select * from reto3.requiere where idOrden = '%s';", factura.getCodigoOrden()));

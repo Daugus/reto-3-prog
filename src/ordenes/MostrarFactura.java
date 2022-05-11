@@ -206,7 +206,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 	public void cargarDatos(Factura f, boolean edicion) {
 		factura = new Factura(f);
-		Orden orden = Datos.cargarOrden(factura.getCodigoOrden());
+		boolean mostrarFactura = true;
+		Orden orden = Datos.cargarOrden(factura.getCodigoOrden(), mostrarFactura);
 
 		if (!edicion) {
 			btnEditar.setVisible(false);
