@@ -8,6 +8,9 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * clase de Ajustes de usuario para los empleados
+ */
 @Entity
 public class Ajustes implements Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
@@ -33,6 +36,8 @@ public class Ajustes implements Serializable {
 
 	/**
 	 * constructor copia
+	 * 
+	 * @param other Objeto que se va a copiar
 	 */
 	public Ajustes(Ajustes other) {
 		this.dniEmpleado = other.dniEmpleado;
@@ -42,25 +47,27 @@ public class Ajustes implements Serializable {
 	}
 
 	// --- personalizado ---
-	public Ajustes(String dniEmpleado, boolean fo, String fu) {
+	/**
+	 * constructor personalizado
+	 * 
+	 * @param dniEmpleado DNI del empleado
+	 * @param temaOscuro  {@code true} si es oscuro, {@code false} si es claro
+	 * @param fuente      nombre de la familia tipográfica de la fuente
+	 */
+	public Ajustes(String dniEmpleado, boolean temaOscuro, String fuente) {
 		this.dniEmpleado = dniEmpleado;
 
-		fuente = fu;
+		this.fuente = fuente;
 
-		if (fo) {
-			temaOscuro = true;
+		if (temaOscuro) {
+			this.temaOscuro = true;
 		} else {
-			temaOscuro = false;
+			this.temaOscuro = false;
 		}
 	}
 
 	// ===== métodos =====
 	// --- salida ---
-	/**
-	 * devuelve una representación del objeto como String
-	 * 
-	 * @return los atributos del objeto
-	 */
 	public String toString() {
 		String nombreTema;
 		if (temaOscuro) {
@@ -73,22 +80,11 @@ public class Ajustes implements Serializable {
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return el hash
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(dniEmpleado, fuente, temaOscuro);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -103,67 +99,43 @@ public class Ajustes implements Serializable {
 	}
 
 	// --- getters y setters ---
-	public void setDniEmpleado(String dniEmpleado) {
-		this.dniEmpleado = dniEmpleado;
-	}
-
 	public String getDniEmpleado() {
 		return dniEmpleado;
 	}
-	
-	/**
-	 * establece el valor de tema
-	 * 
-	 * @param valor booleano
-	 */
+
 	public void setTemaOscuro(boolean tema) {
 		this.temaOscuro = tema;
 	}
 
-	/**
-	 * devuelve el valor de tema
-	 * 
-	 * @return el valor de tema
-	 */
 	public boolean isTemaOscuro() {
 		return temaOscuro;
 	}
 
-	/**
-	 * establece el valor de fuente pasando tema como parametro
-	 * 
-	 * @param fuente
-	 */
 	public void setFamiliaFuente(String fuente) {
 		this.fuente = fuente;
 	}
-	
+
 	public String getFamiliaFuente() {
 		return fuente;
 	}
 
 	/**
-	 * devuelve el valor de fuente
-	 * 
-	 * @return el valor de fuente
+	 * @return Font para las etiquetas basada en la propiedad fuente
 	 */
 	public Font getFuente() {
 		return new Font(fuente, Font.PLAIN, 13);
 	}
 
 	/**
-	 * acceso a fuenteObjetos
-	 * 
-	 * @return fuenteObjetos
+	 * @return Font para los botones, campos de texto y otros elementos basada en la
+	 *         propiedad fuente
 	 */
 	public Font getFuenteObjetos() {
 		return new Font(fuente, Font.BOLD, 13);
 	}
 
 	/**
-	 * acceso a colorFondo
-	 * 
-	 * @return colorFondo
+	 * @return Color de fondo para la ventana basado en el tema
 	 */
 	public Color getColorFondo() {
 		if (temaOscuro)
@@ -173,9 +145,8 @@ public class Ajustes implements Serializable {
 	}
 
 	/**
-	 * acceso a colorFondoObjetos
-	 * 
-	 * @return colorFondoObjetos
+	 * @return Color de fondo para los botones, campos de texto y otros elementos
+	 *         basado en el tema
 	 */
 	public Color getColorFondoObjetos() {
 		if (temaOscuro)
@@ -185,9 +156,7 @@ public class Ajustes implements Serializable {
 	}
 
 	/**
-	 * acceso a colorFuente
-	 * 
-	 * @return colorFuente
+	 * @return Color de la fuente para las etiquetas basado en el tema
 	 */
 	public Color getColorFuente() {
 		if (temaOscuro)
@@ -197,9 +166,8 @@ public class Ajustes implements Serializable {
 	}
 
 	/**
-	 * acceso a colorFuenteObjetos
-	 * 
-	 * @return colorFuenteObjetos
+	 * @return Color de la fuente para los botones, campos de texto y otros
+	 *         elementos basado en el tema
 	 */
 	public Color getColorFuenteObjetos() {
 		return Color.BLACK;

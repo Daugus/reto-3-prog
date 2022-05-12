@@ -25,6 +25,9 @@ import navegacion.Inicio;
 import navegacion.MenuAdmin;
 import navegacion.MenuMecanico;
 
+/**
+ * ventana de edición de ajustes
+ */
 public class EditarAjustes extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -38,6 +41,9 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public EditarAjustes() {
 		setResizable(false);
 		setTitle("Editar ajustes | " + Inicio.empleadoActual.getNombre());
@@ -156,6 +162,11 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		Datos.cargarAjustes(Inicio.empleadoActual.getDNI(), false);
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
 
@@ -182,49 +193,94 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 		}
 	}
 
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		btnCancelar.doClick();
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

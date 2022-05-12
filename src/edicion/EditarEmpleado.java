@@ -37,6 +37,9 @@ import funciones.Salir;
 import navegacion.Inicio;
 import javax.swing.JCheckBox;
 
+/**
+ * ventana de edición de empleado
+ */
 public class EditarEmpleado extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -82,6 +85,9 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 
 	private Fecha fechaAlta;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public EditarEmpleado() {
 		setResizable(false);
 		setTitle("Agregar empleado | " + Inicio.empleadoActual.getNombre());
@@ -367,12 +373,23 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		setFocusTraversalPolicy(orden);
 	}
 
-	public void setAlDNIs(ArrayList<Empleado> cuentas) {
-		for (Empleado e : cuentas) {
+	/**
+	 * guarda en un ArrayList los DNIs de los empleados existentes para comprobar si
+	 * está duplicado
+	 * 
+	 * @param empleados lista de empleados
+	 */
+	public void setAlDNIs(ArrayList<Empleado> empleados) {
+		for (Empleado e : empleados) {
 			alDNIs.add(e.getDNI());
 		}
 	}
 
+	/**
+	 * escribe los datos del empleado que está siendo editado en los campos
+	 * 
+	 * @param empleado empleado que está siendo editado
+	 */
 	public void modoEdicion(Empleado empleado) {
 		edicion = true;
 
@@ -495,8 +512,8 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 			JOptionPane.showMessageDialog(this, (String) "Seleccione un tipo de empleado", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (cmbFuente.getSelectedIndex() < 0 || cmbTema.getSelectedIndex() < 0) {
-			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta del empleado", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta del empleado",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (!edicion && alDNIs.contains(dni)) {
 			JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (!dniJefe.equals("") && dniJefe.length() != 9) {
@@ -527,6 +544,11 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		return false;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
@@ -550,50 +572,94 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		btnCancelar.doClick();
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

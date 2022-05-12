@@ -28,6 +28,9 @@ import navegacion.Inicio;
 import navegacion.MenuAdmin;
 import ordenes.CrearOrden;
 
+/**
+ * ventana de administración de empleados
+ */
 public class AdministrarEmpleados extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -150,7 +153,10 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 		btnAgregar.setForeground(Inicio.colorFuenteObjetos);
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
-	
+
+	/**
+	 * actualiza los datos de la tabla usando el ArrayList empleados
+	 */
 	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblCuentas.getModel();
 
@@ -169,6 +175,11 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 		Tablas.ajustarColumnas(tblCuentas);
 	}
 
+	/**
+	 * cambia el estado de los botones
+	 * 
+	 * @param estado indica si los botones están habilitados
+	 */
 	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -177,6 +188,11 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 		bloqueado = !estado;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
@@ -213,13 +229,18 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 			}
 
 			ventana.setVisible(true);
-			
+
 			this.dispose();
 		}
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		if (bloqueado) {
 			Salir.errorBloqueado();
 		} else {
@@ -227,31 +248,61 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 		}
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto

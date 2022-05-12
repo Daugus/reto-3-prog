@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import funciones.General;
 
+/**
+ * clase de Reparacion
+ */
 public class Reparacion implements Comparable<Reparacion>, Serializable {
 	private static final long serialVersionUID = -4533693024823055118L;
 
@@ -22,7 +25,7 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 
 	// ===== constructores =====
 	/**
-	 * reparacion por defecto
+	 * constructor por defecto
 	 */
 	public Reparacion() {
 		codigo = "";
@@ -37,7 +40,16 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 		activo = true;
 	}
 
-
+	/**
+	 * constructor personalizado para listar reparaciones
+	 * 
+	 * @param codigo           código de la reparación
+	 * @param descripcion      descripción de la reparación
+	 * @param precio           precio de la reparación
+	 * @param idMaterial       ID del material usado en la reparación
+	 * @param cantidadMaterial cantidad de material que se ha usado en la reparación
+	 * @param activo           estado de la reparación
+	 */
 	public Reparacion(String codigo, String descripcion, double precio, String idMaterial, int cantidadMaterial,
 			boolean activo) {
 		this.codigo = codigo;
@@ -51,6 +63,17 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 		this.activo = activo;
 	}
 
+	/**
+	 * constructor personalizado completo
+	 * 
+	 * @param codigo           código de la reparación
+	 * @param descripcion      descripción de la reparación
+	 * @param precio           precio de la reparación
+	 * @param horas            cantidad de horas que ha llevado la reparación
+	 * @param idMaterial       ID del material usado en la reparación
+	 * @param cantidadMaterial cantidad de material que se ha usado en la reparación
+	 * @param activo           estado de la reparación
+	 */
 	public Reparacion(String codigo, String descripcion, double precio, int horas, String idMaterial,
 			int cantidadMaterial, boolean activo) {
 		this.codigo = codigo;
@@ -67,11 +90,6 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 
 	// ===== métodos =====
 	// --- salida ---
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
 		return "Código: " + codigo + ", descripción: " + descripcion + ", precio: " + General.formatearPrecio(precio)
@@ -79,22 +97,11 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return devuelve un valor hash
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -107,20 +114,12 @@ public class Reparacion implements Comparable<Reparacion>, Serializable {
 		return Objects.equals(codigo, other.codigo);
 	}
 
-	/**
-	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
-	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
-	 * igual o mayor que el objeto especificado.
-	 * 
-	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
-	 *         menor, igual o mayor que el objeto especificado.
-	 */
 	@Override
 	public int compareTo(Reparacion other) {
 		return codigo.compareTo(other.codigo);
 	}
 
-	// --- getters y setters ---
+	// --- getters ---
 	public String getCodigo() {
 		return codigo;
 	}

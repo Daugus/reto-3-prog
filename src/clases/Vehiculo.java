@@ -3,6 +3,9 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * clase de Vehículo
+ */
 public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	private static final long serialVersionUID = 2469183365830659245L;
 
@@ -22,7 +25,7 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	// ===== constructores =====
 	/**
-	 * vehiculo por defecto
+	 * constructor por defecto
 	 */
 	public Vehiculo() {
 		matricula = "";
@@ -41,15 +44,15 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	// --- personalizados ---
 	/**
-	 * vehículo en blanco, usado para agregar los vehículos de un cliente nuevo
+	 * constructor personalizado para listar vehículos
 	 * 
-	 * @param m String matricula
-	 * @param p String propietario
+	 * @param matricula   matrícula del vehículo
+	 * @param propietario propietario del vehículo
 	 */
-	public Vehiculo(String m, String p) {
-		matricula = m;
+	public Vehiculo(String matricula, String propietario) {
+		this.matricula = matricula;
 		bastidor = "";
-		propietario = p;
+		this.propietario = propietario;
 
 		marca = "";
 		modelo = "";
@@ -61,6 +64,18 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		tipo = "";
 	}
 
+	/**
+	 * constructor personalizado completo
+	 * 
+	 * @param matricula        matrícula del vehículo
+	 * @param bastidor         nº de bastido del vehículo
+	 * @param propietario      propietario del vehículo
+	 * @param marca            marca del vehículo
+	 * @param modelo           modelo del vehículo
+	 * @param fechaFabricacion fecha de fabricación del vehículo
+	 * @param tipo             tipo de vehículo (Diésel, Gasolina, Eléctrico)
+	 * @param activo           estado del vehículo
+	 */
 	public Vehiculo(String matricula, String bastidor, String propietario, String marca, String modelo,
 			Fecha fechaFabricacion, String tipo, boolean activo) {
 		this.matricula = matricula;
@@ -79,33 +94,17 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	// ===== métodos =====
 	// --- salida ---
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
 		return "Matrícula:  " + matricula + ", Propietario: " + propietario + ", Modelo: " + marca + " " + modelo;
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return devuelve un valor hash
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(propietario, activo, fechaFabricacion, marca, matricula, modelo, bastidor, tipo);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -121,62 +120,28 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 				&& Objects.equals(tipo, other.tipo) && Objects.equals(propietario, other.propietario);
 	}
 
-	/**
-	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
-	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
-	 * igual o mayor que el objeto especificado.
-	 * 
-	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
-	 *         menor, igual o mayor que el objeto especificado.
-	 * @return other tipo Vehiculo
-	 */
 	@Override
 	public int compareTo(Vehiculo other) {
 		return matricula.compareTo(other.matricula);
 	}
 
-	// --- getters y setters ---
-	/**
-	 * acceso a matricula
-	 * 
-	 * @return matricula tipo String
-	 */
+	// --- getters ---
 	public String getMatricula() {
 		return matricula;
 	}
 
-	/**
-	 * acceso a bastidor
-	 * 
-	 * @return bastidor tipo String
-	 */
 	public String getBastidor() {
 		return bastidor;
 	}
 
-	/**
-	 * acceso a modelo
-	 * 
-	 * @return modelo
-	 */
 	public String getModelo() {
 		return modelo;
 	}
 
-	/**
-	 * acceso a marca
-	 * 
-	 * @return marca
-	 */
 	public String getMarca() {
 		return marca;
 	}
 
-	/**
-	 * acceso a fechaFabricacion
-	 * 
-	 * @return fechaFabricacion
-	 */
 	public Fecha getFechaFabricacion() {
 		return fechaFabricacion;
 	}
@@ -185,20 +150,10 @@ public class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		return activo;
 	}
 
-	/**
-	 * acceso a tipo
-	 * 
-	 * @return tipo
-	 */
 	public String getTipo() {
 		return tipo;
 	}
 
-	/**
-	 * acceso a propietario
-	 * 
-	 * @return propietario
-	 */
 	public String getPropietario() {
 		return propietario;
 	}

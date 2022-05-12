@@ -2,6 +2,9 @@ package clases;
 
 import java.util.Objects;
 
+/**
+ * clase de Cliente
+ */
 public class Cliente extends Persona {
 	private static final long serialVersionUID = -4712701685349672058L;
 
@@ -21,24 +24,28 @@ public class Cliente extends Persona {
 	}
 
 	// --- personalizados ---
-	public Cliente(String dni,
-			String nombre,
-			String apellidos, String telefono,
-			String email, String dir, Fecha fa,
-			boolean act) {
-		super(dni, nombre, apellidos, telefono, email, dir);
+	/**
+	 * constructor personalizado
+	 * 
+	 * @param dni       DNI del cliente
+	 * @param nombre    nombre del cliente
+	 * @param apellidos apellidos del cliente
+	 * @param telefono  telefono del cliente
+	 * @param email     email del cliente
+	 * @param direccion dir del cliente
+	 * @param fechaAlta fecha de alta del cliente
+	 * @param activo    estado del cliente
+	 */
+	public Cliente(String dni, String nombre, String apellidos, String telefono, String email, String direccion,
+			Fecha fechaAlta, boolean activo) {
+		super(dni, nombre, apellidos, telefono, email, direccion);
 
-		fechaAlta = new Fecha(fa);
-		activo = act;
+		this.fechaAlta = new Fecha(fechaAlta);
+		this.activo = activo;
 	}
 
 	// ===== métodos =====
 	// --- salida ---
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
 		return super.toString() + ", activo: " + activo + ", fecha de alta: " + fechaAlta;
@@ -65,12 +72,7 @@ public class Cliente extends Persona {
 		return activo == other.activo && Objects.equals(fechaAlta, other.fechaAlta);
 	}
 
-	// --- getters y setters ---
-	/**
-	 * acceso a fechaAlta
-	 * 
-	 * @return fechaAlta
-	 */
+	// --- getters ---
 	public Fecha getFechaAlta() {
 		return fechaAlta;
 	}

@@ -3,6 +3,9 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * clase abstracta de Persona
+ */
 public abstract class Persona implements Comparable<Persona>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -12,14 +15,14 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	private String nombre;
 	private String apellidos;
 
-	private String tel;
+	private String telefono;
 	private String email;
 
 	private String direccion;
 
 	// ===== constructores =====
 	/**
-	 * persona por defecto
+	 * constructor por defecto
 	 */
 	public Persona() {
 		dni = "";
@@ -27,7 +30,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		nombre = "";
 		apellidos = "";
 
-		tel = "600000000";
+		telefono = "600000000";
 		email = "";
 
 		direccion = "";
@@ -35,6 +38,8 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
 	/**
 	 * constructor copia
+	 * 
+	 * @param other Objeto que se va a copiar
 	 */
 	public Persona(Persona other) {
 		this.dni = other.dni;
@@ -42,7 +47,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		this.nombre = other.nombre;
 		this.apellidos = other.apellidos;
 
-		this.tel = other.tel;
+		this.telefono = other.telefono;
 		this.email = other.email;
 
 		this.direccion = other.direccion;
@@ -51,56 +56,39 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	/**
 	 * persona personalizado
 	 *
-	 * @param d   String dni
-	 * @param n   String nombre
-	 * @param a   String apellidos
-	 * @param t   int telefono
-	 * @param e   String email
-	 * @param fn  objeto fecha
-	 * @param dir objeto direccion
+	 * @param dni       DNI del cliente
+	 * @param nombre    nombre del cliente
+	 * @param apellidos apellidos del cliente
+	 * @param telefono  telefono del cliente
+	 * @param email     email del cliente
+	 * @param direccion dir del cliente
 	 */
-	public Persona(String d, String n, String a, String t, String e, String dir) {
-		dni = d;
+	public Persona(String dni, String nombre, String apellidos, String telefono, String email, String direccion) {
+		this.dni = dni;
 
-		nombre = n;
-		apellidos = a;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
 
-		tel = t;
-		email = e;
+		this.telefono = telefono;
+		this.email = email;
 
-		direccion = dir;
+		this.direccion = direccion;
 	}
 
 	// ===== métodos =====
 	// --- salida ---
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 *
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
-		return "DNI: " + dni + ", nombre: " + nombre + ", apellidos: " + apellidos + ", teléfono: " + tel + ", email: "
-				+ email + ", dirección: " + direccion;
+		return "DNI: " + dni + ", nombre: " + nombre + ", apellidos: " + apellidos + ", teléfono: " + telefono
+				+ ", email: " + email + ", dirección: " + direccion;
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 *
-	 * @return devuelve un valor hash
-	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellidos, dni, email, nombre, tel);
+		return Objects.hash(dni, nombre, apellidos, email, nombre, telefono, direccion);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 *
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,120 +99,37 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 			return false;
 		Persona other = (Persona) obj;
 		return Objects.equals(apellidos, other.apellidos) && Objects.equals(dni, other.dni)
-				&& Objects.equals(email, other.email) && Objects.equals(nombre, other.nombre) && tel == other.tel
-				&& Objects.equals(direccion, other.direccion);
+				&& Objects.equals(email, other.email) && Objects.equals(nombre, other.nombre)
+				&& telefono == other.telefono && Objects.equals(direccion, other.direccion);
 	}
 
-	/**
-	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
-	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
-	 * igual o mayor que el objeto especificado.
-	 *
-	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
-	 *         menor, igual o mayor que el objeto especificado.
-	 */
 	@Override
 	public int compareTo(Persona other) {
 		return dni.compareTo(other.dni);
 	}
 
-	// --- getters y setters ---
-	/**
-	 * acceso a dni
-	 *
-	 * @return dni
-	 */
+	// --- getters ---
 	public String getDNI() {
 		return dni;
 	}
 
-	/**
-	 * modifica el valor de dni pasando String como parametro
-	 *
-	 * @param d tipo String
-	 * @return
-	 */
-	public void setDNI(String d) {
-		dni = d;
-	}
-
-	/**
-	 * acceso a nombre
-	 *
-	 * @return nombre
-	 */
 	public String getNombre() {
 		return nombre;
 	}
 
-	/**
-	 * modifica el valor de nombre pasando String como parametro
-	 *
-	 * @param n tipo String
-	 */
-	public void setNombre(String n) {
-		nombre = n;
-	}
-
-	/**
-	 * acceso a apellidos
-	 *
-	 * @return apellidos
-	 */
 	public String getApellidos() {
 		return apellidos;
 	}
 
-	/**
-	 * modifica el valor de apellidos pasando String como parametro
-	 *
-	 * @param a tipo String
-	 */
-	public void setApellidos(String a) {
-		apellidos = a;
-	}
-
-	/**
-	 * acceso a telelfono
-	 *
-	 * @return tel tipo int
-	 */
 	public String getTelefono() {
-		return tel;
+		return telefono;
 	}
 
-	/**
-	 * modifica el valor de tel pasando int como parametro
-	 *
-	 * @param t tipo int
-	 */
-	public void setTelefono(String t) {
-		tel = t;
-	}
-
-	/**
-	 * acceso a email
-	 *
-	 * @return email
-	 */
 	public String getEmail() {
 		return email;
 	}
 
-	/**
-	 * modifica el valor de email pasando String como parametro
-	 *
-	 * @param e tipo String
-	 */
-	public void setEmail(String e) {
-		email = e;
-	}
-
 	public String getDireccion() {
 		return direccion;
-	}
-
-	public void setDireccion(String dir) {
-		direccion = dir;
 	}
 }

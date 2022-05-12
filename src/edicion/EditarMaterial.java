@@ -26,6 +26,9 @@ import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 
+/**
+ * ventana de edición de material
+ */
 public class EditarMaterial extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -44,6 +47,9 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 	private boolean edicion;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public EditarMaterial() {
 		setResizable(false);
 		setTitle("Agregar material | " + Inicio.empleadoActual.getNombre());
@@ -218,12 +224,22 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		chkActivo.setSelected(true);
 	}
 
+	/**
+	 * guarda la ID del último material para generar una nueva al guardar
+	 * 
+	 * @param idUltimo la ID del último material
+	 */
 	public void setID(String idUltimo) {
 		int id = Integer.valueOf(idUltimo.substring(1));
 		id++;
 		txtID.setText(String.format("P%05d", id));
 	}
 
+	/**
+	 * escribe los datos del material que está siendo editado en los campos
+	 * 
+	 * @param empleado material que está siendo editado
+	 */
 	public void modoEdicion(Material material) {
 		edicion = true;
 
@@ -290,6 +306,11 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		return false;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
@@ -313,50 +334,94 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		btnCancelar.doClick();
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

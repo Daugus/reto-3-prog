@@ -30,6 +30,9 @@ import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
 
+/**
+ * ventana de edición de cliente
+ */
 public class EditarCliente extends JFrame implements ActionListener, FocusListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -55,6 +58,11 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 	private boolean edicion;
 
+	private ArrayList<String> alDNIs = new ArrayList<String>();
+
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public EditarCliente() {
 		setResizable(false);
 		setTitle("Agregar nuevo cliente | " + Inicio.empleadoActual.getNombre());
@@ -216,6 +224,23 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
+	/**
+	 * guarda en un ArrayList los DNIs de los clientes existentes para comprobar si
+	 * está duplicado
+	 * 
+	 * @param clientes lista de clientes
+	 */
+	public void setAlDNIs(ArrayList<Cliente> clientes) {
+		for (Cliente c : clientes) {
+			alDNIs.add(c.getDNI());
+		}
+	}
+
+	/**
+	 * escribe los datos del cliente que está siendo editado en los campos
+	 * 
+	 * @param cliente cliente que está siendo editado
+	 */
 	public void modoEdicion(Cliente cliente) {
 		edicion = true;
 
@@ -229,7 +254,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 
 		txtTelefono.setText(cliente.getTelefono());
 		txtEmail.setText(cliente.getEmail());
-		
+
 		txtDireccion.setText(cliente.getDireccion());
 
 		txtFechaAltaD.setText(String.valueOf(cliente.getFechaAlta().getDay()));
@@ -238,7 +263,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		txtFechaAltaM.setEnabled(false);
 		txtFechaAltaA.setText(String.valueOf(cliente.getFechaAlta().getYear()));
 		txtFechaAltaA.setEnabled(false);
-		
+
 		chkActivo.setSelected(cliente.isActivo());
 	}
 
@@ -286,9 +311,14 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		return false;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 
 		int guardar = JOptionPane.YES_OPTION;
 
@@ -309,50 +339,94 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		btnCancelar.doClick();
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

@@ -2,6 +2,9 @@ package clases;
 
 import java.util.Objects;
 
+/**
+ * clase de Empleado
+ */
 public class Empleado extends Persona {
 	private static final long serialVersionUID = -1206167340211110010L;
 
@@ -12,13 +15,13 @@ public class Empleado extends Persona {
 
 	private double salario;
 	private double comision;
-	
+
 	private Fecha fechaNacimiento;
 	private Fecha fechaAlta;
-	
+
 	private String tipo;
 	private String password;
-	
+
 	private boolean activo;
 
 	// ===== constructores =====
@@ -42,6 +45,8 @@ public class Empleado extends Persona {
 
 	/**
 	 * constructor copia
+	 * 
+	 * @param other Objeto que se va a copiar
 	 */
 	public Empleado(Empleado other) {
 		super(other);
@@ -57,30 +62,43 @@ public class Empleado extends Persona {
 		activo = other.activo;
 	}
 
-	// --- personalizados ---
-	public Empleado(String dni, String nombre, String apellidos, String telefono, String email, String dir,
-			Ajustes ajustes, String jefe, String password, double sal, double com, Fecha fn, String tipo, Fecha fa,
-			boolean act) {
-
-		super(dni, nombre, apellidos, telefono, email, dir);
+	/**
+	 * constructor personalizado
+	 * 
+	 * @param dni             DNI del empleado
+	 * @param nombre          nombre del empleado
+	 * @param apellidos       apellidos del empleado
+	 * @param telefono        telefono del empleado
+	 * @param email           email del empleado
+	 * @param direccion       dir del empleado
+	 * @param ajustes         ajustes del empleado
+	 * @param jefe            DNI del jefe
+	 * @param password        contraseña del empleado
+	 * @param salario         salario del empleado
+	 * @param comision        comision del empleado
+	 * @param fechaNacimiento fecha de nacimiento del empleado
+	 * @param tipo            tipo de empleado (Mecánico, Administrador,
+	 *                        Recepcionista)
+	 * @param fechaAlta       fecha de alta del empleado
+	 * @param activo          estado del empleado
+	 */
+	public Empleado(String dni, String nombre, String apellidos, String telefono, String email, String direccion,
+			Ajustes ajustes, String jefe, String password, double salario, double comision, Fecha fechaNacimiento,
+			String tipo, Fecha fechaAlta, boolean activo) {
+		super(dni, nombre, apellidos, telefono, email, direccion);
 
 		this.ajustes = new Ajustes(ajustes);
 		this.dniJefe = jefe;
 		this.password = password;
-		this.salario = sal;
-		this.comision = com;
-		this.fechaNacimiento = new Fecha(fn);
+		this.salario = salario;
+		this.comision = comision;
+		this.fechaNacimiento = new Fecha(fechaNacimiento);
 		this.tipo = tipo;
-		this.fechaAlta = new Fecha(fa);
-		this.activo = act;
+		this.fechaAlta = new Fecha(fechaAlta);
+		this.activo = activo;
 	}
 
 	// ===== métodos =====
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return tipo de usuario
-	 */
 	@Override
 	public String toString() {
 		return super.toString() + ", dniJefe: " + dniJefe + ", salario: " + salario + ", comision: " + comision
@@ -115,7 +133,7 @@ public class Empleado extends Persona {
 				&& Objects.equals(tipo, other.tipo);
 	}
 
-	// --- getters y setters ---
+	// --- getters ---
 	public Ajustes getAjustes() {
 		return ajustes;
 	}

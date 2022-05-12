@@ -3,6 +3,9 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * clase de Orden
+ */
 public class Orden implements Comparable<Orden>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -12,15 +15,15 @@ public class Orden implements Comparable<Orden>, Serializable {
 
 	private String matricula;
 	private String empleado;
-	
+
 	private int horas;
-	
+
 	private Fecha fechaInicio;
 	private Fecha fechaFin;
 
 	// ===== constructores =====
 	/**
-	 * orden primaria por defecto
+	 * constructor por defecto
 	 */
 	public Orden() {
 		codigo = "";
@@ -37,6 +40,8 @@ public class Orden implements Comparable<Orden>, Serializable {
 
 	/**
 	 * constructor copia
+	 * 
+	 * @param other Objeto que se va a copiar
 	 */
 	public Orden(Orden other) {
 		this.codigo = other.codigo;
@@ -53,23 +58,43 @@ public class Orden implements Comparable<Orden>, Serializable {
 		this.empleado = other.empleado;
 	}
 
+	// --- personalizados ---
 	/**
-	 * orden primaria personalizado
+	 * constructor personalizado para mostrar factura
+	 * 
+	 * @param codigo    código de la orden
+	 * @param matricula matrícula del vehículo de la orden
 	 */
 	public Orden(String codigo, String matricula) {
 		this.codigo = codigo;
-		
+
 		this.matricula = matricula;
 	}
-	
+
+	/**
+	 * constructor personalizado para finalizar la orden
+	 * 
+	 * @param codigo   código de la orden
+	 * @param horas    horas de trabajo que han llevado las reparaciones de la orden
+	 * @param fechaFin fecha de fin de la orden
+	 */
 	public Orden(String codigo, int horas, Fecha fechaFin) {
 		this.codigo = codigo;
-		
+
 		this.fechaFin = new Fecha(fechaFin);
-		
+
 		this.horas = horas;
 	}
-	
+
+	/**
+	 * constructor personalizado para finalizar la orden
+	 * 
+	 * @param codigo      código de la orden
+	 * @param comentario  comentario de la orden
+	 * @param matricula   matrícula del vehículo de la orden
+	 * @param dniEmpleado DNI del empleado que se encarga de la orden
+	 * @param fechaInicio fecha de inicio de la orden
+	 */
 	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, Fecha fechaInicio) {
 		this.codigo = codigo;
 		this.comentarios = comentario;
@@ -81,6 +106,18 @@ public class Orden implements Comparable<Orden>, Serializable {
 		this.empleado = dniEmpleado;
 	}
 
+	/**
+	 * constructor personalizado completo
+	 * 
+	 * @param codigo      código de la orden
+	 * @param comentario  comentario de la orden
+	 * @param matricula   matrícula del vehículo de la orden
+	 * @param dniEmpleado DNI del empleado que se encarga de la orden
+	 * @param horas       horas de trabajo que han llevado las reparaciones de la
+	 *                    orden
+	 * @param fechaInicio fecha de inicio de la orden
+	 * @param fechaFin    fecha de fin de la orden
+	 */
 	public Orden(String codigo, String comentario, String matricula, String dniEmpleado, int horas, Fecha fechaInicio,
 			Fecha fechaFin) {
 		this.codigo = codigo;
@@ -96,11 +133,6 @@ public class Orden implements Comparable<Orden>, Serializable {
 	}
 
 	// --- salida ---
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
 		return "Código: " + codigo + ", comentarios: " + comentarios + ", Fecha Entrada: " + fechaInicio
@@ -109,22 +141,11 @@ public class Orden implements Comparable<Orden>, Serializable {
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return devuelve un valor hash
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo, comentarios, fechaInicio, fechaFin, horas, matricula, empleado);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -140,79 +161,36 @@ public class Orden implements Comparable<Orden>, Serializable {
 				&& Objects.equals(empleado, other.empleado);
 	}
 
-	/**
-	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
-	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
-	 * igual o mayor que el objeto especificado.
-	 * 
-	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
-	 *         menor, igual o mayor que el objeto especificado.
-	 */
 	@Override
 	public int compareTo(Orden other) {
 		return codigo.compareTo(other.codigo);
 	}
 
-	// --- getters y setters ---
-	/**
-	 * acceso a codigo
-	 * 
-	 * @return codigo
-	 */
+	// --- getters ---
 	public String getCodigo() {
 		return codigo;
 	}
 
-	/**
-	 * acceso a comentarios
-	 * 
-	 * @return comentarios tipo String
-	 */
 	public String getComentarios() {
 		return comentarios;
 	}
 
-	/**
-	 * acceso a fecha
-	 * 
-	 * @return fecha
-	 */
 	public Fecha getFechaInicio() {
 		return fechaInicio;
 	}
 
-	/**
-	 * acceso a fecha
-	 * 
-	 * @return fecha
-	 */
 	public Fecha getFechaFin() {
 		return fechaFin;
 	}
 
-	/**
-	 * acceso a vehiculo
-	 * 
-	 * @return vehiculo tipo String
-	 */
 	public String getMatricula() {
 		return matricula;
 	}
 
-	/**
-	 * acceso a empleado
-	 * 
-	 * @return empleado tipo String
-	 */
 	public String getEmpleado() {
 		return empleado;
 	}
 
-	/**
-	 * acceso a las horas empleadas
-	 * 
-	 * @return horas tipo int
-	 */
 	public int getTiempoHoras() {
 		return horas;
 	}

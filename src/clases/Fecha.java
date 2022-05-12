@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
 
+/**
+ * clase de Fecha
+ */
 public class Fecha implements Comparable<Fecha>, Serializable {
 	private static final long serialVersionUID = 5402725963046351341L;
 
@@ -24,6 +27,8 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 
 	/**
 	 * constructor copia
+	 * 
+	 * @param other Objeto que se va a copiar
 	 */
 	public Fecha(Fecha other) {
 		this.day = other.day;
@@ -31,11 +36,11 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 		this.year = other.year;
 	}
 
+	// --- personalizados ---
 	/**
-	 * fecha que se le pasan parametros, si le pasan datos imcorrecctos difiene unos
-	 * por defecto
+	 * constructor personalizado usando enteros
 	 * 
-	 * @param d dia
+	 * @param d día
 	 * @param m mes
 	 * @param a año
 	 */
@@ -56,9 +61,14 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 
 		this.year = a;
 	}
-	
-	public Fecha(String fecha) {
-		String[] campos = fecha.split("-");
+
+	/**
+	 * constructor personalizado usando enteros
+	 * 
+	 * @param fechaSQL fecha en formato usado por SQL
+	 */
+	public Fecha(String fechaSQL) {
+		String[] campos = fechaSQL.split("-");
 		year = Integer.parseInt(campos[0]);
 		month = Integer.parseInt(campos[1]);
 		day = Integer.parseInt(campos[2]);
@@ -107,37 +117,26 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 	}
 
 	// --- salida ---
-	/**
-	 * Devuelve una representación de cadena del objeto.
-	 * 
-	 * @return los atributos del objeto
-	 */
 	@Override
 	public String toString() {
 		return String.format("%02d/%02d/%04d", day, month, year);
 	}
-	
+
+	/**
+	 * formatear fecha en formato usado por SQL
+	 * 
+	 * @return fecha formateada en aaaa-mm-dd
+	 */
 	public String toSQLDate() {
 		return String.format("%04d-%02d-%02d", year, month, day);
 	}
 
 	// --- comparación ---
-	/**
-	 * devuelve el hash code del objeto basado en sus atributos
-	 * 
-	 * @return el hash
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(day, month, year);
 	}
 
-	/**
-	 * indica si algún otro objeto es igual a este
-	 * 
-	 * @param obj el objeto con el que se va a comparar
-	 * @return {@code true} si el objeto es igual que el parámetro obj
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -150,14 +149,6 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 		return year == other.year && day == other.day && month == other.month;
 	}
 
-	/**
-	 * Compara este objeto con el objeto especificado para el orden. Devuelve un
-	 * entero negativo, cero o un entero positivo, ya que este objeto es menor,
-	 * igual o mayor que el objeto especificado.
-	 * 
-	 * @return entero negativo, cero o un entero positivo, ya que este objeto es
-	 *         menor, igual o mayor que el objeto especificado.
-	 */
 	@Override
 	public int compareTo(Fecha other) {
 		if (this.year > other.year) {
@@ -183,30 +174,15 @@ public class Fecha implements Comparable<Fecha>, Serializable {
 		}
 	}
 
-	// --- getters y setters ---
-	/**
-	 * acceso a dia
-	 * 
-	 * @return day
-	 */
+	// --- getters ---
 	public int getDay() {
 		return day;
 	}
 
-	/**
-	 * acceso a mes
-	 * 
-	 * @return month
-	 */
 	public int getMonth() {
 		return month;
 	}
 
-	/**
-	 * acceso al año
-	 * 
-	 * @return year
-	 */
 	public int getYear() {
 		return year;
 	}

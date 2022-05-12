@@ -29,6 +29,9 @@ import clases.Total;
 import clases.Vehiculo;
 import navegacion.Inicio;
 
+/**
+ * métodos para interactuar con las bases de datos
+ */
 public class Datos {
 	// ===== rutas =====
 	private static String logs = "C:\\RKA\\Logs\\";
@@ -44,6 +47,10 @@ public class Datos {
 	private static Map<String, String> configObjectDB = new HashMap<String, String>();
 
 	// ===== configuración al iniciar =====
+	/**
+	 * crea la configuración para conectarse a la base de datos ObjectDB y crea la
+	 * carpeta para guardar los logs en caso de que no existan
+	 */
 	public static void configuracion() {
 		// --- configurar ObjectDB ---
 		configObjectDB.put("javax.persistence.jdbc.user", usr);
@@ -56,6 +63,13 @@ public class Datos {
 	}
 
 	// ===== guardar =====
+	/**
+	 * guarda o actualiza un cliente en la base de datos
+	 * 
+	 * @param c       objeto de cliente que contiene los datos
+	 * @param edicion si es {@code true} se ejecuta una sentencia update, si es
+	 *                {@code false} se ejecuta una sentencia insert
+	 */
 	public static void guardarCliente(Cliente c, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -88,13 +102,20 @@ public class Datos {
 		}
 	}
 
-	public static void guardarEmpleado(Empleado c, boolean edicion) {
+	/**
+	 * guarda o actualiza un empleado en la base de datos
+	 * 
+	 * @param e       objeto de empleado que contiene los datos
+	 * @param edicion si es {@code true} se ejecuta una sentencia update, si es
+	 *                {@code false} se ejecuta una sentencia insert
+	 */
+	public static void guardarEmpleado(Empleado e, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
 			Statement st = conexion.createStatement();
 
-			String tipo = c.getTipo().replaceAll("Mecánico", "Mecanico");
-			String estado = General.estadoAString(c.isActivo()).toLowerCase();
+			String tipo = e.getTipo().replaceAll("Mecánico", "Mecanico");
+			String estado = General.estadoAString(e.isActivo()).toLowerCase();
 
 			String sentencia;
 
@@ -104,16 +125,16 @@ public class Datos {
 								+ " email = '%s', direccion = '%s', dniJefe = NULLIF('%s', ''), password = '%s',"
 								+ " salBase = %.2f, comision = %.2f, tipoEmpleado = '%s',"
 								+ " estado = '%s' where dniEmple like '%s';",
-						c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(),
-						c.getDniJefe(), c.getPassword(), c.getSalario(), c.getComision(), tipo, estado, c.getDNI());
+						e.getNombre(), e.getApellidos(), e.getTelefono(), e.getEmail(), e.getDireccion(),
+						e.getDniJefe(), e.getPassword(), e.getSalario(), e.getComision(), tipo, estado, e.getDNI());
 			} else {
 				sentencia = String.format(Locale.US, "insert into reto3.empleado"
 						+ " (dniEmple, nombre, apellidos, telefono, email, direccion, dniJefe, password,"
 						+ " salBase, comision, fecNac, tipoEmpleado, fecAltaContrato, estado)"
 						+ " values('%s', '%s', '%s', '%s', '%s', '%s', NULLIF('%s', ''), '%s', %.2f, %.2f, '%s', '%s', '%s', '%s');",
-						c.getDNI(), c.getNombre(), c.getApellidos(), c.getTelefono(), c.getEmail(), c.getDireccion(),
-						c.getDniJefe(), c.getPassword(), c.getSalario(), c.getComision(),
-						c.getFechaNacimiento().toSQLDate(), tipo, c.getFechaAlta().toSQLDate(), estado);
+						e.getDNI(), e.getNombre(), e.getApellidos(), e.getTelefono(), e.getEmail(), e.getDireccion(),
+						e.getDniJefe(), e.getPassword(), e.getSalario(), e.getComision(),
+						e.getFechaNacimiento().toSQLDate(), tipo, e.getFechaAlta().toSQLDate(), estado);
 			}
 
 			st.executeUpdate(sentencia);
@@ -125,6 +146,13 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * guarda o actualiza una factura en la base de datos
+	 * 
+	 * @param f       objeto de factura que contiene los datos
+	 * @param edicion si es {@code true} se ejecuta una sentencia update, si es
+	 *                {@code false} se ejecuta una sentencia insert
+	 */
 	public static void guardarFactura(Factura f, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -160,6 +188,13 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * guarda o actualiza un material en la base de datos
+	 * 
+	 * @param m       objeto de material que contiene los datos
+	 * @param edicion si es {@code true} se ejecuta una sentencia update, si es
+	 *                {@code false} se ejecuta una sentencia insert
+	 */
 	public static void guardarMaterial(Material m, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -189,6 +224,13 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * guarda o actualiza una orden en la base de datos
+	 * 
+	 * @param o       objeto de orden que contiene los datos
+	 * @param edicion si es {@code true} se ejecuta una sentencia update, si es
+	 *                {@code false} se ejecuta una sentencia insert
+	 */
 	public static void guardarOrden(Orden o, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -216,6 +258,12 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * guarda varias reparaciones en la base de datos
+	 * 
+	 * @param alReparaciones ArrayList con todas las reparaciones
+	 * @param idOrden        ID de la orden a la que pertenecen las reparaciones
+	 */
 	public static void guardarReparaciones(ArrayList<Reparacion> alReparaciones, String idOrden) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -241,6 +289,13 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * guarda o actualiza un vehículo en la base de datos
+	 * 
+	 * @param v       objeto de vehículo que contiene los datos
+	 * @param edicion si es {@code true} se ejecuta una sentencia update, si es
+	 *                {@code false} se ejecuta una sentencia insert
+	 */
 	public static void guardarVehiculo(Vehiculo v, boolean edicion) {
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -271,27 +326,31 @@ public class Datos {
 	}
 
 	// ===== borrar =====
-//	public static void borrarFactura(Factura f) {
-//		try {
-//			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
-//			Statement st = conexion.createStatement();
-//
-//			Orden o = cargarOrden(f.getCodigoOrden(), false);
-//			String sentencia = String.format(
-//					"insert into reto3.ordenTrabajo (idOrden, matricula, dniEmple, fecInicio, descTrabajo) values('%s', '%s', '%s', '%s', '%s');",
-//					o.getCodigo(), o.getMatricula(), o.getEmpleado(), o.getFechaInicio().toSQLDate(),
-//					o.getComentarios());
-//
-//			st.executeUpdate(sentencia);
-//
-//			st.close();
-//			conexion.close();
-//		} catch (SQLException sqle) {
-//			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
-//		}
-//	}
+	/**
+	 * borra una factura de la base de datos
+	 * 
+	 * @param f la factura que se va a borrar
+	 */
+	public static void borrarFactura(Factura f) {
+		try {
+			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
+			Statement st = conexion.createStatement();
+
+			st.executeUpdate(String.format("delete from reto3.factura where idFactura = '%s'", f.getCodigo()));
+
+			st.close();
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
+		}
+	}
 
 	// ===== listar =====
+	/**
+	 * lista los DNIs de los clientes almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los DNIs
+	 */
 	public static ArrayList<String> listarClientes() {
 		ArrayList<String> alDNIs = new ArrayList<String>();
 
@@ -315,6 +374,11 @@ public class Datos {
 		return alDNIs;
 	}
 
+	/**
+	 * lista los DNIs de los empleados almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los DNIs
+	 */
 	public static ArrayList<String> listarEmpleados(String dni) {
 		ArrayList<String> alDNIs = new ArrayList<String>();
 
@@ -339,6 +403,11 @@ public class Datos {
 		return alDNIs;
 	}
 
+	/**
+	 * lista las matrículas de los vehículos almacenados en la base de datos
+	 * 
+	 * @return ArrayList con las matrículas
+	 */
 	public static ArrayList<Vehiculo> listarVehiculos() {
 		ArrayList<Vehiculo> alMatriculas = new ArrayList<Vehiculo>();
 
@@ -364,6 +433,12 @@ public class Datos {
 	}
 
 	// ===== cargar individual =====
+	/**
+	 * carga un cliente de la base de datos
+	 * 
+	 * @param dni DNI del cliente que se va a cargar
+	 * @return un objeto de Cliente
+	 */
 	public static Cliente cargarCliente(String dni) {
 		Cliente c = null;
 		try {
@@ -391,7 +466,13 @@ public class Datos {
 		return c;
 	}
 
-	public static Factura cargarFactura(String id) {
+	/**
+	 * carga una factura almacenada en la base de datos
+	 * 
+	 * @param codigo código de la factura que se va a cargar
+	 * @return un objeto Factura
+	 */
+	public static Factura cargarFactura(String codigo) {
 		Factura f = null;
 		try {
 			Connection conexion = DriverManager.getConnection(rutaSQL, usr, pass);
@@ -399,10 +480,10 @@ public class Datos {
 			Statement st = conexion.createStatement();
 			String sentencia = null;
 
-			if (id.charAt(0) == 'F') {
-				sentencia = String.format("select * from reto3.factura where idFactura like '%s';", id);
+			if (codigo.charAt(0) == 'F') {
+				sentencia = String.format("select * from reto3.factura where idFactura like '%s';", codigo);
 			} else {
-				sentencia = String.format("select * from reto3.factura where idOrden like '%s';", id);
+				sentencia = String.format("select * from reto3.factura where idOrden like '%s';", codigo);
 			}
 
 			ResultSet rs = st.executeQuery(sentencia);
@@ -424,6 +505,14 @@ public class Datos {
 		return f;
 	}
 
+	/**
+	 * carga una orden almacenada en la base de datos
+	 * 
+	 * @param codigo         código de la orden que se va a cargar
+	 * @param mostrarFactura {@code true} si solamente se necesita mostrar en
+	 *                       Mostrar Factura
+	 * @return un objeto Orden
+	 */
 	public static Orden cargarOrden(String codigo, boolean mostrarFactura) {
 		Orden o = null;
 		try {
@@ -453,6 +542,12 @@ public class Datos {
 		return o;
 	}
 
+	/**
+	 * carga un vehículo almacenado en la base de datos
+	 * 
+	 * @param matricula matrícula del vehículo que se va a cargar
+	 * @return un objeto Vehículo
+	 */
 	public static Vehiculo cargarVehiculo(String matricula) {
 		Vehiculo v = null;
 
@@ -482,6 +577,11 @@ public class Datos {
 	}
 
 	// ===== cargar varios =====
+	/**
+	 * carga los clientes almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Cliente
+	 */
 	public static ArrayList<Cliente> cargarClientes() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
@@ -509,6 +609,11 @@ public class Datos {
 		return clientes;
 	}
 
+	/**
+	 * carga los empleados almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Empleado
+	 */
 	public static ArrayList<Empleado> cargarEmpleados() {
 		ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 
@@ -540,6 +645,11 @@ public class Datos {
 		return empleados;
 	}
 
+	/**
+	 * carga las facturas almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Factura
+	 */
 	public static ArrayList<Factura> cargarFacturas() {
 		ArrayList<Factura> facturas = new ArrayList<Factura>();
 
@@ -566,6 +676,11 @@ public class Datos {
 		return facturas;
 	}
 
+	/**
+	 * carga los materiales almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Material
+	 */
 	public static ArrayList<Material> cargarMateriales(boolean todos) {
 		ArrayList<Material> materiales = new ArrayList<Material>();
 
@@ -600,6 +715,11 @@ public class Datos {
 		return materiales;
 	}
 
+	/**
+	 * carga las órdenes almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Orden
+	 */
 	public static ArrayList<Orden> cargarOrdenes() {
 		ArrayList<Orden> materiales = new ArrayList<Orden>();
 
@@ -630,6 +750,11 @@ public class Datos {
 		return materiales;
 	}
 
+	/**
+	 * carga las reparaciones almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Reparacion
+	 */
 	public static ArrayList<Reparacion> cargarReparaciones(String idOrden) {
 		ArrayList<Reparacion> reparaciones = new ArrayList<Reparacion>();
 
@@ -667,6 +792,11 @@ public class Datos {
 		return reparaciones;
 	}
 
+	/**
+	 * carga los vehículos almacenados en la base de datos
+	 * 
+	 * @return ArrayList con los objetos Vehiculo
+	 */
 	public static ArrayList<Vehiculo> cargarVehiculos() {
 		ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
@@ -695,6 +825,12 @@ public class Datos {
 	}
 
 	// ===== generar códigos =====
+	/**
+	 * genera un código para la factura basado en el código de la última factura
+	 * almacenada
+	 * 
+	 * @return el código
+	 */
 	public static String generarCodigoFactura() {
 		String codigo = null;
 		try {
@@ -723,6 +859,12 @@ public class Datos {
 		return codigo;
 	}
 
+	/**
+	 * genera un código para la orden basado en el código de la última orden
+	 * almacenada
+	 * 
+	 * @return el código
+	 */
 	public static String generarCodigoOrden() {
 		String codigo = null;
 		try {
@@ -751,6 +893,13 @@ public class Datos {
 		return codigo;
 	}
 
+	/**
+	 * genera un código para la reparación basado en el código pasado como parámetro
+	 * o en el código de la última reparación almacenada en caso de que esté vacío
+	 * 
+	 * @param anterior el código de la reparación anterior
+	 * @return el código
+	 */
 	public static String generarCodigoReparacion(String anterior) {
 		String codigo = null;
 
@@ -783,6 +932,11 @@ public class Datos {
 	}
 
 	// ===== ajustes =====
+	/**
+	 * guarda o actualiza los ajustes en la base de datos
+	 * 
+	 * @param a objeto de ajustes que contiene los datos
+	 */
 	public static void guardarAjustes(Ajustes a) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(rutaObjectDB, configObjectDB);
 		EntityManager em = emf.createEntityManager();
@@ -803,6 +957,14 @@ public class Datos {
 		Log.ajustes(Inicio.empleadoActual.getDNI());
 	}
 
+	/**
+	 * carga los ajustes de usuario de la base de datos
+	 * 
+	 * @param dni    DNI del empleado
+	 * @param listar si es {@code true} solamente se cargan los datos, si es
+	 *               {@code false} además se aplicarán a la sesión actual
+	 * @return un objeto Ajustes
+	 */
 	public static Ajustes cargarAjustes(String dni, boolean listar) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(rutaObjectDB, configObjectDB);
 		EntityManager em = emf.createEntityManager();
@@ -828,6 +990,9 @@ public class Datos {
 		return a;
 	}
 
+	/**
+	 * resetea los ajustes a los por defecto al cerrar sesión
+	 */
 	public static void reiniciarAjustes() {
 		Inicio.fuente = new Font("Segoe UI", Font.PLAIN, 13);
 		Inicio.fuenteObjetos = new Font("Segoe UI", Font.BOLD, 13);
@@ -839,6 +1004,12 @@ public class Datos {
 	}
 
 	// ===== otros =====
+	/**
+	 * carga los datos del empleado con con el que se va a iniciar sesión
+	 * 
+	 * @param dni DNI del empleado
+	 * @return un objeto Empleado
+	 */
 	public static Empleado iniciarSesion(String dni) {
 		Empleado e = null;
 		try {
@@ -868,6 +1039,12 @@ public class Datos {
 		return e;
 	}
 
+	/**
+	 * carga el nombre de un material
+	 * 
+	 * @param idMaterial la ID del material que se va a buscar
+	 * @return el nombre del material
+	 */
 	public static String getNombreMaterial(String idMaterial) {
 		String nombre = null;
 
@@ -891,6 +1068,12 @@ public class Datos {
 		return nombre;
 	}
 
+	/**
+	 * calcula el total de una factura
+	 * 
+	 * @param factura factura de la que se va a cargar el total
+	 * @return un objeto Total
+	 */
 	public static Total calcularTotal(Factura factura) {
 		Total t = null;
 

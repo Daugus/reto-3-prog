@@ -29,6 +29,9 @@ import funciones.Salir;
 import navegacion.Inicio;
 import ordenes.MostrarOrden;
 
+/**
+ * ventana de edición de reparación
+ */
 public class EditarReparacion extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 4959238857767892877L;
 
@@ -53,6 +56,9 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	private String codigo;
 	private boolean edicion;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public EditarReparacion() {
 		setResizable(false);
 		setTitle("Agregar reparación | " + Inicio.empleadoActual.getNombre());
@@ -198,19 +204,26 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	public void modoEdicion(Reparacion r, int indice) {
+	/**
+	 * escribe los datos de la reparación que está siendo editado en los campos
+	 * 
+	 * @param reparacion reparación que está siendo editado
+	 * @param indice     posición de la reparación en el ArrayList de reparaciones
+	 *                   de Finalizar Orden
+	 */
+	public void modoEdicion(Reparacion reparacion, int indice) {
 		edicion = true;
-		setTitle("Editar " + r.getDescripcion() + " | " + Inicio.empleadoActual.getNombre());
+		setTitle("Editar " + reparacion.getDescripcion() + " | " + Inicio.empleadoActual.getNombre());
 
-		txtDescripcion.setText(r.getDescripcion());
+		txtDescripcion.setText(reparacion.getDescripcion());
 		txtDescripcion.setEnabled(false);
 
-		txtPrecio.setText(String.valueOf(r.getPrecio()));
-		cmbMaterial.setSelectedIndex(alMateriales.indexOf(new Material(r.getIdMaterial())));
-		txtHoras.setText(String.valueOf(r.getHoras()));
-		txtCantidad.setText(String.valueOf(r.getCantidadMaterial()));
+		txtPrecio.setText(String.valueOf(reparacion.getPrecio()));
+		cmbMaterial.setSelectedIndex(alMateriales.indexOf(new Material(reparacion.getIdMaterial())));
+		txtHoras.setText(String.valueOf(reparacion.getHoras()));
+		txtCantidad.setText(String.valueOf(reparacion.getCantidadMaterial()));
 
-		codigo = r.getCodigo();
+		codigo = reparacion.getCodigo();
 		posicion = indice;
 	}
 
@@ -258,9 +271,14 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		return false;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 		int guardar = JOptionPane.YES_OPTION;
 
 		if (o == btnCancelar) {
@@ -279,50 +297,94 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		btnCancelar.doClick();
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

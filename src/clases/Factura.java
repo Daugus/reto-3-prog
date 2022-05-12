@@ -3,6 +3,9 @@ package clases;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * clase de Factura
+ */
 public class Factura implements Comparable<Factura>, Serializable {
 	private static final long serialVersionUID = 6717239572208402072L;
 
@@ -13,12 +16,12 @@ public class Factura implements Comparable<Factura>, Serializable {
 	private String metodoPago;
 	private boolean pagada;
 	private int descuento;
-	
+
 	private Fecha fecha;
 
 	// ===== constructores =====
 	/**
-	 * constructor por defeccto hereda
+	 * constructor por defecto
 	 */
 	public Factura() {
 		super();
@@ -30,9 +33,11 @@ public class Factura implements Comparable<Factura>, Serializable {
 		descuento = 0;
 		fecha = new Fecha();
 	}
-
+	
 	/**
 	 * constructor copia
+	 * 
+	 * @param other Objeto que se va a copiar
 	 */
 	public Factura(Factura other) {
 		this.codigo = other.codigo;
@@ -43,14 +48,33 @@ public class Factura implements Comparable<Factura>, Serializable {
 		this.fecha = new Fecha(other.fecha);
 	}
 
+
 	// --- personalizados ---
+	/**
+	 * constructor personalizado para Factura sin pagar
+	 * 
+	 * @param codigo      código de la factura
+	 * @param codigoOrden código de la orden de la que se genera la factura
+	 * @param pagada      estado del pago
+	 * @param fecha       fecha de la factura
+	 */
 	public Factura(String codigo, String codigoOrden, boolean pagada, Fecha fecha) {
 		this.codigo = codigo;
 		this.codigoOrden = codigoOrden;
 		this.pagada = pagada;
 		this.fecha = new Fecha(fecha);
 	}
-	
+
+	/**
+	 * constructor personalizado para Factura pagada
+	 * 
+	 * @param codigo      código de la factura
+	 * @param codigoOrden código de la orden de la que se genera la factura
+	 * @param metodoPago  método de pago de la factura (Metálico, Tarjeta, Cripto)
+	 * @param pagada      estado del pago
+	 * @param descuento   porcentaje de descuento de la factura
+	 * @param fecha       fecha de la factura
+	 */
 	public Factura(String codigo, String codigoOrden, String metodoPago, boolean pagada, int descuento, Fecha fecha) {
 		this.codigo = codigo;
 		this.codigoOrden = codigoOrden;
@@ -91,7 +115,7 @@ public class Factura implements Comparable<Factura>, Serializable {
 		return codigo.compareTo(other.codigo);
 	}
 
-	// --- getters y setters ---
+	// --- getters ---
 	public String getCodigo() {
 		return codigo;
 	}

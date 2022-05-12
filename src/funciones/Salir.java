@@ -9,7 +9,7 @@ import navegacion.Login;
 
 public class Salir {
 	public static void general(JFrame actual) {
-		int opcion = JOptionPane.showOptionDialog(null, (String) "¿Qué desea hacer?", "INFO",
+		int opcion = JOptionPane.showOptionDialog(null, (String) "¿Qué desea hacer?", "AVISO",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				new Object[] { "Cerrar sesión", "Cerrar el programa", "Cancelar" }, "Cerrar sesión");
 
@@ -38,7 +38,7 @@ public class Salir {
 	}
 
 	public static int edicion() {
-		return JOptionPane.showOptionDialog(null, (String) "¿Desea guardar antes de salir?", "INFO",
+		return JOptionPane.showOptionDialog(null, (String) "¿Desea guardar antes de salir?", "AVISO",
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				new Object[] { "Sí", "No", "Cancelar" }, "Sí");
 	}

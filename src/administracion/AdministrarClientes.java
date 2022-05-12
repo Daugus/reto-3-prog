@@ -26,20 +26,23 @@ import funciones.Tablas;
 import navegacion.Inicio;
 import ordenes.CrearOrden;
 
+/**
+ * ventana de administración de clientes
+ */
 public class AdministrarClientes extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
 	private JPanel panelPrincipal;
 
 	private static JTable tblClientes;
-	
+
 	private static JButton btnVolver;
 	private static JButton btnEditar;
 	private static JButton btnAgregar;
-	
+
 	private static ArrayList<Cliente> clientes;
 	private Cliente cliente;
-	
+
 	private static boolean bloqueado;
 
 	/**
@@ -53,7 +56,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		setBounds(100, 100, 700, 360);
 		getContentPane().setPreferredSize(new Dimension(700, 360));
 		pack();
-		
+
 		setLocationRelativeTo(null);
 
 		panelPrincipal = new JPanel();
@@ -144,6 +147,9 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		btnEditar.setForeground(Inicio.colorFuenteObjetos);
 	}
 
+	/**
+	 * actualiza los datos de la tabla usando el ArrayList clientes
+	 */
 	public static void actualizarTabla() {
 		DefaultTableModel dtm = (DefaultTableModel) tblClientes.getModel();
 
@@ -157,6 +163,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		Tablas.ajustarColumnas(tblClientes);
 	}
 
+	/**
+	 * cambia el estado de los botones
+	 * 
+	 * @param estado indica si los botones están habilitados
+	 */
 	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -165,6 +176,11 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		bloqueado = !estado;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
@@ -183,6 +199,7 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 
 				EditarCliente ec = new EditarCliente();
 				ec.modoEdicion(cliente);
+				ec.setAlDNIs(clientes);
 
 				ec.setVisible(true);
 			} else {
@@ -197,8 +214,13 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		}
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		if (bloqueado) {
 			Salir.errorBloqueado();
 		} else {
@@ -206,31 +228,61 @@ public class AdministrarClientes extends JFrame implements ActionListener, Windo
 		}
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
 	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto

@@ -39,6 +39,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 	private JButton btnVolver;
 	private JButton btnCargar;
+	private JButton btnEliminar;
 
 	private ArrayList<Factura> alFacturas;
 	private TableRowSorter<TableModel> sorter;
@@ -89,12 +90,16 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		grupo.add(rdbTodas);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(162, 255, 180, 40);
+		btnVolver.setBounds(65, 255, 180, 40);
 		panelPrincipal.add(btnVolver);
 
 		btnCargar = new JButton("Cargar");
-		btnCargar.setBounds(358, 255, 180, 40);
+		btnCargar.setBounds(260, 255, 180, 40);
 		panelPrincipal.add(btnCargar);
+
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(455, 255, 180, 40);
+		panelPrincipal.add(btnEliminar);
 
 		// ===== barras de desplazamiento =====
 		JScrollPane scrollPendientes = new JScrollPane();
@@ -150,6 +155,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 		btnCargar.addActionListener(this);
 		btnVolver.addActionListener(this);
+		btnEliminar.addActionListener(this);
 
 		// ===== ajustes de usuario =====
 		// --- fuente ---
@@ -162,6 +168,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 		btnVolver.setFont(Inicio.fuenteObjetos);
 		btnCargar.setFont(Inicio.fuenteObjetos);
+		btnEliminar.setFont(Inicio.fuenteObjetos);
 
 		// --- color ---
 		// - fondo -
@@ -172,6 +179,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 		btnVolver.setBackground(Inicio.colorFondoObjetos);
 		btnCargar.setBackground(Inicio.colorFondoObjetos);
+		btnEliminar.setBackground(Inicio.colorFondoObjetos);
 
 		// - fuente -
 		tblFacturas.setForeground(Inicio.colorFuenteObjetos);
@@ -182,6 +190,7 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
+		btnEliminar.setForeground(Inicio.colorFuenteObjetos);
 
 		rdbPendientes.setSelected(true);
 		filtrarFacturas();
@@ -215,6 +224,27 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 				mf.setVisible(true);
 
 				this.dispose();
+			} else {
+				JOptionPane.showMessageDialog(this, (String) "No hay ninguna factura seleccionada", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		} else if (o == btnEliminar) {
+			int row = tblFacturas.getSelectedRow();
+			if (row >= 0) {
+				int opcion = JOptionPane.showOptionDialog(null, (String) "¿Seguro que quiere borrar la factura?",
+						"AVISO", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						new Object[] { "Sí", "No" }, "No");
+
+				if (opcion == 0) {
+					int absRow = tblFacturas.convertRowIndexToModel(row);
+
+					Datos.borrarFactura(alFacturas.get(absRow));
+
+					DefaultTableModel dtm = (DefaultTableModel) tblFacturas.getModel();
+					dtm.removeRow(absRow);
+
+					alFacturas.remove(absRow);
+				}
 			} else {
 				JOptionPane.showMessageDialog(this, (String) "No hay ninguna factura seleccionada", "ERROR",
 						JOptionPane.ERROR_MESSAGE);

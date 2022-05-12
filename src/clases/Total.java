@@ -1,5 +1,8 @@
 package clases;
 
+/**
+ * clase del Total de la factura
+ */
 public class Total {
 	// ===== propiedades =====
 	private final int IVA = 21;
@@ -9,12 +12,19 @@ public class Total {
 
 	private double descuento;
 	private double subtotal;
-	
+
 	private double costeIVA;
-	
+
 	private double total;
 
 	// ===== constructor =====
+	/**
+	 * constructor personalizado que calcula todos los valores para mostrar factura
+	 * 
+	 * @param costeReparaciones el coste de las reparaciones realizadas
+	 * @param costeMateriales   el coste de los materiales usados
+	 * @param descuento         porcentaje de descuento que se va a aplicar
+	 */
 	public Total(double costeReparaciones, double costeMateriales, int porcentajeDescuento) {
 		this.costeReparaciones = costeReparaciones;
 		this.costeMateriales = costeMateriales;
@@ -50,7 +60,7 @@ public class Total {
 	public double getTotal() {
 		return total;
 	}
-	
+
 	public int getIVA() {
 		return IVA;
 	}

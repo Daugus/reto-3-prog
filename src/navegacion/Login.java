@@ -37,6 +37,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 
 		setResizable(false);
 		setTitle("Login");
+//		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/facturas/icono.png")));
 
 		setBounds(100, 100, 350, 200);
 		getContentPane().setPreferredSize(new Dimension(350, 200));

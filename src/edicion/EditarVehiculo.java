@@ -32,6 +32,9 @@ import funciones.Salir;
 import navegacion.Inicio;
 import javax.swing.JCheckBox;
 
+/**
+ * ventana de edición de vehículo
+ */
 public class EditarVehiculo extends JFrame implements ActionListener, FocusListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -61,6 +64,9 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	private JTextField txtFechaFabricacionM;
 	private JTextField txtFechaFabricacionA;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public EditarVehiculo() {
 		setResizable(false);
 		setTitle("Agregar nuevo vehículo | " + Inicio.empleadoActual.getNombre());
@@ -245,12 +251,23 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
 	}
 
+	/**
+	 * guarda en un ArrayList las matrículas de los vehículos existentes para
+	 * comprobar si está duplicada
+	 * 
+	 * @param vehiculos lista de vehículos
+	 */
 	public void setAlMatricuals(ArrayList<Vehiculo> vehiculos) {
 		for (Vehiculo v : vehiculos) {
 			alMatriculas.add(v.getMatricula());
 		}
 	}
 
+	/**
+	 * escribe los datos del vehículo que está siendo editado en los campos
+	 * 
+	 * @param vehiculo vehículo que está siendo editado
+	 */
 	public void modoEdicion(Vehiculo vehiculo) {
 		edicion = true;
 
@@ -335,6 +352,11 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		return false;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -358,50 +380,94 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		btnCancelar.doClick();
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }
