@@ -63,8 +63,8 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		setResizable(false);
 		setTitle("Agregar reparación | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 700, 470);
-		getContentPane().setPreferredSize(new Dimension(700, 470));
+		setBounds(100, 100, 420, 240);
+		getContentPane().setPreferredSize(new Dimension(420, 240));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -77,50 +77,50 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 		cmbMaterial = new JComboBox<String>();
 		cmbMaterial.addItem("Oscuro");
 		cmbMaterial.addItem("Claro");
-		cmbMaterial.setBounds(50, 130, 200, 35);
+		cmbMaterial.setBounds(25, 115, 180, 35);
 		panelPrincipal.add(cmbMaterial);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(357, 405, 180, 40);
+		btnGuardar.setBounds(217, 175, 180, 40);
 		panelPrincipal.add(btnGuardar);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(162, 405, 180, 40);
+		btnCancelar.setBounds(22, 175, 180, 40);
 		panelPrincipal.add(btnCancelar);
 
 		txtHoras = new JTextField();
-		txtHoras.setBounds(455, 70, 50, 35);
+		txtHoras.setBounds(325, 70, 70, 35);
 		panelPrincipal.add(txtHoras);
 
 		txtPrecio = new JTextField();
-		txtPrecio.setBounds(305, 70, 50, 35);
+		txtPrecio.setBounds(135, 70, 70, 35);
 		panelPrincipal.add(txtPrecio);
 
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(305, 25, 200, 35);
+		txtDescripcion.setBounds(135, 25, 260, 35);
 		panelPrincipal.add(txtDescripcion);
 
 		JLabel lblDescripcion = new JLabel("Descripción:");
 		lblDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDescripcion.setBounds(195, 25, 110, 35);
+		lblDescripcion.setBounds(25, 25, 110, 35);
 		panelPrincipal.add(lblDescripcion);
 
 		JLabel lblHoras = new JLabel("Horas:");
-		lblHoras.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHoras.setBounds(365, 70, 90, 35);
+		lblHoras.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHoras.setBounds(215, 70, 110, 35);
 		panelPrincipal.add(lblHoras);
 
 		JLabel lblPrecio = new JLabel("Precio:");
 		lblPrecio.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPrecio.setBounds(195, 70, 110, 35);
+		lblPrecio.setBounds(25, 70, 110, 35);
 		panelPrincipal.add(lblPrecio);
 
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(260, 130, 80, 35);
+		lblCantidad.setBounds(215, 115, 110, 35);
 		panelPrincipal.add(lblCantidad);
 
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(340, 130, 50, 35);
+		txtCantidad.setBounds(325, 115, 70, 35);
 		panelPrincipal.add(txtCantidad);
 		txtCantidad.setColumns(10);
 
@@ -202,6 +202,12 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		// ===== valores por defecto =====
+		txtDescripcion.setText("Descripción");
+		txtPrecio.setText("20.00");
+		txtHoras.setText("1");
+		txtCantidad.setText("1");
 	}
 
 	/**

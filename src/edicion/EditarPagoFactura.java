@@ -58,8 +58,8 @@ public class EditarPagoFactura extends JFrame implements ActionListener, WindowL
 		setResizable(false);
 		setTitle("Generar factura | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 450, 300);
-		getContentPane().setPreferredSize(new Dimension(450, 300));
+		setBounds(100, 100, 396, 240);
+		getContentPane().setPreferredSize(new Dimension(396, 240));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -70,42 +70,42 @@ public class EditarPagoFactura extends JFrame implements ActionListener, WindowL
 		panelPrincipal.setLayout(null);
 
 		JLabel lblMetodoPago = new JLabel("Método de pago:");
-		lblMetodoPago.setBounds(30, 29, 150, 35);
+		lblMetodoPago.setBounds(48, 70, 150, 35);
 		panelPrincipal.add(lblMetodoPago);
 
 		JLabel lblPagada = new JLabel("Pagada:");
-		lblPagada.setBounds(30, 75, 150, 35);
+		lblPagada.setBounds(48, 25, 150, 35);
 		panelPrincipal.add(lblPagada);
 
 		JLabel lblDescuento = new JLabel("Descuento:");
-		lblDescuento.setBounds(30, 121, 150, 35);
+		lblDescuento.setBounds(48, 115, 150, 35);
 		panelPrincipal.add(lblDescuento);
 
 		cmbMetodoPago = new JComboBox<String>();
 		cmbMetodoPago.addItem("Metálico");
 		cmbMetodoPago.addItem("Tarjeta");
 		cmbMetodoPago.addItem("Cripto");
-		cmbMetodoPago.setBounds(217, 38, 100, 22);
+		cmbMetodoPago.setBounds(198, 70, 150, 35);
 		panelPrincipal.add(cmbMetodoPago);
 
 		chkPagada = new JCheckBox("");
 		chkPagada.setHorizontalAlignment(SwingConstants.CENTER);
 		chkPagada.setOpaque(false);
 		chkPagada.setSelected(true);
-		chkPagada.setBounds(198, 79, 100, 35);
+		chkPagada.setBounds(198, 25, 150, 35);
 		panelPrincipal.add(chkPagada);
 
 		txtDescuento = new JTextField();
 		txtDescuento.setColumns(10);
-		txtDescuento.setBounds(208, 121, 100, 35);
+		txtDescuento.setBounds(198, 115, 150, 35);
 		panelPrincipal.add(txtDescuento);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(46, 210, 180, 40);
+		btnCancelar.setBounds(10, 175, 180, 40);
 		panelPrincipal.add(btnCancelar);
 
 		btnGenerar = new JButton("Generar");
-		btnGenerar.setBounds(230, 210, 180, 40);
+		btnGenerar.setBounds(206, 175, 180, 40);
 		panelPrincipal.add(btnGenerar);
 
 		// ===== Listeners =====

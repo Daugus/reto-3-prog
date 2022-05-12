@@ -1,6 +1,5 @@
 package edicion;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +33,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 	private JPanel panelPrincipal;
 
-	private JTextField txtID;
 	private JTextField txtMarca;
 	private JTextField txtNombre;
 	private JTextField txtStock;
@@ -45,6 +43,8 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 
+	private String idMaterial;
+
 	private boolean edicion;
 
 	/**
@@ -54,8 +54,8 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		setResizable(false);
 		setTitle("Agregar material | " + Inicio.empleadoActual.getNombre());
 
-		setBounds(100, 100, 396, 500);
-		getContentPane().setPreferredSize(new Dimension(396, 500));
+		setBounds(100, 100, 396, 375);
+		getContentPane().setPreferredSize(new Dimension(396, 375));
 		pack();
 
 		setLocationRelativeTo(null);
@@ -66,76 +66,67 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		panelPrincipal.setLayout(null);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(10, 434, 180, 40);
+		btnCancelar.setBounds(10, 310, 180, 40);
 		panelPrincipal.add(btnCancelar);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(206, 434, 180, 40);
+		btnGuardar.setBounds(206, 310, 180, 40);
 		panelPrincipal.add(btnGuardar);
 
-		JLabel lblID = new JLabel("ID:");
-		lblID.setBounds(59, 28, 150, 35);
-		panelPrincipal.add(lblID);
-
 		JLabel lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(59, 74, 150, 35);
+		lblMarca.setBounds(48, 25, 150, 35);
 		panelPrincipal.add(lblMarca);
 
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(59, 120, 150, 35);
+		lblNombre.setBounds(48, 70, 150, 35);
 		panelPrincipal.add(lblNombre);
 
 		JLabel lblStock = new JLabel("Stock:");
-		lblStock.setBounds(59, 166, 150, 35);
+		lblStock.setBounds(48, 115, 150, 35);
 		panelPrincipal.add(lblStock);
 
 		JLabel lblPVP = new JLabel("PVP:");
-		lblPVP.setBounds(59, 212, 150, 35);
+		lblPVP.setBounds(48, 160, 150, 35);
 		panelPrincipal.add(lblPVP);
 
 		JLabel lblPrecioCompra = new JLabel("Precio de compra:");
-		lblPrecioCompra.setBounds(59, 258, 150, 35);
+		lblPrecioCompra.setBounds(48, 205, 150, 35);
 		panelPrincipal.add(lblPrecioCompra);
 
 		JLabel lblActivo = new JLabel("Activo:");
-		lblActivo.setBounds(59, 313, 150, 35);
+		lblActivo.setBounds(48, 250, 150, 35);
 		panelPrincipal.add(lblActivo);
-
-		txtID = new JTextField();
-		txtID.setColumns(10);
-		txtID.setBounds(209, 28, 150, 35);
-		panelPrincipal.add(txtID);
 
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(209, 74, 150, 35);
+		txtMarca.setBounds(198, 25, 150, 35);
 		panelPrincipal.add(txtMarca);
 
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(209, 120, 150, 35);
+		txtNombre.setBounds(198, 70, 150, 35);
 		panelPrincipal.add(txtNombre);
 
 		txtStock = new JTextField();
 		txtStock.setColumns(10);
-		txtStock.setBounds(215, 166, 70, 35);
+		txtStock.setBounds(198, 115, 70, 35);
 		panelPrincipal.add(txtStock);
 
 		txtPVP = new JTextField();
 		txtPVP.setColumns(10);
-		txtPVP.setBounds(215, 212, 70, 35);
+		txtPVP.setBounds(198, 160, 70, 35);
 		panelPrincipal.add(txtPVP);
 
 		txtPrecioCompra = new JTextField();
 		txtPrecioCompra.setColumns(10);
-		txtPrecioCompra.setBounds(215, 258, 70, 35);
+		txtPrecioCompra.setBounds(198, 205, 70, 35);
 		panelPrincipal.add(txtPrecioCompra);
 
 		chkActivo = new JCheckBox("");
 		chkActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chkActivo.setOpaque(false);
 		chkActivo.setSelected(true);
-		chkActivo.setBounds(215, 320, 70, 35);
+		chkActivo.setBounds(198, 250, 70, 35);
 		panelPrincipal.add(chkActivo);
 
 		// ===== Listeners =====
@@ -159,10 +150,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		// - JButton -
 		btnCancelar.addActionListener(this);
 		btnGuardar.addActionListener(this);
-
-		// ===== ajustes de usuario =====
-		// --- fuente ---
-		lblID.setFont(Inicio.fuente);
 		lblMarca.setFont(Inicio.fuente);
 		lblNombre.setFont(Inicio.fuente);
 		lblStock.setFont(Inicio.fuente);
@@ -170,7 +157,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		lblPrecioCompra.setFont(Inicio.fuente);
 		lblActivo.setFont(Inicio.fuente);
 
-		txtID.setFont(Inicio.fuenteObjetos);
 		txtMarca.setFont(Inicio.fuenteObjetos);
 		txtNombre.setFont(Inicio.fuenteObjetos);
 		txtStock.setFont(Inicio.fuenteObjetos);
@@ -184,7 +170,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		// - fondo -
 		panelPrincipal.setBackground(Inicio.colorFondo);
 
-		txtID.setBackground(Inicio.colorFondoObjetos);
 		txtMarca.setBackground(Inicio.colorFondoObjetos);
 		txtNombre.setBackground(Inicio.colorFondoObjetos);
 		txtStock.setBackground(Inicio.colorFondoObjetos);
@@ -193,9 +178,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 		btnCancelar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
-
-		// - fuente -
-		lblID.setForeground(Inicio.colorFuente);
 		lblMarca.setForeground(Inicio.colorFuente);
 		lblNombre.setForeground(Inicio.colorFuente);
 		lblStock.setForeground(Inicio.colorFuente);
@@ -203,8 +185,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		lblPrecioCompra.setForeground(Inicio.colorFuente);
 		lblActivo.setForeground(Inicio.colorFuente);
 
-		txtID.setForeground(Inicio.colorFuenteObjetos);
-		txtID.setDisabledTextColor(Color.DARK_GRAY);
 		txtMarca.setForeground(Inicio.colorFuenteObjetos);
 		txtNombre.setForeground(Inicio.colorFuenteObjetos);
 		txtStock.setForeground(Inicio.colorFuenteObjetos);
@@ -214,13 +194,12 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 		btnCancelar.setForeground(Inicio.colorFuenteObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
 
-		// valores por defecto
-		txtID.setEnabled(false);
+		// ===== valores por defecto =====
 		txtMarca.setText("Marca");
 		txtNombre.setText("Nombre");
 		txtStock.setText("1");
-		txtPVP.setText("100.0");
-		txtPrecioCompra.setText("75.0");
+		txtPVP.setText("100.00");
+		txtPrecioCompra.setText("75.00");
 		chkActivo.setSelected(true);
 	}
 
@@ -232,7 +211,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	public void setID(String idUltimo) {
 		int id = Integer.valueOf(idUltimo.substring(1));
 		id++;
-		txtID.setText(String.format("P%05d", id));
+		idMaterial = String.format("P%05d", id);
 	}
 
 	/**
@@ -245,7 +224,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 		setTitle("Editar " + material.getID() + " | " + Inicio.empleadoActual.getNombre());
 
-		txtID.setText(material.getID());
+		idMaterial = material.getID();
 		txtMarca.setText(material.getMarca());
 		txtNombre.setText(material.getNombre());
 		txtStock.setText(String.valueOf(material.getStock()));
@@ -256,7 +235,6 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 
 	private boolean guardar() {
 		try {
-			String id = txtID.getText();
 			String marca = txtMarca.getText();
 			String nombre = txtNombre.getText();
 			String s = txtStock.getText();
@@ -294,7 +272,8 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 					JOptionPane.showMessageDialog(this, (String) "Stock no válido, Stock no puede ser menor que 0",
 							"ERROR", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Datos.guardarMaterial(new Material(id, marca, nombre, stock, pvp, precioCompra, activo), edicion);
+					Datos.guardarMaterial(new Material(idMaterial, marca, nombre, stock, pvp, precioCompra, activo),
+							edicion);
 					return true;
 				}
 			}

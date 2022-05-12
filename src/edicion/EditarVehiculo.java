@@ -52,6 +52,8 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	private JTextField txtModelo;
 
 	private JTextField txtFechaFabricacionD;
+	private JTextField txtFechaFabricacionM;
+	private JTextField txtFechaFabricacionA;
 
 	private JCheckBox chkActivo;
 
@@ -61,8 +63,6 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	private ArrayList<String> alMatriculas = new ArrayList<String>();
 
 	private boolean edicion;
-	private JTextField txtFechaFabricacionM;
-	private JTextField txtFechaFabricacionA;
 
 	/**
 	 * carga los elementos de la ventana
@@ -249,6 +249,15 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 		cmbClientes.setFont(Inicio.fuenteObjetos);
 		cmbClientes.setBackground(Inicio.colorFondoObjetos);
 		cmbClientes.setForeground(Inicio.colorFuenteObjetos);
+
+		// ===== valores por defecto =====
+		txtMatricula.setText("123456A");
+		txtBastidor.setText("1234567891234567A");
+		txtMarca.setText("Marca");
+		txtModelo.setText("Modelo");
+		txtFechaFabricacionD.setText("1");
+		txtFechaFabricacionM.setText("1");
+		txtFechaFabricacionA.setText("2000");
 	}
 
 	/**

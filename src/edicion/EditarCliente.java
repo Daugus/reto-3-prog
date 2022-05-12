@@ -170,7 +170,6 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		panelPrincipal.add(lblActivo);
 
 		chkActivo = new JCheckBox("");
-		chkActivo.setSelected(true);
 		chkActivo.setOpaque(false);
 		chkActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chkActivo.setBounds(530, 157, 150, 35);
@@ -222,6 +221,19 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 		btnGuardar.setFont(Inicio.fuenteObjetos);
 		btnGuardar.setBackground(Inicio.colorFondoObjetos);
 		btnGuardar.setForeground(Inicio.colorFuenteObjetos);
+
+		// ===== valores por defecto =====
+		txtDNI.setText("12345678A");
+		txtNombre.setText("Nombre");
+		txtTelefono.setText("12345679");
+		Fecha f = new Fecha();
+		txtFechaAltaD.setText(String.valueOf(f.getDay()));
+		txtFechaAltaM.setText(String.valueOf(f.getMonth()));
+		txtFechaAltaA.setText(String.valueOf(f.getYear()));
+		txtDireccion.setText("Calle 1");
+		txtApellidos.setText("Apellidos");
+		txtEmail.setText("ejemplo@mail.com");
+		chkActivo.setSelected(true);
 	}
 
 	/**

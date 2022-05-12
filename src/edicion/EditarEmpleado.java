@@ -360,6 +360,20 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		cmbFuente.setBackground(Inicio.colorFondoObjetos);
 		cmbFuente.setForeground(Inicio.colorFuenteObjetos);
 
+		// ===== valores por defecto =====
+		txtDNI.setText("12345678A");
+		txtNombre.setText("Nombre");
+		txtApellidos.setText("Apellidos");
+		txtTelefono.setText("12345679");
+		txtEmail.setText("ejemplo@mail.com");
+		txtDireccion.setText("Calle 1");
+		txtSalario.setText("1000.00");
+		txtComision.setText("100.00");
+		txtFechaNacimientoD.setText("1");
+		txtFechaNacimientoM.setText("1");
+		txtFechaNacimientoA.setText("2000");
+		chkActivo.setSelected(true);
+
 		// ===== orden de tabulación =====
 		vectorOrden = new Vector<Component>();
 		vectorOrden.addAll(camposTexto);
