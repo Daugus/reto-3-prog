@@ -28,6 +28,7 @@ import clases.Fecha;
 import clases.Orden;
 import clases.Reparacion;
 import clases.Vehiculo;
+import edicion.EditarPagoFactura;
 import edicion.EditarReparacion;
 import funciones.Datos;
 import funciones.General;
@@ -35,6 +36,9 @@ import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
 
+/**
+ * ventana para mostrar y finalizar una orde o generar una factura
+ */
 public class MostrarOrden extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -64,6 +68,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 	private String mostrar;
 	private static boolean bloqueado;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public MostrarOrden(String mostrar) {
 		setResizable(false);
 
@@ -253,11 +260,16 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		tblVehiculo.setForeground(Inicio.colorFuenteObjetos);
 	}
 
-	public void setNueva(boolean nueva) {
+	/**
+	 * carga los datos de la orden
+	 * 
+	 * @param o     orden que se va a mostrar
+	 * @param nueva asigna valor a la variable nueva, usada para para cargar ventana
+	 *              de edición de factura
+	 */
+	public void cargarDatos(Orden o, boolean nueva) {
 		this.nueva = nueva;
-	}
 
-	public void cargarDatos(Orden o) {
 		orden = new Orden(o);
 
 		if (!mostrar.equals("finalizar")) {
@@ -328,6 +340,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		Tablas.vertical(tblVehiculo);
 	}
 
+	/**
+	 * actualiza los datos de la tabla usando el ArrayList reparaciones
+	 */
 	public static void actualizarTablas() {
 		alReparaciones.sort(Comparator.naturalOrder());
 
@@ -343,6 +358,11 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		Tablas.ajustarColumnas(tblReparaciones);
 	}
 
+	/**
+	 * cambia el estado de los botones
+	 * 
+	 * @param estado indica si los botones están habilitados
+	 */
 	public static void botones(boolean estado) {
 		btnAgregar.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -353,10 +373,19 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		bloqueado = !estado;
 	}
 
+	/**
+	 * @return devuelve el ArrayList de reparaciones para poder editarla en la
+	 *         ventana de edición de reparaciones
+	 */
 	public static ArrayList<Reparacion> getReparaciones() {
 		return alReparaciones;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -381,9 +410,9 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 
 					this.dispose();
 				} else {
-					EditarFactura ef = new EditarFactura();
-					ef.cargarDatos(orden, nueva);
-					ef.setVisible(true);
+					EditarPagoFactura epf = new EditarPagoFactura();
+					epf.cargarDatos(orden, nueva);
+					epf.setVisible(true);
 
 					this.dispose();
 				}
@@ -427,8 +456,13 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		}
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		if (bloqueado) {
 			Salir.errorBloqueado();
 		} else {
@@ -436,33 +470,63 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		}
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

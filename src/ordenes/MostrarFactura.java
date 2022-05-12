@@ -25,12 +25,16 @@ import clases.Orden;
 import clases.Reparacion;
 import clases.Total;
 import clases.Vehiculo;
+import edicion.EditarPagoFactura;
 import funciones.Datos;
 import funciones.General;
 import funciones.Salir;
 import funciones.Tablas;
 import navegacion.Inicio;
 
+/**
+ * ventana para mostrar y pagar una factura
+ */
 public class MostrarFactura extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 
@@ -53,6 +57,9 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 
 	private static boolean bloqueado;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public MostrarFactura() {
 		setResizable(false);
 
@@ -204,6 +211,12 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		tblTotal.setForeground(Inicio.colorFuenteObjetos);
 	}
 
+	/**
+	 * carga los datos de la factura
+	 * 
+	 * @param f       factura que se va a mostrar
+	 * @param edicion si es {@code false} se deshabilita la edición
+	 */
 	public void cargarDatos(Factura f, boolean edicion) {
 		factura = new Factura(f);
 		boolean mostrarFactura = true;
@@ -280,7 +293,11 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		Tablas.vertical(tblTotal);
 	}
 
-	public static void actualizarTablas() {
+	/**
+	 * actualiza los datos de la tabla de reparaciones usando el ArrayList
+	 * reparaciones
+	 */
+	public static void actualizarTablaReparaciones() {
 		alReparaciones.sort(Comparator.naturalOrder());
 
 		DefaultTableModel dtmReparaciones = (DefaultTableModel) tblReparaciones.getModel();
@@ -295,6 +312,11 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		Tablas.ajustarColumnas(tblReparaciones);
 	}
 
+	/**
+	 * cambia el estado de los botones
+	 * 
+	 * @param estado indica si los botones están habilitados
+	 */
 	public static void botones(boolean estado) {
 		btnVolver.setEnabled(estado);
 		btnEditar.setEnabled(estado);
@@ -302,15 +324,20 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		bloqueado = !estado;
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 
 		if (o == btnEditar) {
-			EditarFactura ef = new EditarFactura();
+			EditarPagoFactura epf = new EditarPagoFactura();
 			boolean nueva = false;
-			ef.cargarDatos(factura, nueva);
-			ef.setVisible(true);
+			epf.cargarDatos(factura, nueva);
+			epf.setVisible(true);
 
 			this.dispose();
 		} else if (o == btnVolver) {
@@ -323,8 +350,13 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		}
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		if (bloqueado) {
 			Salir.errorBloqueado();
 		} else {
@@ -332,33 +364,63 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 		}
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

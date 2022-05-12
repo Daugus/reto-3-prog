@@ -23,6 +23,9 @@ import clases.Empleado;
 import funciones.Datos;
 import funciones.Log;
 
+/**
+ * ventana de inicio de sesión
+ */
 public class Login extends JFrame implements ActionListener, WindowListener, FocusListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
@@ -32,6 +35,9 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	private JPasswordField pwdPassword;
 	private JTextField txtDNI;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public Login() {
 		Datos.reiniciarAjustes();
 
@@ -115,6 +121,11 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		btnAcceder.setForeground(Inicio.colorFuenteObjetos);
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		// recoje los datos introducidos
@@ -136,7 +147,6 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		try {
 			Inicio.empleadoActual = new Empleado(Datos.iniciarSesion(dni));
 
-
 			if (!password.equals(Inicio.empleadoActual.getPassword())) {
 				// si la contraseña es incorrecta saca ventana de error
 				JOptionPane.showMessageDialog(this, (String) "Contraseña incorrecta", "ERROR",
@@ -144,7 +154,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 
 				Log.error("Se introducido una contraseña incorrecta");
 			} else {
-				Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(dni, false));
+				Inicio.empleadoActual.setAjustes(Datos.cargarAjustes(dni, true));
 				Log.login();
 
 				JFrame menu = null;
@@ -166,50 +176,94 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 		}
 	}
 
-	@Override
+	/**
+	 * invocado cuando se enfoca un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	public void focusGained(FocusEvent fg) {
 		JTextComponent txt = (JTextComponent) fg.getSource();
 		txt.select(0, txt.getText().length());
 	}
 
+	/**
+	 * invocado cuando se deja de enfocar un campo de texto
+	 * 
+	 * @param fg el evento de enfoque
+	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
 		JTextComponent txt = (JTextComponent) fl.getSource();
 		txt.select(0, 0);
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		System.exit(0);
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

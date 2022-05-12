@@ -15,17 +15,14 @@ public class Log {
 	// ===== rutas =====
 	private static String raiz = "C:\\RKA\\Logs\\";
 
-	private static String materiales = raiz + "materiales.log";
-	private static String vehiculos = raiz + "vehiculos.log";
-	private static String clientes = raiz + "clientes.log";
-	private static String cuentas = raiz + "cuentas.log";
-	private static String ordenes = raiz + "ordenes.log";
+	private static String datos = raiz + "datos.log";
 	private static String sesion = raiz + "sesion.log";
 	private static String error = raiz + "error.log";
 
 	// ====== generar logs =======
-	private static void grabar(String rutaArchivo, String mensaje, boolean error) {
-		// --- crear carpeta de logs ---
+	// --- general ---
+	private static void grabar(String rutaArchivo, String mensaje) {
+		// - crear carpeta de logs -
 		File f = new File(raiz);
 		if (!f.exists())
 			f.mkdirs();
@@ -42,11 +39,7 @@ public class Log {
 			SimpleFormatter formatter = new SimpleFormatter();
 			fh.setFormatter(formatter);
 
-			if (error) {
-				logger.warning(mensaje);
-			} else {
-				logger.info(mensaje);
-			}
+			logger.info(mensaje);
 
 			fh.close();
 		} catch (SecurityException e) {
@@ -58,43 +51,136 @@ public class Log {
 
 	// --- individuales ---
 	// - guardado -
-	public static void material(String cod) {
-		grabar(materiales, "se ha guardado el material " + cod, false);
+	/**
+	 * genera el mensaje para el log de guardado de ajustes
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoAjustes(String cod) {
+		grabar(datos, "se han cambiado los ajustes de " + cod);
 	}
 
-	public static void vehiculo(String cod) {
-		grabar(vehiculos, "se ha guardado el vehículo " + cod, false);
+	/**
+	 * genera el mensaje para el log de guardado del cliente
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoCliente(String cod) {
+		grabar(datos, "se ha guardado el cliente " + cod);
 	}
 
-	public static void cliente(String cod) {
-		grabar(clientes, "se ha guardado el cliente " + cod, false);
+	/**
+	 * genera el mensaje para el log de guardado del empleado
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoEmpleado(String cod) {
+		grabar(datos, "se ha guardado el empleado " + cod);
 	}
 
-	public static void cuenta(String cod) {
-		grabar(cuentas, "se ha guardado la cuenta " + cod, false);
+	/**
+	 * genera el mensaje para el log de guardado de la factura
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoFactura(String cod) {
+		grabar(datos, "se ha guardado la factura " + cod);
 	}
 
-	public static void ajustes(String cod) {
-		grabar(cuentas, "se han cambiado los ajustes de " + cod, false);
+	/**
+	 * genera el mensaje para el log de guardado del material
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoMaterial(String cod) {
+		grabar(datos, "se ha guardado el material " + cod);
 	}
 
-	public static void factura(String cod) {
-		grabar(ordenes, "se ha guardado la factura " + cod, false);
+	/**
+	 * genera el mensaje para el log de guardado de la orden
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoOrden(String cod) {
+		grabar(datos, "se ha guardado la orden " + cod);
 	}
 
-	// - inicio y salida -
+	/**
+	 * genera el mensaje para el log de guardado de la reparación
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoReparacion(String cod) {
+		grabar(datos, "se ha guardado la reparación " + cod);
+	}
+
+	/**
+	 * genera el mensaje para el log de guardado del vehículo
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void guardadoVehiculo(String cod) {
+		grabar(datos, "se ha guardado el vehículo " + cod);
+	}
+
+	// - borrado -
+	/**
+	 * genera el mensaje para el log de borrado de la factura
+	 * 
+	 * @param cod la clave primaria del objeto guardado
+	 */
+	public static void borradoFactura(String cod) {
+		grabar(datos, "se ha borrado la factura " + cod);
+	}
+
+	// - inicio y cerrado de sesión -
+	/**
+	 * genera el mensaje para el log de inicio de sesión
+	 */
 	public static void login() {
 		String mensaje = "el usuario: " + Inicio.empleadoActual.getDNI() + " ha iniciado sesión";
-		grabar(sesion, mensaje, false);
+		grabar(sesion, mensaje);
 	}
 
+	/**
+	 * genera el mensaje para el log de cerrado de sesión
+	 */
 	public static void logout() {
 		String mensaje = "el usuario: " + Inicio.empleadoActual.getDNI() + " ha cerrado sesión";
-		grabar(sesion, mensaje, false);
+		grabar(sesion, mensaje);
 	}
 
 	// - errores -
-	public static void error(String err) {
-		grabar(error, err, true);
+	/**
+	 * graba el mensaje de error
+	 * 
+	 * @param mensaje mensaje de error
+	 */
+	public static void error(String mensaje) {
+		// - crear carpeta de logs -
+		File f = new File(raiz);
+		if (!f.exists())
+			f.mkdirs();
+
+		Logger logger = Logger.getLogger("log");
+		FileHandler fh;
+
+		try {
+			fh = new FileHandler(error, true);
+			logger.addHandler(fh);
+
+			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+
+			SimpleFormatter formatter = new SimpleFormatter();
+			fh.setFormatter(formatter);
+
+			logger.warning(mensaje);
+
+			fh.close();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

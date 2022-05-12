@@ -86,6 +86,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+			
+			Log.guardadoCliente(c.getDNI());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -130,6 +132,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+
+			Log.guardadoCliente(e.getDNI());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -172,6 +176,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+			
+			Log.guardadoFactura(f.getCodigo());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -208,6 +214,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+			
+			Log.guardadoMaterial(m.getID());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -242,6 +250,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+			
+			Log.guardadoOrden(o.getCodigo());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -269,6 +279,8 @@ public class Datos {
 								+ " values('%s', '%s', '%s', %.2f, %d);",
 						idOrden, r.getCodigo(), r.getIdMaterial(), r.getPrecio(), r.getCantidadMaterial());
 				st.executeUpdate(sentencia);
+				
+				Log.guardadoReparacion(r.getCodigo());
 			}
 
 			st.close();
@@ -309,6 +321,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+			
+			Log.guardadoVehiculo(v.getMatricula());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -329,6 +343,8 @@ public class Datos {
 
 			st.close();
 			conexion.close();
+
+			Log.borradoFactura(f.getCodigo());
 		} catch (SQLException sqle) {
 			System.out.println("Error SQL " + sqle.getErrorCode() + ":\n" + sqle.getMessage());
 		}
@@ -613,7 +629,7 @@ public class Datos {
 			ResultSet rs = st.executeQuery("select * from reto3.empleado");
 
 			while (rs.next()) {
-				Ajustes ajustes = cargarAjustes(rs.getString("dniEmple"), true);
+				Ajustes ajustes = cargarAjustes(rs.getString("dniEmple"), false);
 				String tipo = rs.getString("tipoEmpleado").replaceAll("Mecanico", "Mecánico");
 				boolean activo = General.estadoABoolean(rs.getString("estado"));
 
@@ -943,18 +959,17 @@ public class Datos {
 
 		em.getTransaction().commit();
 
-		Log.ajustes(Inicio.empleadoActual.getDNI());
+		Log.guardadoAjustes(Inicio.empleadoActual.getDNI());
 	}
 
 	/**
 	 * carga los ajustes de usuario de la base de datos
 	 * 
-	 * @param dni    DNI del empleado
-	 * @param listar si es {@code true} solamente se cargan los datos, si es
-	 *               {@code false} además se aplicarán a la sesión actual
+	 * @param dni     DNI del empleado
+	 * @param aplicar si es {@code true} los ajustes se aplicarán a la sesión actual
 	 * @return un objeto Ajustes
 	 */
-	public static Ajustes cargarAjustes(String dni, boolean listar) {
+	public static Ajustes cargarAjustes(String dni, boolean aplicar) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(rutaObjectDB, configObjectDB);
 		EntityManager em = emf.createEntityManager();
 
@@ -965,7 +980,7 @@ public class Datos {
 		if (a == null)
 			a = new Ajustes();
 
-		if (!listar) {
+		if (aplicar) {
 			Inicio.fuente = a.getFuente();
 			Inicio.fuenteObjetos = a.getFuenteObjetos();
 
@@ -1012,7 +1027,7 @@ public class Datos {
 
 				e = new Empleado(rs.getString("dniEmple"), rs.getString("nombre"), rs.getString("apellidos"),
 						rs.getString("telefono"), rs.getString("email"), rs.getString("direccion"),
-						cargarAjustes(rs.getString("dniEmple"), false), rs.getString("dniJefe"),
+						cargarAjustes(rs.getString("dniEmple"), true), rs.getString("dniJefe"),
 						rs.getString("password"), rs.getDouble("salBase"), rs.getDouble("comision"),
 						new Fecha(rs.getString("fecNac")), rs.getString("tipoEmpleado"),
 						new Fecha(rs.getString("fecAltaContrato")), activo);

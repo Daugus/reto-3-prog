@@ -33,6 +33,9 @@ import navegacion.Inicio;
 import navegacion.MenuListas;
 import navegacion.MenuMecanico;
 
+/**
+ * ventana de listado de órdenes
+ */
 public class ListaOrdenes extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
@@ -51,6 +54,9 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	private JRadioButton rdbFinalizadas;
 	private JRadioButton rdbTodas;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public ListaOrdenes() {
 		setResizable(false);
 		setTitle("Lista de órdenes de trabajo | " + Inicio.empleadoActual.getNombre());
@@ -181,7 +187,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		rdbActivas.setForeground(Inicio.colorFuente);
 		rdbFinalizadas.setForeground(Inicio.colorFuente);
 		rdbTodas.setForeground(Inicio.colorFuente);
-		
+
 		btnVolver.setForeground(Inicio.colorFuenteObjetos);
 		btnCargar.setForeground(Inicio.colorFuenteObjetos);
 
@@ -207,6 +213,11 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		}
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -241,9 +252,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 				}
 
 				MostrarOrden mo = new MostrarOrden(mostrar);
-				mo.cargarDatos(orden);
-
-				mo.setNueva(nueva);
+				mo.cargarDatos(orden, nueva);
 
 				mo.setVisible(true);
 
@@ -269,38 +278,73 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 		}
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		Salir.general(this);
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }

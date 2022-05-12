@@ -50,6 +50,9 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 
 	/**
 	 * carga los elementos de la ventana
+	 * 
+	 * @param origenMenu si es {@code true} la ventana de origen es MenuAdmin, si es
+	 *                   {@code false} es CrearOrden
 	 */
 	public AdministrarEmpleados(boolean origenMenu) {
 		this.origenMenu = origenMenu;

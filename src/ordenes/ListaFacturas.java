@@ -31,6 +31,9 @@ import funciones.Salir;
 import navegacion.Inicio;
 import navegacion.MenuListas;
 
+/**
+ * ventana de listado de facturas
+ */
 public class ListaFacturas extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1531539371445418371L;
 	private JPanel panelPrincipal;
@@ -50,6 +53,9 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 	private JRadioButton rdbPagadas;
 	private JRadioButton rdbTodas;
 
+	/**
+	 * carga los elementos de la ventana
+	 */
 	public ListaFacturas() {
 		setResizable(false);
 		setTitle("Lista de Facturas | " + Inicio.empleadoActual.getNombre());
@@ -208,9 +214,14 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		}
 	}
 
+	/**
+	 * invocado cuando ocurren una acción
+	 * 
+	 * @param ae el evento de acción
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 
 		if (o == btnCargar) {
 			int row = tblFacturas.getSelectedRow();
@@ -260,38 +271,73 @@ public class ListaFacturas extends JFrame implements ActionListener, WindowListe
 		}
 	}
 
+	/**
+	 * invocado cuando se cierra la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent we) {
 		Salir.general(this);
 	}
 
+	/**
+	 * invocado cuando se abre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado después de que se cierre la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se minimiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando se maximiza la ventana
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana se convierte en la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowActivated(WindowEvent e) {
+	public void windowActivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 
+	/**
+	 * invocado cuando la ventana deja de ser la ventana activa
+	 * 
+	 * @param we el evento de ventana
+	 */
 	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent we) {
 		// comportamiento por defecto
 	}
 }
