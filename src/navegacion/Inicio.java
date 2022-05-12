@@ -6,6 +6,9 @@ import java.awt.Font;
 import clases.Empleado;
 import funciones.Datos;
 
+/**
+ * clase para iniciar el programa
+ */
 public class Inicio {
 	public static Empleado empleadoActual;
 	public static Font fuente = new Font("Segoe UI", Font.PLAIN, 13);
@@ -16,7 +19,7 @@ public class Inicio {
 	public static Color colorFuenteObjetos = Color.BLACK;
 
 	public static void main(String[] args) {
-		Datos.configuracion();
+		Datos.configurarObjectDB();
 
 		new Login().setVisible(true);
 	}

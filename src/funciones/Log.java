@@ -1,5 +1,6 @@
 package funciones;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -7,20 +8,28 @@ import java.util.logging.SimpleFormatter;
 
 import navegacion.Inicio;
 
+/**
+ * métodos para crear y escribir archivos de log
+ */
 public class Log {
 	// ===== rutas =====
 	private static String raiz = "C:\\RKA\\Logs\\";
-	// private static String raiz = "C:\\RKA\\Logs\\";
-	private static String error = raiz + "error.log";
+
 	private static String materiales = raiz + "materiales.log";
 	private static String vehiculos = raiz + "vehiculos.log";
 	private static String clientes = raiz + "clientes.log";
 	private static String cuentas = raiz + "cuentas.log";
 	private static String ordenes = raiz + "ordenes.log";
 	private static String sesion = raiz + "sesion.log";
+	private static String error = raiz + "error.log";
 
 	// ====== generar logs =======
 	private static void grabar(String rutaArchivo, String mensaje, boolean error) {
+		// --- crear carpeta de logs ---
+		File f = new File(raiz);
+		if (!f.exists())
+			f.mkdirs();
+
 		Logger logger = Logger.getLogger("log");
 		FileHandler fh;
 

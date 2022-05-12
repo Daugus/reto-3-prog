@@ -9,8 +9,15 @@ import javax.swing.table.TableColumnModel;
 
 import navegacion.Inicio;
 
+/**
+ * métodos para tablas
+ */
 public class Tablas {
-
+	/**
+	 * ajusta el ancho de las columnas para que se pueda ver todo en contenido
+	 * 
+	 * @param tabla la tabla que se va a ajustar
+	 */
 	public static void ajustarColumnas(JTable tabla) {
 		TableColumnModel tcm = tabla.getColumnModel();
 
@@ -33,7 +40,12 @@ public class Tablas {
 		}
 	}
 
-	public static void vertical(JTable tbl) {
+	/**
+	 * estiliza una tabla para que sea vertical
+	 * 
+	 * @param tabla
+	 */
+	public static void vertical(JTable tabla) {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
 
@@ -47,9 +59,9 @@ public class Tablas {
 			}
 		};
 
-		tbl.getColumnModel().getColumn(0).setCellRenderer(renderer);
+		tabla.getColumnModel().getColumn(0).setCellRenderer(renderer);
 
-		tbl.getColumnModel().getColumn(0).setPreferredWidth(150);
-		tbl.getColumnModel().getColumn(0).setMaxWidth(150);
+		tabla.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tabla.getColumnModel().getColumn(0).setMaxWidth(150);
 	}
 }

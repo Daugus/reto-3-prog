@@ -2,7 +2,6 @@ package funciones;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,9 +32,6 @@ import navegacion.Inicio;
  * métodos para interactuar con las bases de datos
  */
 public class Datos {
-	// ===== rutas =====
-	private static String logs = "C:\\RKA\\Logs\\";
-
 	// ===== configuración BBDD =====
 	// --- MariaDB ---
 	private static String rutaSQL = "jdbc:mysql://192.168.220.220/reto3";
@@ -46,20 +42,13 @@ public class Datos {
 	private static String rutaObjectDB = "objectdb://192.168.220.220:6136/db/ajustes.odb";
 	private static Map<String, String> configObjectDB = new HashMap<String, String>();
 
-	// ===== configuración al iniciar =====
 	/**
-	 * crea la configuración para conectarse a la base de datos ObjectDB y crea la
-	 * carpeta para guardar los logs en caso de que no existan
+	 * configurar usuario y contraseña para la base de datos de Ajustes
 	 */
-	public static void configuracion() {
+	public static void configurarObjectDB() {
 		// --- configurar ObjectDB ---
 		configObjectDB.put("javax.persistence.jdbc.user", usr);
 		configObjectDB.put("javax.persistence.jdbc.password", pass);
-
-		// --- crear carpeta de logs ---
-		File f = new File(logs);
-		if (!f.exists())
-			f.mkdirs();
 	}
 
 	// ===== guardar =====
