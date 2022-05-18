@@ -391,25 +391,14 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 	}
 
 	/**
-	 * guarda en un ArrayList los DNIs de los empleados existentes para comprobar si
-	 * está duplicado
+	 * guarda en dos ArrayList los DNIs y los teléfonos de los empleados existentes
+	 * para comprobar si está duplicados
 	 * 
 	 * @param empleados lista de empleados
 	 */
-	public void setAlDNIs(ArrayList<Empleado> empleados) {
+	public void setTelDNIs(ArrayList<Empleado> empleados) {
 		for (Empleado e : empleados) {
 			alDNIs.add(e.getDNI());
-		}
-	}
-
-	/**
-	 * guarda en un ArrayList los DNIs de los empleados existentes para comprobar si
-	 * está duplicado
-	 * 
-	 * @param empleados lista de empleados
-	 */
-	public void setAlTelefonos(ArrayList<Empleado> empleados) {
-		for (Empleado e : empleados) {
 			alTelefonos.add(e.getTelefono());
 		}
 	}
@@ -484,7 +473,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		vectorOrden.remove(cmbFuente);
 
 		fechaAlta = empleado.getFechaAlta();
-		
+
 		alDNIs.remove(empleado.getDNI());
 
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
@@ -551,10 +540,6 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		} else if (alTelefonos.contains(telefono)) {
 			JOptionPane.showMessageDialog(this, (String) "Ya existe un empleado con el teléfono " + telefono, "ERROR",
 					JOptionPane.ERROR_MESSAGE);
-//		} else if (!dniJefe.equals("") && dniJefe.length() != 9) {
-//			JOptionPane.showMessageDialog(this,
-//					(String) "DNI del Jefe inválido, si el empleado no tiene jefe el campo debe estar vacío.", "ERROR",
-//					JOptionPane.ERROR_MESSAGE);
 		} else if (!dniJefe.equals("") && !alDNIs.contains(dniJefe)) {
 			JOptionPane.showMessageDialog(this,
 					(String) "DNI del Jefe inválido, no existe un empleado con el DNI " + dniJefe, "ERROR",

@@ -206,7 +206,7 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 			botones(false);
 
 			EditarEmpleado ec = new EditarEmpleado();
-			ec.setAlDNIs(empleados);
+			ec.setTelDNIs(empleados);
 			ec.setVisible(true);
 		} else if (o == btnEditar) {
 			int row = tblCuentas.getSelectedRow();
@@ -217,7 +217,7 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 
 				EditarEmpleado ec = new EditarEmpleado();
 				ec.modoEdicion(empleado);
-				ec.setAlDNIs(empleados);
+				ec.setTelDNIs(empleados);
 
 				ec.setVisible(true);
 			} else {
