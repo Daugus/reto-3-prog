@@ -13,7 +13,7 @@ import navegacion.Inicio;
  */
 public class Log {
 	// ===== rutas =====
-	private static String raiz = "C:\\RKA\\Logs\\";
+	private static String raiz = "Logs\\";
 
 	private static String datos = raiz + "datos.log";
 	private static String sesion = raiz + "sesion.log";
