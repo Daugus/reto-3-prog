@@ -79,11 +79,11 @@ public class AdministrarEmpleados extends JFrame implements ActionListener, Wind
 		btnVolver.setBounds(260, 310, 180, 40);
 		panelPrincipal.add(btnVolver);
 
-		btnAgregar = new JButton("Agregar cuenta");
+		btnAgregar = new JButton("Agregar empleado");
 		btnAgregar.setBounds(50, 10, 230, 60);
 		panelPrincipal.add(btnAgregar);
 
-		btnEditar = new JButton("Editar cuentas");
+		btnEditar = new JButton("Editar empleado");
 		btnEditar.setBounds(420, 10, 230, 60);
 		panelPrincipal.add(btnEditar);
 
