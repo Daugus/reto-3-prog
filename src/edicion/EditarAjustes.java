@@ -208,7 +208,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	/**
 	 * invocado cuando se deja de enfocar un campo de texto
 	 * 
-	 * @param fg el evento de enfoque
+	 * @param fl el evento de enfoque
 	 */
 	@Override
 	public void focusLost(FocusEvent fl) {

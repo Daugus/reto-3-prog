@@ -221,8 +221,8 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	 * @param ae el evento de acción
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 
 		if (o == btnCargar) {
 			int row = tblOrdenes.getSelectedRow();

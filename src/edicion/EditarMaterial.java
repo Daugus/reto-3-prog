@@ -219,7 +219,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	/**
 	 * escribe los datos del material que está siendo editado en los campos
 	 * 
-	 * @param empleado material que está siendo editado
+	 * @param material material que está siendo editado
 	 */
 	public void modoEdicion(Material material) {
 		edicion = true;
@@ -328,7 +328,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	/**
 	 * invocado cuando se deja de enfocar un campo de texto
 	 * 
-	 * @param fg el evento de enfoque
+	 * @param fl el evento de enfoque
 	 */
 	@Override
 	public void focusLost(FocusEvent fl) {

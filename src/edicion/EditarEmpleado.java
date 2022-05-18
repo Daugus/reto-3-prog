@@ -605,7 +605,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 	/**
 	 * invocado cuando se deja de enfocar un campo de texto
 	 * 
-	 * @param fg el evento de enfoque
+	 * @param fl el evento de enfoque
 	 */
 	@Override
 	public void focusLost(FocusEvent fl) {

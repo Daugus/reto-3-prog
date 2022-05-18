@@ -71,6 +71,8 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 
 	/**
 	 * carga los elementos de la ventana
+	 * 
+	 * @param mostrar se establece un título para la ventana dependiendo de su valor
 	 */
 	public MostrarOrden(String mostrar) {
 		setResizable(false);
@@ -389,8 +391,8 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 	 * @param ae el evento de acción
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 
 		if (o == btnFinalizar) {
 			if (tblReparaciones.getRowCount() > 0) {

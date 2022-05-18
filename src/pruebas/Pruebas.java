@@ -9,6 +9,9 @@ import clases.Fecha;
 import clases.Total;
 import funciones.General;
 
+/**
+ * clasa para realizar las pruebas JUnit
+ */
 public class Pruebas {
 	// comprueba el calculo del total
 	@Test

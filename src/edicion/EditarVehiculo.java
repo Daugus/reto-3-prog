@@ -369,8 +369,8 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	 * @param ae el evento de acción
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
+	public void actionPerformed(ActionEvent ae) {
+		Object o = ae.getSource();
 
 		int guardar = JOptionPane.YES_OPTION;
 
@@ -404,7 +404,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	/**
 	 * invocado cuando se deja de enfocar un campo de texto
 	 * 
-	 * @param fg el evento de enfoque
+	 * @param fl el evento de enfoque
 	 */
 	@Override
 	public void focusLost(FocusEvent fl) {

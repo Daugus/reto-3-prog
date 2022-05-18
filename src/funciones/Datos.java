@@ -382,6 +382,7 @@ public class Datos {
 	/**
 	 * lista los DNIs de los empleados almacenados en la base de datos
 	 * 
+	 * @param dni el dni del empleado que se va a ignorar en la consulta
 	 * @return ArrayList con los DNIs
 	 */
 	public static ArrayList<String> listarEmpleados(String dni) {
@@ -684,6 +685,7 @@ public class Datos {
 	/**
 	 * carga los materiales almacenados en la base de datos
 	 * 
+	 * @param todos especificasi se van a cargar todos los materiales
 	 * @return ArrayList con los objetos Material
 	 */
 	public static ArrayList<Material> cargarMateriales(boolean todos) {
@@ -758,6 +760,7 @@ public class Datos {
 	/**
 	 * carga las reparaciones almacenados en la base de datos
 	 * 
+	 * @param idOrden el id de la orden a la que pertenecen las reparaciones
 	 * @return ArrayList con los objetos Reparacion
 	 */
 	public static ArrayList<Reparacion> cargarReparaciones(String idOrden) {

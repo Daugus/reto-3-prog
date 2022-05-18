@@ -21,9 +21,9 @@ public class Total {
 	/**
 	 * constructor personalizado que calcula todos los valores para mostrar factura
 	 * 
-	 * @param costeReparaciones el coste de las reparaciones realizadas
-	 * @param costeMateriales   el coste de los materiales usados
-	 * @param descuento         porcentaje de descuento que se va a aplicar
+	 * @param costeReparaciones   el coste de las reparaciones realizadas
+	 * @param costeMateriales     el coste de los materiales usados
+	 * @param porcentajeDescuento porcentaje de descuento que se va a aplicar
 	 */
 	public Total(double costeReparaciones, double costeMateriales, int porcentajeDescuento) {
 		this.costeReparaciones = costeReparaciones;

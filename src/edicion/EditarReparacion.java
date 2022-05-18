@@ -318,7 +318,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	/**
 	 * invocado cuando se deja de enfocar un campo de texto
 	 * 
-	 * @param fg el evento de enfoque
+	 * @param fl el evento de enfoque
 	 */
 	@Override
 	public void focusLost(FocusEvent fl) {

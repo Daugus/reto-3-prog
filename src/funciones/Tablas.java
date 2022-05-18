@@ -43,7 +43,7 @@ public class Tablas {
 	/**
 	 * estiliza una tabla para que sea vertical
 	 * 
-	 * @param tabla
+	 * @param tabla la tabla que se va a formatear
 	 */
 	public static void vertical(JTable tabla) {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {

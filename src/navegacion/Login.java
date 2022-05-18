@@ -190,7 +190,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 	/**
 	 * invocado cuando se deja de enfocar un campo de texto
 	 * 
-	 * @param fg el evento de enfoque
+	 * @param fl el evento de enfoque
 	 */
 	@Override
 	public void focusLost(FocusEvent fl) {
