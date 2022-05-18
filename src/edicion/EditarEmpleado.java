@@ -79,6 +79,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 	private JButton btnGuardar;
 
 	private ArrayList<String> alDNIs = new ArrayList<String>();
+	private ArrayList<String> alTelefonos = new ArrayList<String>();
 
 	private Vector<Component> vectorOrden;
 
@@ -366,7 +367,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		txtDNI.setText("12345678A");
 		txtNombre.setText("Nombre");
 		txtApellidos.setText("Apellidos");
-		txtTelefono.setText("12345679");
+		txtTelefono.setText("987654321");
 		txtEmail.setText("ejemplo@mail.com");
 		txtDireccion.setText("Calle 1");
 		txtSalario.setText("1000.00");
@@ -398,6 +399,18 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 	public void setAlDNIs(ArrayList<Empleado> empleados) {
 		for (Empleado e : empleados) {
 			alDNIs.add(e.getDNI());
+		}
+	}
+
+	/**
+	 * guarda en un ArrayList los DNIs de los empleados existentes para comprobar si
+	 * está duplicado
+	 * 
+	 * @param empleados lista de empleados
+	 */
+	public void setAlTelefonos(ArrayList<Empleado> empleados) {
+		for (Empleado e : empleados) {
+			alTelefonos.add(e.getTelefono());
 		}
 	}
 
@@ -471,6 +484,8 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		vectorOrden.remove(cmbFuente);
 
 		fechaAlta = empleado.getFechaAlta();
+		
+		alDNIs.remove(empleado.getDNI());
 
 		OrdenTabulacion orden = new OrdenTabulacion(vectorOrden);
 		setFocusTraversalPolicy(orden);
@@ -482,7 +497,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 		String nombre = txtNombre.getText();
 		String apellidos = txtApellidos.getText();
 
-		int telefono = Integer.parseInt(txtTelefono.getText());
+		String telefono = txtTelefono.getText();
 		String email = txtEmail.getText();
 
 		int dN = Integer.parseInt(txtFechaNacimientoD.getText());
@@ -513,7 +528,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 			JOptionPane.showMessageDialog(this, (String) "Campo vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (dni.length() != 9) {
 			JOptionPane.showMessageDialog(this, (String) "DNI inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
-		} else if (telefono < 600000000 || telefono > 999999999) {
+		} else if (telefono.length() != 9) {
 			JOptionPane.showMessageDialog(this, (String) "Teléfono inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (dN < 1 || dN > 31 || mN < 1 || mN > 12 || aN < 1900
 				|| aN > Calendar.getInstance().get(Calendar.YEAR)) {
@@ -531,11 +546,15 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 			JOptionPane.showMessageDialog(this, (String) "Seleccione la configuración de la cuenta del empleado",
 					"ERROR", JOptionPane.ERROR_MESSAGE);
 		} else if (!edicion && alDNIs.contains(dni)) {
-			JOptionPane.showMessageDialog(this, (String) "La cuenta ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
-		} else if (!dniJefe.equals("") && dniJefe.length() != 9) {
-			JOptionPane.showMessageDialog(this,
-					(String) "DNI del Jefe inválido, si el empleado no tiene jefe el campo debe estar vacío.", "ERROR",
+			JOptionPane.showMessageDialog(this, (String) "Ya existe un empleado con el DNI " + dni, "ERROR",
 					JOptionPane.ERROR_MESSAGE);
+		} else if (alTelefonos.contains(telefono)) {
+			JOptionPane.showMessageDialog(this, (String) "Ya existe un empleado con el teléfono " + telefono, "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+//		} else if (!dniJefe.equals("") && dniJefe.length() != 9) {
+//			JOptionPane.showMessageDialog(this,
+//					(String) "DNI del Jefe inválido, si el empleado no tiene jefe el campo debe estar vacío.", "ERROR",
+//					JOptionPane.ERROR_MESSAGE);
 		} else if (!dniJefe.equals("") && !alDNIs.contains(dniJefe)) {
 			JOptionPane.showMessageDialog(this,
 					(String) "DNI del Jefe inválido, no existe un empleado con el DNI " + dniJefe, "ERROR",
@@ -550,7 +569,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 
 			boolean temaOscuro = tema.equals("Oscuro") ? true : false;
 
-			Datos.guardarEmpleado(new Empleado(dni, nombre, apellidos, String.valueOf(telefono), email, direccion,
+			Datos.guardarEmpleado(new Empleado(dni, nombre, apellidos, telefono, email, direccion,
 					new Ajustes(dni, temaOscuro, fuente), dniJefe, password, salario, comision, fechaNacimiento, tipo,
 					fechaAlta, activo), edicion);
 
