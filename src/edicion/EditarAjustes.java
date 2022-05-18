@@ -8,6 +8,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -47,6 +48,7 @@ public class EditarAjustes extends JFrame implements ActionListener, WindowListe
 	public EditarAjustes() {
 		setResizable(false);
 		setTitle("Editar ajustes | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 396, 195);
 		getContentPane().setPreferredSize(new Dimension(396, 195));

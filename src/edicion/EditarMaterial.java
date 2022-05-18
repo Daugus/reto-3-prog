@@ -8,6 +8,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -53,6 +54,7 @@ public class EditarMaterial extends JFrame implements ActionListener, WindowList
 	public EditarMaterial() {
 		setResizable(false);
 		setTitle("Agregar material | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 396, 375);
 		getContentPane().setPreferredSize(new Dimension(396, 375));

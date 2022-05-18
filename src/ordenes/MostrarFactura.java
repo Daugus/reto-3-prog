@@ -9,6 +9,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -62,8 +63,8 @@ public class MostrarFactura extends JFrame implements ActionListener, WindowList
 	 */
 	public MostrarFactura() {
 		setResizable(false);
-
 		setTitle("Mostrar factura | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 790, 605);
 		getContentPane().setPreferredSize(new Dimension(790, 605));

@@ -15,7 +15,9 @@ import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,7 +37,6 @@ import clases.OrdenTabulacion;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
-import javax.swing.JCheckBox;
 
 /**
  * ventana de edición de empleado
@@ -91,6 +92,7 @@ public class EditarEmpleado extends JFrame implements ActionListener, WindowList
 	public EditarEmpleado() {
 		setResizable(false);
 		setTitle("Agregar empleado | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 730, 480);
 		getContentPane().setPreferredSize(new Dimension(730, 480));

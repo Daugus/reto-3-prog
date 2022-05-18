@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -66,6 +67,7 @@ public class EditarCliente extends JFrame implements ActionListener, FocusListen
 	public EditarCliente() {
 		setResizable(false);
 		setTitle("Agregar nuevo cliente | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 730, 285);
 		getContentPane().setPreferredSize(new Dimension(730, 285));

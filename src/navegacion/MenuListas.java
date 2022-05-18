@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ public class MenuListas extends JFrame implements ActionListener, WindowListener
 	public MenuListas() {
 		setResizable(false);
 		setTitle("Órdenes y facturas | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 380, 220);
 		getContentPane().setPreferredSize(new Dimension(380, 220));

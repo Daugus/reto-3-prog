@@ -1,4 +1,4 @@
-package prueba;
+package pruebas;
 
 import static org.junit.Assert.assertEquals;
 

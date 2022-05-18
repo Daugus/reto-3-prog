@@ -8,6 +8,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,6 +44,7 @@ public class Login extends JFrame implements ActionListener, WindowListener, Foc
 
 		setResizable(false);
 		setTitle("Login");
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 350, 200);
 		getContentPane().setPreferredSize(new Dimension(350, 200));

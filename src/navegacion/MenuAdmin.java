@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 import administracion.AdministrarEmpleados;
 import administracion.AdministrarMateriales;
 import edicion.EditarAjustes;
-
 import funciones.Datos;
 import funciones.Log;
 import funciones.Salir;
@@ -41,6 +41,7 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 	public MenuAdmin() {
 		setResizable(false);
 		setTitle("Menú de atención al cliente | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 575, 220);
 		getContentPane().setPreferredSize(new Dimension(575, 220));

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -83,6 +84,7 @@ public class MostrarOrden extends JFrame implements ActionListener, WindowListen
 		} else if (mostrar.equals("finalizar")) {
 			setTitle("Finalizar orden de trabajo | " + Inicio.empleadoActual.getNombre());
 		}
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 790, 720);
 		getContentPane().setPreferredSize(new Dimension(790, 720));

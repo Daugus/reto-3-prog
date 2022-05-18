@@ -9,6 +9,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -57,6 +58,7 @@ public class EditarPagoFactura extends JFrame implements ActionListener, WindowL
 	public EditarPagoFactura() {
 		setResizable(false);
 		setTitle("Generar factura | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 396, 240);
 		getContentPane().setPreferredSize(new Dimension(396, 240));

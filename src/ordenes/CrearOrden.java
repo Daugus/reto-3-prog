@@ -8,6 +8,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -63,6 +64,7 @@ public class CrearOrden extends JFrame implements ActionListener, WindowListener
 	public CrearOrden() {
 		setResizable(false);
 		setTitle("Crear orden de trabajo | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 600, 430);
 		getContentPane().setPreferredSize(new Dimension(600, 430));

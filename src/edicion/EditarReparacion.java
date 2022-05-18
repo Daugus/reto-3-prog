@@ -11,6 +11,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -62,6 +63,7 @@ public class EditarReparacion extends JFrame implements ActionListener, WindowLi
 	public EditarReparacion() {
 		setResizable(false);
 		setTitle("Agregar reparación | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 420, 240);
 		getContentPane().setPreferredSize(new Dimension(420, 240));

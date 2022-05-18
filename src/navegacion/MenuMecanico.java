@@ -6,16 +6,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ordenes.ListaOrdenes;
 import edicion.EditarAjustes;
 import funciones.Datos;
 import funciones.Log;
 import funciones.Salir;
+import ordenes.ListaOrdenes;
 
 /**
  * menú del mecánico
@@ -35,6 +36,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 	public MenuMecanico() {
 		setResizable(false);
 		setTitle("Menú mecánico | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 576, 221);
 		getContentPane().setPreferredSize(new Dimension(576, 221));

@@ -9,6 +9,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -60,6 +61,7 @@ public class ListaOrdenes extends JFrame implements ActionListener, WindowListen
 	public ListaOrdenes() {
 		setResizable(false);
 		setTitle("Lista de órdenes de trabajo | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 700, 305);
 		getContentPane().setPreferredSize(new Dimension(700, 305));

@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +32,6 @@ import clases.Vehiculo;
 import funciones.Datos;
 import funciones.Salir;
 import navegacion.Inicio;
-import javax.swing.JCheckBox;
 
 /**
  * ventana de edición de vehículo
@@ -70,6 +71,7 @@ public class EditarVehiculo extends JFrame implements ActionListener, FocusListe
 	public EditarVehiculo() {
 		setResizable(false);
 		setTitle("Agregar nuevo vehículo | " + Inicio.empleadoActual.getNombre());
+		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 630, 285);
 		getContentPane().setPreferredSize(new Dimension(630, 285));
