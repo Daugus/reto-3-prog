@@ -35,7 +35,7 @@ public class MenuMecanico extends JFrame implements ActionListener, WindowListen
 	 */
 	public MenuMecanico() {
 		setResizable(false);
-		setTitle("Menú mecánico | " + Inicio.empleadoActual.getNombre());
+		setTitle("Menú del mecánico | " + Inicio.empleadoActual.getNombre());
 		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 576, 221);

@@ -40,7 +40,7 @@ public class MenuAdmin extends JFrame implements ActionListener, WindowListener 
 	 */
 	public MenuAdmin() {
 		setResizable(false);
-		setTitle("Menú de atención al cliente | " + Inicio.empleadoActual.getNombre());
+		setTitle("Menú del administrador | " + Inicio.empleadoActual.getNombre());
 		setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 
 		setBounds(100, 100, 575, 220);
